@@ -24,20 +24,64 @@ class m201023_143031_pontos_turisticos extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('pontos_turisticos', [
-            'id_pontoTuristico' => $this->int()->notNull()->unique(),
-            'nome' => $this->string()->notNull(),
-            'anoConstrucao' => $this->string(),
-            'descricao' => $this->string()->notNull(),
-            'foto' => $this->string(),
-            'sexo' => $this->string()->notNull(),
-            'id_user_rbac' => $this->integer()->notNull(),
+        $this->createTable('PontosTuristicos', [
+            'id_pontoTuristico' => $this->primaryKey(),
+            'nome' => $this->string()->notNull()->notNull(),
+            'anoConstrucao' => $this->string()->notNull(),
+            'descricao' => $this->string()->notNull()->notNull(),
+            'foto' => $this->string()->notNull(),
+            'tm_idTipoMonumento' => $this->integer()->notNull(),
+            'ec_idEstiloConstrucao' => $this->integer()->notNull(),
+            'localidade_idLocalidade' => $this->integer()->notNull(),
         ]);
+
+        $this->addForeignKey(
+            'fk-tipoMonumento-idTipoMonumento',
+            'PontosTuristicos',
+            'tm_idTipoMonumento',
+            'TipoMonumento',
+            'idTipoMonumento',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk-EstiloConstrucao-ec_idEstiloConstrucao',
+            'PontosTuristicos',
+            'ec_idEstiloConstrucao',
+            'EstiloConstrucao',
+            'idEstiloConstrucao',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk-Localidade_idLocalidade',
+            'PontosTuristicos',
+            'localidade_idLocalidade',
+            'Localidade',
+            'id_localidade',
+            'CASCADE'
+        );
     }
 
     public function down()
     {
-        $this->dropTable('pontos_turisticos');
+
+        $this->dropForeignKey(
+            'fk-tipoMonumento-idTipoMonumento',
+            'PontosTuristicos'
+        );
+
+        $this->dropForeignKey(
+            'fk-EstiloConstrucao-ec_idEstiloConstrucao',
+            'PontosTuristicos'
+        );
+
+        $this->dropForeignKey(
+            'fk-Localidade_idLocalidade',
+            'PontosTuristicos'
+        );
+
+        $this->dropTable('PontosTuristicos');
 
     }
 }

@@ -26,12 +26,10 @@ class m201023_143031_pontos_turisticos extends Migration
     {
         $this->createTable('PontosTuristicos', [
             'id_pontoTuristico' => $this->primaryKey(),
-            'nome' => $this->string()->notNull(),
-            'anoConstrucao' => $this->string(),
-            'descricao' => $this->string()->notNull(),
-            'foto' => $this->string(),
-            'sexo' => $this->string()->notNull(),
-            'id_user_rbac' => $this->integer()->notNull(),
+            'nome' => $this->string()->notNull()->notNull(),
+            'anoConstrucao' => $this->string()->notNull(),
+            'descricao' => $this->string()->notNull()->notNull(),
+            'foto' => $this->string()->notNull(),
             'tm_idTipoMonumento' => $this->integer()->notNull(),
             'ec_idEstiloConstrucao' => $this->integer()->notNull(),
             'localidade_idLocalidade' => $this->integer()->notNull(),

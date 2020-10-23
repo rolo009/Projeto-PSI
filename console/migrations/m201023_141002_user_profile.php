@@ -29,7 +29,7 @@ class m201023_141002_user_profile extends Migration
         $this->createTable('UserProfile', [
             'primeiroNome' => $this->string()->notNull(),
             'ultimoNome' => $this->string()->notNull(),
-            'dtaNascimento' => $this->date(),
+            'dtaNascimento' => $this->date()->notNull(),
             'morada' => $this->string()->notNull(),
             'localidade' => $this->string()->notNull(),
             'sexo' => $this->string()->notNull(),

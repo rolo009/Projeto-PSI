@@ -7,49 +7,45 @@ use yii\db\Migration;
  */
 class m201023_153929_ratings extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
+/*
     public function safeUp()
     {
 
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function safeDown()
     {
         echo "m201023_153929_ratings cannot be reverted.\n";
 
         return false;
     }
-
+*/
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
         $this->createTable('ratings', [
-            'id_rating' => $this->int()->notNull()->unique(),
+            'id_rating' => $this->primaryKey(),
             'classificacao' => $this->integer()->notNull(),
-            'user_id_ponto_turistico' => $this->integer()->notNull(),
-            'user_id_utilizador' => $this->integer()->notNull(),
+            'pt_idPontoTuristico' => $this->integer()->notNull(),
+            'user_idUtilizador' => $this->integer()->notNull(),
         ]);
 
         $this->addForeignKey(
-            'fk-ratings_id',
+            'fk-user-idUtilizador',
             'ratings',
             'user_id_utilizador',
             'user',
-            'id_rating',
+            'id',
             'CASCADE'
         );
 
         $this->addForeignKey(
-            'fk-ratings_id',
+            'fk-PontoTuristico-idPontoTuristico',
             'ratings',
-            'user_id_ponto_turistico',
-            'user',
-            'id_rating',
+            'pt_idPontoTuristico',
+            'PontosTuristicos',
+            'id_pontoTuristico',
             'CASCADE'
         );
     }

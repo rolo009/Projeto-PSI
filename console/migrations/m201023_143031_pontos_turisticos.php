@@ -40,7 +40,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'PontosTuristicos',
             'tm_idTipoMonumento',
             'TipoMonumento',
-            'id',
+            'idTipoMonumento',
             'CASCADE'
         );
 
@@ -49,7 +49,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'PontosTuristicos',
             'ec_idEstiloConstrucao',
             'EstiloConstrucao',
-            'id',
+            'idEstiloConstrucao',
             'CASCADE'
         );
 
@@ -58,7 +58,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'PontosTuristicos',
             'localidade_idLocalidade',
             'Localidade',
-            'id',
+            'id_localidade',
             'CASCADE'
         );
     }

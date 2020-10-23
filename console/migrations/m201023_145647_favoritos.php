@@ -7,49 +7,45 @@ use yii\db\Migration;
  */
 class m201023_145647_favoritos extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
+/*
     public function safeUp()
     {
 
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function safeDown()
     {
         echo "m201023_145647_favoritos cannot be reverted.\n";
 
         return false;
     }
-
+*/
 
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
         $this->createTable('favoritos', [
-            'id_favoritos' => $this->int()->notNull()->unique(),
-            'pt_ponto_turistico' => $this->integer()->notNull(),
-            'user_id_utilizador' => $this->integer()->notNull(),
+            'id_favoritos' => $this->primaryKey(),
+            'pt_idPontoTuristico' => $this->integer()->notNull(),
+            'user_idUtilizador' => $this->integer()->notNull(),
         ]);
 
         $this->addForeignKey(
-            'fk-favoritos_id',
+            'fk-user-idUtilizador',
             'favoritos',
             'user_id_utilizador',
-            'favoritos',
-            'id_favoritos',
+            'user',
+            'id',
             'CASCADE'
         );
 
         $this->addForeignKey(
-            'fk-favoritos_id',
+            'fk-pontosTuristicos-idPontoTuristico',
             'favoritos',
-            'pt_ponto_turistico',
+            'PontosTuristicos',
             'favoritos',
-            'id_favoritos',
+            'id_pontoTuristico',
             'CASCADE'
         );
     }

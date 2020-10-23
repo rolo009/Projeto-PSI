@@ -7,45 +7,42 @@ use yii\db\Migration;
  */
 class m201023_153217_visitados extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
-   /* public function safeUp()
+
+   /*
+
+     public function safeUp()
     {
 
-    }*/
+    }
 
-    /**
-     * {@inheritdoc}
-     */
-   /* public function safeDown()
+    public function safeDown()
     {
-        echo "m201023_153217_visitados cannot be reverted.\n";
 
-        return false;
-    }*/
+    }
+   */
+
     public function up()
     {
         $this->createTable('visitados', [
             'id_visitados' => $this->primaryKey(),
-            'user_id_utilizador' => $this->integer()->notNull(),
-            'id_pontoTuristico' => $this->integer()->notNull(),
+            'user_idUtilizador' => $this->integer()->notNull(),
+            'pt_idPontoTuristico' => $this->integer()->notNull(),
 
         ]);
         $this->addForeignKey(
-            'fk-user_id_utilizador',
-            'user',
-            'id_user_rbac',
+            'fk-user-idUtilizador',
+            'visitados',
+            'user_idUtilizador',
             'user',
             'id',
             'CASCADE'
         );
         $this->addForeignKey(
-            'fk-id_pontoTuristico',
-            'pontos_turisticos',
-            'id_user_rbac',
-            'user',
-            'id',
+            'fk-PontoTuristico-id_pontoTuristico',
+            'visitados',
+            'pt_idPontoTuristico',
+            'PontosTuristicos',
+            'id_pontoTuristico',
             'CASCADE'
         );
 

@@ -30,7 +30,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => "Cultravel",
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => ['/cultravel/index'],
         'options' => [
             'class' => 'menu-style navbar-fixed-top',
         ],

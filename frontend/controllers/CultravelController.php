@@ -53,4 +53,14 @@ class CultravelController extends Controller
         return $this->render('login');
     }
 
+    public function actionPontosInteresse()
+    {
+        return $this->render('pontos-interesse');
+    }
+
+    public function actionPontoInteresseDetails()
+    {
+        return $this->render('ponto-interesse-details');
+    }
+
 }

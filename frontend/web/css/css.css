@@ -48,7 +48,7 @@ a:hover{
 }
 
 .logo-index-container{
-    margin-top: 7%;
+    margin-top: 5%;
     justify-content: center;
     text-align: center;
     align-content: center;
@@ -74,6 +74,7 @@ body, html{
     margin-left: 10%;
     margin-right: 10%;
     color: #FFFFFF;
+    position: relative !important;
 }
 
 .menu-style a{
@@ -93,6 +94,9 @@ body, html{
     bottom:3%;
     width:100%;
 }
+
+/*Pontos Interesse*/
+
 
 /*Favoritos*/
 
@@ -114,7 +118,7 @@ body, html{
 }
 
 .card-pontos-interesse{
-    width: 23%;
+    width: 27%;
 }
 
 .card-img-pontos-interesse{
@@ -122,19 +126,34 @@ body, html{
     border-radius: 10px 10px 0px 0px;
 }
 
-/*ponto interesse container*/
+/*ponto interesse*/
 
 .ponto-interesse-container{
     margin: 1% 8% 3% 8%;
+}
+
+.card-pontos-interesse{
+    opacity: 0.9;
+    background-color: #FFFFFF;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .card-ponto-interesse-details{
     width: 100%;
 }
 
-.info-pt{
-    color: #FFFFFF;
-    padding: 4% 0 0 0;
+.img-pi-card{
+    width: 100%;
+    border-radius: 4px;
+}
+
+.card-body{
+
+}
+
+.btn-pi-info{
+    margin: 0 6% 6% 0;
 }
 
 .desc-container{

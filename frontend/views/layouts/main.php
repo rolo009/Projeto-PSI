@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => "Cultravel",
+        'brandLabel' =>  "Cultravel",
         'brandUrl' => ['/cultravel/index'],
         'options' => [
             'class' => 'menu-style navbar-fixed-top',
@@ -41,6 +41,8 @@ AppAsset::register($this);
         ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
         ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
         ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobreNos']],
+        ['label' => 'PI', 'url' => ['/cultravel/pontosInteresse']],
+        ['label' => 'PI Details', 'url' => ['/cultravel/pontoInteresseDetails']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItemsUser[] = ['label' => 'Signup', 'url' => ['/cultravel/registar']];

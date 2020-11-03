@@ -14,6 +14,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/css.css',
+        'css/css-mario.css',
     ];
     public $js = [
     ];

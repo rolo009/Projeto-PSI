@@ -40,7 +40,7 @@ class CultravelController extends Controller
 
     public function actionSobreNos()
     {
-        return $this->render('sobreNos');
+        return $this->render('sobre-nos');
     }
 
     public function actionRegistar()

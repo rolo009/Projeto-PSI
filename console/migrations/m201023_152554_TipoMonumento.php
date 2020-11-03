@@ -24,7 +24,7 @@ class m201023_152554_TipoMonumento extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('TipoMonumento', [
+        $this->createTable('tipoMonumento', [
             'idTipoMonumento' => $this->primaryKey(),
             'descricao' => $this->string()->notNull(),
         ]);
@@ -32,6 +32,6 @@ class m201023_152554_TipoMonumento extends Migration
 
     public function down()
     {
-        $this->dropTable('TipoMonumento');
+        $this->dropTable('tipoMonumento');
     }
 }

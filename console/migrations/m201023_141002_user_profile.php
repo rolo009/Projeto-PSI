@@ -36,12 +36,6 @@ class m201023_141002_user_profile extends Migration
             'id_user_rbac' => $this->integer()->notNull(),
         ]);
 
-        /*$this->createIndex(
-            'idx-user-author_id',
-            'user',
-            'id_user_rbac'
-        );*/
-
         $this->addForeignKey(
             'fk-user_profile_id',
             'UserProfile',

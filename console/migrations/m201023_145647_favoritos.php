@@ -34,7 +34,7 @@ class m201023_145647_favoritos extends Migration
         $this->addForeignKey(
             'fk-user-idUtilizador',
             'favoritos',
-            'user_id_utilizador',
+            'user_idUtilizador',
             'user',
             'id',
             'CASCADE'
@@ -43,8 +43,8 @@ class m201023_145647_favoritos extends Migration
         $this->addForeignKey(
             'fk-pontosTuristicos-idPontoTuristico',
             'favoritos',
-            'PontosTuristicos',
-            'favoritos',
+            'pt_idPontoTuristico',
+            'pontosTuristicos',
             'id_pontoTuristico',
             'CASCADE'
         );
@@ -52,6 +52,16 @@ class m201023_145647_favoritos extends Migration
 
     public function down()
     {
+        $this->dropForeignKey(
+            'fk-user-idUtilizador',
+            'Favoritos'
+        );
+
+        $this->dropForeignKey(
+            'fk-pontosTuristicos-idPontoTuristico',
+            'Favoritos'
+        );
+
         $this->dropTable('favoritos');
     }
 }

@@ -41,7 +41,7 @@ class m201023_153217_visitados extends Migration
             'fk-PontoTuristico-id_pontoTuristico',
             'visitados',
             'pt_idPontoTuristico',
-            'PontosTuristicos',
+            'pontosTuristicos',
             'id_pontoTuristico',
             'CASCADE'
         );
@@ -49,22 +49,17 @@ class m201023_153217_visitados extends Migration
     }
     public function down()
     {
+        $this->dropForeignKey(
+            'fk-user-idUtilizador',
+            'visitados'
+        );
+
+        $this->dropForeignKey(
+            'fk-PontoTuristico-id_pontoTuristico',
+            'visitados'
+        );
+
         $this->dropTable('visitados');
 
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m201023_153217_visitados cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

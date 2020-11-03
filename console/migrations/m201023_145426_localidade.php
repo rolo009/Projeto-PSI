@@ -24,7 +24,7 @@ class m201023_145426_localidade extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('Localidade', [
+        $this->createTable('localidade', [
             'id_localidade' => $this->primaryKey(),
             'nomeLocalidade' => $this->string()->notNull(),
         ]);
@@ -32,6 +32,6 @@ class m201023_145426_localidade extends Migration
 
     public function down()
     {
-        $this->dropTable('Localidade');
+        $this->dropTable('localidade');
     }
 }

@@ -13,7 +13,6 @@ class m201023_153929_ratings extends Migration
 
     }
 
-
     public function safeDown()
     {
         echo "m201023_153929_ratings cannot be reverted.\n";
@@ -34,7 +33,7 @@ class m201023_153929_ratings extends Migration
         $this->addForeignKey(
             'fk-user-idUtilizador',
             'ratings',
-            'user_id_utilizador',
+            'user_idUtilizador',
             'user',
             'id',
             'CASCADE'
@@ -44,7 +43,7 @@ class m201023_153929_ratings extends Migration
             'fk-PontoTuristico-idPontoTuristico',
             'ratings',
             'pt_idPontoTuristico',
-            'PontosTuristicos',
+            'pontosTuristicos',
             'id_pontoTuristico',
             'CASCADE'
         );
@@ -52,6 +51,16 @@ class m201023_153929_ratings extends Migration
 
     public function down()
     {
+        $this->dropForeignKey(
+            'fk-user-idUtilizador',
+            'ratings'
+        );
+
+        $this->dropForeignKey(
+            'fk-PontoTuristico-idPontoTuristico',
+            'ratings'
+        );
+
         $this->dropTable('ratings');
     }
 }

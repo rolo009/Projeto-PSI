@@ -23,29 +23,31 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body id="index-background">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => "Cultravel",
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'menu-style navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Home', 'url' => ['/cultravel/index']],
+        ['label' => 'Favoritos', 'url' => ['/cultravel/favoritos']],
+        ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
+        ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
+        ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobreNos']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItemsUser[] = ['label' => 'Signup', 'url' => ['/cultravel/registar']];
+        $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+        $menuItemsUser[] = '<li>'
+            . Html::beginForm(['/registar/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
@@ -54,8 +56,12 @@ AppAsset::register($this);
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItems,
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItemsUser,
     ]);
     NavBar::end();
     ?>
@@ -68,7 +74,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
+<?php /*
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
@@ -76,7 +82,7 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
-
+*/?>
 <?php $this->endBody() ?>
 </body>
 </html>

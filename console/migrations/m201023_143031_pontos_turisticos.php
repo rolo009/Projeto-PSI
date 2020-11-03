@@ -24,7 +24,7 @@ class m201023_143031_pontos_turisticos extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('PontosTuristicos', [
+        $this->createTable('pontosTuristicos', [
             'id_pontoTuristico' => $this->primaryKey(),
             'nome' => $this->string()->notNull()->notNull(),
             'anoConstrucao' => $this->string()->notNull(),
@@ -37,27 +37,27 @@ class m201023_143031_pontos_turisticos extends Migration
 
         $this->addForeignKey(
             'fk-tipoMonumento-idTipoMonumento',
-            'PontosTuristicos',
+            'pontosTuristicos',
             'tm_idTipoMonumento',
-            'TipoMonumento',
+            'tipoMonumento',
             'idTipoMonumento',
             'CASCADE'
         );
 
         $this->addForeignKey(
             'fk-EstiloConstrucao-ec_idEstiloConstrucao',
-            'PontosTuristicos',
+            'pontosTuristicos',
             'ec_idEstiloConstrucao',
-            'EstiloConstrucao',
+            'estiloConstrucao',
             'idEstiloConstrucao',
             'CASCADE'
         );
 
         $this->addForeignKey(
             'fk-Localidade_idLocalidade',
-            'PontosTuristicos',
+            'pontosTuristicos',
             'localidade_idLocalidade',
-            'Localidade',
+            'localidade',
             'id_localidade',
             'CASCADE'
         );
@@ -81,7 +81,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'PontosTuristicos'
         );
 
-        $this->dropTable('PontosTuristicos');
+        $this->dropTable('pontosTuristicos');
 
     }
 }

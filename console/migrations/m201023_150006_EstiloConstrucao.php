@@ -23,7 +23,7 @@ class m201023_150006_EstiloConstrucao extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('EstiloConstrucao', [
+        $this->createTable('estiloConstrucao', [
             'idEstiloConstrucao' => $this->primaryKey(),
             'descricao' => $this->string()->notNull(),
         ]);
@@ -31,7 +31,7 @@ class m201023_150006_EstiloConstrucao extends Migration
 
     public function down()
     {
-        $this->dropTable('EstiloConstrucao');
+        $this->dropTable('estiloConstrucao');
     }
 
 }

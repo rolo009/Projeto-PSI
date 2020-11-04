@@ -2,6 +2,8 @@
 namespace frontend\controllers;
 
 use app\models\Localidade;
+use app\models\User;
+use app\models\Userprofile;
 use Yii;
 use yii\web\Controller;
 
@@ -45,12 +47,34 @@ class CultravelController extends Controller
 
     public function actionRegistar()
     {
-        return $this->render('registar');
+        $model = new User();
+        $modelprofile = new Userprofile();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            return $this->render('favoritos');
+
+        } else if ($modelprofile->load(Yii::$app->request->post())){
+
+            return $this->render('favoritos');
+        }
+        return $this->render('registar', [
+            'model' => $model,
+            'modelprofile' => $modelprofile
+        ]);
     }
+
 
     public function actionLogin()
     {
-        return $this->render('login');
+        $model = new User();
+        if ($model->load(Yii::$app->request->post())) {
+
+            return $this->render('favoritos');
+        }
+        return $this->render('login', [
+            'model' => $model
+        ]);
     }
 
     public function actionPontosInteresse()

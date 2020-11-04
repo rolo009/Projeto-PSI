@@ -1,11 +1,14 @@
-<div class="cards-container">
-    <div class="card card-visitados">
-        <img class="card-img-top card-img-visitdos" src="castelo-de-leiria.jpg" alt="Card image cap">
+<?php
+use yii\helpers\Html;
+?>
+<div class="visitados-container">
+    <div class="card-visitados">
+        <?= Html::img('@web/castelo-de-leiria.jpg', ['class' => 'img-visitados-card']); ?>
         <div class="card-body">
-            <h5 class="card-title" style="text-align: center">Leiria</h5>
-            <div class="pt-btn">
-                <a href="ponto-interesse-details.php" class="btn btn-warning btn-visitados">Ver Pontos Turísticos</a>
+            <h4 class="card-title-visitados">
+                Leiria</h4>
+            <div class="btn-visitados">
+                <?= Html::a('Ver Visitados','cultravel/pontoInteresseDetails' , ['class' => 'btn btn-warning']) ?>
             </div>
         </div>
     </div>
-</div>

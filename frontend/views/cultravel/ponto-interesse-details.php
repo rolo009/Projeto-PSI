@@ -1,6 +1,3 @@
-<?php
-include("menu.php");
-?>
 <div class="ponto-interesse-container">
     <div class="row">
         <div class="col">

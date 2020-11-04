@@ -11,6 +11,16 @@ a:hover{
     color:white;
 }
 
+/*Menu*/
+
+.navbar-toggle{
+    background-color: white !important;
+}
+
+.navbar-toggle .icon-bar{
+    background-color: gray !important;
+}
+
 /*Index*/
 
 .form-control{
@@ -23,8 +33,12 @@ a:hover{
     align-content: center;
     margin-bottom: 10px;
 }
+
+.wrap > .container {
+    padding: 0px 15px 20px !important;
+}
+
 .searchForm-container{
-    margin-top: 1%;
     height: 30%;
     width: 100%;
     padding: 2%;
@@ -41,14 +55,15 @@ a:hover{
 .opcao-pesquisa{
     color:white;
     margin-right: 20px;
+    margin-left: 5px;
 }
 
-.icon-search{
+.icon-index-search{
     margin-right: 10px;
 }
 
 .logo-index-container{
-    margin-top: 5%;
+    margin-top: 3%;
     justify-content: center;
     text-align: center;
     align-content: center;
@@ -121,21 +136,35 @@ body, html{
     width: 27%;
 }
 
-.card-img-pontos-interesse{
-    padding: 2%;
-    border-radius: 10px 10px 0px 0px;
+.img-pi-favoritos-container{
+    width: 25%;
 }
 
-/*ponto interesse*/
+.img-pi-favoritos{
+    padding: 2%;
+    border-radius: 10px;
+    width: 100%;
+}
 
-.ponto-interesse-container{
+.nome-pi-container{
+    width: 45%;
+    padding: 0 0 0 15%;
+}
+
+.localidade-pi-container{
+    padding: 0 0 0 5%;
+}
+
+/*pontos interesse*/
+
+.pontos-interesse-container{
     margin: 1% 8% 3% 8%;
 }
 
 .card-pontos-interesse{
     opacity: 0.9;
     background-color: #FFFFFF;
-    padding: 5px;
+    padding: 1%;
     border-radius: 5px;
 }
 
@@ -164,22 +193,38 @@ body, html{
 
 /*Favoritos*/
 
-.favourite-card-container{
+.favourite-container{
     margin: 4% 17% 4% 17%;
 }
 
-.favourite-card{
+.favourite-ponto-interesse{
     margin-bottom: 2%;
     opacity: 0.9;
+    background-color: #FFFFFF;
+    border-radius: 10px;
 }
 
 .favourite-img{
     width: 60%;
 }
 
+.favorite-header{
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.favorite-body{
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
 .favourite-options{
     justify-content: right;
     text-align: right;
+    right: 0;
 }
 
 .favourite-pt-nome{
@@ -191,16 +236,32 @@ body, html{
 }
 
 /*Visitados*/
+.visitados-container{
+    margin: 1% 8% 3% 8%;
+}
+
 .btn-visitados{
     margin-top: 6%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
 }
 
 .card-visitados{
-    width: 23%;
+    opacity: 0.9;
+    background-color: #FFFFFF;
+    padding: 1%;
+    border-radius: 5px;
+    width: 20%;
 }
 
-.card-pontos-interesse{
+.img-visitados-card{
+    width: 100%;
+    border-radius: 5px;
+}
 
+.card-title-visitados{
+    text-align: center;
 }
 
 .card-img-visitdos{

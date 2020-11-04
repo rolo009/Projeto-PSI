@@ -26,10 +26,9 @@ $this->title = 'Cultravel';
         echo Html::submitButton('Procurar', ['class' => 'btn btn-warning', 'name' => 'search-localidade']) ?>
         <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
         <?php ActiveForm::end(); ?>
-        <a class="opcao-pesquisa" href="#"><?= FA::icon("bank") ?>Monumentos</a>
-        <a class="opcao-pesquisa" href="#"><i class="fas fa-archway icon-search"></i>Museus</a>
-        <a class="opcao-pesquisa" href="#"><i class="fas fa-palette icon-search"></i>Arte</a>
-        <a class="opcao-pesquisa" href="#"><i class="fas fa-tree icon-search"></i>Jardins</a>
+        <a class="opcao-pesquisa" href="#"><?= FA::icon("bank", ['class' => 'icon-index-search']) ?>Monumentos</a>
+        <a class="opcao-pesquisa" href="#"><?= FA::icon("bank", ['class' => 'icon-index-search']) ?></i>Museus</a>
+
     </div>
 </div>
 

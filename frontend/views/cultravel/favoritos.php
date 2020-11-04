@@ -1,97 +1,90 @@
-<div class="favourite-card-container">
-    <div class="card favourite-card">
-        <h5 class="card-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm favourite-pt-nome">
-                        Castelo de Leiria
-                    </div>
-                    <div class="col-sm favourite-options">
-                        <a href="#" class="btn btn-warning"><i class="fas fa-star"></i></a>
-                        <a href="#" class="btn btn-warning"><i class="fas fa-check-circle"></i></a>
-                    </div>
+<?php
+use rmrevin\yii\fontawesome\FA;
+use yii\helpers\Html;
+?>
+
+<div class="favourite-container">
+    <div class="card favourite-ponto-interesse">
+        <div class="favorite-header">
+            <h4>
+                <div class="favourite-options">
+                    <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                    <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                 </div>
-            </div>
-        </h5>
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <img class="favourite-img" src="castelo-de-leiria.jpg" alt="Card image cap">
-                    </div>
-                    <div class="col-sm favoutite-pt-info">
-                        Castelo de Leiria
-                    </div>
-                    <div class="col-sm favoutite-pt-info">
-                        Leiria
-                    </div>
-                </div>
-            </div>
+
+            </h4>
         </div>
+        <div class="favorite-body">
+            <table style="width:100%">
+                <tr>
+                    <th class="img-pi-favoritos-container">
+                        <?= Html::img('@web/castelo-de-leiria.jpg', ['class' => 'img-pi-favoritos']); ?>
+                    </th>
+                    <th class="nome-pi-container">
+                        Castelo de Leiria
+                    </th>
+                    <th class="localidade-pi-container">
+                        Leiria
+                    </th>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
-    <div class="card favourite-card">
-        <h5 class="card-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm favourite-pt-nome">
-                        Castelo de Leiria
-                    </div>
-                    <div class="col-sm favourite-options">
-                        <a href="#" class="btn btn-warning"><i class="fas fa-star"></i></a>
-                        <a href="#" class="btn btn-warning"><i class="fas fa-check-circle"></i></a>
-                    </div>
+    <div class="card favourite-ponto-interesse">
+        <div class="favorite-header">
+            <h4>
+                <div class="favourite-options">
+                    <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                    <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                 </div>
-            </div>
-        </h5>
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <img class="favourite-img" src="castelo-de-leiria.jpg" alt="Card image cap">
-                    </div>
-                    <div class="col-sm favoutite-pt-info">
-                        Castelo de Leiria
-                    </div>
-                    <div class="col-sm favoutite-pt-info">
-                        Leiria
-                    </div>
-                </div>
-            </div>
+
+            </h4>
         </div>
+        <div class="favorite-body">
+            <table style="width:100%">
+                <tr>
+                    <th class="img-pi-favoritos-container">
+                        <?= Html::img('@web/castelo-de-leiria.jpg', ['class' => 'img-pi-favoritos']); ?>
+                    </th>
+                    <th class="nome-pi-container">
+                        Castelo de Leiria
+                    </th>
+                    <th class="localidade-pi-container">
+                        Leiria
+                    </th>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
-    <div class="card favourite-card">
-        <h5 class="card-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm favourite-pt-nome">
-                        Castelo de Leiria
-                    </div>
-                    <div class="col-sm favourite-options">
-                        <a href="#" class="btn btn-warning"><i class="fas fa-star"></i></a>
-                        <a href="#" class="btn btn-warning"><i class="fas fa-check-circle"></i></a>
-                    </div>
+    <div class="card favourite-ponto-interesse">
+        <div class="favorite-header">
+            <h4>
+                <div class="favourite-options">
+                    <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                    <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                 </div>
-            </div>
-        </h5>
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <img class="favourite-img" src="castelo-de-leiria.jpg" alt="Card image cap">
-                    </div>
-                    <div class="col-sm favoutite-pt-info">
-                        Castelo de Leiria
-                    </div>
-                    <div class="col-sm favoutite-pt-info">
-                        Leiria
-                    </div>
-                </div>
-            </div>
+
+            </h4>
         </div>
+        <div class="favorite-body">
+            <table style="width:100%">
+                <tr>
+                    <th class="img-pi-favoritos-container">
+                        <?= Html::img('@web/castelo-de-leiria.jpg', ['class' => 'img-pi-favoritos']); ?>
+                    </th>
+                    <th class="nome-pi-container">
+                        Castelo de Leiria
+                    </th>
+                    <th class="localidade-pi-container">
+                        Leiria
+                    </th>
+                </tr>
+            </table>
+        </div>
+
     </div>
-</div>
-
-
 </div>

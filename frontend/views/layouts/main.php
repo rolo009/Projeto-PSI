@@ -40,9 +40,9 @@ AppAsset::register($this);
         ['label' => 'Favoritos', 'url' => ['/cultravel/favoritos']],
         ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
         ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
-        ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobreNos']],
-        ['label' => 'PI', 'url' => ['/cultravel/pontosInteresse']],
-        ['label' => 'PI Details', 'url' => ['/cultravel/pontoInteresseDetails']],
+        ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
+        ['label' => 'PI', 'url' => ['/cultravel/pontos-interesse']],
+        ['label' => 'PI Details', 'url' => ['/cultravel/ponto-interesse-details']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItemsUser[] = ['label' => 'Signup', 'url' => ['/cultravel/registar']];

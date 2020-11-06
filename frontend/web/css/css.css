@@ -23,8 +23,8 @@ a:hover{
 
 /*Index*/
 
-.form-control{
-
+.btn-search-index{
+    margin-left: 0px;
 }
 
 
@@ -80,8 +80,9 @@ body, html{
     background-repeat: no-repeat;
     height: auto;
     background-attachment: fixed, scroll;
-    font-family: -apple-system,"BlinkMacSystemFont","Segoe UI","Roboto","Helvetica Neue","Arial","Noto Sans","sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: Arial;
     font-size: 15px;
+    font-weight: normal !important;
 }
 
 .menu-style{
@@ -115,10 +116,6 @@ body, html{
 
 /*Favoritos*/
 
-.cards-container{
-    margin: 4% 8% 3% 8%;
-}
-
 .checked {
     color: orange;
 }
@@ -129,6 +126,7 @@ body, html{
 }
 
 .cards-container{
+    margin: 4% 8% 3% 8%;
     opacity: 0.9;
 }
 
@@ -151,14 +149,34 @@ body, html{
     padding: 0 0 0 15%;
 }
 
+.btn-pi{
+    padding: 0 0 0 15%;
+    margin-right: 0;
+}
+
+.btn-outline-dark{
+    color: #343a40;
+    background-color: transparent;
+    background-image: none;
+    border-color: #343a40;
+}
+
+.btn-outline-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
 .localidade-pi-container{
-    padding: 0 0 0 5%;
+    padding: 0 0 0 15%;
 }
 
 /*pontos interesse*/
 
 .pontos-interesse-container{
     margin: 1% 8% 3% 8%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card-pontos-interesse{
@@ -166,6 +184,7 @@ body, html{
     background-color: #FFFFFF;
     padding: 1%;
     border-radius: 5px;
+    margin: 2%;
 }
 
 .card-ponto-interesse-details{
@@ -194,14 +213,17 @@ body, html{
 /*Favoritos*/
 
 .favourite-container{
-    margin: 4% 17% 4% 17%;
+    margin: 1% 8% 3% 8%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .favourite-ponto-interesse{
-    margin-bottom: 2%;
     opacity: 0.9;
     background-color: #FFFFFF;
     border-radius: 10px;
+    width: 45%;
+    margin: 2%;
 }
 
 .favourite-img{
@@ -209,7 +231,7 @@ body, html{
 }
 
 .favorite-header{
-    padding: .75rem 1.25rem;
+    padding: 2% 0 0 0;
     margin-bottom: 0;
     background-color: rgba(0,0,0,.03);
     border-bottom: 1px solid rgba(0,0,0,.125);
@@ -218,13 +240,14 @@ body, html{
 .favorite-body{
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1.25rem;
+    padding: 1%;
 }
 
 .favourite-options{
     justify-content: right;
     text-align: right;
     right: 0;
+    margin: 1% 3% 3% 0%;
 }
 
 .favourite-pt-nome{
@@ -238,6 +261,8 @@ body, html{
 /*Visitados*/
 .visitados-container{
     margin: 1% 8% 3% 8%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .btn-visitados{
@@ -253,6 +278,7 @@ body, html{
     padding: 1%;
     border-radius: 5px;
     width: 20%;
+    margin: 2%;
 }
 
 .img-visitados-card{

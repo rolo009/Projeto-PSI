@@ -8,6 +8,7 @@ use Yii;
 use yii\web\Controller;
 
 
+
 /**
  * Site controller
  */
@@ -18,7 +19,7 @@ class CultravelController extends Controller
         $model = new Localidade();
         if ($model->load(Yii::$app->request->post())) {
 
-            return $this->render('favoritos');
+            return $this->redirect(['pontos-interesse', 'localidade' => $model->nomeLocalidade]);
         }
         return $this->render('index', [
             'model' => $model

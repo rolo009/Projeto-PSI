@@ -1,3 +1,8 @@
+<?php
+
+use yii\bootstrap;
+?>
+
 <div class="ponto-interesse-container">
     <div class="row">
         <div class="col">

@@ -3,11 +3,6 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use rmrevin\yii\fontawesome\FA;
-
-
-use yii\web\AssetBundle;
 
 $this->title = 'Cultravel';
 ?>

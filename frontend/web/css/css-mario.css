@@ -21,14 +21,11 @@ body, html{
 
 }
 
-
 .contact-row:after {
     content: "";
     display: table;
     clear: both;
-
 }
-
 
 .contact-img {
     alignment: center;
@@ -37,7 +34,9 @@ body, html{
     margin-left: auto;
     margin-right: auto;
 }
+
 /*Sobre nós*/
+
 .sn-color{
     color: white;
 }

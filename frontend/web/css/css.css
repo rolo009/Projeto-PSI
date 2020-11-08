@@ -204,11 +204,7 @@ body, html{
     margin: 0 6% 6% 0;
 }
 
-.desc-container{
-    margin: 3% 10% 3% 4%;
-    color: #FFFFFF;
-    text-align: justify;
-}
+
 
 /*Favoritos*/
 
@@ -293,4 +289,61 @@ body, html{
 .card-img-visitdos{
     padding: 2%;
     border-radius: 10px 10px 0px 0px;
+}
+
+/*Ponto Interesse Details*/
+
+.card-img-top{
+    width: 100%;
+}
+
+.card{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.pt-details-nome{
+    margin-top:12px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.pt-details-options{
+    justify-content: right;
+    text-align: right;
+    right: 1%;
+    padding: 1%;
+}
+
+.info-pt{
+    color: #FFFFFF;
+}
+
+.details-pt{
+    font-size: 16px;
+}
+
+.desc-container{
+    margin: 3% 10% 3% 4%;
+    color: #FFFFFF;
+    text-align: justify;
+    font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+    .details-pt-title {
+        font-size: 20px;
+    }
+
+    .details-pt {
+        font-size: 14px;
+    }
 }

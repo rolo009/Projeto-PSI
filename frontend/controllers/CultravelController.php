@@ -1,12 +1,14 @@
 <?php
+
 namespace frontend\controllers;
 
 use app\models\Localidade;
+use app\models\Pontosturisticos;
+use app\models\PontosturisticosSearch;
 use app\models\User;
 use app\models\Userprofile;
 use Yii;
 use yii\web\Controller;
-
 
 
 /**
@@ -18,8 +20,14 @@ class CultravelController extends Controller
     {
         $model = new Localidade();
         if ($model->load(Yii::$app->request->post())) {
+            $searchModelPT = new PontosturisticosSearch();
 
-            return $this->redirect(['pontos-interesse', 'localidade' => $model->nomeLocalidade]);
+            $pontosTuristicos = $searchModelPT->search(Yii::$app->request->queryParams);
+
+
+            return $this->render('pontos-interesse', [
+                'pontosTuristicos' => $pontosTuristicos,
+            ]);
         }
         return $this->render('index', [
             'model' => $model
@@ -55,7 +63,7 @@ class CultravelController extends Controller
 
             return $this->render('favoritos');
 
-        } else if ($modelprofile->load(Yii::$app->request->post())){
+        } else if ($modelprofile->load(Yii::$app->request->post())) {
 
             return $this->render('favoritos');
         }

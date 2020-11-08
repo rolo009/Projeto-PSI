@@ -10,7 +10,7 @@ $this->title = 'Cultravel';
 
     <div class="logo-index-container">
 
-        <?= Html::img('@web/seta-logo.png'); ?>
+        <?= Html::img('@web/seta-logo.png', ["class" => "img-logo-contactos"]); ?>
 
     </div>
 

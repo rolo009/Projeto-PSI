@@ -4,3 +4,30 @@
     text-align: left;
 }
 
+
+/*Registo*/
+.registo-container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.registo-info{
+    color: #FFFFFF;
+
+}
+.logo-registo{
+    width: 150px;
+    margin-top: -4%;
+}
+
+.registo-info{
+    font-size: 30px;
+}
+
+@media (max-width: 500px) {
+    .registo-info{
+        font-size: 25px;
+    }
+}
+

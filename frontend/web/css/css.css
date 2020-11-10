@@ -92,10 +92,17 @@ a:hover{
     margin-left: 5px;
 }
 
+@media (max-width: 700px) {
+    .logo-index {
+        width: 150px;
+    }
+
+}
+
 /* ----------------------------Favoritos---------------------------*/
 
 .favourite-container{
-    margin: 1% 8% 3% 8%;
+    margin: 1% 8% 0 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -178,18 +185,16 @@ a:hover{
     }
 
     .favourite-ponto-interesse {
-        width: 90%;
+        width: 100%;
         margin-right: 2%;
         margin-bottom: 4%;
     }
-
-
 }
 
 /* ----------------------------Visitados---------------------------*/
 
 .visitados-container{
-    margin: 1% 8% 3% 8%;
+    margin: 1% 8% 0 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -231,14 +236,14 @@ a:hover{
 
     .btn-warning-visitados{
         width: 100% !important;
-        font-size: 13px;
+        font-size: 12px;
     }
 }
 
 /* ----------------------------Pontos-de-Interesse---------------------------*/
 
 .pontos-interesse-container{
-    margin: 1% 8% 3% 8%;
+    margin: 1% 8% 0 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -280,8 +285,8 @@ a:hover{
 
 /* ----------------------------Pontos-de-Interesse-Details---------------------------*/
 
-.ponto-interesse-container{
-    margin: 1% 8% 3% 8%;
+.pontos-interesse-details-container{
+    margin: 1% 8% 0 0;
 }
 
 .card-ponto-interesse-details{

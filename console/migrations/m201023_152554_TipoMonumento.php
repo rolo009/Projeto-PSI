@@ -24,10 +24,17 @@ class m201023_152554_TipoMonumento extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('tipoMonumento', [
+
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
+        $this->createTable('{{%tipoMonumento}}', [
             'idTipoMonumento' => $this->primaryKey(),
             'descricao' => $this->string()->notNull(),
-        ]);
+        ], $tableOptions);
     }
 
     public function down()

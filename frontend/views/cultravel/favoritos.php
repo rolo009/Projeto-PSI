@@ -18,7 +18,6 @@ use yii\helpers\Html;
                     <th>
                         <div class="favourite-options">
                             <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
-                            <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                         </div>
                     </th>
                 </tr>
@@ -53,7 +52,6 @@ use yii\helpers\Html;
                     <th>
                         <div class="favourite-options">
                             <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
-                            <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                         </div>
                     </th>
                 </tr>
@@ -88,7 +86,6 @@ use yii\helpers\Html;
                     <th>
                         <div class="favourite-options">
                             <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
-                            <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                         </div>
                     </th>
                 </tr>
@@ -123,7 +120,6 @@ use yii\helpers\Html;
                     <th>
                         <div class="favourite-options">
                             <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
-                            <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                         </div>
                     </th>
                 </tr>
@@ -158,7 +154,6 @@ use yii\helpers\Html;
                     <th>
                         <div class="favourite-options">
                             <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
-                            <a href="#" class="btn btn-warning"><?= FA::icon("check") ?></a>
                         </div>
                     </th>
                 </tr>

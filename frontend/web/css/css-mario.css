@@ -3,6 +3,13 @@ body, html{
 
 }
 /*Caontactos*/
+.contact-logo-index-container{
+
+    margin-top: 1%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
 .contact-container {
     text-align: center;
     border-radius: 20px;
@@ -37,6 +44,45 @@ body, html{
     margin-left: auto;
     margin-right: auto;
 }
+/*Contactos(mensagem form)*/
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+input[type=email], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: gold;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.ct-ms-container {
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 10px;
+}
+
+.ct-ms-column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+}
+
 /*Sobre nós*/
 .sn-color{
     color: white;

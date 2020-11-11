@@ -31,3 +31,54 @@
     }
 }
 
+/*Login*/
+.login-container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.login-info{
+    color: #FFFFFF;
+
+}
+.logo-login{
+    width: 150px;
+    margin-top: -4%;
+}
+
+.login-info{
+    font-size: 30px;
+}
+
+@media (max-width: 500px) {
+    .editar-info{
+        font-size: 25px;
+    }
+}
+
+/*editar registo*/
+.editar-container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.editar-info{
+    color: #FFFFFF;
+
+}
+.edita-login{
+    width: 150px;
+    margin-top: -4%;
+}
+
+.editar-info{
+    font-size: 30px;
+}
+
+@media (max-width: 500px) {
+    .editar-info{
+        font-size: 25px;
+    }
+}

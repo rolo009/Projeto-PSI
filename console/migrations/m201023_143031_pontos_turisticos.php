@@ -24,13 +24,8 @@ class m201023_143031_pontos_turisticos extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-        }
 
-        $this->createTable('{{%pontosTuristicos}}', [
+        $this->createTable('pontosTuristicos', [
             'id_pontoTuristico' => $this->primaryKey(),
             'nome' => $this->string()->notNull()->notNull(),
             'anoConstrucao' => $this->string()->notNull(),
@@ -39,7 +34,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'tm_idTipoMonumento' => $this->integer()->notNull(),
             'ec_idEstiloConstrucao' => $this->integer()->notNull(),
             'localidade_idLocalidade' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
 
         $this->createIndex(
             'idx-pontosTuristicos-tm_idTipoMonumento',

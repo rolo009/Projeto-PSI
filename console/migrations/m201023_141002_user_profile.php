@@ -26,7 +26,7 @@ class m201023_141002_user_profile extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('UserProfile', [
+        $this->createTable('userProfile', [
             'primeiroNome' => $this->string()->notNull(),
             'ultimoNome' => $this->string()->notNull(),
             'dtaNascimento' => $this->date()->notNull(),
@@ -34,11 +34,17 @@ class m201023_141002_user_profile extends Migration
             'localidade' => $this->string()->notNull(),
             'sexo' => $this->string()->notNull(),
             'id_user_rbac' => $this->integer()->notNull(),
-        ]);
+        ],'ENGINE InnoDB');
+
+        $this->createIndex(
+            'idx-userProfile-id_user_rbac',
+            'userProfile',
+            'id_user_rbac'
+        );
 
         $this->addForeignKey(
             'fk-user_profile_id',
-            'UserProfile',
+            'userProfile',
             'id_user_rbac',
             'user',
             'id',
@@ -52,10 +58,15 @@ class m201023_141002_user_profile extends Migration
 
         $this->dropForeignKey(
             'fk-user_profile_id',
-            'UserProfile'
+            'userProfile'
         );
 
-        $this->dropTable('UserProfile');
+        $this->dropIndex(
+            'idx-userProfile-id_user_rbac',
+            'userProfile'
+        );
+
+        $this->dropTable('userProfile');
     }
 
 

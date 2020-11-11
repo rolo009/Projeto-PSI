@@ -4,7 +4,7 @@ use rmrevin\yii\fontawesome\FA;
 
 ?>
 
-<div class="ponto-interesse-container">
+<div class="pontos-interesse-details-container">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">

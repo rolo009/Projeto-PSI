@@ -44,12 +44,12 @@ class Userprofile extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'primeiroNome' => 'Primeiro Nome',
-            'ultimoNome' => 'Ultimo Nome',
-            'dtaNascimento' => 'Dta Nascimento',
-            'morada' => 'Morada',
-            'localidade' => 'Localidade',
-            'sexo' => 'Sexo',
+            'primeiroNome' => 'Nome:',
+            'ultimoNome' => 'Apelido:',
+            'dtaNascimento' => 'Data de Nascimento:',
+            'morada' => 'Morada:',
+            'localidade' => 'Localidade:',
+            'sexo' => 'Sexo:',
             'id_user_rbac' => 'Id User Rbac',
         ];
     }

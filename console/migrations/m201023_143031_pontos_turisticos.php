@@ -41,7 +41,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'pontosTuristicos',
             'tm_idTipoMonumento'
         );
-
+/*
         $this->addForeignKey(
             'fk-tipoMonumento-idTipoMonumento',
             'pontosTuristicos',
@@ -50,13 +50,13 @@ class m201023_143031_pontos_turisticos extends Migration
             'idTipoMonumento',
             'CASCADE'
         );
-
+*/
         $this->createIndex(
             'idx-pontosTuristicos-ec_idEstiloConstrucao',
             'pontosTuristicos',
             'ec_idEstiloConstrucao'
         );
-
+/*
         $this->addForeignKey(
             'fk-EstiloConstrucao-ec_idEstiloConstrucao',
             'pontosTuristicos',
@@ -65,13 +65,13 @@ class m201023_143031_pontos_turisticos extends Migration
             'idEstiloConstrucao',
             'CASCADE'
         );
-
+*/
         $this->createIndex(
             'idx-pontosTuristicos-localidade_idLocalidade',
             'pontosTuristicos',
             'localidade_idLocalidade'
         );
-
+/*
         $this->addForeignKey(
             'fk-Localidade_idLocalidade',
             'pontosTuristicos',
@@ -79,37 +79,37 @@ class m201023_143031_pontos_turisticos extends Migration
             'localidade',
             'id_localidade',
             'CASCADE'
-        );
+        );*/
     }
 
     public function down()
     {
-
+/*
         $this->dropForeignKey(
             'fk-tipoMonumento-idTipoMonumento',
             'pontosTuristicos'
         );
-
+*/
         $this->dropIndex(
             'idx-pontosTuristicos-tm_idTipoMonumento',
             'pontosTuristicos'
         );
-
+/*
         $this->dropForeignKey(
             'fk-EstiloConstrucao-ec_idEstiloConstrucao',
             'pontosTuristicos'
         );
-
+*/
         $this->dropIndex(
             'idx-pontosTuristicos-ec_idEstiloConstrucao',
             'pontosTuristicos'
         );
-
+/*
         $this->dropForeignKey(
             'fk-Localidade_idLocalidade',
             'pontosTuristicos'
         );
-
+*/
         $this->dropIndex(
             'idx-pontosTuristicos-localidade_idLocalidade',
             'pontosTuristicos'

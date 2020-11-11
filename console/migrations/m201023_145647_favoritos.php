@@ -31,6 +31,12 @@ class m201023_145647_favoritos extends Migration
             'user_idUtilizador' => $this->integer()->notNull(),
         ]);
 
+        $this->createIndex(
+            'idx-favoritos-user_idUtilizador',
+            'favoritos',
+            'user_idUtilizador'
+        );
+/*
         $this->addForeignKey(
             'fk-user-idUtilizador',
             'favoritos',
@@ -39,19 +45,26 @@ class m201023_145647_favoritos extends Migration
             'id',
             'CASCADE'
         );
-
+*/
+        $this->createIndex(
+            'idx-favoritos-pt_idPontoTuristico',
+            'favoritos',
+            'pt_idPontoTuristico'
+        );
+/*
         $this->addForeignKey(
-            'fk-pontosTuristicos-idPontoTuristico',
+            'fk-pontoTuristico-idPontoTuristico',
             'favoritos',
             'pt_idPontoTuristico',
             'pontosTuristicos',
             'id_pontoTuristico',
             'CASCADE'
-        );
+        );*/
     }
 
     public function down()
     {
+        /*
         $this->dropForeignKey(
             'fk-user-idUtilizador',
             'Favoritos'
@@ -61,7 +74,16 @@ class m201023_145647_favoritos extends Migration
             'fk-pontosTuristicos-idPontoTuristico',
             'Favoritos'
         );
+*/
+        $this->dropIndex(
+            'idx-favoritos-user_idUtilizador',
+            'favoritos'
+        );
 
+        $this->dropIndex(
+            'idx-favoritos-pt_idPontoTuristico',
+            'favoritos'
+        );
         $this->dropTable('favoritos');
     }
 }

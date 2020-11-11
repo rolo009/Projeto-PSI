@@ -23,7 +23,7 @@ class m201023_153217_visitados extends Migration
 
     public function up()
     {
-        $this->createTable('visitados', [
+       $this->createTable('visitados', [
             'id_visitados' => $this->primaryKey(),
             'user_idUtilizador' => $this->integer()->notNull(),
             'pt_idPontoTuristico' => $this->integer()->notNull(),

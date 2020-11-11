@@ -13,66 +13,6 @@ a:hover{
 
 /*Menu*/
 
-.navbar-toggle{
-    background-color: white !important;
-}
-
-.navbar-toggle .icon-bar{
-    background-color: gray !important;
-}
-
-/*Index*/
-
-.form-control{
-
-}
-
-
-.searchForm-index{
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 10px;
-}
-
-.wrap > .container {
-    padding: 0px 15px 20px !important;
-}
-
-.searchForm-container{
-    height: 30%;
-    width: 100%;
-    padding: 2%;
-    border-radius: 5px;
-    justify-content: center;
-    text-align: center;
-    align-content: center;
-}
-
-.searchLocalidade{
-    width: 80%;
-}
-
-.opcao-pesquisa{
-    color:white;
-    margin-right: 20px;
-    margin-left: 5px;
-}
-
-.icon-index-search{
-    margin-right: 10px;
-}
-
-.logo-index-container{
-    margin-top: 3%;
-    justify-content: center;
-    text-align: center;
-    align-content: center;
-}
-
-body, html{
-    height: 100%;
-}
-
 #index-background{
     background-image: url("../background-index-4.png");
     background-position: center;
@@ -80,8 +20,9 @@ body, html{
     background-repeat: no-repeat;
     height: auto;
     background-attachment: fixed, scroll;
-    font-family: -apple-system,"BlinkMacSystemFont","Segoe UI","Roboto","Helvetica Neue","Arial","Noto Sans","sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: Arial;
     font-size: 15px;
+    font-weight: normal !important;
 }
 
 .menu-style{
@@ -110,34 +51,96 @@ body, html{
     width:100%;
 }
 
-/*Pontos Interesse*/
+.navbar-toggle{
+    background-color: white !important;
+}
 
+.navbar-toggle .icon-bar{
+    background-color: gray !important;
+}
 
-/*Favoritos*/
+/* ----------------------------Index---------------------------*/
 
-.cards-container{
-    margin: 4% 8% 3% 8%;
+.logo-index-container{
+    margin-top: 3%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.searchForm-container{
+    height: 30%;
+    width: 100%;
+    padding: 2%;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.btn-search-index{
+    margin-left: 0px;
+}
+
+.icon-index-search{
+    margin-right: 10px;
+}
+
+.opcao-pesquisa{
+    color:white;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+/* ----------------------------Favoritos---------------------------*/
+
+.favourite-container{
+    margin: 1% 8% 3% 8%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.favourite-ponto-interesse{
+    opacity: 0.9;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 45%;
+    margin: 1%;
+}
+
+.favorite-header{
+    padding: 2% 0 0 0;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
 .checked {
     color: orange;
 }
 
-.pt-btn{
+
+.localidade-pi-container{
+    padding: 0 0 0 15%;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.favourite-options{
     justify-content: right;
     text-align: right;
+    right: 0;
+    margin: 1% 6% 3% 0%;
 }
 
-.cards-container{
-    opacity: 0.9;
-}
-
-.card-pontos-interesse{
-    width: 27%;
+.favorite-body{
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1%;
 }
 
 .img-pi-favoritos-container{
-    width: 25%;
+    width: 29%;
 }
 
 .img-pi-favoritos{
@@ -151,100 +154,44 @@ body, html{
     padding: 0 0 0 15%;
 }
 
-.localidade-pi-container{
-    padding: 0 0 0 5%;
+.btn-pi{
+    padding: 0 0 0 15%;
+    margin-right: 0;
 }
 
-/*pontos interesse*/
-
-.pontos-interesse-container{
-    margin: 1% 8% 3% 8%;
+.btn-outline-dark{
+    color: #343a40;
+    background-color: transparent;
+    background-image: none;
+    border-color: #343a40;
 }
 
-.card-pontos-interesse{
-    opacity: 0.9;
-    background-color: #FFFFFF;
-    padding: 1%;
-    border-radius: 5px;
+.btn-outline-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
 }
 
-.card-ponto-interesse-details{
-    width: 100%;
+@media (max-width: 993px) {
+    .favourite-container {
+        display: inline;
+    }
+
+    .favourite-ponto-interesse {
+        width: 90%;
+        margin-right: 2%;
+        margin-bottom: 4%;
+    }
+
+
 }
 
-.img-pi-card{
-    width: 100%;
-    border-radius: 4px;
-}
+/* ----------------------------Visitados---------------------------*/
 
-.card-body{
-
-}
-
-.btn-pi-info{
-    margin: 0 6% 6% 0;
-}
-
-.desc-container{
-    margin: 3% 10% 3% 4%;
-    color: #FFFFFF;
-    text-align: justify;
-}
-
-/*Favoritos*/
-
-.favourite-container{
-    margin: 4% 17% 4% 17%;
-}
-
-.favourite-ponto-interesse{
-    margin-bottom: 2%;
-    opacity: 0.9;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-}
-
-.favourite-img{
-    width: 60%;
-}
-
-.favorite-header{
-    padding: .75rem 1.25rem;
-    margin-bottom: 0;
-    background-color: rgba(0,0,0,.03);
-    border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-.favorite-body{
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1.25rem;
-}
-
-.favourite-options{
-    justify-content: right;
-    text-align: right;
-    right: 0;
-}
-
-.favourite-pt-nome{
-    margin-top: 5px;
-}
-
-.favoutite-pt-info{
-    margin-top: 3%;
-}
-
-/*Visitados*/
 .visitados-container{
     margin: 1% 8% 3% 8%;
-}
-
-.btn-visitados{
-    margin-top: 6%;
-    justify-content: center;
-    text-align: center;
-    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card-visitados{
@@ -253,6 +200,7 @@ body, html{
     padding: 1%;
     border-radius: 5px;
     width: 20%;
+    margin: 2%;
 }
 
 .img-visitados-card{
@@ -264,7 +212,134 @@ body, html{
     text-align: center;
 }
 
-.card-img-visitdos{
-    padding: 2%;
-    border-radius: 10px 10px 0px 0px;
+.btn-visitados{
+    margin-top: 6%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+@media (max-width: 1000px) {
+    .visitados-container {
+        margin: 1% 8% 3% 8%;
+        display: flex;
+    }
+
+    .card-visitados {
+        width: 40%;
+    }
+
+    .btn-warning-visitados{
+        width: 100% !important;
+        font-size: 13px;
+    }
+}
+
+/* ----------------------------Pontos-de-Interesse---------------------------*/
+
+.pontos-interesse-container{
+    margin: 1% 8% 3% 8%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-pontos-interesse{
+    opacity: 0.9;
+    background-color: #FFFFFF;
+    padding: 1%;
+    border-radius: 5px;
+    margin: 2%;
+    width: 27%;
+}
+
+.img-pi-card{
+    width: 100%;
+    border-radius: 4px;
+}
+
+.btn-pi-info{
+    margin: 0 6% 6% 0;
+}
+
+@media (max-width: 1000px) {
+    .pontos-interesse-container {
+        margin: 1% 8% 3% 8%;
+        display: flex;
+    }
+
+    .card-pontos-interesse {
+        width: 40%;
+    }
+
+    .btn-pi-info{
+        width: 100% !important;
+        font-size: 13px;
+    }
+
+}
+
+/* ----------------------------Pontos-de-Interesse-Details---------------------------*/
+
+.ponto-interesse-container{
+    margin: 1% 8% 3% 8%;
+}
+
+.card-ponto-interesse-details{
+    width: 100%;
+}
+
+.card-img-top{
+    width: 100%;
+}
+
+.pt-details-options{
+    justify-content: right;
+    text-align: right;
+    right: 1%;
+    padding: 1%;
+}
+
+.pt-details-nome{
+    margin-top:12px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.info-pt{
+    color: #FFFFFF;
+}
+
+.details-pt{
+    font-size: 16px;
+}
+
+.desc-container{
+    margin: 3% 10% 3% 4%;
+    color: #FFFFFF;
+    text-align: justify;
+    font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+    .details-pt-title {
+        font-size: 20px;
+    }
+
+    .details-pt {
+        font-size: 14px;
+    }
+}
+/* ----------------------------Comuns---------------------------*/
+
+.card{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
 }

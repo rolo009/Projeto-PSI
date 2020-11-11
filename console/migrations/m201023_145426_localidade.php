@@ -27,7 +27,7 @@ class m201023_145426_localidade extends Migration
         $this->createTable('localidade', [
             'id_localidade' => $this->primaryKey(),
             'nomeLocalidade' => $this->string()->notNull(),
-        ]);
+        ],'ENGINE InnoDB');
     }
 
     public function down()

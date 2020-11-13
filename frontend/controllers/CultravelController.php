@@ -46,7 +46,17 @@ class CultravelController extends Controller
 
     public function actionContactos()
     {
-        return $this->render('contactos');
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                Yii::$app->session->setFlash('success', 'Obrigado por nos contactar. Iremos responder o mais rapido possivel.');
+            } else {
+                Yii::$app->session->setFlash('error', 'Ocorreu um erro a enviar a sua mensagem.');
+            }
+            return $this->refresh();
+        } else {
+            return $this->render('contactos', ['model' => $model,]);
+        }
     }
 
     public function actionSobreNos()

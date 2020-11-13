@@ -29,6 +29,14 @@ class m201023_153217_visitados extends Migration
             'pt_idPontoTuristico' => $this->integer()->notNull(),
 
         ]);
+
+        $this->createIndex(
+            'idx-visitados-user_idUtilizador',
+            'visitados',
+            'user_idUtilizador'
+        );
+
+       /*
         $this->addForeignKey(
             'fk-user-idUtilizador',
             'visitados',
@@ -36,7 +44,15 @@ class m201023_153217_visitados extends Migration
             'user',
             'id',
             'CASCADE'
+        );*/
+
+        $this->createIndex(
+            'idx-visitados-pt_idPontoTuristico',
+            'visitados',
+            'pt_idPontoTuristico'
         );
+
+        /*
         $this->addForeignKey(
             'fk-PontoTuristico-id_pontoTuristico',
             'visitados',
@@ -44,11 +60,12 @@ class m201023_153217_visitados extends Migration
             'pontosTuristicos',
             'id_pontoTuristico',
             'CASCADE'
-        );
+        );*/
 
     }
     public function down()
     {
+        /*
         $this->dropForeignKey(
             'fk-user-idUtilizador',
             'visitados'
@@ -58,7 +75,16 @@ class m201023_153217_visitados extends Migration
             'fk-PontoTuristico-id_pontoTuristico',
             'visitados'
         );
+*/
+        $this->dropIndex(
+            'idx-visitados-user_idUtilizador',
+            'visitados'
+        );
 
+        $this->dropIndex(
+            'idx-visitados-pt_idPontoTuristico',
+            'visitados'
+        );
         $this->dropTable('visitados');
 
     }

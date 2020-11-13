@@ -6,12 +6,16 @@ use yii\web\AssetBundle;
 
 ?>
 
-<div class="logo-index-container">
+<div class="editar-container">
 
-    <?= Html::img('@web/seta-logo.png'); ?>
+    <?= Html::img('@web/seta-logo.png', ['class' => 'logo-editar']); ?>
+
+    <div class="editar-info">Editar Registo</div>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
             <?php $form = ActiveForm::begin()?>
 
             <?php
@@ -32,4 +36,7 @@ use yii\web\AssetBundle;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <div class="col-xs-1 col-sm-3 col-md-2 col-lg-3">
+    </div>
 </div>
+

@@ -27,15 +27,15 @@ use rmrevin\yii\fontawesome\FA;
                     </div>
             </div>
             <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 info-pt">
-                    <h3 class="details-pt-title">Tipo Monumento</h3>
+                    <p class="details-pt-title">Tipo Monumento</p>
                     <p class="details-pt">Castelo</p>
-                    <h3 class="details-pt-title">Estilo de Construção</h3>
+                    <p class="details-pt-title">Estilo de Construção</p>
                     <p class="details-pt">Românico / Gótico</p>
-                    <h3 class="details-pt-title">Ano de Construção</h3>
+                    <p class="details-pt-title">Ano de Construção</p>
                     <p class="details-pt">Século XII</p>
-                    <h3 class="details-pt-title">Localidade</h3>
+                    <p class="details-pt-title">Localidade</p>
                     <p class="details-pt">Leiria</p>
-                    <h3 class="details-pt-title">Rating</h3>
+                    <p class="details-pt-title">Rating</p>
                     <p class="details-pt">
                         <span class="fa fa-star checked"></span>
                         4.5/5

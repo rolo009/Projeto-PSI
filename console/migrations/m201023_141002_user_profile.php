@@ -41,26 +41,10 @@ class m201023_141002_user_profile extends Migration
             'userProfile',
             'id_user_rbac'
         );
-
-        $this->addForeignKey(
-            'fk-user_profile_id',
-            'userProfile',
-            'id_user_rbac',
-            'user',
-            'id',
-            'CASCADE'
-        );
-
     }
 
     public function down()
     {
-
-        $this->dropForeignKey(
-            'fk-user_profile_id',
-            'userProfile'
-        );
-
         $this->dropIndex(
             'idx-userProfile-id_user_rbac',
             'userProfile'

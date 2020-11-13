@@ -30,6 +30,12 @@ class m201023_153929_ratings extends Migration
             'user_idUtilizador' => $this->integer()->notNull(),
         ]);
 
+        $this->createIndex(
+            'idx-ratings-pt_idPontoTuristico',
+            'ratings',
+            'pt_idPontoTuristico'
+        );
+/*
         $this->addForeignKey(
             'fk-user-idUtilizador',
             'ratings',
@@ -38,7 +44,13 @@ class m201023_153929_ratings extends Migration
             'id',
             'CASCADE'
         );
-
+*/
+        $this->createIndex(
+            'idx-ratings-user_idUtilizador',
+            'ratings',
+            'user_idUtilizador'
+        );
+/*
         $this->addForeignKey(
             'fk-PontoTuristico-idPontoTuristico',
             'ratings',
@@ -46,18 +58,28 @@ class m201023_153929_ratings extends Migration
             'pontosTuristicos',
             'id_pontoTuristico',
             'CASCADE'
-        );
+        );*/
     }
 
     public function down()
     {
-        $this->dropForeignKey(
+        /*$this->dropForeignKey(
             'fk-user-idUtilizador',
             'ratings'
         );
 
         $this->dropForeignKey(
             'fk-PontoTuristico-idPontoTuristico',
+            'ratings'
+        );*/
+
+        $this->dropIndex(
+            'idx-ratings-pt_idPontoTuristico',
+            'ratings'
+        );
+
+        $this->dropIndex(
+            'idx-ratings-user_idUtilizador',
             'ratings'
         );
 

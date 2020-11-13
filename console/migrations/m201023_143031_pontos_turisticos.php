@@ -24,13 +24,8 @@ class m201023_143031_pontos_turisticos extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-        }
 
-        $this->createTable('{{%pontosTuristicos}}', [
+        $this->createTable('pontosTuristicos', [
             'id_pontoTuristico' => $this->primaryKey(),
             'nome' => $this->string()->notNull()->notNull(),
             'anoConstrucao' => $this->string()->notNull(),
@@ -39,14 +34,14 @@ class m201023_143031_pontos_turisticos extends Migration
             'tm_idTipoMonumento' => $this->integer()->notNull(),
             'ec_idEstiloConstrucao' => $this->integer()->notNull(),
             'localidade_idLocalidade' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
 
         $this->createIndex(
             'idx-pontosTuristicos-tm_idTipoMonumento',
             'pontosTuristicos',
             'tm_idTipoMonumento'
         );
-
+/*
         $this->addForeignKey(
             'fk-tipoMonumento-idTipoMonumento',
             'pontosTuristicos',
@@ -55,13 +50,13 @@ class m201023_143031_pontos_turisticos extends Migration
             'idTipoMonumento',
             'CASCADE'
         );
-
+*/
         $this->createIndex(
             'idx-pontosTuristicos-ec_idEstiloConstrucao',
             'pontosTuristicos',
             'ec_idEstiloConstrucao'
         );
-
+/*
         $this->addForeignKey(
             'fk-EstiloConstrucao-ec_idEstiloConstrucao',
             'pontosTuristicos',
@@ -70,13 +65,13 @@ class m201023_143031_pontos_turisticos extends Migration
             'idEstiloConstrucao',
             'CASCADE'
         );
-
+*/
         $this->createIndex(
             'idx-pontosTuristicos-localidade_idLocalidade',
             'pontosTuristicos',
             'localidade_idLocalidade'
         );
-
+/*
         $this->addForeignKey(
             'fk-Localidade_idLocalidade',
             'pontosTuristicos',
@@ -84,37 +79,37 @@ class m201023_143031_pontos_turisticos extends Migration
             'localidade',
             'id_localidade',
             'CASCADE'
-        );
+        );*/
     }
 
     public function down()
     {
-
+/*
         $this->dropForeignKey(
             'fk-tipoMonumento-idTipoMonumento',
             'pontosTuristicos'
         );
-
+*/
         $this->dropIndex(
             'idx-pontosTuristicos-tm_idTipoMonumento',
             'pontosTuristicos'
         );
-
+/*
         $this->dropForeignKey(
             'fk-EstiloConstrucao-ec_idEstiloConstrucao',
             'pontosTuristicos'
         );
-
+*/
         $this->dropIndex(
             'idx-pontosTuristicos-ec_idEstiloConstrucao',
             'pontosTuristicos'
         );
-
+/*
         $this->dropForeignKey(
             'fk-Localidade_idLocalidade',
             'pontosTuristicos'
         );
-
+*/
         $this->dropIndex(
             'idx-pontosTuristicos-localidade_idLocalidade',
             'pontosTuristicos'

@@ -18,14 +18,14 @@ use yii\web\AssetBundle;
         <?php $form = ActiveForm::begin()?>
 
             <?php
-            echo $form->field($modelprofile, 'primeiroNome', ['options' => ['class' => 'label-login']])->textInput(['autofocus' => true]);
-            echo $form->field($modelprofile, 'ultimoNome', ['options' => ['class' => 'label-login']]);
-            echo $form->field($modelprofile, 'dtaNascimento', ['options' => ['class' => 'label-login']]);
-            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput();
-            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput();
-            echo $form->field($modelprofile, 'morada', ['options' => ['class' => 'label-login']]);
-            echo $form->field($modelprofile, 'localidade', ['options' => ['class' => 'label-login']]);
-            echo $form->field($modelprofile, 'sexo', ['options' => ['class' => 'label-login']])->checkbox();?>
+            echo $form->field($modelprofile, 'primeiroNome', ['options' => ['class' => 'label-login']])->hint('Introduza o nome')->textInput(['autofocus' => true]);
+            echo $form->field($modelprofile, 'ultimoNome', ['options' => ['class' => 'label-login']])->hint('Introduza o apelido');
+            echo $form->field($modelprofile, 'dtaNascimento', ['options' => ['class' => 'label-login']])->hint('Introduza a data de nascimento');
+            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Introduza a palavra-passe');
+            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Confirme a palavra-passe');
+            echo $form->field($modelprofile, 'morada', ['options' => ['class' => 'label-login']])->hint('Introduza a morada');
+            echo $form->field($modelprofile, 'localidade', ['options' => ['class' => 'label-login']])->hint('Introduza a localidade');
+            echo $form->field($modelprofile, 'sexo[]', ['options' => ['class' => 'label-login']])->checkboxList(['a' => 'Masculino', 'b' => 'Feminino'])->hint('Escolha o sexo');?>
 
         <div class="form-group">
         <?php

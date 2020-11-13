@@ -2,13 +2,18 @@
 
 namespace frontend\controllers;
 
+use app\models\Estiloconstrucao;
+use app\models\Favoritos;
 use app\models\Localidade;
 use app\models\Pontosturisticos;
-use app\models\PontosturisticosSearch;
+use app\models\Tipomonumento;
 use common\models\User;
 use app\models\Userprofile;
+use frontend\models\ContactForm;
 use Yii;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
+use \yii\db\Query;
 
 
 /**
@@ -19,24 +24,30 @@ class CultravelController extends Controller
     public function actionIndex()
     {
         $model = new Localidade();
+
         if ($model->load(Yii::$app->request->post())) {
-            $searchModelPT = new PontosturisticosSearch();
 
-            $pontosTuristicos = $searchModelPT->search(Yii::$app->request->queryParams);
+            $localidade = Localidade::find()->where(['nomeLocalidade' => $model->nomeLocalidade])->one();
 
+            $pontosTuristicos = Pontosturisticos::findAll(['localidade_idLocalidade' => $localidade->id_localidade]);
 
             return $this->render('pontos-interesse', [
                 'pontosTuristicos' => $pontosTuristicos,
             ]);
         }
+
         return $this->render('index', [
             'model' => $model
         ]);
     }
 
-    public function actionFavoritos()
+    public function actionFavoritos($idUser)
     {
-        return $this->render('favoritos');
+        $favoritos = Favoritos::findAll(['user_idUtilizador	' => $idUser]);
+
+        return $this->render('favoritos', [
+            'favoritos' => $favoritos,
+        ]);
     }
 
     public function actionVisitados()
@@ -101,9 +112,18 @@ class CultravelController extends Controller
         return $this->render('pontos-interesse');
     }
 
-    public function actionPontoInteresseDetails()
+    public function actionPontoInteresseDetails($id)
     {
-        return $this->render('ponto-interesse-details');
+        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
+        $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
+        $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
+        $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
+        return $this->render('ponto-interesse-details', [
+            'pontoTuristico' => $pontoTuristico,
+            'tipoMonumento' => $tipoMonumento,
+            'localidadeMonumento' => $localidadeMonumento,
+            'estiloMonumento' => $estiloConstrucao,
+        ]);
     }
 
 }

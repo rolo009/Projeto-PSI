@@ -1,15 +1,15 @@
 <?php
-
 /* @var $this yii\web\View */
-
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $model \frontend\models\ContactForm */
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 use rmrevin\yii\fontawesome\FA;
-
-
 use yii\web\AssetBundle;
+use yii\captcha\Captcha;
 
-$this->title = 'Cultravel';
+$this->title = 'Contact';
+
 ?>
 <div class="logo-index-container">
 
@@ -20,10 +20,21 @@ $this->title = 'Cultravel';
     <div class="container-fluid">
         <div class="ct-ms-row">
             <div class="col- col-sm-7 col-md-auto col-{breakpoint}-auto">
-                <div>
-                    <h2>Como nos pode contactar?</h2>
-                    <p>Para entrar em contacto conosco basta enviar-nos um email.</p>
+                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+
+                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+
+                <?= $form->field($model, 'email') ?>
+
+                <?= $form->field($model, 'subject') ?>
+
+                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                 </div>
+
+                <?php ActiveForm::end(); ?>
             </div>
             <div class="col- col-sm-5 col-md-auto col-{breakpoint}-auto">
                 <div>
@@ -31,8 +42,11 @@ $this->title = 'Cultravel';
                     <h2>As redes sociais onde nos encontramos</h2>
 
                     <table>
-                        <tr>
 
+                        <tr>
+                            <th><img src="index/face-icon.png" class="contact-img" style="width:20%" ></th>
+                            <th><img src="index/insta-icon.png" class="contact-img" style="width:20%" ></th>
+                            <th><img src="index/tt-icon.png" class="contact-img" style="width:20%" ></th>
                         </tr>
                         <tr>
                             <th>Facebook</th>

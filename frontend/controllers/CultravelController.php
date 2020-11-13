@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use app\models\Localidade;
 use app\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
-use app\models\User;
+use common\models\User;
 use app\models\Userprofile;
 use Yii;
 use yii\web\Controller;

@@ -7,8 +7,10 @@ use app\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
 use app\models\User;
 use app\models\Userprofile;
+use frontend\models\ContactForm;
 use Yii;
 use yii\web\Controller;
+
 
 
 /**
@@ -16,6 +18,24 @@ use yii\web\Controller;
  */
 class CultravelController extends Controller
 {
+    public function actionContactos()
+    {
+        $model = new ContactForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                Yii::$app->session->setFlash('success', 'Obrigado por nos contactar. Iremos responder o mais rapido possivel.');
+            } else {
+                Yii::$app->session->setFlash('error', 'Ocorreu um erro a enviar a sua mensagem.');
+            }
+
+            return $this->refresh();
+        } else {
+            return $this->render('contactos', [
+                'model' => $model,
+            ]);
+        }
+    }
     public function actionIndex()
     {
         $model = new Localidade();
@@ -44,7 +64,7 @@ class CultravelController extends Controller
         return $this->render('visitados');
     }
 
-    public function actionContactos()
+    public function actionContact()
     {
         return $this->render('contactos');
     }

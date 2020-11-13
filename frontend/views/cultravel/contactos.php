@@ -1,15 +1,15 @@
 <?php
-
 /* @var $this yii\web\View */
-
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $model \frontend\models\ContactForm */
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 use rmrevin\yii\fontawesome\FA;
-
-
 use yii\web\AssetBundle;
+use yii\captcha\Captcha;
 
-$this->title = 'Cultravel';
+$this->title = 'Contact';
+
 ?>
 <div class="logo-index-container">
 
@@ -20,21 +20,21 @@ $this->title = 'Cultravel';
     <div class="container-fluid">
         <div class="ct-ms-row">
             <div class="col- col-sm-7 col-md-auto col-{breakpoint}-auto">
-                <div>
-                    <h2>Como nos pode contactar?</h2>
-                    <p>Para entrar em contacto conosco basta enviar-nos um email.</p>
-                    <form action="/action_page.php">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" placeholder="Teu nome..">
-                        <label for="email">Email</label>
-                        <input type="text" id="email" name="email" placeholder="exemplo@mail.com">
-                        <label for="assunto">Assunto</label>
-                        <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem">
-                        <label for="subject">Mensagem</label>
-                        <textarea id="mensagem" name="mensagem" placeholder="Messagem que deseja enviar .." style="height:170px"></textarea>
-                        <input type="submit" value="Enviar">
-                    </form>
+                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+
+                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+
+                <?= $form->field($model, 'email') ?>
+
+                <?= $form->field($model, 'subject') ?>
+
+                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                 </div>
+
+                <?php ActiveForm::end(); ?>
             </div>
             <div class="col- col-sm-5 col-md-auto col-{breakpoint}-auto">
                 <div>

@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id_localidade
  * @property string $nomeLocalidade
+ *
+ * @property Pontosturisticos[] $pontosturisticos
  */
 class Localidade extends \yii\db\ActiveRecord
 {
@@ -38,7 +40,17 @@ class Localidade extends \yii\db\ActiveRecord
     {
         return [
             'id_localidade' => 'Id Localidade',
-            'nomeLocalidade' => 'Localidade',
+            'nomeLocalidade' => 'Nome Localidade',
         ];
+    }
+
+    /**
+     * Gets query for [[Pontosturisticos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPontosturisticos()
+    {
+        return $this->hasMany(Pontosturisticos::className(), ['localidade_idLocalidade' => 'id_localidade']);
     }
 }

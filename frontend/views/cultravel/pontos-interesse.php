@@ -3,6 +3,18 @@ use yii\helpers\Html;
 ?>
 
 <div class="pontos-interesse-container">
+    <table style="width:50%">
+        <tr>
+            <th>Id Comentário</th>
+            <th>Content</th>
+            <th>Email</th>
+        </tr>
+        <tr>0
+            <?php
+            \yii\helpers\VarDumper::dump($dataProvider);
+            ?>
+        </tr>
+    </table>
     <div class="card-pontos-interesse">
         <?= Html::img('@web/castelo-de-leiria.jpg', ['class' => 'img-pi-card']); ?>
             <h5>Castelo de Leiria</h5>

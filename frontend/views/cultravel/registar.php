@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 use rmrevin\yii\fontawesome\FA;
 use yii\web\AssetBundle;
 
@@ -18,14 +19,15 @@ use yii\web\AssetBundle;
         <?php $form = ActiveForm::begin()?>
 
             <?php
-            echo $form->field($modelprofile, 'primeiroNome', ['options' => ['class' => 'label-login']])->hint('Introduza o nome')->textInput(['autofocus' => true]);
-            echo $form->field($modelprofile, 'ultimoNome', ['options' => ['class' => 'label-login']])->hint('Introduza o apelido');
-            echo $form->field($modelprofile, 'dtaNascimento', ['options' => ['class' => 'label-login']])->hint('Introduza a data de nascimento');
-            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Introduza a palavra-passe');
-            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Confirme a palavra-passe');
-            echo $form->field($modelprofile, 'morada', ['options' => ['class' => 'label-login']])->hint('Introduza a morada');
-            echo $form->field($modelprofile, 'localidade', ['options' => ['class' => 'label-login']])->hint('Introduza a localidade');
-            echo $form->field($modelprofile, 'sexo[]', ['options' => ['class' => 'label-login']])->checkboxList(['a' => 'Masculino', 'b' => 'Feminino'])->hint('Escolha o sexo');?>
+            echo $form->field($model, 'primeiroNome', ['options' => ['class' => 'label-login']])->hint('Introduza o nome')->textInput(['autofocus' => true]);
+            echo $form->field($model, 'ultimoNome', ['options' => ['class' => 'label-login']])->hint('Introduza o apelido');
+            echo $form->field($model, 'email', ['options' => ['class' => 'label-login']])->hint('Introduza o email');
+            echo $form->field($model, 'dtaNascimento')->textInput();
+            echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Introduza a palavra-passe');
+            /*echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Confirme a palavra-passe');*/
+            echo $form->field($model, 'morada', ['options' => ['class' => 'label-login']])->hint('Introduza a morada');
+            echo $form->field($model, 'localidade', ['options' => ['class' => 'label-login']])->hint('Introduza a localidade');
+            /*echo $form->field($model, 'sexo[]', ['options' => ['class' => 'label-login']])->checkboxList(['a' => 'Masculino', 'b' => 'Feminino'])->hint('Escolha o sexo');*/?>
 
         <div class="form-group">
         <?php

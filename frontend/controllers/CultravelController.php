@@ -10,6 +10,7 @@ use app\models\Tipomonumento;
 use common\models\User;
 use app\models\Userprofile;
 use frontend\models\ContactForm;
+use frontend\models\SignupForm;
 use Yii;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -77,20 +78,30 @@ class CultravelController extends Controller
 
     public function actionRegistar()
     {
-        $model = new User();
+        /*$model = new User();
         $modelprofile = new Userprofile();
 
         if ($model->load(Yii::$app->request->post())) {
 
-            return $this->render('favoritos');
+            return $this->render('login');
 
         } else if ($modelprofile->load(Yii::$app->request->post())) {
 
-            return $this->render('favoritos');
+            return $this->render('login');
         }
         return $this->render('registar', [
             'model' => $model,
             'modelprofile' => $modelprofile
+        ]);*/
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            if($model->save());
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->render('login');
+        }
+
+        return $this->render('registar', [
+            'model' => $model,
         ]);
     }
 

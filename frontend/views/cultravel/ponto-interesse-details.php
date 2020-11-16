@@ -45,7 +45,7 @@ use rmrevin\yii\fontawesome\FA;
                     <p class="details-pt-title">Rating</p>
                     <p class="details-pt">
                         <span class="fa fa-star checked"></span>
-                        4.5/5
+                        <?=$ratingMonumento?>/5
                     </p>
             </div>
         </div>

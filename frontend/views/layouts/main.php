@@ -41,15 +41,13 @@ AppAsset::register($this);
         ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
         ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
         ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
-        ['label' => 'PI', 'url' => ['/cultravel/pontos-interesse']],
-        ['label' => 'PI Details', 'url' => ['/cultravel/ponto-interesse-details']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItemsUser[] = ['label' => 'Signup', 'url' => ['/cultravel/registar']];
         $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];
     } else {
         $menuItemsUser[] = '<li>'
-            . Html::beginForm(['/registar/logout'], 'post')
+            . Html::beginForm(['/cultravel/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']

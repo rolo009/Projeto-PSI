@@ -21,8 +21,9 @@ use yii\web\AssetBundle;
             <?php
             echo $form->field($model, 'primeiroNome', ['options' => ['class' => 'label-login']])->hint('Introduza o nome')->textInput(['autofocus' => true]);
             echo $form->field($model, 'ultimoNome', ['options' => ['class' => 'label-login']])->hint('Introduza o apelido');
+            echo $form->field($model, 'username', ['options' => ['class' => 'label-login']])->hint('Introduza o username');
             echo $form->field($model, 'email', ['options' => ['class' => 'label-login']])->hint('Introduza o email');
-            echo $form->field($model, 'dtaNascimento')->textInput();
+            /*echo $form->field($model, 'dtaNascimento')->textInput();*/
             echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Introduza a palavra-passe');
             /*echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Confirme a palavra-passe');*/
             echo $form->field($model, 'morada', ['options' => ['class' => 'label-login']])->hint('Introduza a morada');

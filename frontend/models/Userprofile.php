@@ -31,7 +31,7 @@ class Userprofile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['primeiroNome', 'ultimoNome', 'dtaNascimento', 'morada', 'localidade', 'sexo', 'id_user_rbac'], 'required'],
+            [['primeiroNome', 'ultimoNome'/*, 'dtaNascimento'*/, 'morada', 'localidade', 'sexo', 'id_user_rbac'], 'required'],
             [['dtaNascimento'], 'safe'],
             [['id_user_rbac'], 'integer'],
             [['primeiroNome', 'ultimoNome', 'morada', 'localidade', 'sexo'], 'string', 'max' => 255],

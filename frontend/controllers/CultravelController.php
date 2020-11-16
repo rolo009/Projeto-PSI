@@ -6,7 +6,10 @@ use app\models\Estiloconstrucao;
 use app\models\Favoritos;
 use app\models\Localidade;
 use app\models\Pontosturisticos;
+use app\models\Ratings;
 use app\models\Tipomonumento;
+use app\models\Visitados;
+use common\models\LoginForm;
 use common\models\User;
 use app\models\Userprofile;
 use frontend\models\ContactForm;
@@ -51,9 +54,13 @@ class CultravelController extends Controller
         ]);
     }
 
-    public function actionVisitados()
+    public function actionVisitados($idUser)
     {
-        return $this->render('visitados');
+        $visitados = Visitados::findAll(['user_idUtilizador	' => $idUser]);
+
+        return $this->render('visitados', [
+            'visitados' => $visitados,
+        ]);
     }
 
     public function actionContactos()
@@ -78,27 +85,16 @@ class CultravelController extends Controller
 
     public function actionRegistar()
     {
-        /*$model = new User();
-        $modelprofile = new Userprofile();
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            return $this->render('login');
-
-        } else if ($modelprofile->load(Yii::$app->request->post())) {
-
-            return $this->render('login');
-        }
-        return $this->render('registar', [
-            'model' => $model,
-            'modelprofile' => $modelprofile
-        ]);*/
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            if($model->save());
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->render('login');
+            return $this->actionLogin();
         }
+        else {
+            VarDumper::dump($model->signup());
+            echo 'ERROR';
+        }
+
 
         return $this->render('registar', [
             'model' => $model,
@@ -108,14 +104,24 @@ class CultravelController extends Controller
 
     public function actionLogin()
     {
-        $model = new User();
-        if ($model->load(Yii::$app->request->post())) {
 
-            return $this->render('favoritos');
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->actionIndex();
+        } else {
+            $model->password = '';
+
+            return $this->render('login', [
+                'model' => $model,
+            ]);
         }
-        return $this->render('login', [
-            'model' => $model
-        ]);
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->actionIndex();
     }
 
     public function actionPontosInteresse()
@@ -129,12 +135,26 @@ class CultravelController extends Controller
         $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
         $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
+        $ratings = Ratings::findAll(['pt_idPontoTuristico' =>$id]);
+        $mediaRatings = $this->mediaRatings($ratings);
         return $this->render('ponto-interesse-details', [
             'pontoTuristico' => $pontoTuristico,
             'tipoMonumento' => $tipoMonumento,
             'localidadeMonumento' => $localidadeMonumento,
             'estiloMonumento' => $estiloConstrucao,
+            'ratingMonumento' => $mediaRatings,
         ]);
+    }
+
+    public function mediaRatings($ratings){
+        $somaRatings = 0;
+        /*
+        foreach ($ratings as $rating) {
+            $somaRatings = $somaRatings = $rating->classificacao;
+        }
+        $mediaRatings = $somaRatings/count($ratings);*/
+        $mediaRatings1 = 4;
+        return $mediaRatings1;
     }
 
 }

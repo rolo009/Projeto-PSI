@@ -64,6 +64,17 @@ class CultravelController extends Controller
         ]);
     }
 
+    public function actionEditarRegisto()
+    {
+        $idUser = Yii::$app->user->getId();
+
+        $registados = Registados::find()->where(['user_utilizador' => $idUser])->all();
+
+        return $this->render('registados', [
+            'registados' => $registados,
+        ]);
+    }
+
     public function actionVisitados()
     {
         $idUser = Yii::$app->user->getId();
@@ -98,16 +109,15 @@ class CultravelController extends Controller
     public function actionRegistar()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->actionLogin();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->password == $model->confirmPassword) {
+                $model->signup();
+                Yii::$app->session->setFlash('success', 'Bem vindo à Cultravel, '.$model->primeiroNome .' '.$model->ultimoNome.'!');
+                return $this->actionLogin();
+            } else {
+                Yii::$app->session->setFlash('error', 'Palavras-passe não coicidem!');
+            }
         }
-        else {
-            VarDumper::dump($model->signup());
-            echo 'ERROR';
-        }
-
-
         return $this->render('registar', [
             'model' => $model,
         ]);
@@ -123,8 +133,7 @@ class CultravelController extends Controller
             if ($session->isActive) {
                 $userId = User::findOne(['email' => $model->email]);
                 $session->set('userId', $userId->id);
-            }
-            else{
+            } else {
                 $session->open();
                 $userId = User::findOne(['email' => $model->email]);
                 $session->set('userId', $userId->id);
@@ -158,7 +167,7 @@ class CultravelController extends Controller
         $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
         $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
-        $ratings = Ratings::findAll(['pt_idPontoTuristico' =>$id]);
+        $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
         $mediaRatings = $this->mediaRatings($ratings);
         return $this->render('ponto-interesse-details', [
             'pontoTuristico' => $pontoTuristico,
@@ -169,7 +178,8 @@ class CultravelController extends Controller
         ]);
     }
 
-    public function mediaRatings($ratings){
+    public function mediaRatings($ratings)
+    {
         $somaRatings = 0;
         /*
         foreach ($ratings as $rating) {

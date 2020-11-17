@@ -25,7 +25,7 @@ use yii\web\AssetBundle;
             echo $form->field($model, 'email', ['options' => ['class' => 'label-login']])->hint('Introduza o email');
             echo $form->field($model, 'dtaNascimento', ['options' => ['class' => 'label-registo']])->widget(\yii\jui\DatePicker::className(), ['dateFormat' => 'yyyy-MM-dd']);
             echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Introduza a palavra-passe');
-            /*echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Confirme a palavra-passe');*/
+            echo $form->field($model, 'confirmPassword', ['options' => ['class' => 'label-login']])->passwordInput()->hint('Confirme a palavra-passe');
             echo $form->field($model, 'morada', ['options' => ['class' => 'label-login']])->hint('Introduza a morada');
             echo $form->field($model, 'localidade', ['options' => ['class' => 'label-login']])->hint('Introduza a localidade');
             /*echo $form->field($model, 'sexo[]', ['options' => ['class' => 'label-login']])->checkboxList(['a' => 'Masculino', 'b' => 'Feminino'])->hint('Escolha o sexo');*/?>

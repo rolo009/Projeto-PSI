@@ -15,6 +15,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $confirmPassword;
     public $primeiroNome;
     public $ultimoNome;
     public $dtaNascimento;
@@ -42,6 +43,9 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['confirmPassword', 'required'],
+            ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
 
             ['primeiroNome', 'required'],
             ['primeiroNome', 'string', 'max' => 255],

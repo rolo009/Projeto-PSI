@@ -49,9 +49,9 @@ class SignupForm extends Model
             ['ultimoNome', 'required'],
             ['ultimoNome', 'string', 'max' => 255],
 
-            /*['dtaNascimento', 'required'],
+            ['dtaNascimento', 'required'],
             ['dtaNascimento', 'safe'],
-            ['dtaNascimento', 'date', 'format' => 'd-M-yyyy'],*/
+            ['dtaNascimento', 'date', 'format' => 'yyyy-MM-dd'],
 
             ['morada', 'required'],
             ['morada', 'string', 'max' => 255],
@@ -84,7 +84,7 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
         $userProfile->primeiroNome = $this->primeiroNome;
         $userProfile->ultimoNome = $this->ultimoNome;
-        /*$userProfile->dtaNascimento = $this->dtaNascimento;*/
+        $userProfile->dtaNascimento = $this->dtaNascimento;
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
         $userProfile->sexo = 'Masculino';

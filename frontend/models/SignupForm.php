@@ -50,8 +50,7 @@ class SignupForm extends Model
             ['ultimoNome', 'string', 'max' => 255],
 
             ['dtaNascimento', 'required'],
-            ['dtaNascimento', 'safe'],
-            ['dtaNascimento', 'date', 'format' => 'd-M-yyyy'],
+            ['dtaNascimento', 'date'],
 
             ['morada', 'required'],
             ['morada', 'string', 'max' => 255],

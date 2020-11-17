@@ -95,7 +95,6 @@ class CultravelController extends Controller
         ]);*/
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            if($model->save());
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->render('login');
         }

@@ -59,7 +59,15 @@ a:hover{
     background-color: gray !important;
 }
 
-/* ----------------------------Index---------------------------*/
+.logout{
+    color: white;
+}
+
+.nav li > form > button.logout:hover{
+    text-decoration: none;
+}
+
+/* ----------------------------------------Index---------------------------------------*/
 
 .logo-index-container{
     margin-top: 3%;

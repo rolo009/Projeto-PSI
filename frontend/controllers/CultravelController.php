@@ -18,6 +18,7 @@ use Yii;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use \yii\db\Query;
+use yii\web\Session;
 
 
 /**
@@ -25,6 +26,7 @@ use \yii\db\Query;
  */
 class CultravelController extends Controller
 {
+
     public function actionIndex()
     {
         $model = new Localidade();
@@ -45,18 +47,28 @@ class CultravelController extends Controller
         ]);
     }
 
-    public function actionFavoritos($idUser)
+    public function actionFavoritos()
     {
-        $favoritos = Favoritos::findAll(['user_idUtilizador	' => $idUser]);
+        $idUser = Yii::$app->user->getId();
 
+        $favoritos = Pontosturisticos::find()
+            ->select('pontosturisticos.*')
+            ->from('pontosturisticos')
+            ->leftJoin('favoritos', 'pontosturisticos.id_pontoTuristico = favoritos.pt_idPontoTuristico')
+            ->where(['favoritos.pt_idPontoTuristico' => $idUser])
+            ->all();
+
+        VarDumper::dump($favoritos);
         return $this->render('favoritos', [
             'favoritos' => $favoritos,
         ]);
     }
 
-    public function actionVisitados($idUser)
+    public function actionVisitados()
     {
-        $visitados = Visitados::findAll(['user_idUtilizador	' => $idUser]);
+        $idUser = Yii::$app->user->getId();
+
+        $visitados = Visitados::find()->where(['user_idUtilizador' => $idUser])->all();
 
         return $this->render('visitados', [
             'visitados' => $visitados,
@@ -107,6 +119,17 @@ class CultravelController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $session = Yii::$app->session;
+            if ($session->isActive) {
+                $userId = User::findOne(['email' => $model->email]);
+                $session->set('userId', $userId->id);
+            }
+            else{
+                $session->open();
+                $userId = User::findOne(['email' => $model->email]);
+                $session->set('userId', $userId->id);
+            }
+
             return $this->actionIndex();
         } else {
             $model->password = '';

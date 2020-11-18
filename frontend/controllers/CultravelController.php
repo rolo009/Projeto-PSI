@@ -70,7 +70,7 @@ class CultravelController extends Controller
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', 'Obrigado por nos contactar. Iremos responder o mais rapido possivel.');
             } else {
-                Yii::$app->session->setFlash('error', 'Ocorreu um erro a enviar a sua mensagem.');
+                Yii::$app->session->setFlash('error', 'Ocorreu um erro, a enviar a sua mensagem.');
             }
             return $this->refresh();
         } else {

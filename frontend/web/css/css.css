@@ -63,8 +63,9 @@ a:hover{
     color: white;
 }
 
-.nav li > form > button.logout:hover{
+.nav li > form > button.logout:hover {
     text-decoration: none;
+    color: white !important;
 }
 
 /* ----------------------------------------Index---------------------------------------*/
@@ -344,6 +345,12 @@ a:hover{
     .details-pt {
         font-size: 14px;
     }
+}
+
+/* ----------------------------Registar---------------------------*/
+.alert-success {
+    margin-top: -70px !important;
+    margin-bottom: 40px;
 }
 /* ----------------------------Comuns---------------------------*/
 

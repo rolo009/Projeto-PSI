@@ -3,9 +3,17 @@
     color: white;
     text-align: left;
 }
+.label-registo{
+    color: black;
+    text-align: left;
+}
 
 
 /*Registo*/
+.label-registo{
+    color: white;
+    text-align: left;
+}
 .registo-container{
     justify-content: center;
     text-align: center;
@@ -81,4 +89,8 @@
     .editar-info{
         font-size: 25px;
     }
+}
+
+.flash-login{
+    margin-top: 0px;
 }

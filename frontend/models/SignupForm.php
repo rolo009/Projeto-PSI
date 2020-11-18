@@ -15,6 +15,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $confirmPassword;
     public $primeiroNome;
     public $ultimoNome;
     public $dtaNascimento;
@@ -43,15 +44,18 @@ class SignupForm extends Model
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
 
+            ['confirmPassword', 'required'],
+            ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
             ['primeiroNome', 'required'],
             ['primeiroNome', 'string', 'max' => 255],
 
             ['ultimoNome', 'required'],
             ['ultimoNome', 'string', 'max' => 255],
 
-            /*['dtaNascimento', 'required'],
+            ['dtaNascimento', 'required'],
             ['dtaNascimento', 'safe'],
-            ['dtaNascimento', 'date', 'format' => 'd-M-yyyy'],*/
+            ['dtaNascimento', 'date', 'format' => 'yyyy-MM-dd'],
 
             ['morada', 'required'],
             ['morada', 'string', 'max' => 255],
@@ -84,7 +88,7 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
         $userProfile->primeiroNome = $this->primeiroNome;
         $userProfile->ultimoNome = $this->ultimoNome;
-        /*$userProfile->dtaNascimento = $this->dtaNascimento;*/
+        $userProfile->dtaNascimento = $this->dtaNascimento;
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
         $userProfile->sexo = 'Masculino';

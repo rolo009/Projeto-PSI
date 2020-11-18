@@ -4,7 +4,16 @@ use yii\widgets\ActiveForm;
 use rmrevin\yii\fontawesome\FA;
 use yii\web\AssetBundle;
 
+if (Yii::$app->session->hasFlash('success'))
+{
+    ?>
+<div class="flash-login">
+    <?= Yii::$app->session->getFlash('success'); ?>
+</div>
+<?php
+}
 ?>
+
 <div class="login-container">
 
     <?= Html::img('@web/seta-logo.png', ['class' => 'logo-login']); ?>

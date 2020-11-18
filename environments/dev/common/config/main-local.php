@@ -20,7 +20,7 @@ return [
                 'encryption' => 'tls',
                 'host' => 'smtp.gmail.com',
                 'port' => '587',
-                'username' => 'Lúcifer',
+                'username' => 'Lúcifer ',
                 'password' => 'grupo7123',
                 ],
         ],

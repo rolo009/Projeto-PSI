@@ -6,6 +6,8 @@ use yii\helpers\Html;
 ?>
 
 <div class="favourite-container">
+    <?php
+    foreach ($favoritos as $favorito) { ?>
     <div class="card favourite-ponto-interesse">
         <div class="favorite-header">
             <table style="width:100%">
@@ -13,6 +15,7 @@ use yii\helpers\Html;
                     <th>
                         <h4 class="localidade-pi-container">
                             Leiria
+                            <?php /* $favorito->nom;*/?>
                         </h4>
                     </th>
                     <th>
@@ -39,4 +42,7 @@ use yii\helpers\Html;
             </table>
         </div>
     </div>
+    <?php
+    }
+    ?>
 </div>

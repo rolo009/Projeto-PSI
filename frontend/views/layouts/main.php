@@ -35,13 +35,23 @@ AppAsset::register($this);
             'class' => 'menu-style navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/cultravel/index']],
-        ['label' => 'Favoritos', 'url' => ['/cultravel/favoritos']],
-        ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
-        ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
-        ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
-    ];
+    if(Yii::$app->user->isGuest){
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/cultravel/index']],
+            ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
+            ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
+        ];
+    }
+    else{
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/cultravel/index']],
+            ['label' => 'Favoritos', 'url' => ['/cultravel/favoritos']],
+            ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
+            ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
+            ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
+        ];
+    }
+
     if (Yii::$app->user->isGuest) {
         $menuItemsUser[] = ['label' => 'Signup', 'url' => ['/cultravel/registar']];
         $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];

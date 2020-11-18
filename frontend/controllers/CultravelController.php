@@ -79,7 +79,11 @@ class CultravelController extends Controller
     {
         $idUser = Yii::$app->user->getId();
 
-        $visitados = Visitados::find()->where(['user_idUtilizador' => $idUser])->all();
+        $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
+        VarDumper::dump($visitados);
+        /*
+                $pontosTuristicos = Pontosturisticos::findAll(["id_pontoTuristico" => $visitados->pt_idPontoTuristico]);
+                $locaisVisitados = Localidade::findAll(["id_localidade" => $visitados->pt_idPontoTuristico]);*/
 
         return $this->render('visitados', [
             'visitados' => $visitados,

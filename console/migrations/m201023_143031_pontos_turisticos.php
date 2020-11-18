@@ -29,7 +29,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'id_pontoTuristico' => $this->primaryKey(),
             'nome' => $this->string()->notNull()->notNull(),
             'anoConstrucao' => $this->string()->notNull(),
-            'descricao' => $this->string()->notNull()->notNull(),
+            'descricao' => $this->string(6000)->notNull()->notNull(),
             'foto' => $this->string()->notNull(),
             'tm_idTipoMonumento' => $this->integer()->notNull(),
             'ec_idEstiloConstrucao' => $this->integer()->notNull(),

@@ -27,6 +27,7 @@ class m201023_141002_user_profile extends Migration
     public function up()
     {
         $this->createTable('userProfile', [
+            'id_userProfile' => $this->primaryKey(),
             'primeiroNome' => $this->string()->notNull(),
             'ultimoNome' => $this->string()->notNull(),
             'dtaNascimento' => $this->date()->notNull(),

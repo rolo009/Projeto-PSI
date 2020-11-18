@@ -10,6 +10,10 @@
 
 
 /*Registo*/
+.label-registo{
+    color: white;
+    text-align: left;
+}
 .registo-container{
     justify-content: center;
     text-align: center;

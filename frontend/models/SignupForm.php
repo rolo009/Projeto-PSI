@@ -21,7 +21,7 @@ class SignupForm extends Model
     public $dtaNascimento;
     public $morada;
     public $localidade;
-    //public $sexo;
+    public $sexo;
 
 
     /**
@@ -63,7 +63,7 @@ class SignupForm extends Model
             ['localidade', 'required'],
             ['localidade', 'string', 'max' => 255],
 
-            //['$sexo', 'string', 'max' => 255],
+            ['sexo', 'string', 'max' => 255],
         ];
     }
 
@@ -91,7 +91,7 @@ class SignupForm extends Model
         $userProfile->dtaNascimento = $this->dtaNascimento;
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
-        $userProfile->sexo = 'Masculino';
+        $userProfile->sexo = $this->sexo;
         $userProfile->id_user_rbac = 1;
 
         return $user->save() && $this->sendEmail($user) && $userProfile->save();

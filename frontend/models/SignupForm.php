@@ -93,8 +93,14 @@ class SignupForm extends Model
         $userProfile->localidade = $this->localidade;
         $userProfile->sexo = 'Masculino';
         $userProfile->id_user_rbac = 1;
+        $user->save();
+        $userProfile->save();
 
-        return $user->save() && $this->sendEmail($user) && $userProfile->save();
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('admin');
+        $auth->assign($authorRole, $user->getId());
+
+        return $this->sendEmail($user);
 
     }
 

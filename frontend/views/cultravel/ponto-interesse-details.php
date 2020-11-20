@@ -1,6 +1,8 @@
 <?php
 
 use rmrevin\yii\fontawesome\FA;
+use yii\helpers\Html;
+
 
 ?>
 
@@ -30,7 +32,7 @@ use rmrevin\yii\fontawesome\FA;
                                     </div>
                             </h5>
                         </div>
-                        <img class="card-img-top" src="castelo-de-leiria.jpg" alt="Img-PT">
+                        <?=Html::img('@web/'.$pontoTuristico -> foto, ['class' => 'card-img-top']); ?>
                     </div>
             </div>
             <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 info-pt">

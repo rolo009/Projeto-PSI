@@ -36,11 +36,7 @@ class m201023_143031_pontos_turisticos extends Migration
             'localidade_idLocalidade' => $this->integer()->notNull(),
         ]);
 
-        $this->createIndex(
-            'idx-pontosTuristicos-tm_idTipoMonumento',
-            'pontosTuristicos',
-            'tm_idTipoMonumento'
-        );
+
 /*
         $this->addForeignKey(
             'fk-tipoMonumento-idTipoMonumento',

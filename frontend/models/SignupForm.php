@@ -96,7 +96,13 @@ class SignupForm extends Model
         $user->save();
         $userProfile->id_user_rbac = $user->getId();
 
-        return $this->sendEmail($user) && $userProfile->save();
+        $userProfile->save();
+
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('admin');
+        $auth->assign($authorRole, $user->getId());
+
+        return $this->sendEmail($user);
 
     }
 

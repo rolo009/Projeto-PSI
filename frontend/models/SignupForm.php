@@ -63,6 +63,7 @@ class SignupForm extends Model
             ['localidade', 'required'],
             ['localidade', 'string', 'max' => 255],
 
+            ['sexo', 'required'],
             ['sexo', 'string', 'max' => 255],
         ];
     }
@@ -92,9 +93,16 @@ class SignupForm extends Model
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
         $userProfile->sexo = $this->sexo;
-        $userProfile->id_user_rbac = 1;
+        $user->save();
+        $userProfile->id_user_rbac = $user->getId();
 
-        return $user->save() && $this->sendEmail($user) && $userProfile->save();
+        $userProfile->save();
+
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('admin');
+        $auth->assign($authorRole, $user->getId());
+
+        return $this->sendEmail($user);
 
     }
 

@@ -23,25 +23,25 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body id="index-background">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => "Cultravel",
+        'brandUrl' => ['/cultravel/index'],
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'menu-style navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Home', 'url' => ['/cultravel/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];
     } else {
-        $menuItems[] = '<li>'
+        $menuItemsUser[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
@@ -51,8 +51,12 @@ AppAsset::register($this);
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItems,
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItemsUser,
     ]);
     NavBar::end();
     ?>
@@ -65,6 +69,8 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+<?php
+/*
 
 <footer class="footer">
     <div class="container">
@@ -73,6 +79,9 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+
+*/
+?>
 
 <?php $this->endBody() ?>
 </body>

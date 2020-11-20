@@ -9,6 +9,7 @@ use app\models\Pontosturisticos;
 use app\models\Ratings;
 use app\models\Tipomonumento;
 use app\models\Visitados;
+use Codeception\Coverage\Subscriber\Local;
 use common\models\LoginForm;
 use common\models\User;
 use app\models\Userprofile;
@@ -51,14 +52,14 @@ class CultravelController extends Controller
     {
         $idUser = Yii::$app->user->getId();
 
-        $pontosTuristicos = Pontosturisticos::find()->all();
-        foreach ($pontosTuristicos as $pontosTuristico) {
-            $favoritos = $pontosTuristico->getFavoritos()
-                ->where(['user_idUtilizador' => $idUser]);
+        $favoritos = Favoritos::findAll(['user_idUtilizador' => $idUser]);
+
+        foreach ($favoritos as $favorito) {
+            $ptFavoritos[] = $favorito->getPtIdPontoTuristico()->all();
         }
-        VarDumper::dump($favoritos);
+
         return $this->render('favoritos', [
-            'favoritos' => $favoritos,
+            'ptFavoritos' => $ptFavoritos,
         ]);
     }
 

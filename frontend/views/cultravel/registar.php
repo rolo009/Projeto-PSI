@@ -28,7 +28,7 @@ use yii\web\AssetBundle;
             echo $form->field($model, 'confirmPassword', ['options' => ['class' => 'label-registo']])->label("Confirmar Palavra Passe")->passwordInput();
             echo $form->field($model, 'morada', ['options' => ['class' => 'label-registo']])->label("Morada");
             echo $form->field($model, 'localidade', ['options' => ['class' => 'label-registo']])->label("Localidade");
-            /*echo $form->field($model, 'sexo[]', ['options' => ['class' => 'label-registo']])->checkboxList(['a' => 'Masculino', 'b' => 'Feminino'])->label("Sexo");*/?>
+            echo $form->field($model, 'sexo', ['options' => ['class' => 'label-registo']])->radioList( ['Masculino'=>'Masculino', 'Feminino' => 'Feminino'] )->label("Sexo");?>
 
         <div class="form-group">
         <?php

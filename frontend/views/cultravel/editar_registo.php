@@ -19,14 +19,15 @@ use yii\web\AssetBundle;
             <?php $form = ActiveForm::begin()?>
 
             <?php
-            echo $form->field($modelprofile, 'primeiroNome', ['options' => ['class' => 'label-login']])->textInput(['autofocus' => true]);
-            echo $form->field($modelprofile, 'ultimoNome', ['options' => ['class' => 'label-login']]);
-            echo $form->field($modelprofile, 'dtaNascimento', ['options' => ['class' => 'label-login']]);
-            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput();
-            echo $form->field($model, 'password_hash', ['options' => ['class' => 'label-login']])->passwordInput();
-            echo $form->field($modelprofile, 'morada', ['options' => ['class' => 'label-login']]);
-            echo $form->field($modelprofile, 'localidade', ['options' => ['class' => 'label-login']]);
-            echo $form->field($modelprofile, 'sexo', ['options' => ['class' => 'label-login']])->checkbox();?>
+            echo $form->field($model, 'primeiroNome', ['options' => ['class' => 'label-registo']])->textInput(['autofocus' => true]);
+            echo $form->field($model, 'ultimoNome', ['options' => ['class' => 'label-registo']])->label("Último Nome");
+            echo $form->field($model, 'username', ['options' => ['class' => 'label-registo']])->label("Nome de Utilizador");
+            echo $form->field($model, 'email', ['options' => ['class' => 'label-registo']])->label("Email");
+            echo $form->field($model, 'dtaNascimento', ['options' => ['class' => 'label-registo']])->label("Data de Nascimento")->widget(\yii\jui\DatePicker::className(), ['dateFormat' => 'yyyy-MM-dd']);
+            echo $form->field($model, 'password', ['options' => ['class' => 'label-registo']])->label("Palavra Passe")->passwordInput();
+            echo $form->field($model, 'confirmPassword', ['options' => ['class' => 'label-registo']])->label("Confirmar Palavra Passe")->passwordInput();
+            echo $form->field($model, 'morada', ['options' => ['class' => 'label-registo']])->label("Morada");
+            echo $form->field($model, 'localidade', ['options' => ['class' => 'label-registo']])->label("Localidade"); ?>
 
             <div class="form-group">
                 <?php

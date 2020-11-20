@@ -29,7 +29,7 @@ if (Yii::$app->session->hasFlash('success'))
             <?php
             echo $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
             <?php
-             echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
+            echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
 
             <div style="color:#999;margin:1em 0">
                 <?= Html::a('Esqueceu-se da palavra-passe?', ['site/request-password-reset']) ?>.

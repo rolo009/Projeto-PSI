@@ -12,6 +12,7 @@ use rmrevin\yii\fontawesome\FA;
     <div class="row">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <a href="cultravel/utilizadores" class="btn card-definicoes-admin">
+                <span class="fa fa-star checked"></span>
                 GERIR UTILIZADORES
             </a>
         </div>

@@ -99,7 +99,7 @@ class SignupForm extends Model
         $userProfile->save();
 
         $auth = \Yii::$app->authManager;
-        $authorRole = $auth->getRole('admin');
+        $authorRole = $auth->getRole('user');
         $auth->assign($authorRole, $user->getId());
 
         return $this->sendEmail($user);

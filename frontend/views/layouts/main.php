@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' =>  "Cultravel",
+        'brandLabel' =>  "CULTRAVEL",
         'brandUrl' => ['/cultravel/index'],
         'options' => [
             'class' => 'menu-style navbar-fixed-top',
@@ -44,22 +44,22 @@ AppAsset::register($this);
     }
     else{
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/cultravel/index']],
-            ['label' => 'Favoritos', 'url' => ['/cultravel/favoritos']],
-            ['label' => 'Visitados', 'url' => ['/cultravel/visitados']],
-            ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
-            ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
+            ['label' => 'HOME', 'url' => ['/cultravel/index']],
+            ['label' => 'FAVORITOS', 'url' => ['/cultravel/favoritos']],
+            ['label' => 'VISITADOS', 'url' => ['/cultravel/visitados']],
+            ['label' => 'CONTACTOS', 'url' => ['/cultravel/contactos']],
+            ['label' => 'SOBRE NÓS', 'url' => ['/cultravel/sobre-nos']],
         ];
     }
 
     if (Yii::$app->user->isGuest) {
-        $menuItemsUser[] = ['label' => 'Signup', 'url' => ['/cultravel/registar']];
-        $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];
+        $menuItemsUser[] = ['label' => 'REGISTAR', 'url' => ['/cultravel/registar']];
+        $menuItemsUser[] = ['label' => 'INICIAR SESSÃO', 'url' => ['/cultravel/login']];
     } else {
         $menuItemsUser[] = '<li>'
             . Html::beginForm(['/cultravel/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'TERMINAR SESSÃO (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

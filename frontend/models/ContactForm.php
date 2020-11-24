@@ -20,13 +20,17 @@ class ContactForm extends Model
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return 'contact';
+    }
     public function rules()
     {
         return [
             // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
-            ['email', 'email'],
+            [['email', 'email'], 'required'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
@@ -40,6 +44,11 @@ class ContactForm extends Model
         return [
             'verifyCode' => 'Verification Code',
         ];
+    }
+
+    public function save(){
+
+
     }
 
     /**

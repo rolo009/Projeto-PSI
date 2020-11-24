@@ -120,7 +120,14 @@ class CultravelController extends Controller
     {
 
         $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('Foi registada a sua mensagem, iremos responder o mais rapido possivel.');
+            return $this->render('contactos', [
+                'model' => $model,
+            ]);
+        } else
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', 'Obrigado por nos contactar. Iremos responder o mais rapido possivel.');
             } else {

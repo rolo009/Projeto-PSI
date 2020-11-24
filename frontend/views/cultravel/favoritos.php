@@ -30,13 +30,13 @@ $i = 0;
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="nome-pi-container">
-                        <?php /* echo $ptLocalidades[$i]->nomeLocalidade; */
+                        <?php  echo $ptLocalidades[$i]->nomeLocalidade;
                         ?>
                     </div>
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                     <div class="btn-pi">
-                        <?= Html::a(''.FA::icon("angle-double-right"), ['cultravel/pontoInteresseDetails'], ['class' => 'btn btn-outline-dark']) ?>
+                        <?= Html::a(''.FA::icon("angle-double-right"), ['cultravel/ponto-interesse-details', 'id' => $ptFavorito->id_pontoTuristico], ['class' => 'btn btn-outline-dark']) ?>
                     </div>
                 </div>
             </div>

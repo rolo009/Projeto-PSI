@@ -4,8 +4,10 @@ namespace backend\controllers;
 
 
 
+use app\models\UserSearch;
 use common\models\LoginForm;
 use Yii;
+use yii\debug\models\search\User;
 
 class CultravelController extends \yii\web\Controller
 {
@@ -47,7 +49,13 @@ class CultravelController extends \yii\web\Controller
 
     public function actionGerirUtilizadores()
     {
-        return $this->render('gerir-utilizadores');
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('gerir-utilizadores', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionMensagens()

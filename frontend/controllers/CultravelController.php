@@ -9,17 +9,13 @@ use app\models\Pontosturisticos;
 use app\models\Ratings;
 use app\models\Tipomonumento;
 use app\models\Visitados;
-use Codeception\Coverage\Subscriber\Local;
 use common\models\LoginForm;
 use common\models\User;
-use app\models\Userprofile;
 use frontend\models\ContactForm;
 use frontend\models\SignupForm;
 use Yii;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
-use \yii\db\Query;
-use yii\web\Session;
 
 
 /**
@@ -199,12 +195,14 @@ class CultravelController extends Controller
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
         $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
         $mediaRatings = $this->mediaRatings($ratings);
+        $rating = new Ratings();
         return $this->render('ponto-interesse-details', [
             'pontoTuristico' => $pontoTuristico,
             'tipoMonumento' => $tipoMonumento,
             'localidadeMonumento' => $localidadeMonumento,
             'estiloMonumento' => $estiloConstrucao,
             'ratingMonumento' => $mediaRatings,
+            'rating' => $rating,
         ]);
     }
 
@@ -246,21 +244,29 @@ class CultravelController extends Controller
         }
     }
 
-    public function AdicionarFavoritos($idPontoTuristico)
+    public function actionAdicionarFavoritos($idPontoTuristico)
     {
 
         $idUser = Yii::$app->user->getId();
 
-        $favoritos = new Favoritos();
+        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $idPontoTuristico]);
 
-        $favoritos->user_idUtilizador = $idUser;
-        $favoritos->ptIdPontoTuristico = $idPontoTuristico;
+        if ($pontoTuristico != null) {
+            $favoritos = new Favoritos();
 
-        $favoritos->save();
+            $favoritos->user_idUtilizador = $idUser;
+            $favoritos->ptIdPontoTuristico = $pontoTuristico->id_pontoTuristico;
 
-        if ($favoritos->save() == true) {
-            Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos favoritos!');
+            $favoritos->save();
+
+            if ($favoritos->save() == true) {
+                Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos favoritos!');
+            }
+        } else {
+            return $this->actionIndex();
         }
+
+
     }
 
     public function RemoverFavoritos($idPontoTuristico)

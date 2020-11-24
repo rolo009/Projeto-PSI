@@ -12,6 +12,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        '//fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap',
         'css/site.css',
         'css/css.css',
         'css/css-mario.css',

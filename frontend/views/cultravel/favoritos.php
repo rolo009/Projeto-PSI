@@ -2,49 +2,47 @@
 
 use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
-
+$i = 0;
 ?>
 
 <div class="favourite-container">
     <?php
-    foreach ($ptFavoritos as $ptFavorito) { ?>
+    foreach ($ptFavoritos as $ptFavorito) {
+            ?>
         <div class="card favourite-ponto-interesse">
             <div class="favorite-header">
-                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <div class="localidade-pi-container">
+                        <?php
+                        echo $ptFavorito->nome
+                        ?>
+                    </div>
                 </div>
-                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                <table style="width:100%">
-                    <tr>
-                        <th>
-                        </th>
-                        <th>
-                            <div class="favourite-options">
-                                <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
-                            </div>
-                        </th>
-                    </tr>
-                </table>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="favourite-options">
+                        <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                    </div>
+                </div>
             </div>
             <div class="favorite-body">
-                <table>
-                    <tr>
-                        <th class="img-pi-favoritos-container">
-                            <?= Html::img('@web/'.$ptFavorito[0]->foto, ['class' => 'img-pi-favoritos']); ?>
-                        </th>
-                        <th class="nome-pi-container">
-                            <?php
-                            echo $ptFavorito[0]->nome
-                            ?>
-                        </th>
-                        <th class="btn-pi">
-                            <a href="#" class="btn btn-outline-dark"><?= FA::icon("angle-double-right") ?></a>
-                        </th>
-                    </tr>
-                </table>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <?= Html::img('@web/' . $ptFavorito->foto, ['class' => 'img-pi-favoritos']); ?>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="nome-pi-container">
+                        <?php  echo $ptLocalidades[$i]->nomeLocalidade;
+                        ?>
+                    </div>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <div class="btn-pi">
+                        <?= Html::a(''.FA::icon("angle-double-right"), ['cultravel/ponto-interesse-details', 'id' => $ptFavorito->id_pontoTuristico], ['class' => 'btn btn-outline-dark']) ?>
+                    </div>
+                </div>
             </div>
         </div>
         <?php
+        $i++;
     }
     ?>
 </div>

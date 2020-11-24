@@ -1,8 +1,9 @@
 <?php
 
+use kartik\rating\StarRating;
 use rmrevin\yii\fontawesome\FA;
+use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-
 
 ?>
 
@@ -19,14 +20,7 @@ use yii\helpers\Html;
                                             <?= $pontoTuristico->nome ?>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pt-details-options">
-                                            <?php
-                                            if (\Yii::$app->user->can('editarPi')) {
-                                                ?>
-                                            <a href="#" class="btn btn-warning"><?= FA::icon("wrench") ?></a>
-                                            <?php
-                                            }
-                                            ?>
-                                            <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                                            <?= Html::a(FA::icon("star"), ['cultravel/adicionar-favoritos', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning']) ?>
                                             <a href="#" class="btn btn-warning"><?= FA::icon("check-circle") ?></a>
                                         </div>
                                     </div>
@@ -48,6 +42,8 @@ use yii\helpers\Html;
                     <p class="details-pt">
                         <span class="fa fa-star checked"></span>
                         <?=$ratingMonumento?>/5
+
+
                     </p>
             </div>
         </div>
@@ -58,7 +54,21 @@ use yii\helpers\Html;
             <h3>Descrição</h3>
             <?=$pontoTuristico->descricao ?>
         </div>
+        <div>
+            <?php
+            $form = ActiveForm::begin();
 
+            echo $form->field($rating, 'classificacao')->widget(StarRating::classname(), [
+                'pluginOptions' => [
+                    'min' => 1,
+                    'max' => 5,
+                    'step' => 1,
+                    'size' => 'lg',
+                ],
+            ]);
+            ?>
+            <?php ActiveForm::end(); ?>
+        </div>
     </div>
 </div>
 

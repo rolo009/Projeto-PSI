@@ -137,16 +137,17 @@ a:hover{
 
 
 .localidade-pi-container{
-    padding: 0 0 0 15%;
+    padding: 0 0 0 8%;
     font-size: 17px;
     font-weight: bold;
+    margin-top: 2%;
 }
 
 .favourite-options{
     justify-content: right;
     text-align: right;
     right: 0;
-    margin: 1% 6% 3% 0%;
+    margin: 1% 6% 6% 0%;
 }
 
 .favorite-body{
@@ -155,24 +156,18 @@ a:hover{
     padding: 1%;
 }
 
-.img-pi-favoritos-container{
-    width: 29%;
-}
-
 .img-pi-favoritos{
-    padding: 2%;
     border-radius: 10px;
     width: 100%;
+    margin-left: 15%;
 }
 
 .nome-pi-container{
-    width: 45%;
-    padding: 0 0 0 15%;
+    padding: 12% 0 0 15%;
 }
 
 .btn-pi{
-    padding: 0 0 0 15%;
-    margin-right: 0;
+    margin-top: 13px;
 }
 
 .btn-outline-dark{
@@ -198,6 +193,15 @@ a:hover{
         margin-right: 2%;
         margin-bottom: 4%;
     }
+
+    .nome-pi-container{
+        margin-top: 5%;
+    }
+
+    .btn-pi{
+        margin-top: 45px;
+    }
+
 }
 
 /* ----------------------------Visitados---------------------------*/
@@ -365,4 +369,47 @@ a:hover{
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
+}
+
+/* ----------------------------Pontos-de-Interesse-Visitados---------------------------*/
+
+.pontos-interesse-visitados-container{
+    margin: 1% 8% 3% 8%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-pontos-interesse-visitados{
+    opacity: 0.9;
+    background-color: #FFFFFF;
+    padding: 1%;
+    border-radius: 5px;
+    margin: 2%;
+    width: 27%;
+}
+
+.img-pi-card-pt-visitados{
+    width: 100%;
+    border-radius: 4px;
+}
+
+.btn-pi-visitado-info{
+    margin: 0 6% 6% 0;
+}
+
+@media (max-width: 1000px) {
+    .pontos-interesse-visitados-container {
+        margin: 1% 8% 3% 8%;
+        display: flex;
+    }
+
+    .card-pontos-interesse-visitados {
+        width: 40%;
+    }
+
+    .btn-pi-info{
+        width: 100% !important;
+        font-size: 13px;
+    }
+
 }

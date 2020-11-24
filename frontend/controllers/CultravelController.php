@@ -50,17 +50,33 @@ class CultravelController extends Controller
 
     public function actionFavoritos()
     {
-        $idUser = Yii::$app->user->getId();
 
-        $favoritos = Favoritos::findAll(['user_idUtilizador' => $idUser]);
+        if (Yii::$app->getUser()->isGuest != true) {
 
-        foreach ($favoritos as $favorito) {
-            $ptFavoritos[] = $favorito->getPtIdPontoTuristico()->all();
+            $idUser = Yii::$app->user->getId();
+
+            $favoritos = Favoritos::findAll(['user_idUtilizador' => $idUser]);
+
+            if ($favoritos != null) {
+
+                foreach ($favoritos as $favorito) {
+                    $ptFavoritos[] = $favorito->ptIdPontoTuristico;
+                    $ptLocalidades[] = $favorito->ptIdPontoTuristico->localidadeIdLocalidade;
+                }
+
+                return $this->render('favoritos', [
+                    'ptFavoritos' => $ptFavoritos,
+                    'ptLocalidades' => $ptLocalidades,
+                ]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
+                return $this->actionIndex();
+            }
+
+        } else {
+            return $this->actionIndex();
         }
 
-        return $this->render('favoritos', [
-            'ptFavoritos' => $ptFavoritos,
-        ]);
     }
 
     public function actionEditarRegisto()
@@ -76,17 +92,28 @@ class CultravelController extends Controller
 
     public function actionVisitados()
     {
-        $idUser = Yii::$app->user->getId();
+        if (Yii::$app->getUser()->isGuest != true) {
+            $idUser = Yii::$app->user->getId();
 
-        $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
-        VarDumper::dump($visitados);
-        /*
-                $pontosTuristicos = Pontosturisticos::findAll(["id_pontoTuristico" => $visitados->pt_idPontoTuristico]);
-                $locaisVisitados = Localidade::findAll(["id_localidade" => $visitados->pt_idPontoTuristico]);*/
+            $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
 
-        return $this->render('visitados', [
-            'visitados' => $visitados,
-        ]);
+            if ($visitados != null) {
+
+
+                foreach ($visitados as $visitado) {
+                    $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
+                }
+
+                return $this->render('visitados', [
+                    'ptLocalidades' => $ptLocalidades
+                ]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
+                return $this->actionIndex();
+            }
+        } else {
+            return $this->actionIndex();
+        }
     }
 
     public function actionContactos()
@@ -192,6 +219,83 @@ class CultravelController extends Controller
         $mediaRatings = $somaRatings/count($ratings);*/
         $mediaRatings1 = 4;
         return $mediaRatings1;
+    }
+
+    public function actionPontoInteresseVisitados($idLocalidade)
+    {
+        if (Yii::$app->getUser()->isGuest != true) {
+            $idUser = Yii::$app->user->getId();
+
+            $localidade = Localidade::findOne(['id_localidade' => $idLocalidade]);
+
+
+            $ptVisitados = Pontosturisticos::find()
+                ->select('pontosturisticos.*')
+                ->from('pontosturisticos')
+                ->leftJoin('visitados', 'pontosturisticos.id_pontoTuristico = visitados.pt_idPontoTuristico')
+                ->where(['visitados.user_idUtilizador' => $idUser])
+                ->andWhere(['pontosturisticos.localidade_idLocalidade' => $idLocalidade])
+                ->all();
+
+
+            return $this->render('pontos-interesse-visitados', [
+                'ptVisitados' => $ptVisitados,
+                'localidade' => $localidade,
+            ]);
+        } else {
+            return $this->actionIndex();
+        }
+    }
+
+    public function AdicionarFavoritos($idPontoTuristico)
+    {
+
+        $idUser = Yii::$app->user->getId();
+
+        $favoritos = new Favoritos();
+
+        $favoritos->user_idUtilizador = $idUser;
+        $favoritos->ptIdPontoTuristico = $idPontoTuristico;
+
+        $favoritos->save();
+
+        if ($favoritos->save() == true) {
+            Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos favoritos!');
+        }
+    }
+
+    public function RemoverFavoritos($idPontoTuristico)
+    {
+
+        $idUser = Yii::$app->user->getId();
+
+        $favoritos = new Favoritos();
+
+        $favoritos->user_idUtilizador = $idUser;
+        $favoritos->ptIdPontoTuristico = $idPontoTuristico;
+
+        $favoritos->delete();
+
+        if ($favoritos->delete() == true) {
+            Yii::$app->session->setFlash('success', 'O ponto turistico foi removido dos favoritos!');
+        }
+    }
+
+    public function actionPontosInteresseFiltro($filtro)
+    {
+        $idFiltro = Tipomonumento::findOne(['descricao' => $filtro]);
+
+        if ($idFiltro != null) {
+            $pontosTuristicos = Pontosturisticos::findAll(['tm_idTipoMonumento' => $idFiltro]);
+            if ($pontosTuristicos != null) {
+                return $this->render('pontos-interesse', [
+                    'pontosTuristicos' => $pontosTuristicos,
+                ]);
+            }
+        } else {
+            return $this->actionIndex();
+        }
+
     }
 
 }

@@ -19,14 +19,7 @@ use yii\helpers\Html;
                                             <?= $pontoTuristico->nome ?>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pt-details-options">
-                                            <?php
-                                            if (\Yii::$app->user->can('editarPi')) {
-                                                ?>
-                                            <a href="#" class="btn btn-warning"><?= FA::icon("wrench") ?></a>
-                                            <?php
-                                            }
-                                            ?>
-                                            <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                                            <?= Html::a(FA::icon("star"), ['/cultravel/AdicionarFavoritos', 'idLocalidade' => $pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning']) ?>
                                             <a href="#" class="btn btn-warning"><?= FA::icon("check-circle") ?></a>
                                         </div>
                                     </div>

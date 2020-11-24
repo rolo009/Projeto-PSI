@@ -30,10 +30,10 @@ $this->title = 'Cultravel';
             </div>
         </div>
         <div class="row">
-            <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
+            <?php echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'Monumentos' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Monumento'], ['class' => 'opcao-pesquisa'])  ?>
+            <?php echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'Museus' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Museu'], ['class' => 'opcao-pesquisa'])  ?>
+            <?php echo  Html::a(FA::icon("chess-rook", ['class' => 'icon-index-search']).'Museus' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Museu'], ['class' => 'opcao-pesquisa'])  ?>
             <?php ActiveForm::end(); ?>
-            <a class="opcao-pesquisa" href="#"><?= FA::icon("bank", ['class' => 'icon-index-search']) ?>Monumentos</a>
-            <a class="opcao-pesquisa" href="#"><?= FA::icon("bank", ['class' => 'icon-index-search']) ?>Museus</a>
         </div>
     </div>
 </div>

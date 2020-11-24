@@ -114,6 +114,7 @@ class CultravelController extends Controller
 
     public function actionContactos()
     {
+
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {

@@ -142,7 +142,7 @@ class m201111_150948_fk extends Migration
             'userProfile'
         );
 
-        /*----------------Contactos---------------*/
+        /*----------------Contactos-------------------*/
 
         $this->dropForeignKey(
             'fk-idcontactos_id',

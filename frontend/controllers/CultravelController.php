@@ -8,14 +8,19 @@ use app\models\Localidade;
 use app\models\Pontosturisticos;
 use app\models\Ratings;
 use app\models\Tipomonumento;
+use app\models\Userprofile;
 use app\models\Visitados;
 use common\models\LoginForm;
 use common\models\User;
 use frontend\models\ContactForm;
+use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\helpers\VarDumper;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 
 /**
@@ -77,12 +82,37 @@ class CultravelController extends Controller
 
     public function actionEditarRegisto()
     {
-        $idUser = Yii::$app->user->getId();
+        //if (Yii::$app->getUser()->isGuest != true) {
+            $idUser = Yii::$app->user->getId();
 
-        $registados = Registados::find()->where(['user_utilizador' => $idUser])->all();
+        $user = User::findOne(['id' => $idUser]);
+        if (!$user) {
+            throw new NotFoundHttpException("The user was not found.");
+        }
 
-        return $this->render('registados', [
-            'registados' => $registados,
+        $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
+
+        if (!$profile) {
+            throw new NotFoundHttpException("The user has no profile.");
+        }
+
+        $user->scenario = 'update';
+        $profile->scenario = 'update';
+
+        if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
+            $isValid = $user->validate();
+            $isValid = $profile->validate() && $isValid;
+            if ($isValid) {
+                $user->save(false);
+                $profile->save(false);
+                return $this->redirect(['editar-registo', $profile, $user]);
+            }
+        }
+
+        return $this->render('editar-registo', [
+            'user' => $user,
+            'profile' => $profile,
+
         ]);
     }
 

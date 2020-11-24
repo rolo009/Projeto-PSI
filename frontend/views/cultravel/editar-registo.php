@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 use rmrevin\yii\fontawesome\FA;
 use yii\web\AssetBundle;
 
@@ -19,8 +20,8 @@ use yii\web\AssetBundle;
             <?php $form = ActiveForm::begin()?>
 
             <?php
-            /*echo $form->field($model, 'primeiroNome', ['options' => ['class' => 'label-registo']])->textInput(['autofocus' => true]);
-            echo $form->field($model, 'ultimoNome', ['options' => ['class' => 'label-registo']])->label("Último Nome");
+            echo $form->field($profile, 'primeiroNome', ['options' => ['class' => 'label-registo']])->textInput(['autofocus' => true]);
+            /*echo $form->field($model, 'ultimoNome', ['options' => ['class' => 'label-registo']])->label("Último Nome");
             echo $form->field($model, 'username', ['options' => ['class' => 'label-registo']])->label("Nome de Utilizador");
             echo $form->field($model, 'email', ['options' => ['class' => 'label-registo']])->label("Email");
             echo $form->field($model, 'dtaNascimento', ['options' => ['class' => 'label-registo']])->label("Data de Nascimento")->widget(\yii\jui\DatePicker::className(), ['dateFormat' => 'yyyy-MM-dd']);

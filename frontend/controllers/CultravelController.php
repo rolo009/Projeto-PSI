@@ -65,13 +65,11 @@ class CultravelController extends Controller
 
     public function actionEditarRegisto()
     {
-        $idUser = Yii::$app->user->getId();
+        //$idUser = Yii::$app->user->getId();
 
-        $registados = Registados::find()->where(['user_utilizador' => $idUser])->all();
+        //$editregistados = Userprofile::find()->where(['id_user_rbac' => $idUser])->all();
 
-        return $this->render('registados', [
-            'registados' => $registados,
-        ]);
+        return $this->render('editar-registo');
     }
 
     public function actionVisitados()
@@ -79,7 +77,6 @@ class CultravelController extends Controller
         $idUser = Yii::$app->user->getId();
 
         $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
-        VarDumper::dump($visitados);
         /*
                 $pontosTuristicos = Pontosturisticos::findAll(["id_pontoTuristico" => $visitados->pt_idPontoTuristico]);
                 $locaisVisitados = Localidade::findAll(["id_localidade" => $visitados->pt_idPontoTuristico]);*/

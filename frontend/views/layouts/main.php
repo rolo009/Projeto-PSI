@@ -63,6 +63,13 @@ AppAsset::register($this);
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
+            . '</li>'
+            . Html::beginForm(['/cultravel/editar-registo'], 'post')
+            . Html::submitButton(
+                'Editar Registo',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
             . '</li>';
     }
     echo Nav::widget([

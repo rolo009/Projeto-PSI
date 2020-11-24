@@ -103,8 +103,40 @@ class SignupForm extends Model
         $auth->assign($authorRole, $user->getId());
 
         return $this->sendEmail($user);
-
     }
+
+    public function update()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $user = new User();
+        $userProfile = new Userprofile();
+
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $userProfile->primeiroNome = $this->primeiroNome;
+        $userProfile->ultimoNome = $this->ultimoNome;
+        $userProfile->dtaNascimento = $this->dtaNascimento;
+        $userProfile->morada = $this->morada;
+        $userProfile->localidade = $this->localidade;
+        $userProfile->sexo = $this->sexo;
+        $user->save();
+        $userProfile->id_user_rbac = $user->getId();
+
+        $userProfile->save();
+
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('user');
+        $auth->assign($authorRole, $user->getId());
+
+        return $this->sendEmail($user);
+    }
+
 
     /**
      * Sends confirmation email to user

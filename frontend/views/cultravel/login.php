@@ -18,7 +18,7 @@ if (Yii::$app->session->hasFlash('success'))
 
     <?= Html::img('@web/seta-logo.png', ['class' => 'logo-login']); ?>
 
-    <p class="login-info">Preencha os campos do login:</p>
+    <p class="login-info">Login</p>
 
 <div class="row">
     <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
@@ -31,7 +31,7 @@ if (Yii::$app->session->hasFlash('success'))
             <?php
             echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
 
-            <div style="color:#999;margin:1em 0">
+            <div>
                 <?= Html::a('Esqueceu-se da palavra-passe?', ['site/request-password-reset']) ?>.
                 <br>
                 <?= Html::a('Verificação do email', ['site/resend-verification-email']) ?>

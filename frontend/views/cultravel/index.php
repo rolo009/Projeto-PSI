@@ -30,9 +30,9 @@ $this->title = 'Cultravel';
             </div>
         </div>
         <div class="row">
-            <?php echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'Monumentos' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Monumento'], ['class' => 'opcao-pesquisa'])  ?>
-            <?php echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'Museus' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Museu'], ['class' => 'opcao-pesquisa'])  ?>
-            <?php echo  Html::a(FA::icon("chess-rook", ['class' => 'icon-index-search']).'Museus' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Museu'], ['class' => 'opcao-pesquisa'])  ?>
+            <?php echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'MONUMENTOS' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Monumento'], ['class' => 'opcao-pesquisa'])  ?>
+            <?php echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'MUSEUS' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Museu'], ['class' => 'opcao-pesquisa'])  ?>
+            <?php echo  Html::a('CASTELO'.'' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Castelo'], ['class' => 'opcao-pesquisa'])  ?>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

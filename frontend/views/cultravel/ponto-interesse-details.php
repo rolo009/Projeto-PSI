@@ -30,15 +30,15 @@ use yii\helpers\Html;
                     </div>
             </div>
             <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 info-pt">
-                    <p class="details-pt-title">Tipo Monumento</p>
+                    <p class="details-pt-title">TIPO DE MONUMENTO</p>
                     <p class="details-pt"><?=$tipoMonumento->descricao ?></p>
-                    <p class="details-pt-title">Estilo de Construção</p>
+                    <p class="details-pt-title">ESTILO DE CONSTRUÇÃO</p>
                     <p class="details-pt"><?=$estiloMonumento->descricao ?></p>
-                    <p class="details-pt-title">Ano de Construção</p>
+                    <p class="details-pt-title">ANO DE CONSTRUÇAO</p>
                     <p class="details-pt"><?=$pontoTuristico->anoConstrucao ?></p>
-                    <p class="details-pt-title">Localidade</p>
+                    <p class="details-pt-title">LOCALIDADE</p>
                     <p class="details-pt"><?=$localidadeMonumento->nomeLocalidade ?></p>
-                    <p class="details-pt-title">Rating</p>
+                    <p class="details-pt-title">RATING</p>
                     <p class="details-pt">
                         <span class="fa fa-star checked"></span>
                         <?=$ratingMonumento?>/5

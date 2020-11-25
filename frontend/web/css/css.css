@@ -20,8 +20,8 @@ a:hover{
     background-repeat: no-repeat;
     height: auto;
     background-attachment: fixed, scroll;
-    font-family: Arial;
     font-size: 15px;
+    font-family: 'Nunito', sans-serif;
     font-weight: normal !important;
 }
 
@@ -51,6 +51,10 @@ a:hover{
     width:100%;
 }
 
+.navbar-brand{
+    font-size: 20px;
+}
+
 .navbar-toggle{
     background-color: white !important;
 }
@@ -71,7 +75,7 @@ a:hover{
 /* ----------------------------------------Index---------------------------------------*/
 
 .logo-index-container{
-    margin-top: 3%;
+    margin-top: 1%;
     justify-content: center;
     text-align: center;
     align-content: center;

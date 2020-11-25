@@ -34,7 +34,7 @@ a:hover{
     background-repeat: no-repeat;
     height: auto;
     background-attachment: fixed, scroll;
-    font-family: Arial;
+    font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-weight: normal !important;
 }
@@ -110,3 +110,7 @@ a:hover{
     margin-top: 6%;
 }
 
+/*Grid View USers*/
+.table_class{
+    color:red;
+}

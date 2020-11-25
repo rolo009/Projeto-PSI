@@ -14,7 +14,7 @@ class m201118_163236_contactos extends Migration
     {
         $this->createTable('contactos', [
             'idcontactos' => $this->primaryKey(),
-            'nome' => $this->string()->notNull()->notNull(),
+            'name' => $this->string()->notNull()->notNull(),
             'email' => $this->string()->notNull(),
             'subject' => $this->string(60)->notNull()->notNull(),
             'body' => $this->string(6000)->notNull()->notNull(),

@@ -19,22 +19,12 @@ class m201118_163236_contactos extends Migration
             'assunto' => $this->string(60)->notNull()->notNull(),
             'mensagem' => $this->string(6000)->notNull()->notNull(),
             'data' => $this->dateTime(),
-            'id_user_rbac' => $this->integer()->notNull(),
         ]);
-        $this->createIndex(
-            'idx-idcontactos-id_user_rbac',
-            'userProfile',
-            'id_user_rbac'
-        );
 
     }
 
     public function down()
     {
-        $this->dropIndex(
-            'idx-idcontactos-id_user_rbac',
-            'userProfile'
-        );
         $this->dropTable('contactos');
     }
 

@@ -2,8 +2,10 @@
 
 namespace frontend\models;
 
+use app\models\Contactos;
 use Yii;
 use yii\base\Model;
+use yii\helpers\VarDumper;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -44,6 +46,23 @@ class ContactForm extends Model
         return [
             'verifyCode' => 'Verification Code',
         ];
+    }
+
+    public function saveContacto()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $contactos = new Contactos();
+
+        $contactos->nome = $this->nome;
+        $contactos->email = $this->email;
+        $contactos->assunto = $this->assunto;
+        $contactos->mensagem = $this->mensagem;
+        $contactos->save();
+
+        VarDumper::dump($contactos->save());
     }
 
     /**

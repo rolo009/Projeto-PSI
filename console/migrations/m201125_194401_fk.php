@@ -34,17 +34,6 @@ class m201125_194401_fk extends Migration
             'CASCADE'
         );
 
-        /*----------------Contactos---------------*/
-        $this->addForeignKey(
-            'fk-idcontactos-id',
-            'contactos',
-            'id_user_rbac',
-            'user',
-            'id',
-            'CASCADE'
-        );
-
-
         /*----------------Pontos Turisticos---------------*/
 
         $this->addForeignKey(
@@ -142,13 +131,6 @@ class m201125_194401_fk extends Migration
         $this->dropForeignKey(
             'fk-user_profile_id',
             'userProfile'
-        );
-
-        /*----------------Contactos-------------------*/
-
-        $this->dropForeignKey(
-            'fk-idcontactos_id',
-            'contactos'
         );
 
         /*----------------Pontos Turisticos---------------*/

@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use common\models\User;
 use Yii;
 
 /**
@@ -14,9 +13,6 @@ use Yii;
  * @property string $assunto
  * @property string $mensagem
  * @property string|null $data
- * @property int $id_user_rbac
- *
- * @property User $userRbac
  */
 class Contactos extends \yii\db\ActiveRecord
 {
@@ -34,13 +30,11 @@ class Contactos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'email', 'assunto', 'mensagem', 'id_user_rbac'], 'required'],
+            [['nome', 'email', 'assunto', 'mensagem'], 'required'],
             [['data'], 'safe'],
-            [['id_user_rbac'], 'integer'],
             [['nome', 'email'], 'string', 'max' => 255],
             [['assunto'], 'string', 'max' => 60],
             [['mensagem'], 'string', 'max' => 6000],
-            [['id_user_rbac'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user_rbac' => 'id']],
         ];
     }
 
@@ -56,17 +50,6 @@ class Contactos extends \yii\db\ActiveRecord
             'assunto' => 'Assunto',
             'mensagem' => 'Mensagem',
             'data' => 'Data',
-            'id_user_rbac' => 'Id User Rbac',
         ];
-    }
-
-    /**
-     * Gets query for [[UserRbac]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserRbac()
-    {
-        return $this->hasOne(User::className(), ['id' => 'id_user_rbac']);
     }
 }

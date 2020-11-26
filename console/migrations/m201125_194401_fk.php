@@ -2,25 +2,27 @@
 
 use yii\db\Migration;
 
-class m201111_150948_fk extends Migration
+/**
+ * Class m201125_194401_fk
+ */
+class m201125_194401_fk extends Migration
 {
-    /*
-        public function safeUp()
-        {
-
-        }
-
-        public function safeDown()
-        {
-            echo "m201111_150948_fk cannot be reverted.\n";
-
-            return false;
-        }
-
-    */
-    public function up()
+/*
+    public function safeUp()
     {
 
+    }
+
+    public function safeDown()
+    {
+        echo "m201125_194401_fk cannot be reverted.\n";
+
+        return false;
+    }
+
+*/
+    public function up()
+    {
         /*----------------User Profile---------------*/
 
         $this->addForeignKey(
@@ -202,3 +204,4 @@ class m201111_150948_fk extends Migration
         );
     }
 }
+

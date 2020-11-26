@@ -13,11 +13,11 @@ class m201118_163236_contactos extends Migration
     public function up()
     {
         $this->createTable('contactos', [
-            'idcontactos' => $this->primaryKey(),
-            'name' => $this->string()->notNull()->notNull(),
+            'idContactos' => $this->primaryKey(),
+            'nome' => $this->string()->notNull()->notNull(),
             'email' => $this->string()->notNull(),
-            'subject' => $this->string(60)->notNull()->notNull(),
-            'body' => $this->string(6000)->notNull()->notNull(),
+            'assunto' => $this->string(60)->notNull()->notNull(),
+            'mensagem' => $this->string(6000)->notNull()->notNull(),
             'data' => $this->dateTime(),
             'id_user_rbac' => $this->integer()->notNull(),
         ]);

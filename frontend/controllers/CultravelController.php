@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\Contactos;
 use app\models\Estiloconstrucao;
 use app\models\Favoritos;
 use app\models\Localidade;

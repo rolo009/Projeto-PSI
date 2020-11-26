@@ -10,10 +10,10 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
-    public $name;
+    public $nome;
     public $email;
-    public $subject;
-    public $body;
+    public $assunto;
+    public $mensagem;
     public $verifyCode;
 
 
@@ -22,13 +22,13 @@ class ContactForm extends Model
      */
     public static function tableName()
     {
-        return 'contact';
+        return 'contactos';
     }
     public function rules()
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
+            [['nome', 'email', 'assunto', 'mensagem'], 'required'],
             // email has to be a valid email address
             [['email', 'email'], 'required'],
             // verifyCode needs to be entered correctly
@@ -44,11 +44,6 @@ class ContactForm extends Model
         return [
             'verifyCode' => 'Verification Code',
         ];
-    }
-
-    public function save(){
-
-
     }
 
     /**

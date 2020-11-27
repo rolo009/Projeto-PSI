@@ -12,8 +12,10 @@ $this->title = 'Gerir Utilizadores';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' =>[
+                'class'=> 'table table-striped table-bordered gridViewUsers'
+],
         'columns' => [
-
             'id',
             'username',
             'email:email',

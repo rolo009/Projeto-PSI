@@ -375,6 +375,10 @@ a:hover{
     border-radius: .25rem;
 }
 
+.alert-danger{
+    margin-top: -120px!important;
+}
+
 /* ----------------------------Pontos-de-Interesse-Visitados---------------------------*/
 
 .pontos-interesse-visitados-container{

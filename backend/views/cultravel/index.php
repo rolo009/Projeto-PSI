@@ -11,7 +11,7 @@ use rmrevin\yii\fontawesome\FA;
 <div class="container-fluid cards-container">
     <div class="row">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <?php echo  Html::a('GERIR UTILIZADORES' ,['cultravel/gerir-utilizadores'], ['class' => 'card-definicoes-admin'])  ?>
+            <?php echo  Html::a('GERIR UTILIZADORES' ,['user/index'], ['class' => 'card-definicoes-admin'])  ?>
         </div>
 
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">

@@ -73,7 +73,7 @@ AppAsset::register($this);
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
+        'options' => ['class' => 'navbar-nav navbar-left menu-options'],
         'items' => $menuItems,
     ]);
     echo Nav::widget([

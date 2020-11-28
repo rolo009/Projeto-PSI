@@ -3,18 +3,17 @@
 namespace app\controllers;
 namespace backend\controllers;
 
-use app\models\Userprofile;
 use Yii;
-use common\models\User;
-use app\models\UserSearch;
+use app\models\Contactos;
+use app\models\ContactosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * ContactosController implements the CRUD actions for Contactos model.
  */
-class UserController extends Controller
+class ContactosController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +31,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all Contactos models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new ContactosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,46 +46,29 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Contactos model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $userProfile= Userprofile::findOne(['id_userProfile' => $id]);
-
-        $user= User::findOne(['id' => $id]);
-
-        if($user->status == 9){
-            $estadoUser = "Utilizador inativo (9)";
-        }
-        elseif ($user->status == 10){
-            $estadoUser = "Utilizador ativo (10)";
-        }
-
-        elseif ($user->status == 0){
-            $estadoUser = "Utilizador banido (0)";
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'userProfile' => $userProfile,
-            'estadoUser' => $estadoUser,
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Contactos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new Contactos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->idContactos]);
         }
 
         return $this->render('create', [
@@ -95,7 +77,7 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Contactos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,7 +88,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->idContactos]);
         }
 
         return $this->render('update', [
@@ -115,7 +97,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Contactos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -129,15 +111,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Contactos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Contactos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Contactos::findOne($id)) !== null) {
             return $model;
         }
 

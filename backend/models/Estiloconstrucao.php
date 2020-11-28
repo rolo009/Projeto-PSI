@@ -9,8 +9,6 @@ use Yii;
  *
  * @property int $idEstiloConstrucao
  * @property string $descricao
- *
- * @property Pontosturisticos[] $pontosturisticos
  */
 class Estiloconstrucao extends \yii\db\ActiveRecord
 {
@@ -42,15 +40,5 @@ class Estiloconstrucao extends \yii\db\ActiveRecord
             'idEstiloConstrucao' => 'Id Estilo Construcao',
             'descricao' => 'Descricao',
         ];
-    }
-
-    /**
-     * Gets query for [[pontosturisticos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPontosturisticos()
-    {
-        return $this->hasMany(Pontosturisticos::className(), ['ec_idEstiloConstrucao' => 'idEstiloConstrucao']);
     }
 }

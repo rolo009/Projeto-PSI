@@ -103,6 +103,7 @@ a:hover{
 
 .card-definicoes-admin:hover{
     background-color: #e6e6e6;
+    color: black;
 
 }
 
@@ -110,11 +111,129 @@ a:hover{
     margin-top: 6%;
 }
 
-/*Grid View USers*/
-.table_class{
-    color:red;
+/*Grid View Users*/
+
+.breadcrumb{
+    margin-top: -70px;
+}
+.gridView-backend{
+    background-color: #d9d9d9 !important;
+    border: 2px #f2f2f2;
 }
 
-.gridViewUsers{
-    background-color: yellow !important;
+.gerirUsers-Container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-gerirUsers{
+    width: 130px;
+}
+
+.gerirUsers-info{
+    font-size: 25px;
+    color: #FFFFFF;
+}
+
+.gridViewHeaderOptions{
+    color: yellow;
+}
+
+/*View - gerir users*/
+
+.user-view{
+    margin-left: 20%;
+
+}
+.detailView-gerirUsers{
+    background-color: #d9d9d9 !important;
+
+}
+
+.gerirUsersContainer{
+    width: 80%;
+}
+
+.info-user{
+    color: #FFFFFF;
+}
+
+/*Users Update*/
+
+.user-update{
+    width: 60%;
+    margin-left: 25%;
+    color: #FFFFFF;
+}
+
+.status-options{
+    text-align: center;
+}
+
+
+/*Comum*/
+
+.summary{
+    color: #FFFFFF;
+}
+
+a{
+    color: black;
+}
+a:hover{
+    color: black;
+    animation-duration: 1s;
+}
+
+/*Gerir Pontos Turisticos*/
+
+.btn-registar-ponto-turistico{
+    margin-bottom: 10px;
+}
+
+.logo-gerirPontosTuristicos{
+    width: 130px;
+}
+
+.gridView-pontosTuristicos{
+    width: 60%;
+    margin-left: 20%;
+}
+
+.detailView-gerirPontosTuristicos{
+    background-color: #d9d9d9 !important;
+}
+
+.estatisticas-ponto-turistico{
+
+}
+
+.gerirPontosTuristicosContainer{
+    width: 90%;
+    opacity: 0.9;
+}
+
+.pontosturisticos-view{
+    margin-left: 10%;
+}
+
+.pontosturisticos-form{
+    color: #FFFFFF;
+}
+
+.pontosturisticos-update{
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+.info-pt{
+    color: #FFFFFF;
+}
+
+.pontosturisticos-create{
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
 }

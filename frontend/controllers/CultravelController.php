@@ -232,7 +232,12 @@ class CultravelController extends Controller
         $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
         $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
-        $mediaRatings = $this->mediaRatings($ratings);
+        if($ratings != null){
+            $mediaRatings = $this->mediaRatings($ratings);
+        }
+        elseif($ratings == null){
+            $mediaRatings = 0;
+        }
         $rating = new Ratings();
 
         $favorito = Favoritos::find()

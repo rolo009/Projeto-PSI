@@ -8,7 +8,7 @@ use app\models\Pontosturisticos;
 use yii\helpers\VarDumper;
 
 /**
- * PontosturisticosSearch represents the model behind the search form of `app\models\Pontosturisticos`.
+ * PontosturisticosSearch represents the model behind the search form of `app\models\pontosturisticos`.
  */
 class PontosturisticosSearch extends Pontosturisticos
 {

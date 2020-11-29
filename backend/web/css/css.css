@@ -197,8 +197,8 @@ a:hover{
 }
 
 .gridView-pontosTuristicos{
-    width: 60%;
-    margin-left: 20%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 .detailView-gerirPontosTuristicos{
@@ -206,8 +206,9 @@ a:hover{
 }
 
 .estatisticas-ponto-turistico{
-
+width: 90%;
 }
+
 
 .gerirPontosTuristicosContainer{
     width: 90%;
@@ -236,4 +237,52 @@ a:hover{
     width: 80%;
     margin-left: 10%;
     color: #FFFFFF;
+}
+
+/*Registar Tipo Monumentos*/
+
+.registar-tipo-monumento-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Registar Estilo Construção*/
+
+.registar-estilo-construcao-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Registar Localidade*/
+
+.registar-localidade-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Comuns*/
+
+.logo{
+    margin-top: -50px;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-registar{
+    width: 130px;
+}
+
+/*Contactos*/
+.gerirMensagens-Container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+.logo-gerirMensagens{
+    width: 130px;
+
 }

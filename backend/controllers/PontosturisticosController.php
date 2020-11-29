@@ -5,9 +5,11 @@ namespace backend\controllers;
 
 
 use app\models\Estiloconstrucao;
+use app\models\Favoritos;
 use app\models\Localidade;
 use app\models\Ratings;
 use app\models\Tipomonumento;
+use app\models\Visitados;
 use Yii;
 use app\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
@@ -63,6 +65,9 @@ class PontosturisticosController extends Controller
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
         $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
 
+        $favoritosContador= count(Favoritos::findAll(['pt_idPontoTuristico'=>$id]));
+        $visitadosContador= count(Visitados::findAll(['pt_idPontoTuristico'=>$id]));
+
         $ratings = Ratings::findAll(['pt_idPontoTuristico' => $pontoTuristico->id_pontoTuristico]);
         if($ratings != null){
             $mediaRatings = $this->mediaRatings($ratings);
@@ -76,6 +81,8 @@ class PontosturisticosController extends Controller
             'estiloConstrucao' => $estiloConstrucao,
             'tipoMonumento' => $tipoMonumento,
             'mediaRatings' => $mediaRatings,
+            'favoritosContador'=>$favoritosContador,
+            'visitadosContador'=>$visitadosContador
 
         ]);
     }
@@ -104,8 +111,26 @@ class PontosturisticosController extends Controller
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
+        $tiposMonumentos = \app\models\Tipomonumento::find()
+            ->select(['descricao'])
+            ->indexBy('idTipoMonumento')
+            ->column();
+
+        $estiloConstrucao = \app\models\Estiloconstrucao::find()
+            ->select(['descricao'])
+            ->indexBy('idEstiloConstrucao')
+            ->column();
+
+        $localidade = \app\models\Localidade::find()
+            ->select(['nomeLocalidade'])
+            ->indexBy('id_localidade')
+            ->column();
+
         return $this->render('create', [
             'model' => $model,
+            'tiposMonumentosPT' => $tiposMonumentos,
+            'localidadePT' => $localidade,
+            'estiloConstrucaoPT' => $estiloConstrucao,
         ]);
     }
 
@@ -129,11 +154,26 @@ class PontosturisticosController extends Controller
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
+        $tiposMonumentosPT = \app\models\Tipomonumento::find()
+            ->select(['descricao'])
+            ->indexBy('idTipoMonumento')
+            ->column();
+
+        $estiloConstrucaoPT = \app\models\Estiloconstrucao::find()
+            ->select(['descricao'])
+            ->indexBy('idEstiloConstrucao')
+            ->column();
+
+        $localidadePT = \app\models\Localidade::find()
+            ->select(['nomeLocalidade'])
+            ->indexBy('id_localidade')
+            ->column();
+
         return $this->render('update', [
             'model' => $model,
-            'localidade' => $localidade,
-            'estiloConstrucao' => $estiloConstrucao,
-            'tipoMonumento' => $tipoMonumento,
+            'tiposMonumentosPT' => $tiposMonumentosPT,
+            'localidadePT' => $localidadePT,
+            'estiloConstrucaoPT' => $estiloConstrucaoPT,
         ]);
     }
 

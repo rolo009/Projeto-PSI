@@ -9,8 +9,7 @@ use Yii;
  *
  * @property int $id_localidade
  * @property string $nomeLocalidade
- *
- * @property Pontosturisticos[] $pontosturisticos
+ * @property string $foto
  */
 class Localidade extends \yii\db\ActiveRecord
 {
@@ -28,8 +27,8 @@ class Localidade extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomeLocalidade'], 'required'],
-            [['nomeLocalidade'], 'string', 'max' => 255],
+            [['nomeLocalidade', 'foto'], 'required'],
+            [['nomeLocalidade', 'foto'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,16 +40,7 @@ class Localidade extends \yii\db\ActiveRecord
         return [
             'id_localidade' => 'Id Localidade',
             'nomeLocalidade' => 'Nome Localidade',
+            'foto' => 'Foto',
         ];
-    }
-
-    /**
-     * Gets query for [[pontosturisticos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPontosturisticos()
-    {
-        return $this->hasMany(Pontosturisticos::className(), ['localidade_idLocalidade' => 'id_localidade']);
     }
 }

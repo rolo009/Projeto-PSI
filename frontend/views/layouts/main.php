@@ -37,9 +37,9 @@ AppAsset::register($this);
     ]);
     if(Yii::$app->user->isGuest){
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/cultravel/index']],
-            ['label' => 'Contactos', 'url' => ['/cultravel/contactos']],
-            ['label' => 'Sobre Nós', 'url' => ['/cultravel/sobre-nos']],
+            ['label' => 'HOME', 'url' => ['/cultravel/index']],
+            ['label' => 'CONTACTOS', 'url' => ['/cultravel/contactos']],
+            ['label' => 'SOBRE NÓS', 'url' => ['/cultravel/sobre-nos']],
         ];
     }
     else{
@@ -81,7 +81,7 @@ AppAsset::register($this);
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
+        'options' => ['class' => 'navbar-nav navbar-left menu-options'],
         'items' => $menuItems,
     ]);
     echo Nav::widget([

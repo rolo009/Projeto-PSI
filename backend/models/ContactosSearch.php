@@ -4,13 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pontosturisticos;
-use yii\helpers\VarDumper;
+use app\models\Contactos;
 
 /**
- * PontosturisticosSearch represents the model behind the search form of `app\models\pontosturisticos`.
+ * ContactosSearch represents the model behind the search form of `app\models\Contactos`.
  */
-class PontosturisticosSearch extends Pontosturisticos
+class ContactosSearch extends Contactos
 {
     /**
      * {@inheritdoc}
@@ -18,8 +17,8 @@ class PontosturisticosSearch extends Pontosturisticos
     public function rules()
     {
         return [
-            [['id_pontoTuristico', 'tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'integer'],
-            [['nome', 'anoConstrucao', 'descricao', 'foto'], 'safe'],
+            [['idContactos'], 'integer'],
+            [['nome', 'email', 'assunto', 'mensagem', 'data'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class PontosturisticosSearch extends Pontosturisticos
      */
     public function search($params)
     {
-        $query = Pontosturisticos::find();
+        $query = Contactos::find();
 
         // add conditions that should always apply here
 
@@ -51,8 +50,6 @@ class PontosturisticosSearch extends Pontosturisticos
 
         $this->load($params);
 
-        VarDumper::dump($params);
-
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -61,18 +58,14 @@ class PontosturisticosSearch extends Pontosturisticos
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_pontoTuristico' => $this->id_pontoTuristico,
-            'tm_idTipoMonumento' => $this->tm_idTipoMonumento,
-            'ec_idEstiloConstrucao' => $this->ec_idEstiloConstrucao,
-            'localidade_idLocalidade' => $this->localidade_idLocalidade,
+            'idContactos' => $this->idContactos,
+            'data' => $this->data,
         ]);
 
-        VarDumper::dump($query);
-
         $query->andFilterWhere(['like', 'nome', $this->nome])
-            ->andFilterWhere(['like', 'anoConstrucao', $this->anoConstrucao])
-            ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'foto', $this->foto]);
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'assunto', $this->assunto])
+            ->andFilterWhere(['like', 'mensagem', $this->mensagem]);
 
         return $dataProvider;
     }

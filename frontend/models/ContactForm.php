@@ -2,18 +2,20 @@
 
 namespace frontend\models;
 
+use app\models\Contactos;
 use Yii;
 use yii\base\Model;
+use yii\helpers\VarDumper;
 
 /**
  * ContactForm is the model behind the contact form.
  */
 class ContactForm extends Model
 {
-    public $name;
+    public $nome;
     public $email;
-    public $subject;
-    public $body;
+    public $assunto;
+    public $mensagem;
     public $verifyCode;
 
 
@@ -22,16 +24,13 @@ class ContactForm extends Model
      */
     public static function tableName()
     {
-        return 'contact';
+        return 'contactos';
     }
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+            [['nome', 'email', 'assunto', 'mensagem'], 'required'],
             [['email', 'email'], 'required'],
-            // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
     }
@@ -46,9 +45,21 @@ class ContactForm extends Model
         ];
     }
 
-    public function save(){
+    public function saveContacto()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
 
+        $contactos = new Contactos();
 
+        $contactos->nome = $this->nome;
+        $contactos->email = $this->email;
+        $contactos->assunto = $this->assunto;
+        $contactos->mensagem = $this->mensagem;
+        $contactos->save();
+
+        VarDumper::dump($contactos->save());
     }
 
     /**

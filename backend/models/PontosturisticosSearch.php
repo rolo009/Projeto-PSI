@@ -5,7 +5,6 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Pontosturisticos;
-use yii\helpers\VarDumper;
 
 /**
  * PontosturisticosSearch represents the model behind the search form of `app\models\pontosturisticos`.
@@ -51,8 +50,6 @@ class PontosturisticosSearch extends Pontosturisticos
 
         $this->load($params);
 
-        VarDumper::dump($params);
-
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -66,8 +63,6 @@ class PontosturisticosSearch extends Pontosturisticos
             'ec_idEstiloConstrucao' => $this->ec_idEstiloConstrucao,
             'localidade_idLocalidade' => $this->localidade_idLocalidade,
         ]);
-
-        VarDumper::dump($query);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'anoConstrucao', $this->anoConstrucao])

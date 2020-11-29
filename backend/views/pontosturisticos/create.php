@@ -5,13 +5,15 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pontosturisticos */
 
-$this->title = 'Create pontosturisticos';
-$this->params['breadcrumbs'][] = ['label' => 'pontosturisticos', 'url' => ['index']];
+$this->title = 'Criar Ponto Turisticos';
+$this->params['breadcrumbs'][] = ['label' => 'Pontos Turisticos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pontosturisticos-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3 class="info-pt" >
+        <?= "Criar Ponto Turistico" ?>
+    </h3>
 
     <?= $this->render('_form', [
         'model' => $model,

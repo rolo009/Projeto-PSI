@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\Contactos;
 use app\models\Estiloconstrucao;
 use app\models\Favoritos;
 use app\models\Localidade;
@@ -37,11 +38,17 @@ class CultravelController extends Controller
 
             $localidade = Localidade::find()->where(['nomeLocalidade' => $model->nomeLocalidade])->one();
 
-            $pontosTuristicos = Pontosturisticos::findAll(['localidade_idLocalidade' => $localidade->id_localidade]);
+            if($localidade !=null){
+                $pontosTuristicos = Pontosturisticos::findAll(['localidade_idLocalidade' => $localidade->id_localidade]);
 
-            return $this->render('pontos-interesse', [
-                'pontosTuristicos' => $pontosTuristicos,
-            ]);
+                return $this->render('pontos-interesse', [
+                    'pontosTuristicos' => $pontosTuristicos,
+                ]);
+            }
+            else{
+                return $this->redirect(['cultravel/index']);
+            }
+
         }
 
         return $this->render('index', [
@@ -146,23 +153,17 @@ class CultravelController extends Controller
     {
 
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('Foi registada a sua mensagem, iremos responder o mais rapido possivel.');
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->saveContacto() == true){
+                Yii::$app->session->setFlash('Foi registada a sua mensagem, iremos responder o mais rapido possivel.');
+                return $this->actionIndex();
+            }
+        } else{
             return $this->render('contactos', [
                 'model' => $model,
             ]);
-        } else
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Obrigado por nos contactar. Iremos responder o mais rapido possivel.');
-            } else {
-                Yii::$app->session->setFlash('error', 'Ocorreu um erro, a enviar a sua mensagem.');
-            }
-            return $this->refresh();
-        } else {
-            return $this->render('contactos', ['model' => $model,]);
         }
+
     }
 
     public function actionSobreNos()
@@ -216,7 +217,6 @@ class CultravelController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->actionIndex();
     }
 
@@ -232,8 +232,34 @@ class CultravelController extends Controller
         $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
         $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
-        $mediaRatings = $this->mediaRatings($ratings);
+        if($ratings != null){
+            $mediaRatings = $this->mediaRatings($ratings);
+        }
+        elseif($ratings == null){
+            $mediaRatings = 0;
+        }
         $rating = new Ratings();
+
+        $favorito = Favoritos::find()
+        ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador'=>Yii::$app->user->getId()])->one();
+
+        if($favorito != null){
+            $favoritoStatus = true;
+        }
+        elseif ($favorito == null){
+            $favoritoStatus = false;
+        }
+
+        $visitados = Visitados::find()
+            ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador'=>Yii::$app->user->getId()])->one();
+
+        if($visitados != null){
+            $visitadosStatus = true;
+        }
+        elseif ($visitados == null){
+            $visitadosStatus = false;
+        }
+
         return $this->render('ponto-interesse-details', [
             'pontoTuristico' => $pontoTuristico,
             'tipoMonumento' => $tipoMonumento,
@@ -241,19 +267,20 @@ class CultravelController extends Controller
             'estiloMonumento' => $estiloConstrucao,
             'ratingMonumento' => $mediaRatings,
             'rating' => $rating,
+            'favoritoStatus'=>$favoritoStatus,
+            'visitadoStatus'=>$visitadosStatus,
         ]);
     }
 
     public function mediaRatings($ratings)
     {
         $somaRatings = 0;
-        /*
+
         foreach ($ratings as $rating) {
             $somaRatings = $somaRatings = $rating->classificacao;
         }
-        $mediaRatings = $somaRatings/count($ratings);*/
-        $mediaRatings1 = 4;
-        return $mediaRatings1;
+        $mediaRatings = $somaRatings/count($ratings);
+        return $mediaRatings;
     }
 
     public function actionPontoInteresseVisitados($idLocalidade)
@@ -284,21 +311,20 @@ class CultravelController extends Controller
 
     public function actionAdicionarFavoritos($idPontoTuristico)
     {
-
         $idUser = Yii::$app->user->getId();
 
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $idPontoTuristico]);
 
         if ($pontoTuristico != null) {
-            $favoritos = new Favoritos();
+            $favorito = new Favoritos();
 
-            $favoritos->user_idUtilizador = $idUser;
-            $favoritos->ptIdPontoTuristico = $pontoTuristico->id_pontoTuristico;
+            $favorito->user_idUtilizador = $idUser;
+            $favorito->pt_idPontoTuristico = $pontoTuristico->id_pontoTuristico;
+            $favorito->save();
 
-            $favoritos->save();
-
-            if ($favoritos->save() == true) {
+            if ($favorito->save() == true) {
                 Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos favoritos!');
+            return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
             }
         } else {
             return $this->actionIndex();
@@ -307,20 +333,59 @@ class CultravelController extends Controller
 
     }
 
-    public function RemoverFavoritos($idPontoTuristico)
+    public function actionRemoverFavoritos($idPontoTuristico)
     {
 
         $idUser = Yii::$app->user->getId();
 
-        $favoritos = new Favoritos();
+        $favorito = Favoritos::find()
+            ->where(['pt_idPontoTuristico' => $idPontoTuristico])->andwhere(['user_idUtilizador'=>$idUser])->one();
 
-        $favoritos->user_idUtilizador = $idUser;
-        $favoritos->ptIdPontoTuristico = $idPontoTuristico;
+        $favorito->delete();
 
-        $favoritos->delete();
-
-        if ($favoritos->delete() == true) {
+        if ($favorito->delete() == 0) {
             Yii::$app->session->setFlash('success', 'O ponto turistico foi removido dos favoritos!');
+            return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
+        }
+    }
+
+    public function actionAdicionarVisitados($idPontoTuristico)
+    {
+        $idUser = Yii::$app->user->getId();
+
+        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $idPontoTuristico]);
+
+        if ($pontoTuristico != null) {
+            $visitado = new Visitados();
+
+            $visitado->user_idUtilizador = $idUser;
+            $visitado->pt_idPontoTuristico = $pontoTuristico->id_pontoTuristico;
+            $visitado->save();
+
+            if ($visitado->save() == true) {
+                Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos visitados!');
+                return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
+            }
+        } else {
+            return $this->actionIndex();
+        }
+
+
+    }
+
+    public function actionRemoverVisitados($idPontoTuristico)
+    {
+
+        $idUser = Yii::$app->user->getId();
+
+        $visitados = Visitados::find()
+            ->where(['pt_idPontoTuristico' => $idPontoTuristico])->andwhere(['user_idUtilizador'=>$idUser])->one();
+
+        $visitados->delete();
+
+        if ($visitados->delete() == 0) {
+            Yii::$app->session->setFlash('success', 'O ponto turistico foi removido dos visitados!');
+            return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
         }
     }
 

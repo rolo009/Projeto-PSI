@@ -23,7 +23,6 @@ class SignupForm extends Model
     public $localidade;
     public $sexo;
 
-
     /**
      * {@inheritdoc}
      */

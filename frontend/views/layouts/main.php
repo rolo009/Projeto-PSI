@@ -66,7 +66,15 @@ AppAsset::register($this);
             . '</li>'
             . Html::beginForm(['/cultravel/editar-registo'], 'post')
             . Html::submitButton(
-                'Editar Registo',
+                'Alterar Dados Pessoais',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>'
+            . '</li>'
+            . Html::beginForm(['/site/resetPassword'], 'post')
+            . Html::submitButton(
+                'Alterar Palavra-passe',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

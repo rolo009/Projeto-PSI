@@ -85,62 +85,62 @@ class CultravelController extends Controller
         //if (Yii::$app->getUser()->isGuest != true) {
             $idUser = Yii::$app->user->getId();
 
-        $user = User::findOne(['id' => $idUser]);
-        if (!$user) {
-            throw new NotFoundHttpException("The user was not found.");
-        }
 
-        $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
-
-        if (!$profile) {
-            throw new NotFoundHttpException("The user has no profile.");
-        }
-
-        $user->scenario = 'update';
-        $profile->scenario = 'update';
-
-        if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
-            $isValid = $user->validate();
-            $isValid = $profile->validate() && $isValid;
-            if ($isValid) {
-                $user->save(false);
-                $profile->save(false);
-                return $this->redirect(['editar-registo', $profile, $user]);
+            $user = User::findOne(['id' => $idUser]);
+            if (!$user) {
+                throw new NotFoundHttpException("The user was not found.");
             }
+
+            $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
+
+            if (!$profile) {
+                throw new NotFoundHttpException("The user has no profile.");
+            }
+
+
+            if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
+                $isValid = $user->validate();
+                $isValid = $profile->validate() && $isValid;
+                if ($isValid) {
+                    $user->save(false);
+                    $profile->save(false);
+                    return $this->redirect(['editar-registo', $user, $profile]);
+                }
+            }
+
+            return $this->render('editar-registo', [
+                'user' => $user,
+                'profile' => $profile,
+
+            ]);
         }
 
-        return $this->render('editar-registo', [
-            'user' => $user,
-            'profile' => $profile,
 
-        ]);
-    }
+        public function actionVisitados()
+        {
+            if (Yii::$app->getUser()->isGuest != true) {
+                $idUser = Yii::$app->user->getId();
 
-    public function actionVisitados()
-    {
-        if (Yii::$app->getUser()->isGuest != true) {
-            $idUser = Yii::$app->user->getId();
+                $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
 
-            $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
-
-            if ($visitados != null) {
+                if ($visitados != null) {
 
 
-                foreach ($visitados as $visitado) {
-                    $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
+                    foreach ($visitados as $visitado) {
+                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
+                    }
+
+                    return $this->render('visitados', [
+                        'ptLocalidades' => $ptLocalidades
+                    ]);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
+                    return $this->actionIndex();
                 }
-
-                return $this->render('visitados', [
-                    'ptLocalidades' => $ptLocalidades
-                ]);
             } else {
-                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
                 return $this->actionIndex();
             }
-        } else {
-            return $this->actionIndex();
         }
-    }
 
     public function actionContactos()
     {

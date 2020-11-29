@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
@@ -64,22 +65,20 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>'
-            . Html::beginForm(['/cultravel/editar-registo'], 'post')
-            . Html::submitButton(
-                'Alterar Dados Pessoais',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>'
-            . '</li>'
-            . Html::beginForm(['/site/resetPassword'], 'post')
-            . Html::submitButton(
-                'Alterar Palavra-passe',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
+            . '<div class="dropdown">'
+            . '<a data-toggle="dropdown" class="dropdown-toggle">Área Pessoal<b class="caret"></b></a>'
+            . Dropdown::widget([
+                'items' => [
+                    ['label' => 'Alterar Dados Pessoais', 'url' => ['/cultravel/editar-registo']],
+                    ['label' => 'Alterar Palavra-passe', 'url' => ['/site/resetPassword']],
+                ],
+            ])
+                . '</div>'
             . '</li>';
     }
+    ?>
+
+    <?php
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-left menu-options'],
         'items' => $menuItems,

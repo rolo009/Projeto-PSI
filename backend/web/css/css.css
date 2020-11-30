@@ -174,6 +174,18 @@ a:hover{
     color: #FFFFFF;
 }
 
+/*Estatisticas Users*/
+.stats-user-container{
+    width: 70%;
+}
+
+.card-stats{
+    margin-bottom: 1%;
+}
+
+.idades-container{
+    margin-top: 50px;
+}
 
 /*Comum*/
 

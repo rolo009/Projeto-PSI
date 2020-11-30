@@ -18,6 +18,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -29,6 +31,29 @@ use yii\web\NotFoundHttpException;
  */
 class CultravelController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','pontos-interesse','ponto-interesse-details', 'favoritos','adicionar-favoritos', 'remover-favoritos', 'editar-registo','visitados','adicionar-visitados','remover-visitados','ponto-interesse-visitados','contactos', 'sobre-nos','login', 'logout', 'registar'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index','pontos-interesse','ponto-interesse-details','contactos', 'sobre-nos','login', 'registar'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['favoritos','adicionar-favoritos', 'remover-favoritos', 'editar-registo','visitados','adicionar-visitados','remover-visitados','ponto-interesse-visitados','logout'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
 
     public function actionIndex()
     {
@@ -199,15 +224,6 @@ class CultravelController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            $session = Yii::$app->session;
-            if ($session->isActive) {
-                $userId = User::findOne(['email' => $model->email]);
-                $session->set('userId', $userId->id);
-            } else {
-                $session->open();
-                $userId = User::findOne(['email' => $model->email]);
-                $session->set('userId', $userId->id);
-            }
 
             return $this->actionIndex();
         } else {

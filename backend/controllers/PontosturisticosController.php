@@ -218,12 +218,8 @@ class PontosturisticosController extends Controller
         $ptMaisVisitado = $this->pontoTuristicoMaisVisitado();
         $ptMenosVisitado = $this->pontoTuristicoMenosVisitado();
 
-        /*return $this->render('update', [
-            'model' => $model,
-            'tiposMonumentosPT' => $tiposMonumentosPT,
-            'localidadePT' => $localidadePT,
-            'estiloConstrucaoPT' => $estiloConstrucaoPT,
-        ]);*/
+        return $this->render('stats-pontosTuristicos', [
+        ]);
     }
 
     public function pontoTuristicoMaisVisitado(){

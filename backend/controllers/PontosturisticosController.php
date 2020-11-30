@@ -13,6 +13,7 @@ use app\models\Visitados;
 use Yii;
 use app\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -92,7 +93,7 @@ class PontosturisticosController extends Controller
         $somaRatings = 0;
 
         foreach ($ratings as $rating) {
-            $somaRatings = $somaRatings = $rating->classificacao;
+            $somaRatings = $somaRatings + $rating->classificacao;
         }
         $mediaRatings = $somaRatings/count($ratings);
         return $mediaRatings;
@@ -157,16 +158,19 @@ class PontosturisticosController extends Controller
         $tiposMonumentosPT = \app\models\Tipomonumento::find()
             ->select(['descricao'])
             ->indexBy('idTipoMonumento')
+            ->orderBy('descricao ASC')
             ->column();
 
         $estiloConstrucaoPT = \app\models\Estiloconstrucao::find()
             ->select(['descricao'])
             ->indexBy('idEstiloConstrucao')
+            ->orderBy('descricao ASC')
             ->column();
 
         $localidadePT = \app\models\Localidade::find()
             ->select(['nomeLocalidade'])
             ->indexBy('id_localidade')
+            ->orderBy('nomeLocalidade ASC')
             ->column();
 
         return $this->render('update', [
@@ -205,5 +209,24 @@ class PontosturisticosController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionEstatisticas()
+    {
+
+        $ptMaisVisitado = $this->pontoTuristicoMaisVisitado();
+        $ptMenosVisitado = $this->pontoTuristicoMenosVisitado();
+
+        /*return $this->render('update', [
+            'model' => $model,
+            'tiposMonumentosPT' => $tiposMonumentosPT,
+            'localidadePT' => $localidadePT,
+            'estiloConstrucaoPT' => $estiloConstrucaoPT,
+        ]);*/
+    }
+
+    public function pontoTuristicoMaisVisitado(){
+
     }
 }

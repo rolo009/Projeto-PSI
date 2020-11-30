@@ -12,12 +12,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'status')->textInput(); ?>
-    <div class ="status-options">
-        <?= "0 = Banir Utilizador    |    9 = Utilizador Inativo    |    10 = Utilizador Ativo" ?>
-    </div>
+    <?= $form->field($model, 'status')->dropdownList(
+        ['0' => 'Banir Utilizador', '9' => 'Utilizador Inativo', '10' => 'Utilizador Ativo'],
+        ['prompt' => 'Estado Mensagem']
+    )->label("Estado Mensagem"); ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+
+        <?= Html::submitButton('Alterar Estado User', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Tem a certeza que pretende apagar este utilizador?',
+                'method' => 'post',
+            ],
+        ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

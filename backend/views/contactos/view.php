@@ -6,37 +6,62 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Contactos */
 
-$this->title = $model->idContactos;
+$this->title = "Mensagem ID: " . $model->idContactos;
 $this->params['breadcrumbs'][] = ['label' => 'Contactos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->assunto . " (" . $model->idContactos. ')';
 \yii\web\YiiAsset::register($this);
+$atributos = [
+    [
+        'label' => 'ID',
+        'value' => $model->idContactos,
+    ],
+    [
+        'label' => 'Data de Envio',
+        'value' => $model->dataEnvioMensagem,
+    ],
+    [
+        'label' => 'Data de Leitura',
+        'value' => $model->dataResposta,
+    ],
+    [
+        'label' => 'Estado da mensagem',
+        'value' => $estadoMensagem,
+    ],[
+        'label' => 'Nome',
+        'value' => $model->nome,
+    ],
+    [
+        'label' => 'Email',
+        'value' => $model->email,
+    ],
+    [
+        'label' => 'Assunto',
+        'value' => $model->assunto,
+    ],
+    [
+        'label' => 'Mensagem',
+        'value' => $model->mensagem,
+    ],
+]
 ?>
 <div class="contactos-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3 class="info-mensagem">
+        Ponto Turistico: <?= $model->assunto ?>
+    </h3>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idContactos], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idContactos], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
+    <div class="gerirMensagensContainer">
+    <?php
+    echo $this->render('_form', [
         'model' => $model,
-        'attributes' => [
-            'idContactos',
-            'nome',
-            'email:email',
-            'assunto',
-            'mensagem',
-            'data',
-            'status',
-        ],
-    ]) ?>
+    ]);
 
+    echo DetailView::widget([
+        'model' => $model,
+        'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirPontosTuristicos'],
+        'attributes' => $atributos,
+    ]);
+    ?>
+
+    </div>
 </div>

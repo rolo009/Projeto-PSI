@@ -27,19 +27,13 @@ $localidade = \app\models\Localidade::find()
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true])->label("Nome") ?>
-
-    <?= $form->field($model, 'anoConstrucao')->textInput(['maxlength' => true])->label("Ano de Contrução") ?>
-
-    <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'tm_idTipoMonumento')->dropdownList([
         $tiposMonumentosPT
     ],
         ['prompt' => 'Selecione um Tipo de Monumento']
     )->label("Tipo de Monumento"); ?>
 
-    <?= Html::a('Registar Tipo Monumento', ['cultravel/registar-tipo-monumento', 'id' => $model->id_pontoTuristico], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Registar Tipo Monumento', ['cultravel/registar-tipo-monumento'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'ec_idEstiloConstrucao')->dropdownList([
         $estiloConstrucaoPT
@@ -47,7 +41,7 @@ $localidade = \app\models\Localidade::find()
         ['prompt' => 'Selecione um Estilo de Contrução']
     )->label("Estilo de Contrução"); ?>
 
-    <?= Html::a('Registar Estilo de Construção', ['cultravel/registar-estilo-construcao', 'id' => $model->id_pontoTuristico], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Registar Estilo de Construção', ['cultravel/registar-estilo-construcao'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'localidade_idLocalidade')->dropdownList([
         $localidadePT
@@ -55,7 +49,14 @@ $localidade = \app\models\Localidade::find()
         ['prompt' => 'Selecione uma Localidade']
     )->label("Localidade"); ?>
 
-    <?= Html::a('Registar Localidade', ['cultravel/registar-localidade', 'id' => $model->id_pontoTuristico], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Registar Localidade', ['cultravel/registar-localidade'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+
+
+    <?= $form->field($model, 'nome')->textInput(['maxlength' => true])->label("Nome") ?>
+
+    <?= $form->field($model, 'anoConstrucao')->textInput(['maxlength' => true])->label("Ano de Contrução") ?>
+
+    <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descricao')->textarea(['maxlength' => true, 'rows' => 6])->label("Descrição") ?>
 

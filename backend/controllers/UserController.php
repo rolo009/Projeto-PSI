@@ -54,6 +54,12 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
         $userProfile= Userprofile::findOne(['id_userProfile' => $id]);
 
         $user= User::findOne(['id' => $id]);
@@ -70,7 +76,7 @@ class UserController extends Controller
         }
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'userProfile' => $userProfile,
             'estadoUser' => $estadoUser,
         ]);

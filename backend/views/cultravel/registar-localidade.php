@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'nomeLocalidade')->textInput()->label("Localidade"); ?>
+
+    <?= $form->field($model, 'foto')->textInput()->label("Foto"); ?>
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>

@@ -46,12 +46,14 @@ class CultravelController extends \yii\web\Controller
         }
     }
 
-    public function actionRegistarTipoMonumento($id)
+    public function actionEditarTipoMonumento($id)
     {
         $model = new Tipomonumento();
 
         if ($model->load(Yii::$app->request->post())) {
-            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao'=>$model->descricao]);
+
+            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao' => $model->descricao]);
+
             if ($tipoMonumentoVerifica == null){
                 $model->save();
                 return $this->redirect(['pontosturisticos/update', 'id' => $id]);
@@ -66,7 +68,27 @@ class CultravelController extends \yii\web\Controller
         ]);
     }
 
-    public function actionRegistarEstiloConstrucao($id)
+    public function actionRegistarTipoMonumento()
+    {
+        $model = new Tipomonumento();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao'=>$model->descricao]);
+            if ($tipoMonumentoVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Tipo monumento já registado!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-tipo-monumento', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRegistarEstiloConstrucao()
     {
         $model = new Estiloconstrucao();
 
@@ -74,11 +96,11 @@ class CultravelController extends \yii\web\Controller
             $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
             if ($estiloConstrucaoVerifica == null){
                 $model->save();
-                return $this->redirect(['pontosturisticos/update', 'id' => $id]);
+                return $this->redirect(['pontosturisticos/create']);
             }
             else{
                 Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
-                return $this->redirect(['pontosturisticos/update', 'id' => $id]);
+                return $this->redirect(['pontosturisticos/create']);
             }
         }
         return $this->render('registar-estilo-construcao', [
@@ -86,7 +108,47 @@ class CultravelController extends \yii\web\Controller
         ]);
     }
 
-    public function actionRegistarLocalidade($id)
+    public function actionEditarEstiloConstrucao($id)
+    {
+        $model = new Estiloconstrucao();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
+            if ($estiloConstrucaoVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-estilo-construcao', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRegistarLocalidade()
+    {
+        $model = new Localidade();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $localidadeVerifica = Localidade::findOne(['nomeLocalidade'=>$model->nomeLocalidade]);
+            if ($localidadeVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Localidade já registada!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-localidade', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditarLocalidade($id)
     {
         $model = new Localidade();
 

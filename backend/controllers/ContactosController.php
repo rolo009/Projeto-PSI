@@ -1,10 +1,12 @@
 <?php
 
 namespace app\controllers;
+namespace backend\controllers;
 
 use Yii;
 use app\models\Contactos;
 use app\models\ContactosSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,8 +54,35 @@ class ContactosController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $mensagem = Contactos::findOne(['idContactos' => $id]);
+
+        if($mensagem->status == 0){
+            $estadoMensagem = 'Mensagem não Lida (0)';
+        }
+        elseif ($mensagem->status == 1){
+            $estadoMensagem = 'Mensagem Lida (1)';
+        }
+
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            if($model->status == 0){
+                $model->dataResposta = NULL;
+                $model->save();
+            }
+            elseif ($model->status == 1){
+                $model->dataResposta = date('Y-m-d H:i:s');
+                $model->save();
+            }
+
+            return $this->redirect(['view', 'id' => $model->idContactos]);
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'estadoMensagem' =>$estadoMensagem,
         ]);
     }
 

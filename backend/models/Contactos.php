@@ -12,7 +12,8 @@ use Yii;
  * @property string $email
  * @property string $assunto
  * @property string $mensagem
- * @property string|null $data
+ * @property string|null $dataEnvioMensagem
+ * @property string|null $dataResposta
  * @property int $status
  */
 class Contactos extends \yii\db\ActiveRecord
@@ -32,7 +33,7 @@ class Contactos extends \yii\db\ActiveRecord
     {
         return [
             [['nome', 'email', 'assunto', 'mensagem', 'status'], 'required'],
-            [['data'], 'safe'],
+            [['dataEnvioMensagem', 'dataResposta'], 'safe'],
             [['status'], 'integer'],
             [['nome', 'email'], 'string', 'max' => 255],
             [['assunto'], 'string', 'max' => 60],
@@ -51,7 +52,8 @@ class Contactos extends \yii\db\ActiveRecord
             'email' => 'Email',
             'assunto' => 'Assunto',
             'mensagem' => 'Mensagem',
-            'data' => 'Data',
+            'dataEnvioMensagem' => 'Data Envio Mensagem',
+            'dataResposta' => 'Data Resposta',
             'status' => 'Status',
         ];
     }

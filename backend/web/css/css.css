@@ -94,7 +94,7 @@ a:hover{
     padding: 15%;
     border-radius: 5px;
     margin: 2%;
-    width: 95%;
+    width: 90%;
     background-color: #FFFFFF;
     color: black;
     font-size: 16px;
@@ -109,6 +109,11 @@ a:hover{
 
 .cards-container{
     margin-top: 6%;
+}
+
+.logo-registo-index{
+    margin-top: -50px;
+    width: 180px;
 }
 
 /*Grid View Users*/
@@ -160,15 +165,13 @@ a:hover{
 }
 
 /*Users Update*/
-
+.user-form{
+    color: white;
+}
 .user-update{
     width: 60%;
     margin-left: 25%;
     color: #FFFFFF;
-}
-
-.status-options{
-    text-align: center;
 }
 
 
@@ -276,6 +279,7 @@ width: 90%;
     width: 130px;
 }
 
+
 /*Contactos*/
 .gerirMensagens-Container{
     justify-content: center;
@@ -284,5 +288,17 @@ width: 90%;
 }
 .logo-gerirMensagens{
     width: 130px;
+}
+/*Mensagem*/
+.info-mensagem{
+    color: #FFFFFF;
 
+}
+
+.gerirMensagensContainer{
+    width: 80%;
+}
+
+.contactos-view{
+    margin-left: 15%;
 }

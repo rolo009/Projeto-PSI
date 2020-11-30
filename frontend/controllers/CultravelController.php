@@ -160,7 +160,7 @@ class CultravelController extends Controller
                 return $this->actionIndex();
             }
             elseif($model->saveContacto() == false){
-                Yii::$app->session->setFlash('error','Foi registada a sua mensagem, iremos responder o mais rapido possivel.');
+                Yii::$app->session->setFlash('error','Ocorreu um erro ao enviar a sua mensagem!');
                 return $this->actionIndex();
             }
         } else{

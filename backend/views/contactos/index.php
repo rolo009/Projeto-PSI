@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="gerirMensagens-Container">
         <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-gerirMensagens']); ?>
 
-        <p class="gerirUsers-info">GERIR PONTOS TURISTICOS</p>
+        <p class="gerirUsers-info">GERIR MENSAGENS</p>
     </div>
 
     <?= GridView::widget([
@@ -36,13 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Estado da Mensagem',
+                'filter' => ['0' => 'Mensagens não Lidas', '1' => 'Mensagens não Lidas'],
                 'attribute' => 'status',
                 'format' => 'text'
             ],
             [
                 'label' => 'Data',
-                'attribute' => 'data',
-                'format' => 'date'
+                'attribute' => 'dataEnvioMensagem',
+                'format' => 'datetime'
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

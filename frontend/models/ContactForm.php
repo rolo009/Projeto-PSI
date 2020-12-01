@@ -18,6 +18,7 @@ class ContactForm extends Model
     public $mensagem;
     public $verifyCode;
 
+    const STATUS_NAO_LIDA = 0;
 
     /**
      * {@inheritdoc}
@@ -29,11 +30,8 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
             [['nome', 'email', 'assunto', 'mensagem'], 'required'],
-            // email has to be a valid email address
             [['email', 'email'], 'required'],
-            // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
     }
@@ -60,9 +58,14 @@ class ContactForm extends Model
         $contactos->email = $this->email;
         $contactos->assunto = $this->assunto;
         $contactos->mensagem = $this->mensagem;
+        $contactos->status = self::STATUS_NAO_LIDA;
         $contactos->save();
 
-        VarDumper::dump($contactos->save());
+        if($contactos->save() == true){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

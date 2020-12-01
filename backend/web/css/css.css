@@ -94,7 +94,7 @@ a:hover{
     padding: 15%;
     border-radius: 5px;
     margin: 2%;
-    width: 95%;
+    width: 90%;
     background-color: #FFFFFF;
     color: black;
     font-size: 16px;
@@ -103,6 +103,7 @@ a:hover{
 
 .card-definicoes-admin:hover{
     background-color: #e6e6e6;
+    color: black;
 
 }
 
@@ -110,7 +111,206 @@ a:hover{
     margin-top: 6%;
 }
 
-/*Grid View USers*/
-.table_class{
-    color:red;
+.logo-registo-index{
+    margin-top: -50px;
+    width: 180px;
+}
+
+/*Grid View Users*/
+
+.breadcrumb{
+    margin-top: -70px;
+}
+.gridView-backend{
+    background-color: #d9d9d9 !important;
+    border: 2px #f2f2f2;
+}
+
+.gerirUsers-Container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-gerirUsers{
+    width: 130px;
+}
+
+.gerirUsers-info{
+    font-size: 25px;
+    color: #FFFFFF;
+}
+
+.gridViewHeaderOptions{
+    color: yellow;
+}
+
+/*View - gerir users*/
+
+.user-view{
+    margin-left: 20%;
+
+}
+.detailView-gerirUsers{
+    background-color: #d9d9d9 !important;
+
+}
+
+.gerirUsersContainer{
+    width: 80%;
+}
+
+.info-user{
+    color: #FFFFFF;
+}
+
+/*Users Update*/
+.user-form{
+    color: white;
+}
+.user-update{
+    width: 60%;
+    margin-left: 25%;
+    color: #FFFFFF;
+}
+
+/*Estatisticas Users*/
+.stats-user-container{
+    width: 70%;
+}
+
+.card-stats{
+    margin-bottom: 1%;
+}
+
+.idades-container{
+    margin-top: 50px;
+}
+
+/*Comum*/
+
+.summary{
+    color: #FFFFFF;
+}
+
+a{
+    color: black;
+}
+a:hover{
+    color: black;
+    animation-duration: 1s;
+}
+
+/*Gerir Pontos Turisticos*/
+
+.btn-registar-ponto-turistico{
+    margin-bottom: 10px;
+}
+
+.logo-gerirPontosTuristicos{
+    width: 130px;
+}
+
+.gridView-pontosTuristicos{
+    width: 70%;
+    margin-left: 15%;
+}
+
+.detailView-gerirPontosTuristicos{
+    background-color: #d9d9d9 !important;
+}
+
+.estatisticas-ponto-turistico{
+width: 90%;
+}
+
+
+.gerirPontosTuristicosContainer{
+    width: 90%;
+    opacity: 0.9;
+}
+
+.pontosturisticos-view{
+    margin-left: 10%;
+}
+
+.pontosturisticos-form{
+    color: #FFFFFF;
+}
+
+.pontosturisticos-update{
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+.info-pt{
+    color: #FFFFFF;
+}
+
+.pontosturisticos-create{
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+/*Registar Tipo Monumentos*/
+
+.registar-tipo-monumento-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Registar Estilo Construção*/
+
+.registar-estilo-construcao-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Registar Localidade*/
+
+.registar-localidade-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Comuns*/
+
+.logo{
+    margin-top: -50px;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-registar{
+    width: 130px;
+}
+
+
+/*Contactos*/
+.gerirMensagens-Container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+.logo-gerirMensagens{
+    width: 130px;
+}
+/*Mensagem*/
+.info-mensagem{
+    color: #FFFFFF;
+
+}
+
+.gerirMensagensContainer{
+    width: 80%;
+}
+
+.contactos-view{
+    margin-left: 15%;
 }

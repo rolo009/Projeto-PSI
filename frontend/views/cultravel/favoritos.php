@@ -3,6 +3,9 @@
 use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 $i = 0;
+
+$this->title = 'Favoritos';
+
 ?>
 
 <div class="favourite-container">
@@ -20,13 +23,13 @@ $i = 0;
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="favourite-options">
-                        <a href="#" class="btn btn-warning"><?= FA::icon("star") ?></a>
+                        <?= Html::a(FA::icon("star"), ['cultravel/remover-favoritos', 'idPontoTuristico' =>$ptFavorito->id_pontoTuristico], ['class' => 'btn btn-warning']); ?>
                     </div>
                 </div>
             </div>
             <div class="favorite-body">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <?= Html::img('@web/' . $ptFavorito->foto, ['class' => 'img-pi-favoritos']); ?>
+                        <?= Html::img('@web/imagens/' . $ptFavorito->foto, ['class' => 'img-pi-favoritos']); ?>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="nome-pi-container">

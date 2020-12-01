@@ -45,7 +45,7 @@ class Tipomonumento extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Pontosturisticos]].
+     * Gets query for [[pontosturisticos]].
      *
      * @return \yii\db\ActiveQuery
      */

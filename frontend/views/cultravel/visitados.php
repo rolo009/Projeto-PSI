@@ -1,12 +1,13 @@
 <?php
 use yii\helpers\Html;
 
+$this->title = 'Visitados';
 ?>
 <div class="visitados-container">
     <?php
     foreach ($ptLocalidades as $ptLocalidade) {?>
         <div class="card-visitados">
-            <?php /* Html::img('@web/'.$ptLocalidade->foto, ['class' => 'img-visitados-card']); */?>
+            <?= Html::img('@web/imagens/'.$ptLocalidade->foto, ['class' => 'img-visitados-card']);?>
             <h4 class="card-title-visitados">
                 <?= $ptLocalidade->nomeLocalidade ?></h4>
             <div class="btn-visitados">

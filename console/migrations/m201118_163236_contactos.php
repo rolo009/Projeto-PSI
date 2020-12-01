@@ -18,7 +18,9 @@ class m201118_163236_contactos extends Migration
             'email' => $this->string()->notNull(),
             'assunto' => $this->string(60)->notNull()->notNull(),
             'mensagem' => $this->string(6000)->notNull()->notNull(),
-            'data' => $this->dateTime(),
+            'dataEnvioMensagem' => $this->dateTime()->null()->defaultExpression('CURRENT_TIMESTAMP'),
+            'dataResposta' => $this->dateTime()->null(),
+            'status' => $this->integer()->notNull(),
         ]);
 
     }

@@ -2,6 +2,7 @@
 
 use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
+$this->title = 'Visitados: '. $localidade->nomeLocalidade;
 ?>
 <div class="pontos-interesse-visitados-container">
     <div>
@@ -13,7 +14,7 @@ use yii\helpers\Html;
     foreach ($ptVisitados as $ptVisitado) {
         ?>
         <div class="card-pontos-interesse-visitados">
-            <?=Html::img('@web/'.$ptVisitado -> foto, ['class' => 'img-pi-card-pt-visitados']); ?>
+            <?=Html::img('@web/imagens/'.$ptVisitado -> foto, ['class' => 'img-pi-card-pt-visitados']); ?>
             <h5>
                 <?= $ptVisitado -> nome ?>
             </h5>

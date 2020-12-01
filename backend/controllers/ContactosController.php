@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+
 namespace backend\controllers;
 
 use Yii;
@@ -37,13 +38,17 @@ class ContactosController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ContactosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['cultravel/login']);
+        } else {
+            $searchModel = new ContactosSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -54,36 +59,39 @@ class ContactosController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('verMensagens')) {
 
-        $mensagem = Contactos::findOne(['idContactos' => $id]);
+            $model = $this->findModel($id);
 
-        if($mensagem->status == 0){
-            $estadoMensagem = 'Mensagem não Lida (0)';
-        }
-        elseif ($mensagem->status == 1){
-            $estadoMensagem = 'Mensagem Lida (1)';
-        }
+            $mensagem = Contactos::findOne(['idContactos' => $id]);
 
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            if($model->status == 0){
-                $model->dataResposta = NULL;
-                $model->save();
-            }
-            elseif ($model->status == 1){
-                $model->dataResposta = date('Y-m-d H:i:s');
-                $model->save();
+            if ($mensagem->status == 0) {
+                $estadoMensagem = 'Mensagem não Lida (0)';
+            } elseif ($mensagem->status == 1) {
+                $estadoMensagem = 'Mensagem Lida (1)';
             }
 
-            return $this->redirect(['view', 'id' => $model->idContactos]);
-        }
 
-        return $this->render('view', [
-            'model' => $model,
-            'estadoMensagem' =>$estadoMensagem,
-        ]);
+            if ($model->load(Yii::$app->request->post())) {
+
+                if ($model->status == 0) {
+                    $model->dataResposta = NULL;
+                    $model->save();
+                } elseif ($model->status == 1) {
+                    $model->dataResposta = date('Y-m-d H:i:s');
+                    $model->save();
+                }
+
+                return $this->redirect(['view', 'id' => $model->idContactos]);
+            }
+
+            return $this->render('view', [
+                'model' => $model,
+                'estadoMensagem' => $estadoMensagem,
+            ]);
+        } else {
+            return $this->render('index');
+        }
     }
 
     /**

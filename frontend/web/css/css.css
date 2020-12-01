@@ -355,6 +355,10 @@ a:hover{
     }
 }
 
+.rating-container{
+    color: white;
+}
+
 /* ----------------------------Registar---------------------------*/
 .alert-success {
     margin-top: -70px !important;

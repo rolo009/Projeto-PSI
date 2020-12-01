@@ -8,7 +8,7 @@ use rmrevin\yii\fontawesome\FA;
 use yii\web\AssetBundle;
 use yii\captcha\Captcha;
 
-$this->title = 'Contact';
+$this->title = 'Contactos';
 
 ?>
 <div class="logo-index-container">

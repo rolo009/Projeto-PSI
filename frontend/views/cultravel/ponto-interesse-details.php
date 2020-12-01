@@ -5,6 +5,7 @@ use rmrevin\yii\fontawesome\FA;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
+$this->title = 'Detalhes: '. $pontoTuristico->nome;
 ?>
 
 <div class="pontos-interesse-details-container">
@@ -36,7 +37,7 @@ use yii\helpers\Html;
                                     </div>
                             </h5>
                         </div>
-                        <?=Html::img('@web/'.$pontoTuristico -> foto, ['class' => 'card-img-top']); ?>
+                        <?=Html::img('@web/imagens/'.$pontoTuristico -> foto, ['class' => 'card-img-top']); ?>
                     </div>
             </div>
             <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 info-pt">
@@ -62,7 +63,7 @@ use yii\helpers\Html;
             <h3>Descrição</h3>
             <?=$pontoTuristico->descricao ?>
         </div>
-        <div>
+        <div class="rating-container">
             <?php
             $form = ActiveForm::begin();
 
@@ -73,9 +74,8 @@ use yii\helpers\Html;
                     'step' => 1,
                     'size' => 'lg',
                 ],
-            ]);
+            ])->label("Rating");
             echo Html::submitButton('Avaliar', ['class' => 'btn btn-warning']) ?>
-            ?>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

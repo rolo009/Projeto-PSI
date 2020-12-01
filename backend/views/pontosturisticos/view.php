@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 $atributos = [
     [
         'label' => 'Foto',
-        'value' => $model->foto,
-        'format' => ['image', ['width' => '150', 'height' => '150']],
+        'value' => '@web/imagens/'.$model->foto,
+        'format' => ['image', ['height' => '150']],
     ],
     [
         'label' => 'ID',

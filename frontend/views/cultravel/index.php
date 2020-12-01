@@ -8,7 +8,7 @@ use rmrevin\yii\fontawesome\FA;
 
 use yii\web\AssetBundle;
 
-$this->title = 'Cultravel';
+$this->title = 'Página Inicial';
 
 ?>
 <div class="logo-index-container">

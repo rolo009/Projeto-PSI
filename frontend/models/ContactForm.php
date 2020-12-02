@@ -61,11 +61,7 @@ class ContactForm extends Model
         $contactos->status = self::STATUS_NAO_LIDA;
         $contactos->save();
 
-        if($contactos->save() == true){
-            return true;
-        }else{
-            return false;
-        }
+       return $contactos->save();
     }
 
     /**

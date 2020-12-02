@@ -199,7 +199,7 @@ class UserController extends Controller
 
             $idade = $dataNascimento->diff($dataAtual);
 
-            if($idade->y > 0 && $idade->y < 20){
+            if($idade->y >= 0 && $idade->y < 20){
                 $idade0a20++;
             }
             elseif ($idade->y >= 20 && $idade->y <30){

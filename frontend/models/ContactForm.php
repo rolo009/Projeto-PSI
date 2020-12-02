@@ -48,9 +48,6 @@ class ContactForm extends Model
 
     public function saveContacto()
     {
-        if (!$this->validate()) {
-            return null;
-        }
 
         $contactos = new Contactos();
 
@@ -61,7 +58,12 @@ class ContactForm extends Model
         $contactos->status = self::STATUS_NAO_LIDA;
         $contactos->save();
 
-       return $contactos->save();
+        if($contactos->save() == true){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**

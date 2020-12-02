@@ -176,31 +176,31 @@ class CultravelController extends Controller
 
     public function actionContactos()
     {
-
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post())) {
-            $model->saveContacto();
-            if ($model->saveContacto() == true) {
+            if ($model->saveContacto()) {
                 Yii::$app->session->setFlash('success', 'Foi registada a sua mensagem, iremos responder o mais rapido possivel.');
                 return $this->actionIndex();
-            } elseif ($model->saveContacto() == false) {
+            } else {
                 Yii::$app->session->setFlash('error', 'Ocorreu um erro ao enviar a sua mensagem!');
                 return $this->actionIndex();
             }
         } else {
-            return $this->render('contactos', [
-                'model' => $model,
-            ]);
+            return $this->render('contactos', ['model' => $model,]);
+
         }
+
 
     }
 
-    public function actionSobreNos()
+    public
+    function actionSobreNos()
     {
         return $this->render('sobre-nos');
     }
 
-    public function actionRegistar()
+    public
+    function actionRegistar()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -218,7 +218,8 @@ class CultravelController extends Controller
     }
 
 
-    public function actionLogin()
+    public
+    function actionLogin()
     {
 
         $model = new LoginForm();
@@ -234,18 +235,21 @@ class CultravelController extends Controller
         }
     }
 
-    public function actionLogout()
+    public
+    function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->actionIndex();
     }
 
-    public function actionPontosInteresse()
+    public
+    function actionPontosInteresse()
     {
         return $this->render('pontos-interesse');
     }
 
-    public function actionPontoInteresseDetails($id)
+    public
+    function actionPontoInteresseDetails($id)
     {
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
         $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
@@ -278,18 +282,17 @@ class CultravelController extends Controller
 
         $rating = new Ratings();
 
-        if ($rating->load(Yii::$app->request->post())){
+        if ($rating->load(Yii::$app->request->post())) {
             $ratingVerificacao = Ratings::find()
                 ->where(['pt_idPontoTuristico' => $id])
-                ->andWhere(['user_idUtilizador'=> Yii::$app->user->getId()])
-            ->one();
+                ->andWhere(['user_idUtilizador' => Yii::$app->user->getId()])
+                ->one();
 
-            if($ratingVerificacao == null){
+            if ($ratingVerificacao == null) {
                 $rating->user_idUtilizador = Yii::$app->user->getId();
                 $rating->pt_idPontoTuristico = $id;
                 $rating->save();
-            }
-            elseif ($ratingVerificacao != null){
+            } elseif ($ratingVerificacao != null) {
                 $ratingVerificacao->classificacao = $rating->classificacao;
             }
 
@@ -307,7 +310,8 @@ class CultravelController extends Controller
         ]);
     }
 
-    public function mediaRatings($ratings)
+    public
+    function mediaRatings($ratings)
     {
         $somaRatings = 0;
 
@@ -318,7 +322,8 @@ class CultravelController extends Controller
         return $mediaRatings;
     }
 
-    public function actionPontoInteresseVisitados($idLocalidade)
+    public
+    function actionPontoInteresseVisitados($idLocalidade)
     {
         if (Yii::$app->getUser()->isGuest != true) {
             $idUser = Yii::$app->user->getId();
@@ -344,7 +349,8 @@ class CultravelController extends Controller
         }
     }
 
-    public function actionAdicionarFavoritos($idPontoTuristico)
+    public
+    function actionAdicionarFavoritos($idPontoTuristico)
     {
         $idUser = Yii::$app->user->getId();
 
@@ -368,7 +374,8 @@ class CultravelController extends Controller
 
     }
 
-    public function actionRemoverFavoritos($idPontoTuristico)
+    public
+    function actionRemoverFavoritos($idPontoTuristico)
     {
 
         $idUser = Yii::$app->user->getId();
@@ -384,7 +391,8 @@ class CultravelController extends Controller
         }
     }
 
-    public function actionAdicionarVisitados($idPontoTuristico)
+    public
+    function actionAdicionarVisitados($idPontoTuristico)
     {
         $idUser = Yii::$app->user->getId();
 
@@ -408,7 +416,8 @@ class CultravelController extends Controller
 
     }
 
-    public function actionRemoverVisitados($idPontoTuristico)
+    public
+    function actionRemoverVisitados($idPontoTuristico)
     {
 
         $idUser = Yii::$app->user->getId();
@@ -424,7 +433,8 @@ class CultravelController extends Controller
         }
     }
 
-    public function actionPontosInteresseFiltro($filtro)
+    public
+    function actionPontosInteresseFiltro($filtro)
     {
         $idFiltro = Tipomonumento::findOne(['descricao' => $filtro]);
 

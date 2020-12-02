@@ -21,7 +21,7 @@ return [
                 'encryption' => 'tls',
                 'host' => 'smtp.gmail.com',
                 'port' => '587',
-                'username' => 'mariofcc271999@gmail.com',
+                'username' => 'cultravel2020@gmail.com',
                 'password' => 'grupo7123',
                 ],
             'useFileTransport' => false,

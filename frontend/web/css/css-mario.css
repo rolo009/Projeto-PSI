@@ -99,7 +99,7 @@ body, html{
 
 .sn-about-section {
     padding: 25px;
-    text-align: center;
+    text-align: justify-all;
     background-color: transparent;
     color: white;
 }

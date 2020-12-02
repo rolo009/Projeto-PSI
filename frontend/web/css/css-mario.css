@@ -99,11 +99,16 @@ body, html{
 
 .sn-about-section {
     padding: 25px;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+}
+.sn-about-section-text {
+    padding: 25px;
     text-align: justify-all;
     background-color: transparent;
     color: white;
 }
-
 .sn-container {
 
     opacity: 0.9;

@@ -118,27 +118,17 @@ class CultravelController extends Controller
         //if (Yii::$app->getUser()->isGuest != true) {
         $idUser = Yii::$app->user->getId();
 
+        $user = User::findOne(['id' => $idUser]);
 
-            $user = User::findOne(['id' => $idUser]);
-            if (!$user) {
-                throw new NotFoundHttpException("The user was not found.");
-            }
+        $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
 
-            $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
-
-            if (!$profile) {
-                throw new NotFoundHttpException("The user has no profile.");
-            }
-
-
+        if ($user != null && $profile != null) {
             if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
-                $isValid = $user->validate();
-                $isValid = $profile->validate() && $isValid;
-                if ($isValid) {
-                    $user->save(false);
-                    $profile->save(false);
-                    return $this->redirect(['editar-registo', $user, $profile]);
-                }
+
+                $user->username = Yii::$app->request->post('User')['username'];
+                $user->email = Yii::$app->request->post('User')['email'];
+                $user->save();
+                $profile->save();
             }
 
             return $this->render('editar-registo', [
@@ -147,6 +137,9 @@ class CultravelController extends Controller
 
             ]);
         }
+
+
+    }
 
     /*public function actionResetPassword()
     {
@@ -166,73 +159,74 @@ class CultravelController extends Controller
             ]);
         }*/
 
-    public function actionResetPassword(){
+    public function actionResetPassword()
+    {
         $model = new ResetPasswordForm;
         $modeluser = User::find()->where([
-            'username'=>Yii::$app->user->identity->username
+            'username' => Yii::$app->user->identity->username
         ])->one();
 
-        if($model->load(Yii::$app->request->post())){
-            if($model->validate()){
-                try{
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                try {
                     $modeluser->$password = $_POST['ResetPasswordForm']['newpass'];
-                    if($modeluser->save()){
+                    if ($modeluser->save()) {
                         Yii::$app->getSession()->setFlash(
-                            'success','Password changed'
+                            'success', 'Password changed'
                         );
                         return $this->redirect(['reset-password']);
-                    }else{
+                    } else {
                         Yii::$app->getSession()->setFlash(
-                            'error','Password not changed'
+                            'error', 'Password not changed'
                         );
                         return $this->redirect(['reset-password']);
                     }
-                }catch(Exception $e){
+                } catch (Exception $e) {
                     Yii::$app->getSession()->setFlash(
-                        'error',"{$e->getMessage()}"
+                        'error', "{$e->getMessage()}"
                     );
-                    return $this->render('reset-password',[
-                        'model'=>$model
+                    return $this->render('reset-password', [
+                        'model' => $model
                     ]);
                 }
-            }else{
-                return $this->render('reset-password',[
-                    'model'=>$model
+            } else {
+                return $this->render('reset-password', [
+                    'model' => $model
                 ]);
             }
-        }else{
-            return $this->render('reset-password',[
-                'model'=>$model
+        } else {
+            return $this->render('reset-password', [
+                'model' => $model
             ]);
         }
     }
 
 
-        public function actionVisitados()
-        {
-            if (Yii::$app->getUser()->isGuest != true) {
-                $idUser = Yii::$app->user->getId();
+    public function actionVisitados()
+    {
+        if (Yii::$app->getUser()->isGuest != true) {
+            $idUser = Yii::$app->user->getId();
 
-                $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
+            $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
 
-                if ($visitados != null) {
+            if ($visitados != null) {
 
 
-                    foreach ($visitados as $visitado) {
-                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
-                    }
-
-                    return $this->render('visitados', [
-                        'ptLocalidades' => $ptLocalidades
-                    ]);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
-                    return $this->actionIndex();
+                foreach ($visitados as $visitado) {
+                    $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
                 }
+
+                return $this->render('visitados', [
+                    'ptLocalidades' => $ptLocalidades
+                ]);
             } else {
+                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
                 return $this->actionIndex();
             }
+        } else {
+            return $this->actionIndex();
         }
+    }
 
     public function actionContactos()
     {

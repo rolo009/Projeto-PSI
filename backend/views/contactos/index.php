@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Estado da Mensagem',
-                'filter' => ['0' => 'Mensagens não Lidas', '1' => 'Mensagens não Lidas'],
+                'filter' => ['0' => 'Mensagens não Lidas', '1' => 'Mensagens Lidas'],
                 'attribute' => 'status',
                 'format' => 'text'
             ],

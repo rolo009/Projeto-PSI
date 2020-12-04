@@ -103,7 +103,12 @@ body, html{
     background-color: transparent;
     color: white;
 }
-
+.sn-about-section-text {
+    padding: 25px;
+    text-align: justify-all;
+    background-color: transparent;
+    color: white;
+}
 .sn-container {
 
     opacity: 0.9;

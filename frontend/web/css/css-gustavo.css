@@ -94,3 +94,11 @@
 .flash-login{
     margin-top: 0px;
 }
+
+.dropdonw-menu:hover{
+    background-color: transparent!important;
+}
+
+.dropdown-item:hover{
+    background-color: transparent!important;
+}

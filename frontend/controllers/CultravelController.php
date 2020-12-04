@@ -16,6 +16,7 @@ use common\models\User;
 use frontend\models\ContactForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use http\Exception;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\helpers\VarDumper;
@@ -121,6 +122,65 @@ class CultravelController extends Controller
 
             ]);
         }
+
+    /*public function actionResetPassword()
+    {
+        $model = new ResetPasswordForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->password == $model->confirmPassword) {
+                $model->resetPassword($model->new_password);
+                Yii::$app->session->setFlash('success', 'Palavra-passe alterada com sucesso!');
+                return $this->actionLogin();
+            } else {
+                Yii::$app->session->setFlash('error', 'Palavras-passe não coicidem!');
+            }
+        }
+
+            return $this->render('reset-password', [
+                'model' => $model,
+            ]);
+        }*/
+
+    public function actionResetPassword(){
+        $model = new ResetPasswordForm;
+        $modeluser = User::find()->where([
+            'username'=>Yii::$app->user->identity->username
+        ])->one();
+
+        if($model->load(Yii::$app->request->post())){
+            if($model->validate()){
+                try{
+                    $modeluser->$password = $_POST['ResetPasswordForm']['newpass'];
+                    if($modeluser->save()){
+                        Yii::$app->getSession()->setFlash(
+                            'success','Password changed'
+                        );
+                        return $this->redirect(['reset-password']);
+                    }else{
+                        Yii::$app->getSession()->setFlash(
+                            'error','Password not changed'
+                        );
+                        return $this->redirect(['reset-password']);
+                    }
+                }catch(Exception $e){
+                    Yii::$app->getSession()->setFlash(
+                        'error',"{$e->getMessage()}"
+                    );
+                    return $this->render('reset-password',[
+                        'model'=>$model
+                    ]);
+                }
+            }else{
+                return $this->render('reset-password',[
+                    'model'=>$model
+                ]);
+            }
+        }else{
+            return $this->render('reset-password',[
+                'model'=>$model
+            ]);
+        }
+    }
 
 
         public function actionVisitados()

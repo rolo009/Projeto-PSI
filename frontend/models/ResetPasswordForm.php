@@ -11,7 +11,10 @@ use common\models\User;
  */
 class ResetPasswordForm extends Model
 {
-    public $password;
+    public $oldpass;
+    public $newpass;
+    public $repeatnewpass;
+
 
     /**
      * @var \common\models\User
@@ -26,16 +29,9 @@ class ResetPasswordForm extends Model
      * @param array $config name-value pairs that will be used to initialize the object properties
      * @throws InvalidArgumentException if token is empty or not valid
      */
-    public function __construct($token, $config = [])
+    public function __construct()
     {
-        if (empty($token) || !is_string($token)) {
-            throw new InvalidArgumentException('Password reset token cannot be blank.');
-        }
-        $this->_user = User::findByPasswordResetToken($token);
-        if (!$this->_user) {
-            throw new InvalidArgumentException('Wrong password reset token.');
-        }
-        parent::__construct($config);
+
     }
 
     /**
@@ -44,8 +40,15 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
+            /*['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['confirmPassword', 'required'],
+            ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['new_password', 'required'],
+            ['new_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],*/
+            [['oldpass','newpass','repeatnewpass'],'required'],
+            ['oldpass','findPasswords'],
+            ['repeatnewpass','compare','compareAttribute'=>'newpass'],
         ];
     }
 
@@ -54,12 +57,34 @@ class ResetPasswordForm extends Model
      *
      * @return bool if password was reset.
      */
-    public function resetPassword()
+    /*public function resetPassword($new_password)
     {
-        $user = $this->_user;
-        $user->setPassword($this->password);
-        $user->removePasswordResetToken();
+        $this->password_hash = Yii::$app->security->generatePasswordHash($new_password);
+        /*if (!$this->validate()) {
+            return null;
+        }
 
-        return $user->save(false);
+        $user = new User();
+
+        $user->setPassword($this->password);
+
+        return $user->save();
+    }*/
+    public function findPasswords($attribute, $params){
+        $user = User::find()->where([
+            'username'=>Yii::$app->user->identity->username
+        ])->one();
+        $password = $user->password;
+        if($password!=$this->oldpass)
+            $this->addError($attribute,'Old password is incorrect');
     }
+
+    public function attributeLabels(){
+        return [
+            'oldpass'=>'Old Password',
+            'newpass'=>'New Password',
+            'repeatnewpass'=>'Repeat New Password',
+        ];
+    }
+
 }

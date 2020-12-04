@@ -32,7 +32,11 @@ class Contactos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'email', 'assunto', 'mensagem', 'status'], 'required'],
+            [['nome'], 'required', 'message'=>'O campo Nome não pode estar em branco!'],
+            [['email'], 'required', 'message'=>'O campo Email não pode estar em branco!'],
+            [['assunto'], 'required', 'message'=>'O campo Assunto não pode estar em branco!'],
+            [['messagem'], 'required', 'message'=>'O campo Messagem não pode estar em branco!'],
+            [['status'], 'required', 'message'=>'O campo Status não pode estar em branco!'],
             [['dataEnvioMensagem', 'dataResposta'], 'safe'],
             [['status'], 'integer'],
             [['nome', 'email'], 'string', 'max' => 255],

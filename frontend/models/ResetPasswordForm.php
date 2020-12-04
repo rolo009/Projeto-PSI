@@ -46,7 +46,9 @@ class ResetPasswordForm extends Model
             ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
             ['new_password', 'required'],
             ['new_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],*/
-            [['oldpass','newpass','repeatnewpass'],'required'],
+            [['oldpass'], 'required', 'message'=>'O campo OldPass não pode estar em branco!'],
+            [['newpass'], 'required', 'message'=>'O campo NewPass não pode estar em branco!'],
+            [['repeatnewpass'], 'required', 'message'=>'O campo RepeatNewPass não pode estar em branco!'],
             ['oldpass','findPasswords'],
             ['repeatnewpass','compare','compareAttribute'=>'newpass'],
         ];

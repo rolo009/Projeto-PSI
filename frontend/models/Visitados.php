@@ -31,7 +31,8 @@ class Visitados extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_idUtilizador', 'pt_idPontoTuristico'], 'required'],
+            [['user_idUtilizador'], 'required', 'message'=>'O campo IDUtilizador não pode estar em branco!'],
+            [['pt_idPontoTuristico'], 'required', 'message'=>'O campo IDPontoTuristico não pode estar em branco!'],
             [['user_idUtilizador', 'pt_idPontoTuristico'], 'integer'],
             [['user_idUtilizador'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_idUtilizador' => 'id']],
             [['pt_idPontoTuristico'], 'exist', 'skipOnError' => true, 'targetClass' => Pontosturisticos::className(), 'targetAttribute' => ['pt_idPontoTuristico' => 'id_pontoTuristico']],

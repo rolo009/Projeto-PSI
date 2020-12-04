@@ -28,7 +28,7 @@ class Tipomonumento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
+            [['descricao'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
             [['descricao'], 'string', 'max' => 255],
         ];
     }

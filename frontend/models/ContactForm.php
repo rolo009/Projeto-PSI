@@ -30,7 +30,10 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            [['nome', 'email', 'assunto', 'mensagem'], 'required'],
+            [['nome'], 'required', 'message'=>'O campo Nome não pode estar em branco!'],
+            [['email'], 'required', 'message'=>'O campo Email não pode estar em branco!'],
+            [['assunto'], 'required', 'message'=>'O campo Assunto não pode estar em branco!'],
+            [['messagem'], 'required', 'message'=>'O campo Messagem não pode estar em branco!'],
             [['email', 'email'], 'required'],
             ['verifyCode', 'captcha'],
         ];

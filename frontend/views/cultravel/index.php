@@ -16,7 +16,7 @@ $this->title = 'Página Inicial';
 </div>
 <div>
     <div class="container-fluid searchForm-container">
-        <?php $form = ActiveForm::begin() ?>
+        <?php $form = ActiveForm::begin(['id' => 'searchForm']) ?>
         <div class="row">
             <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2">
             </div>

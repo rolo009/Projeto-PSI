@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\VarDumper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "pontosturisticos".
@@ -29,13 +30,15 @@ class Pontosturisticos extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
     public function rules()
     {
         return [
-            [['nome', 'anoConstrucao', 'descricao', 'foto', 'tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'required'],
+            [['nome', 'anoConstrucao', 'descricao', 'tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'required'],
             [['tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'integer'],
             [['nome', 'anoConstrucao', 'foto'], 'string', 'max' => 255],
             [['descricao'], 'string', 'max' => 6000],
+
         ];
     }
 

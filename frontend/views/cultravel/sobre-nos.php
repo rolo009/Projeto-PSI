@@ -9,7 +9,7 @@ use rmrevin\yii\fontawesome\FA;
 
 use yii\web\AssetBundle;
 
-$this->title = 'Cultravel';
+$this->title = 'Sobre Nós';
 ?>
 <div class="logo-index-container">
 
@@ -18,8 +18,8 @@ $this->title = 'Cultravel';
 </div>
 <div class="sn-about-section">
     <h1>Sobre Nós</h1>
-    <p>Some text about who we are and what we do.</p>
-    <p>Resize the browser window to see that this page is responsive by the way.</p>
+    <p class="sn-about-section-text">A CulTravel foi desenvolvida no ano de 2020. Nós idealizamos que sair, conhecer a cultura e os monumentos que nos foram deixados pudesse estar mais ao alcanse de qualquer um, pois com a aplicação não tem de se dirigir a um ponto de turistico e ter de estar no horario para pedir informação, por outro lado tambem não precisa de perder horas a fazer pesquisa e um plano de ação sobre a zona a visitar, pode encontrar isto tudo com bastante facilidade e comudidade conosco. Desde inicio que o nosso objetivo foi facilitar e trazer uma multi ferramenta, no que toca ao conhecimento cultural e de viagens. Sendo assim nada como uma app no dispositivo que anda sempre conosco.     </p>
+    <p></p>
 </div>
 
 <h2 class="sn-color" style="text-align:center">A Nossa Equipa</h2>

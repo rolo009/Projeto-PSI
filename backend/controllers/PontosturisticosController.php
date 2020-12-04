@@ -5,15 +5,22 @@ namespace backend\controllers;
 
 
 use app\models\Estiloconstrucao;
+use app\models\Favoritos;
 use app\models\Localidade;
 use app\models\Ratings;
 use app\models\Tipomonumento;
+use app\models\UploadForm;
+use app\models\Visitados;
 use Yii;
 use app\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+
 
 /**
  * PontosturisticosController implements the CRUD actions for pontosturisticos model.
@@ -63,6 +70,9 @@ class PontosturisticosController extends Controller
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
         $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
 
+        $favoritosContador= count(Favoritos::findAll(['pt_idPontoTuristico'=>$id]));
+        $visitadosContador= count(Visitados::findAll(['pt_idPontoTuristico'=>$id]));
+
         $ratings = Ratings::findAll(['pt_idPontoTuristico' => $pontoTuristico->id_pontoTuristico]);
         if($ratings != null){
             $mediaRatings = $this->mediaRatings($ratings);
@@ -76,6 +86,8 @@ class PontosturisticosController extends Controller
             'estiloConstrucao' => $estiloConstrucao,
             'tipoMonumento' => $tipoMonumento,
             'mediaRatings' => $mediaRatings,
+            'favoritosContador'=>$favoritosContador,
+            'visitadosContador'=>$visitadosContador
 
         ]);
     }
@@ -85,7 +97,7 @@ class PontosturisticosController extends Controller
         $somaRatings = 0;
 
         foreach ($ratings as $rating) {
-            $somaRatings = $somaRatings = $rating->classificacao;
+            $somaRatings = $somaRatings + $rating->classificacao;
         }
         $mediaRatings = $somaRatings/count($ratings);
         return $mediaRatings;
@@ -99,13 +111,37 @@ class PontosturisticosController extends Controller
     public function actionCreate()
     {
         $model = new Pontosturisticos();
+        $modelUpload = new UploadForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+            $modelUpload->upload();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
+        $tiposMonumentos = \app\models\Tipomonumento::find()
+            ->select(['descricao'])
+            ->indexBy('idTipoMonumento')
+            ->column();
+
+        $estiloConstrucao = \app\models\Estiloconstrucao::find()
+            ->select(['descricao'])
+            ->indexBy('idEstiloConstrucao')
+            ->column();
+
+        $localidade = \app\models\Localidade::find()
+            ->select(['nomeLocalidade'])
+            ->indexBy('id_localidade')
+            ->column();
+
         return $this->render('create', [
             'model' => $model,
+            'modelUpload' => $modelUpload,
+            'tiposMonumentosPT' => $tiposMonumentos,
+            'localidadePT' => $localidade,
+            'estiloConstrucaoPT' => $estiloConstrucao,
         ]);
     }
 
@@ -119,6 +155,7 @@ class PontosturisticosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelUpload = new UploadForm();
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
         $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
@@ -129,11 +166,30 @@ class PontosturisticosController extends Controller
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
+        $tiposMonumentosPT = \app\models\Tipomonumento::find()
+            ->select(['descricao'])
+            ->indexBy('idTipoMonumento')
+            ->orderBy('descricao ASC')
+            ->column();
+
+        $estiloConstrucaoPT = \app\models\Estiloconstrucao::find()
+            ->select(['descricao'])
+            ->indexBy('idEstiloConstrucao')
+            ->orderBy('descricao ASC')
+            ->column();
+
+        $localidadePT = \app\models\Localidade::find()
+            ->select(['nomeLocalidade'])
+            ->indexBy('id_localidade')
+            ->orderBy('nomeLocalidade ASC')
+            ->column();
+
         return $this->render('update', [
             'model' => $model,
-            'localidade' => $localidade,
-            'estiloConstrucao' => $estiloConstrucao,
-            'tipoMonumento' => $tipoMonumento,
+            'modelUpload' => $modelUpload,
+            'tiposMonumentosPT' => $tiposMonumentosPT,
+            'localidadePT' => $localidadePT,
+            'estiloConstrucaoPT' => $estiloConstrucaoPT,
         ]);
     }
 
@@ -165,5 +221,20 @@ class PontosturisticosController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionEstatisticas()
+    {
+
+        $ptMaisVisitado = $this->pontoTuristicoMaisVisitado();
+        $ptMenosVisitado = $this->pontoTuristicoMenosVisitado();
+
+        return $this->render('stats-pontosTuristicos', [
+        ]);
+    }
+
+    public function pontoTuristicoMaisVisitado(){
+
     }
 }

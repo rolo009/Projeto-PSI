@@ -43,6 +43,16 @@ class m201104_145257_permissions extends Migration
         $gerirUsers->description = 'Gerir Utilizadores';
         $auth->add($gerirUsers);
 
+        // add "verMensagens" permission
+        $verMensagens = $auth->createPermission('verMensagens');
+        $verMensagens->description = 'Ver Mensagens';
+        $auth->add($verMensagens);
+
+        // add "editarEstadoMensagens" permission
+        $editarEstadoMensagens = $auth->createPermission('editarEstadoMensagens');
+        $editarEstadoMensagens->description = 'Editar Estado Mensagens';
+        $auth->add($editarEstadoMensagens);
+
         // add "user" role and give this role the "createPost" permission
         $user = $auth->createRole('user');
         $auth->add($user);
@@ -55,12 +65,13 @@ class m201104_145257_permissions extends Migration
         $auth->addChild($admin, $editarPi);
         $auth->addChild($admin, $eliminarPi);
         $auth->addChild($admin, $gerirUsers);
+        $auth->addChild($admin, $verMensagens);
+        $auth->addChild($admin, $editarEstadoMensagens);
 
         // Assign roles to users. 1 and 2 are IDs returned by IdentityInterface::getId()
         // usually implemented in your User model.
         $auth->assign($admin, 1);
         $auth->assign($user, 2);
-
     }
 
     public function down()

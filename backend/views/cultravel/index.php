@@ -1,12 +1,13 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 
 use rmrevin\yii\fontawesome\FA;
+use yii\bootstrap4\Button;
 
 ?>
 <div class="index-container">
-    <?= Html::img('@web/logo-white.png', ['class' => 'logo-registo']); ?>
+    <?= Html::img('@web/logo-white.png', ['class' => 'logo-registo-index']); ?>
 
 <div class="container-fluid cards-container">
     <div class="row">

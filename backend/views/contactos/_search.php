@@ -25,7 +25,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'mensagem') ?>
 
-    <?php // echo $form->field($model, 'data') ?>
+    <?php // echo $form->field($model, 'dataEnvioMensagem') ?>
+
+    <?php // echo $form->field($model, 'dataResposta') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

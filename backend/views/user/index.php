@@ -17,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="gerirUsers-info">GERIR UTILIZADORES</p>
     </div>
+    <?= Html::a('Estatisticas', ['estatisticas'], ['class' => 'btn btn-primary']) ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

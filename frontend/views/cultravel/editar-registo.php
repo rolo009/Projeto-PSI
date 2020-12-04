@@ -5,6 +5,7 @@ use yii\jui\DatePicker;
 use rmrevin\yii\fontawesome\FA;
 use yii\web\AssetBundle;
 
+$this->title = 'Editar Registo';
 ?>
 
 <div class="editar-container">

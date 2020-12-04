@@ -14,38 +14,21 @@ if (Yii::$app->session->hasFlash('success'))
 }
 ?>
 
-<div class="login-container">
+<div class="site-login">
+    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= Html::img('@web/seta-logo.png', ['class' => 'logo-login']); ?>
+    <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-    <p class="login-info">Preencha os campos do login:</p>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label("Email") ?>
 
-<div class="row">
-    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
+    <?= $form->field($model, 'password')->passwordInput()->label("Palavra-Passe") ?>
+
+    <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
     </div>
-    <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
-        <?php $form = ActiveForm::begin()?>
 
-            <?php
-            echo $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
-            <?php
-             echo $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
-
-            <div style="color:#999;margin:1em 0">
-                <?= Html::a('Esqueceu-se da palavra-passe?', ['site/request-password-reset']) ?>.
-                <br>
-                <?= Html::a('Verificação do email', ['site/resend-verification-email']) ?>
-            </div>
-
-            <div class="form-group">
-            <?php
-            echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-warning', 'name' => 'insert-login']) ?>
-            <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
-            </div>
-        <?php ActiveForm::end(); ?>
-    </div>
-</div>
-    <div class="col-xs-1 col-sm-3 col-md-2 col-lg-3">
-    </div>
+    <?php ActiveForm::end(); ?>
 </div>
 

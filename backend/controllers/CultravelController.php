@@ -4,10 +4,14 @@ namespace backend\controllers;
 
 
 
+use app\models\Estiloconstrucao;
+use app\models\Localidade;
+use app\models\Tipomonumento;
 use app\models\UserSearch;
 use common\models\LoginForm;
 use Yii;
 use yii\debug\models\search\User;
+use yii\helpers\VarDumper;
 
 class CultravelController extends \yii\web\Controller
 {
@@ -42,25 +46,127 @@ class CultravelController extends \yii\web\Controller
         }
     }
 
-    public function actionPontosTuristicos()
+    public function actionEditarTipoMonumento($id)
     {
-        return $this->render('gerir-pontos-turisticos');
-    }
+        $model = new Tipomonumento();
 
-    public function actionGerirUtilizadores()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if ($model->load(Yii::$app->request->post())) {
 
-        return $this->render('gerir-utilizadores', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao' => $model->descricao]);
+
+            if ($tipoMonumentoVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/update', 'id' => $id]);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Tipo monumento já registado!');
+                return $this->redirect(['pontosturisticos/update', 'id' => $id]);
+            }
+        }
+        return $this->render('registar-tipo-monumento', [
+            'model' => $model,
         ]);
     }
 
-    public function actionMensagens()
+    public function actionRegistarTipoMonumento()
     {
-        return $this->render('mensagens');
+        $model = new Tipomonumento();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao'=>$model->descricao]);
+            if ($tipoMonumentoVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Tipo monumento já registado!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-tipo-monumento', [
+            'model' => $model,
+        ]);
     }
+
+    public function actionRegistarEstiloConstrucao()
+    {
+        $model = new Estiloconstrucao();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
+            if ($estiloConstrucaoVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-estilo-construcao', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditarEstiloConstrucao($id)
+    {
+        $model = new Estiloconstrucao();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
+            if ($estiloConstrucaoVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-estilo-construcao', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRegistarLocalidade()
+    {
+        $model = new Localidade();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $localidadeVerifica = Localidade::findOne(['nomeLocalidade'=>$model->nomeLocalidade]);
+            if ($localidadeVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/create']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Localidade já registada!');
+                return $this->redirect(['pontosturisticos/create']);
+            }
+        }
+        return $this->render('registar-localidade', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditarLocalidade($id)
+    {
+        $model = new Localidade();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $localidadeVerifica = Localidade::findOne(['nomeLocalidade'=>$model->nomeLocalidade]);
+            if ($localidadeVerifica == null){
+                $model->save();
+                return $this->redirect(['pontosturisticos/update', 'id' => $id]);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Localidade já registada!');
+                return $this->redirect(['pontosturisticos/update', 'id' => $id]);
+            }
+        }
+        return $this->render('registar-localidade', [
+            'model' => $model,
+        ]);
+    }
+
 
 }

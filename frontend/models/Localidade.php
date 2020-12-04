@@ -28,7 +28,7 @@ class Localidade extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomeLocalidade'], 'required'],
+            [['nomeLocalidade'], 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
             [['nomeLocalidade'], 'string', 'max' => 255],
         ];
     }

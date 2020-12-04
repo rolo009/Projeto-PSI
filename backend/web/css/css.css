@@ -94,7 +94,7 @@ a:hover{
     padding: 15%;
     border-radius: 5px;
     margin: 2%;
-    width: 95%;
+    width: 90%;
     background-color: #FFFFFF;
     color: black;
     font-size: 16px;
@@ -109,6 +109,11 @@ a:hover{
 
 .cards-container{
     margin-top: 6%;
+}
+
+.logo-registo-index{
+    margin-top: -50px;
+    width: 180px;
 }
 
 /*Grid View Users*/
@@ -160,17 +165,27 @@ a:hover{
 }
 
 /*Users Update*/
-
+.user-form{
+    color: white;
+}
 .user-update{
     width: 60%;
     margin-left: 25%;
     color: #FFFFFF;
 }
 
-.status-options{
-    text-align: center;
+/*Estatisticas Users*/
+.stats-user-container{
+    width: 70%;
 }
 
+.card-stats{
+    margin-bottom: 1%;
+}
+
+.idades-container{
+    margin-top: 50px;
+}
 
 /*Comum*/
 
@@ -197,8 +212,8 @@ a:hover{
 }
 
 .gridView-pontosTuristicos{
-    width: 60%;
-    margin-left: 20%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 .detailView-gerirPontosTuristicos{
@@ -206,8 +221,9 @@ a:hover{
 }
 
 .estatisticas-ponto-turistico{
-
+width: 90%;
 }
+
 
 .gerirPontosTuristicosContainer{
     width: 90%;
@@ -236,4 +252,65 @@ a:hover{
     width: 80%;
     margin-left: 10%;
     color: #FFFFFF;
+}
+
+/*Registar Tipo Monumentos*/
+
+.registar-tipo-monumento-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Registar Estilo Construção*/
+
+.registar-estilo-construcao-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Registar Localidade*/
+
+.registar-localidade-form{
+    width: 60%;
+    margin-left: 20%;
+    color: white;
+}
+
+/*Comuns*/
+
+.logo{
+    margin-top: -50px;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-registar{
+    width: 130px;
+}
+
+
+/*Contactos*/
+.gerirMensagens-Container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+.logo-gerirMensagens{
+    width: 130px;
+}
+/*Mensagem*/
+.info-mensagem{
+    color: #FFFFFF;
+
+}
+
+.gerirMensagensContainer{
+    width: 80%;
+}
+
+.contactos-view{
+    margin-left: 15%;
 }

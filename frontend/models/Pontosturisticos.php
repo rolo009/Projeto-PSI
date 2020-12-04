@@ -54,12 +54,12 @@ class Pontosturisticos extends \yii\db\ActiveRecord
         return [
             'id_pontoTuristico' => 'Id Ponto Turistico',
             'nome' => 'Nome',
-            'anoConstrucao' => 'Ano Construcao',
+            'anoConstrucao' => 'Ano de Construcão',
             'descricao' => 'Descricao',
             'foto' => 'Foto',
-            'tm_idTipoMonumento' => 'Tm Id Tipo Monumento',
-            'ec_idEstiloConstrucao' => 'Ec Id Estilo Construcao',
-            'localidade_idLocalidade' => 'Localidade Id Localidade',
+            'tm_idTipoMonumento' => 'Tipo de Monumento',
+            'ec_idEstiloConstrucao' => 'Estilo de Construcao',
+            'localidade_idLocalidade' => 'Localidade',
         ];
     }
 

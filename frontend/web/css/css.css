@@ -355,6 +355,10 @@ a:hover{
     }
 }
 
+.rating-container{
+    color: white;
+}
+
 /* ----------------------------Registar---------------------------*/
 .alert-success {
     margin-top: -70px !important;
@@ -403,6 +407,12 @@ a:hover{
 
 .btn-pi-visitado-info{
     margin: 0 6% 6% 0;
+}
+
+.btn-remover-visitados{
+    position: absolute;
+    margin-top: 8px ;
+    margin-left: 190px;
 }
 
 @media (max-width: 1000px) {

@@ -5,6 +5,7 @@ use yii\jui\DatePicker;
 use rmrevin\yii\fontawesome\FA;
 use yii\web\AssetBundle;
 
+$this->title = 'Registar';
 ?>
 <div class="registo-container">
 
@@ -16,7 +17,7 @@ use yii\web\AssetBundle;
     <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
     </div>
     <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
-        <?php $form = ActiveForm::begin()?>
+        <?php $form = ActiveForm::begin(['id' => 'registoForm'])?>
 
             <?php
             echo $form->field($model, 'primeiroNome', ['options' => ['class' => 'label-registo']])->textInput(['autofocus' => true]);

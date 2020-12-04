@@ -18,6 +18,7 @@ class ContactForm extends Model
     public $mensagem;
     public $verifyCode;
 
+    const STATUS_NAO_LIDA = 0;
 
     /**
      * {@inheritdoc}
@@ -41,15 +42,12 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'verifyCode' => 'Codigo De Verificação',
         ];
     }
 
     public function saveContacto()
     {
-        if (!$this->validate()) {
-            return null;
-        }
 
         $contactos = new Contactos();
 
@@ -57,9 +55,15 @@ class ContactForm extends Model
         $contactos->email = $this->email;
         $contactos->assunto = $this->assunto;
         $contactos->mensagem = $this->mensagem;
+        $contactos->status = self::STATUS_NAO_LIDA;
         $contactos->save();
 
-        VarDumper::dump($contactos->save());
+        if($contactos->save() == true){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**

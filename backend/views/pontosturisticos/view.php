@@ -2,19 +2,22 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use practically\chartjs\Chart;
+use scotthuangzl\googlechart\GoogleChart;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pontosturisticos */
 
-$this->title = "Gerir: ".$model->nome;
+$this->title = "Gerir: " . $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Pontos Turisticos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 $atributos = [
     [
         'label' => 'Foto',
-        'value' => $model->foto,
-        'format' => ['image',['width'=>'150','height'=>'150']],
+        'value' => '@web/imagens/img-pt/'.$model->foto,
+        'format' => ['image', ['height' => '150']],
     ],
     [
         'label' => 'ID',
@@ -62,14 +65,27 @@ $atributos = [
         ]) ?>
     </p>
     <div class="gerirPontosTuristicosContainer">
-    <?= DetailView::widget([
-        'model' => $model,
-        'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirPontosTuristicos'],
-        'attributes' => $atributos
-    ]) ?>
-</div>
+        <?= DetailView::widget([
+            'model' => $model,
+            'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirPontosTuristicos'],
+            'attributes' => $atributos
+        ]);
+        ?>
+    </div>
     <h3 class="estatisticas-ponto-turistico">
+        <?php
 
-    </h3>
+        echo GoogleChart::widget(array('visualization' => 'ColumnChart',
+            'data' => array(
+                array('Tarefa', 'Nº de Utilizadores'),
+                array('Favoritos', $favoritosContador),
+                array('Visitados', $visitadosContador),
+            ),
+            'options' => array('title' => 'Estatisticas',
+            )));
+
+        ?>
+</div>
+</h3>
 
 </div>

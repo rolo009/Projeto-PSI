@@ -30,39 +30,39 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            ['username', 'required', 'message'=>'O campo Nome de Utilizador não pode estar em branco!'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message'=>'O campo Email não pode estar em branco!'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este Email já se encontra registado!'],
 
-            ['password', 'required'],
+            ['password', 'required', 'message'=>'O campo Palavra Passe não pode estar em branco!'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
 
-            ['confirmPassword', 'required'],
+            ['confirmPassword', 'required', 'message'=>'O campo Confirmar Palavra Passe não pode estar em branco!'],
             ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
 
-            ['primeiroNome', 'required'],
+            ['primeiroNome', 'required', 'message'=>'O campo Primeiro Nome não pode estar em branco!'],
             ['primeiroNome', 'string', 'max' => 255],
 
-            ['ultimoNome', 'required'],
+            ['ultimoNome', 'required', 'message'=>'O campo Último Nome não pode estar em branco!'],
             ['ultimoNome', 'string', 'max' => 255],
 
-            ['dtaNascimento', 'required'],
+            ['dtaNascimento', 'required', 'message'=>'O campo Data de Nascimento não pode estar em branco!'],
             ['dtaNascimento', 'safe'],
             ['dtaNascimento', 'date', 'format' => 'yyyy-MM-dd'],
 
-            ['morada', 'required'],
+            ['morada', 'required', 'message'=>'O campo Morada não pode estar em branco!'],
             ['morada', 'string', 'max' => 255],
 
-            ['localidade', 'required'],
+            ['localidade', 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
             ['localidade', 'string', 'max' => 255],
 
-            ['sexo', 'required'],
+            ['sexo', 'required', 'message'=>'O campo Sexo não pode estar em branco!'],
             ['sexo', 'string', 'max' => 255],
         ];
     }

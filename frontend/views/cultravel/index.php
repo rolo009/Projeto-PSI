@@ -8,15 +8,15 @@ use rmrevin\yii\fontawesome\FA;
 
 use yii\web\AssetBundle;
 
-$this->title = 'Cultravel';
+$this->title = 'Página Inicial';
 
 ?>
 <div class="logo-index-container">
-    <?= Html::img('@web/logo-white.png', ['class' => 'logo-index']); ?>
+    <?= Html::img('@web/imagens/logo/logo-white.png', ['class' => 'logo-index']); ?>
 </div>
 <div>
     <div class="container-fluid searchForm-container">
-        <?php $form = ActiveForm::begin() ?>
+        <?php $form = ActiveForm::begin(['id' => 'searchForm']) ?>
         <div class="row">
             <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2">
             </div>

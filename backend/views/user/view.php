@@ -51,18 +51,11 @@ $atributos = [
         Utilizador: <?= $model->username ?>
     </h3>
 
-    <p>
-        <?= Html::a('Atualizar Estado', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Tem a certeza que pretende apagar este utilizador?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
     <div class="gerirUsersContainer">
-        <?= DetailView::widget([
+        <?php echo $this->render('_form', [
+            'model' => $model,
+        ]);
+        echo DetailView::widget([
             'model' => $model,
             'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirUsers'],
             'attributes' => $atributos

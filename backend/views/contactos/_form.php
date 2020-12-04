@@ -12,18 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'assunto')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'mensagem')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'data')->textInput() ?>
+    <?= $form->field($model, 'status')->dropdownList(
+            ['0' => 'Mensagem não Lida', '1' => 'Mensagem Lida'],
+        ['prompt' => 'Estado Mensagem']
+    )->label("Estado Mensagem"); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Atualizar Mensagem', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

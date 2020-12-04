@@ -17,8 +17,8 @@ class ContactosSearch extends Contactos
     public function rules()
     {
         return [
-            [['idContactos'], 'integer'],
-            [['nome', 'email', 'assunto', 'mensagem', 'data'], 'safe'],
+            [['idContactos', 'status'], 'integer'],
+            [['nome', 'email', 'assunto', 'mensagem', 'dataEnvioMensagem', 'dataResposta'], 'safe'],
         ];
     }
 
@@ -59,7 +59,9 @@ class ContactosSearch extends Contactos
         // grid filtering conditions
         $query->andFilterWhere([
             'idContactos' => $this->idContactos,
-            'data' => $this->data,
+            'dataEnvioMensagem' => $this->dataEnvioMensagem,
+            'dataResposta' => $this->dataResposta,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

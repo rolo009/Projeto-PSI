@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
@@ -57,21 +58,19 @@ AppAsset::register($this);
         $menuItemsUser[] = ['label' => 'INICIAR SESSÃO', 'url' => ['/cultravel/login']];
     } else {
         $menuItemsUser[] = '<li>'
-            . Html::beginForm(['/cultravel/logout'], 'post')
-            . Html::submitButton(
-                'TERMINAR SESSÃO (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>'
-            . Html::beginForm(['/cultravel/editar-registo'], 'post')
-            . Html::submitButton(
-                'Editar Registo',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
+            . '<a data-toggle="dropdown" class="dropdown-toggle">ÁREA PESSOAL<b class="caret"></b></a>'
+            . Dropdown::widget([
+                'items' => [
+                    ['label' => 'Alterar Dados Pessoais', 'url' => ['/cultravel/editar-registo'], 'options' => ['class' => 'dropdown-item']],
+                    ['label' => 'Alterar Palavra-passe', 'url' => ['/cultravel/reset-password'], 'options' => ['class' => 'dropdown-item']],
+                    ['label' => 'Logout ('. Yii::$app->user->identity->username .')', 'url' => ['/cultravel/logout'], 'options' => ['class' => 'dropdown-item']],
+                ],
+            ])
             . '</li>';
     }
+    ?>
+
+        <?php
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-left menu-options'],
         'items' => $menuItems,

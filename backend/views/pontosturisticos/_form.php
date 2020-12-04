@@ -25,7 +25,7 @@ $localidade = \app\models\Localidade::find()
 
 <div class="pontosturisticos-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'tm_idTipoMonumento')->dropdownList([
         $tiposMonumentosPT
@@ -56,7 +56,9 @@ $localidade = \app\models\Localidade::find()
 
     <?= $form->field($model, 'anoConstrucao')->textInput(['maxlength' => true])->label("Ano de Contrução") ?>
 
-    <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
+    <?php /* $form->field($model, 'foto')->textInput(['maxlength' => true]) */?>
+
+    <?= $form->field($modelUpload, 'imageFile')->fileInput()?>
 
     <?= $form->field($model, 'descricao')->textarea(['maxlength' => true, 'rows' => 6])->label("Descrição") ?>
 

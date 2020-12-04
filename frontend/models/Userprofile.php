@@ -18,6 +18,7 @@ use Yii;
  */
 class Userprofile extends \yii\db\ActiveRecord
 {
+    public $verification_token;
     /**
      * {@inheritdoc}
      */

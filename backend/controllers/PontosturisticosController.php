@@ -9,6 +9,7 @@ use app\models\Favoritos;
 use app\models\Localidade;
 use app\models\Ratings;
 use app\models\Tipomonumento;
+use app\models\UploadForm;
 use app\models\Visitados;
 use Yii;
 use app\models\Pontosturisticos;
@@ -17,6 +18,9 @@ use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+
 
 /**
  * PontosturisticosController implements the CRUD actions for pontosturisticos model.
@@ -107,8 +111,13 @@ class PontosturisticosController extends Controller
     public function actionCreate()
     {
         $model = new Pontosturisticos();
+        $modelUpload = new UploadForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+            $modelUpload->upload();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
@@ -129,6 +138,7 @@ class PontosturisticosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelUpload' => $modelUpload,
             'tiposMonumentosPT' => $tiposMonumentos,
             'localidadePT' => $localidade,
             'estiloConstrucaoPT' => $estiloConstrucao,
@@ -145,6 +155,7 @@ class PontosturisticosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelUpload = new UploadForm();
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
         $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
@@ -175,6 +186,7 @@ class PontosturisticosController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'modelUpload' => $modelUpload,
             'tiposMonumentosPT' => $tiposMonumentosPT,
             'localidadePT' => $localidadePT,
             'estiloConstrucaoPT' => $estiloConstrucaoPT,

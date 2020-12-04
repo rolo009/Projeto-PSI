@@ -2,36 +2,19 @@
 
 namespace frontend\tests\functional;
 use frontend\tests\FunctionalTester;
-use common\fixtures\UserFixture;
 
 class LoginCest
 {
-    /**
-     * Load fixtures before db transaction begin
-     * Called in _before()
-     * @see \Codeception\Module\Yii2::_before()
-     * @see \Codeception\Module\Yii2::loadFixtures()
-     * @return array
-     */
-    public function _fixtures()
-    {
-        return [
-            'user' => [
-                'class' => UserFixture::className(),
-                'dataFile' => codecept_data_dir() . 'login_data.php',
-            ],
-        ];
-    }
 
     public function _before(FunctionalTester $I)
     {
-        $I->amOnRoute('site/login');
+        $I->amOnRoute('cultravel/login');
     }
 
-    protected function formParams($login, $password)
+    protected function formParams($email, $password)
     {
         return [
-            'LoginForm[username]' => $login,
+            'LoginForm[email]' => $email,
             'LoginForm[password]' => $password,
         ];
     }

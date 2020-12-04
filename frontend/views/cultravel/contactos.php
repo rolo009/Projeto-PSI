@@ -58,7 +58,6 @@ $this->title = 'Contactos';
                             <th class="ct-th">Twitter</th>
                         </tr>
                     </table>
-
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ $this->title = 'Sobre Nós';
 ?>
 <div class="logo-index-container">
 
-    <?= Html::img('@web/seta-logo.png'); ?>
+    <?= Html::img('@web/imagens/logo/seta-logo.png'); ?>
 
 </div>
 <div class="sn-about-section">

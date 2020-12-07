@@ -11,9 +11,9 @@ $this->title = 'Login';
 
 <div class="login-container">
 
-    <?= Html::img('@web/seta-logo.png', ['class' => 'logo-login']); ?>
+    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-login']); ?>
 
-    <p class="login-info">Login</p>
+    <p class="login-info">LOGIN</p>
 
     <div class="row">
         <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">

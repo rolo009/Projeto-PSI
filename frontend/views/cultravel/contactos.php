@@ -13,8 +13,8 @@ $this->title = 'Contactos';
 ?>
 <div class="contact-logo-index-container ">
 
-    <?= Html::img('@web/seta-logo.png', ['class' => 'contact-img']); ?>
-    <h2>Contacta-nos</h2>
+    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'contact-img']); ?>
+    <h2>CONTACTA-NOS</h2>
 
 </div>
 <div class="ct-ms-container">

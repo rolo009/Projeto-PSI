@@ -122,8 +122,8 @@ class CultravelController extends Controller
         $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
 
         if ($user != null && $profile != null) {
-            if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
 
+            if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
                 $user->username = Yii::$app->request->post('User')['username'];
                 $user->email = Yii::$app->request->post('User')['email'];
                 $user->save();
@@ -137,6 +137,24 @@ class CultravelController extends Controller
             ]);
         }
 
+    }
+
+    public function actionApagarConta()
+    {
+        $idUser = Yii::$app->user->getId();
+
+        $user = User::findOne(['id' => $idUser]);
+
+        $user->status = 1;
+
+        $user->save();
+
+        if ($user->save()) {
+            Yii::$app->getSession()->setFlash('success', 'A sua conta foi apagada com sucesso!');
+            return $this->actionLogout();
+        }
+
+        return $this->actionIndex();
     }
 
     public function actionResetPassword()
@@ -240,9 +258,31 @@ class CultravelController extends Controller
     function actionLogin()
     {
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $modelUser = User::findOne(['email' => $model->email]);
 
-            return $this->actionIndex();
+            if($modelUser->status == 1){
+                Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
+            else if($modelUser->status == 0){
+                Yii::$app->session->setFlash('error', 'Esta conta foi banida!');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
+            else if($modelUser->status == 9){
+                Yii::$app->session->setFlash('error', 'Esta conta está inativa!');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }else{
+                $model->login();
+                return $this->actionIndex();
+            }
+
         } else {
             $model->password = '';
 

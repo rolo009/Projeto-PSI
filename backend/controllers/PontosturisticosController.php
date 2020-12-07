@@ -240,5 +240,6 @@ class PontosturisticosController extends Controller
 
     private function pontoTuristicoMenosVisitado()
     {
+
     }
 }

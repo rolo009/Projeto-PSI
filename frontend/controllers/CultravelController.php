@@ -115,7 +115,6 @@ class CultravelController extends Controller
 
     public function actionEditarRegisto()
     {
-        //if (Yii::$app->getUser()->isGuest != true) {
         $idUser = Yii::$app->user->getId();
 
         $user = User::findOne(['id' => $idUser]);
@@ -138,58 +137,23 @@ class CultravelController extends Controller
             ]);
         }
 
-
     }
-
-    /*public function actionResetPassword()
-    {
-        $model = new ResetPasswordForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->password == $model->confirmPassword) {
-                $model->resetPassword($model->new_password);
-                Yii::$app->session->setFlash('success', 'Palavra-passe alterada com sucesso!');
-                return $this->actionLogin();
-            } else {
-                Yii::$app->session->setFlash('error', 'Palavras-passe não coicidem!');
-            }
-        }
-
-            return $this->render('reset-password', [
-                'model' => $model,
-            ]);
-        }*/
 
     public function actionResetPassword()
     {
         $model = new ResetPasswordForm;
-        $modeluser = User::find()->where([
-            'username' => Yii::$app->user->identity->username
-        ])->one();
+        $modeluser = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                try {
-                    $modeluser->$password = $_POST['ResetPasswordForm']['newpass'];
-                    if ($modeluser->save()) {
-                        Yii::$app->getSession()->setFlash(
-                            'success', 'Password changed'
-                        );
-                        return $this->redirect(['reset-password']);
-                    } else {
-                        Yii::$app->getSession()->setFlash(
-                            'error', 'Password not changed'
-                        );
-                        return $this->redirect(['reset-password']);
-                    }
-                } catch (Exception $e) {
-                    Yii::$app->getSession()->setFlash(
-                        'error', "{$e->getMessage()}"
-                    );
-                    return $this->render('reset-password', [
-                        'model' => $model
-                    ]);
-                }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $modeluser->setPassword($model->novaPassword);
+            $modeluser->save();
+
+            if ($modeluser->save() == true) {
+                Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
+                return $this->redirect(['cultravel/index']);
             } else {
+                Yii::$app->getSession()->setFlash('error', 'Ocorreu um erro ao alterar a Palavra-Passe');
                 return $this->render('reset-password', [
                     'model' => $model
                 ]);
@@ -254,8 +218,7 @@ class CultravelController extends Controller
         return $this->render('sobre-nos');
     }
 
-    public
-    function actionRegistar()
+    public function actionRegistar()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -276,7 +239,6 @@ class CultravelController extends Controller
     public
     function actionLogin()
     {
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 

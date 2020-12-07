@@ -37,7 +37,13 @@ class Pontosturisticos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'anoConstrucao', 'descricao', 'foto', 'tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'required'],
+            [['nome'], 'required', 'message'=>'O campo Nome não pode estar em branco!'],
+            [['anoConstrucao'], 'required', 'message'=>'O campo anoConstrucao não pode estar em branco!'],
+            [['descricao'], 'required', 'message'=>'O campo Descricao não pode estar em branco!'],
+            [['foto'], 'required', 'message'=>'O campo foto não pode estar em branco!'],
+            [['tm_idTipoMonumento'], 'required', 'message'=>'O campo IDTipoMonumento não pode estar em branco!'],
+            [['ec_idEstiloConstrucao'], 'required', 'message'=>'O campo IDEstiloConstrucao não pode estar em branco!'],
+            [['localidade_idLocalidade'], 'required', 'message'=>'O campo IDLocalidade não pode estar em branco!'],
             [['tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'integer'],
             [['nome', 'anoConstrucao', 'descricao', 'foto'], 'string', 'max' => 255],
             [['ec_idEstiloConstrucao'], 'exist', 'skipOnError' => true, 'targetClass' => Estiloconstrucao::className(), 'targetAttribute' => ['ec_idEstiloConstrucao' => 'idEstiloConstrucao']],

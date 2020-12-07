@@ -32,7 +32,9 @@ class Ratings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['classificacao', 'pt_idPontoTuristico', 'user_idUtilizador'], 'required'],
+            [['classificacao'], 'required', 'message'=>'O campo Classificacao não pode estar em branco!'],
+            [['pt_idPontoTuristico'], 'required', 'message'=>'O campo IDPontoTuristico não pode estar em branco!'],
+            [['user_idUtilizador'], 'required', 'message'=>'O campo IDUtilizador não pode estar em branco!'],
             [['classificacao', 'pt_idPontoTuristico', 'user_idUtilizador'], 'integer'],
             [['pt_idPontoTuristico'], 'exist', 'skipOnError' => true, 'targetClass' => Pontosturisticos::className(), 'targetAttribute' => ['pt_idPontoTuristico' => 'id_pontoTuristico']],
             [['user_idUtilizador'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_idUtilizador' => 'id']],

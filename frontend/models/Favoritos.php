@@ -32,6 +32,8 @@ class Favoritos extends \yii\db\ActiveRecord
     {
         return [
             [['pt_idPontoTuristico', 'user_idUtilizador'], 'required'],
+            [['pt_idPontoTuristico'], 'required', 'message'=>'O campo IDPontoTuristico não pode estar em branco!'],
+            [['user_idUtilizador'], 'required', 'message'=>'O campo IDUtilizador não pode estar em branco!'],
             [['pt_idPontoTuristico', 'user_idUtilizador'], 'integer'],
             [['pt_idPontoTuristico'], 'exist', 'skipOnError' => true, 'targetClass' => Pontosturisticos::className(), 'targetAttribute' => ['pt_idPontoTuristico' => 'id_pontoTuristico']],
             [['user_idUtilizador'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_idUtilizador' => 'id']],

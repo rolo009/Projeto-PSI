@@ -11,10 +11,10 @@ use common\models\User;
  */
 class ResetPasswordForm extends Model
 {
-    
-    public $oldPassword;
-    public $newPassword;
-    public $confirmNewPassword;
+    public $oldpass;
+    public $newpass;
+    public $repeatnewpass;
+
 
     /**
      * @var \common\models\User
@@ -23,19 +23,34 @@ class ResetPasswordForm extends Model
 
 
     /**
+     * Creates a form model given a token.
+     *
+     * @param string $token
+     * @param array $config name-value pairs that will be used to initialize the object properties
+     * @throws InvalidArgumentException if token is empty or not valid
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            ['oldPassword', 'required'],
-            ['oldPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-
-            ['newPassword', 'required'],
-            ['newPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-
-            ['confirmNewPassword', 'required'],
-            ['confirmNewPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            /*['password', 'required'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['confirmPassword', 'required'],
+            ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['new_password', 'required'],
+            ['new_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],*/
+            [['oldpass'], 'required', 'message'=>'O campo OldPass não pode estar em branco!'],
+            [['newpass'], 'required', 'message'=>'O campo NewPass não pode estar em branco!'],
+            [['repeatnewpass'], 'required', 'message'=>'O campo RepeatNewPass não pode estar em branco!'],
+            ['oldpass','findPasswords'],
+            ['repeatnewpass','compare','compareAttribute'=>'newpass'],
         ];
     }
 
@@ -44,17 +59,34 @@ class ResetPasswordForm extends Model
      *
      * @return bool if password was reset.
      */
-    public function resetPassword()
+    /*public function resetPassword($new_password)
     {
-        if (!$this->validate()) {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($new_password);
+        /*if (!$this->validate()) {
             return null;
         }
 
-        $user = $this->_user;
-        $user->setPassword($this->oldPassword->password);
-        $user->setPassword($this->newPassword);
-        $user->setPassword($this->confirmNewPassword);
+        $user = new User();
+
+        $user->setPassword($this->password);
 
         return $user->save();
+    }*/
+    public function findPasswords($attribute, $params){
+        $user = User::find()->where([
+            'username'=>Yii::$app->user->identity->username
+        ])->one();
+        $password = $user->password;
+        if($password!=$this->oldpass)
+            $this->addError($attribute,'Old password is incorrect');
     }
+
+    public function attributeLabels(){
+        return [
+            'oldpass'=>'Old Password',
+            'newpass'=>'New Password',
+            'repeatnewpass'=>'Repeat New Password',
+        ];
+    }
+
 }

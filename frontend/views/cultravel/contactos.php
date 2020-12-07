@@ -50,7 +50,7 @@ $this->title = 'Contactos';
                         <tr>
                             <th class="ct-th"><?= Html::a(Html::img('@web/facebookw2-icon.png', ['class' => 'contact-img-icon']), 'https://www.facebook.com/'); ?></th>
                             <th class="ct-th"><?= Html::a(Html::img('@web/insta2-icon.png', ['class' => 'contact-img-icon']),'https://www.instagram.com/'); ?></th>
-                            <th class="ct-th"><?= Html::a(Html::img('@web/tt2-icon.png', ['class' => 'contact-img-icon']),'https://mobile.twitter.com/'); ?></th>
+                            <th class="ct-th"><?= Html::a(Html::img('@web/tt2-icon.png', ['class' => 'contact-img-icon']),'https://twitter.com/'); ?></th>
                         </tr>
                         <tr>
                             <th class="ct-th">Facebook</th>

@@ -28,7 +28,8 @@ class Estiloconstrucao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
+
+            [['descrição'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
             [['descricao'], 'string', 'max' => 255],
         ];
     }

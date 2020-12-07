@@ -22,7 +22,7 @@ class ResendVerificationEmailForm extends Model
     {
         return [
             ['email', 'trim'],
-            ['email', 'required'],
+            [['email'], 'required', 'message'=>'O campo Email não pode estar em branco!'],
             ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',

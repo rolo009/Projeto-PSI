@@ -11,39 +11,25 @@ $this->title = 'Change Password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="site-changepassword">
+<div class="site-reset-password">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to change password :</p>
+    <p>Please choose your new password:</p>
 
-    <?php $form = ActiveForm::begin([
-        'id'=>'changepassword-form',
-        'options'=>['class'=>'form-horizontal'],
-        'fieldConfig'=>[
-            'template'=>"{label}\n<div class=\"col-lg-3\">
-                        {input}</div>\n<div class=\"col-lg-5\">
-                        {error}</div>",
-            'labelOptions'=>['class'=>'col-lg-2 control-label'],
-        ],
-    ]); ?>
-    <?= $form->field($model,'oldpass',['inputOptions'=>[
-        'placeholder'=>'Old Password'
-    ]])->passwordInput() ?>
+    <div class="row">
+        <div class="col-lg-5">
+            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-    <?= $form->field($model,'newpass',['inputOptions'=>[
-        'placeholder'=>'New Password'
-    ]])->passwordInput() ?>
+            <?php
+            echo $form->field($model, 'oldPassword', ['options' => ['class' => 'label-registo']])->label("Insira a palavra-passe antiga")->passwordInput();
+            echo $form->field($model, 'newPassword', ['options' => ['class' => 'label-registo']])->label("Digite a palavra-passe nova")->passwordInput();
+            echo $form->field($model, 'newPassword', ['options' => ['class' => 'label-registo']])->label("Confirme a palavra-passe nova")->passwordInput();?>
 
-    <?= $form->field($model,'repeatnewpass',['inputOptions'=>[
-        'placeholder'=>'Repeat New Password'
-    ]])->passwordInput() ?>
+            <div class="form-group">
+                <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+            </div>
 
-    <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-11">
-            <?= Html::submitButton('Change password',[
-                'class'=>'btn btn-primary'
-            ]) ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
-    <?php ActiveForm::end(); ?>
 </div>

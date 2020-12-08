@@ -6,6 +6,7 @@ class SearchCest
 
     public function _before(FunctionalTester $I)
     {
+        $I->amOnRoute('cultravel/index');
     }
 
     protected function formParamsLogin($localidade)
@@ -17,15 +18,12 @@ class SearchCest
 
     public function SearchTest(FunctionalTester $I)
     {
-        $I->amOnRoute('cultavel/index');
-        $I->see('Procurar');
+
+        $I->see('MONUMENTOS','.opcao-pesquisa');
+       /* $I->see('Procurar');
         $I->submitForm('#searchForm', $this->formParamsLogin('Leiria'));
         $I->click('Procurar');
-        $I->amOnRoute('cultravel/login');
-        $I->submitForm('#login-form', $this->formParamsLogin('Pedro', 'pedro123'));
-        $I->see('Logout (Pedro)');
-        $I->dontSeeLink('Login');
-        $I->dontSeeLink('Signup');
+        $I->amOnRoute('cultravel/login');*/
 
     }
 

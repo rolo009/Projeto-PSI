@@ -9,9 +9,9 @@ $this->title = 'Registar';
 ?>
 <div class="registo-container">
 
-    <?= Html::img('@web/seta-logo.png', ['class' => 'logo-registo']); ?>
+    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-registo']); ?>
 
-<div class="registo-info">Registo</div>
+<div class="registo-info">REGISTO</div>
 
 <div class="row">
     <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">

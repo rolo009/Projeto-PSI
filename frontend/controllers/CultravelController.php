@@ -115,30 +115,19 @@ class CultravelController extends Controller
 
     public function actionEditarRegisto()
     {
-        //if (Yii::$app->getUser()->isGuest != true) {
         $idUser = Yii::$app->user->getId();
 
+        $user = User::findOne(['id' => $idUser]);
 
-            $user = User::findOne(['id' => $idUser]);
-            if (!$user) {
-                throw new NotFoundHttpException("The user was not found.");
-            }
+        $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
 
-            $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
-
-            if (!$profile) {
-                throw new NotFoundHttpException("The user has no profile.");
-            }
-
+        if ($user != null && $profile != null) {
 
             if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
-                $isValid = $user->validate();
-                $isValid = $profile->validate() && $isValid;
-                if ($isValid) {
-                    $user->save(false);
-                    $profile->save(false);
-                    return $this->redirect(['editar-registo', $user, $profile]);
-                }
+                $user->username = Yii::$app->request->post('User')['username'];
+                $user->email = Yii::$app->request->post('User')['email'];
+                $user->save();
+                $profile->save();
             }
 
             return $this->render('editar-registo', [
@@ -148,47 +137,78 @@ class CultravelController extends Controller
             ]);
         }
 
+    }
+
+    public function actionApagarConta()
+    {
+        $idUser = Yii::$app->user->getId();
+
+        $user = User::findOne(['id' => $idUser]);
+
+        $user->status = 1;
+
+        $user->save();
+
+        if ($user->save()) {
+            Yii::$app->getSession()->setFlash('success', 'A sua conta foi apagada com sucesso!');
+            return $this->actionLogout();
+        }
+
+        return $this->actionIndex();
+    }
+
     public function actionResetPassword()
     {
-       $user = Yii::$app->user->getId();
-       $model = $user->load(Yii::$app->request->post());
+        $model = new ResetPasswordForm;
+        $modeluser = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
 
-       if ($model && $user->validate()) {
-           $user->save(false);
-           Yii::$app->session-setFlash('success', 'Palavra-passe alterada com sucesso!');
-           return $this->refresh();
-       }
-       return $this->render("reset-password", [
-           'user' => $user,
-           ]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $modeluser->setPassword($model->novaPassword);
+            $modeluser->save();
+
+            if ($modeluser->save() == true) {
+                Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
+                return $this->redirect(['cultravel/index']);
+            } else {
+                Yii::$app->getSession()->setFlash('error', 'Ocorreu um erro ao alterar a Palavra-Passe');
+                return $this->render('reset-password', [
+                    'model' => $model
+                ]);
+            }
+        } else {
+            return $this->render('reset-password', [
+                'model' => $model
+            ]);
+        }
     }
 
 
-        public function actionVisitados()
-        {
-            if (Yii::$app->getUser()->isGuest != true) {
-                $idUser = Yii::$app->user->getId();
+    public function actionVisitados()
+    {
+        if (Yii::$app->getUser()->isGuest != true) {
+            $idUser = Yii::$app->user->getId();
 
-                $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
+            $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
 
-                if ($visitados != null) {
+            if ($visitados != null) {
 
 
-                    foreach ($visitados as $visitado) {
-                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
-                    }
-
-                    return $this->render('visitados', [
-                        'ptLocalidades' => $ptLocalidades
-                    ]);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
-                    return $this->actionIndex();
+                foreach ($visitados as $visitado) {
+                    $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
                 }
+
+                return $this->render('visitados', [
+                    'ptLocalidades' => $ptLocalidades
+                ]);
             } else {
+                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
                 return $this->actionIndex();
             }
+        } else {
+            return $this->actionIndex();
         }
+    }
 
     public function actionContactos()
     {
@@ -216,8 +236,7 @@ class CultravelController extends Controller
         return $this->render('sobre-nos');
     }
 
-    public
-    function actionRegistar()
+    public function actionRegistar()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -238,11 +257,32 @@ class CultravelController extends Controller
     public
     function actionLogin()
     {
-
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $modelUser = User::findOne(['email' => $model->email]);
 
-            return $this->actionIndex();
+            if($modelUser->status == 1){
+                Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
+            else if($modelUser->status == 0){
+                Yii::$app->session->setFlash('error', 'Esta conta foi banida!');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
+            else if($modelUser->status == 9){
+                Yii::$app->session->setFlash('error', 'Esta conta está inativa!');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }else{
+                $model->login();
+                return $this->actionIndex();
+            }
+
         } else {
             $model->password = '';
 

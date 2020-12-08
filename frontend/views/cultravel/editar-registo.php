@@ -38,6 +38,11 @@ $this->title = 'Editar Registo';
                 <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
             </div>
             <?php ActiveForm::end(); ?>
+
+            <?= Html::a('Apagar Conta', ['cultravel/apagar-conta'], ['class' => 'btn btn-danger btn-pi-info',
+                'confirm' => 'Tem a certeza que pretende apagar a conta?',
+                'method' => 'post',]) ?>
+
         </div>
     </div>
     <div class="col-xs-1 col-sm-3 col-md-2 col-lg-3">

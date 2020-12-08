@@ -11,25 +11,36 @@ $this->title = 'Change Password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="site-reset-password">
+<div class="site-changepassword">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please choose your new password:</p>
+    <p>Please fill out the following fields to change password :</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+    <?php $form = ActiveForm::begin([
+        'id'=>'changepassword-form',
+        'options'=>['class'=>'form-horizontal'],
+        'fieldConfig'=>[
+            'template'=>"{label}\n<div class=\"col-lg-3\">
+                        {input}</div>\n<div class=\"col-lg-5\">
+                        {error}</div>",
+            'labelOptions'=>['class'=>'col-lg-2 control-label'],
+        ],
+    ]); ?>
+    <?= $form->field($model,'password',['inputOptions'=>[
+    ]])->passwordInput()->label('Palavra-Passe Atual') ?>
 
-            <?php
-            echo $form->field($model, 'oldPassword', ['options' => ['class' => 'label-registo']])->label("Insira a palavra-passe antiga")->passwordInput();
-            echo $form->field($model, 'newPassword', ['options' => ['class' => 'label-registo']])->label("Digite a palavra-passe nova")->passwordInput();
-            echo $form->field($model, 'newPasswordConfirm', ['options' => ['class' => 'label-registo']])->label("Confirme a palavra-passe nova")->passwordInput();?>
+    <?= $form->field($model,'novaPassword',['inputOptions'=>[
+    ]])->passwordInput()->label('Nova Palavra-Passe') ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-            </div>
+    <?= $form->field($model,'confirmNovaPassword',['inputOptions'=>[
+    ]])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
 
-            <?php ActiveForm::end(); ?>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-11">
+            <?= Html::submitButton('Alterar Palavra-Passe',[
+                'class'=>'btn btn-primary'
+            ]) ?>
         </div>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>

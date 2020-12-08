@@ -77,6 +77,10 @@ class UserController extends Controller
             $estadoUser = "Utilizador banido (0)";
         }
 
+        elseif ($user->status == 1){
+            $estadoUser = "Utilizador apagado (1)";
+        }
+
         return $this->render('view', [
             'model' => $model,
             'userProfile' => $userProfile,
@@ -131,7 +135,11 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $user = User::findOne(['id' => $id]);
+
+        $user->status = 1;
+
+        $user->save();
 
         return $this->redirect(['index']);
     }

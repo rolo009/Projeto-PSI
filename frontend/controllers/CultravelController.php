@@ -150,22 +150,18 @@ class CultravelController extends Controller
 
     public function actionResetPassword()
     {
-        $model = new ResetPasswordForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->password == $model->oldPassword) {
-                if ($model->newPassword == $model->confirmNewPassword)
-                $model->resetPassword($model->);
-                Yii::$app->session->setFlash('success', 'Palavra-passe alterada com sucesso!');
-                return $this->actionLogin();
-            } else {
-                Yii::$app->session->setFlash('error', 'Palavras-passe não coicidem!');
-            }
-        }
+       $user = Yii::$app->user->getId();
+       $model = $user->load(Yii::$app->request->post());
 
-            return $this->render('reset-password', [
-                'model' => $model,
-            ]);
-        }
+       if ($model && $user->validate()) {
+           $user->save(false);
+           Yii::$app->session-setFlash('success', 'Palavra-passe alterada com sucesso!');
+           return $this->refresh();
+       }
+       return $this->render("reset-password", [
+           'user' => $user,
+           ]);
+    }
 
 
         public function actionVisitados()

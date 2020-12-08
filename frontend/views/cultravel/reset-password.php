@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             echo $form->field($model, 'oldPassword', ['options' => ['class' => 'label-registo']])->label("Insira a palavra-passe antiga")->passwordInput();
             echo $form->field($model, 'newPassword', ['options' => ['class' => 'label-registo']])->label("Digite a palavra-passe nova")->passwordInput();
-            echo $form->field($model, 'newPassword', ['options' => ['class' => 'label-registo']])->label("Confirme a palavra-passe nova")->passwordInput();?>
+            echo $form->field($model, 'newPasswordConfirm', ['options' => ['class' => 'label-registo']])->label("Confirme a palavra-passe nova")->passwordInput();?>
 
             <div class="form-group">
                 <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>

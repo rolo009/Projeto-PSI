@@ -11,81 +11,49 @@ use common\models\User;
  */
 class ResetPasswordForm extends Model
 {
-    public $oldpass;
-    public $newpass;
-    public $repeatnewpass;
+    public $oldPassword;
+    public $newpassword;
+    public $newPasswordConfirm;
 
 
-    /**
-     * @var \common\models\User
-     */
-    private $_user;
-
-
-    /**
-     * Creates a form model given a token.
-     *
-     * @param string $token
-     * @param array $config name-value pairs that will be used to initialize the object properties
-     * @throws InvalidArgumentException if token is empty or not valid
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
-            /*['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['confirmPassword', 'required'],
-            ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['new_password', 'required'],
-            ['new_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],*/
-            [['oldpass'], 'required', 'message'=>'O campo OldPass não pode estar em branco!'],
-            [['newpass'], 'required', 'message'=>'O campo NewPass não pode estar em branco!'],
-            [['repeatnewpass'], 'required', 'message'=>'O campo RepeatNewPass não pode estar em branco!'],
-            ['oldpass','findPasswords'],
-            ['repeatnewpass','compare','compareAttribute'=>'newpass'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+
+            [['newPassword','oldPassword', 'newPasswordConfirm'], 'required'],
+            [['oldPassword'], 'validateOldPassword'],
+
+            [['newPassword', 'newPasswordConfirm'], 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            [['newPassword', 'newPasswordConfirm'], 'filter', 'filter' => 'trim'],
+            [['newPasswordConfirm'], 'compare', 'compareAtributte' => 'newPassword', 'messagem' => 'As palavras-passes não coicidem!'],
         ];
     }
 
-    /**
-     * Resets password.
-     *
-     * @return bool if password was reset.
-     */
-    /*public function resetPassword($new_password)
+    public function validateOldPassword()
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($new_password);
-        /*if (!$this->validate()) {
-            return null;
+        if (!$this->verificaPassword($this->oldPassword)) {
+            $this->addError("oldPassword", "Password atual incorreta!");
         }
+    }
 
-        $user = new User();
+    public function verificaPassword($password)
+    {
+        $dbpassword = static::findOne(['username' => Yii::$app->user->identity->username, 'status' => self::STATUS_ACTIVE])->password_hash;
+        return Yii::$app->security->validatePassword($password, $dbpassword);
+    }
 
-        $user->setPassword($this->password);
-
-        return $user->save();
-    }*/
-    public function findPasswords($attribute, $params){
-        $user = User::find()->where([
-            'username'=>Yii::$app->user->identity->username
-        ])->one();
-        $password = $user->password;
-        if($password!=$this->oldpass)
-            $this->addError($attribute,'Old password is incorrect');
+    public static function findIdentity($idUser)
+    {
+        return static::findOne(['id' => $idUser, 'status' => self::STATUS_ACTIVE]);
     }
 
     public function attributeLabels(){
         return [
-            'oldpass'=>'Old Password',
-            'newpass'=>'New Password',
-            'repeatnewpass'=>'Repeat New Password',
+            'oldPassword'=>'Old Password',
+            'newPassword'=>'New Password',
+            'newPasswordConfirm'=>'Repeat New Password',
         ];
     }
 

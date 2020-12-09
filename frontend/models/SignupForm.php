@@ -21,6 +21,7 @@ class SignupForm extends Model
     public $dtaNascimento;
     public $morada;
     public $localidade;
+    public $distrito;
     public $sexo;
 
     /**
@@ -62,6 +63,10 @@ class SignupForm extends Model
             ['localidade', 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
             ['localidade', 'string', 'max' => 255],
 
+            ['distrito', 'required', 'message'=>'O campo Distrito não pode estar em branco!'],
+            ['distrito', 'string', 'max' => 255],
+
+
             ['sexo', 'required', 'message'=>'O campo Sexo não pode estar em branco!'],
             ['sexo', 'string', 'max' => 255],
         ];
@@ -91,6 +96,7 @@ class SignupForm extends Model
         $userProfile->dtaNascimento = $this->dtaNascimento;
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
+        $userProfile->distrito = $this->distrito;
         $userProfile->sexo = $this->sexo;
         $user->save();
         $userProfile->id_user_rbac = $user->getId();
@@ -123,6 +129,7 @@ class SignupForm extends Model
         $userProfile->dtaNascimento = $this->dtaNascimento;
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
+        $userProfile->distrito = $this->distrito;
         $userProfile->sexo = $this->sexo;
         $user->save();
         $userProfile->id_user_rbac = $user->getId();

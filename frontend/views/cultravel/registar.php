@@ -29,6 +29,27 @@ $this->title = 'Registar';
             echo $form->field($model, 'confirmPassword', ['options' => ['class' => 'label-registo']])->label("Confirmar Palavra Passe")->passwordInput();
             echo $form->field($model, 'morada', ['options' => ['class' => 'label-registo']])->label("Morada");
             echo $form->field($model, 'localidade', ['options' => ['class' => 'label-registo']])->label("Localidade");
+            echo $form->field($model, 'distrito',['options' => ['class' => 'label-registo']])->dropDownList(['a'=>'Viana do Castelo',
+                'b'=>'Braga',
+                'c'=>'Vila Real',
+                'd'=>'Bragança',
+                'e'=>'Porto',
+                'f'=>'Aveiro',
+                'g'=>'Viseu',
+                'h'=>'Guarda',
+                'i'=>'Coimbra',
+                'j'=>'Castelo Branco',
+                'k'=>'Leiria',
+                'l'=>'Santarém',
+                'm'=>'Portalegre',
+                'n'=>'Lisboa',
+                'o'=>'Évora',
+                'p'=>'Setubal',
+                'q'=>'Beja',
+                'r'=>'Faro',
+                's'=>'Açores',
+                't'=>'Madeira'
+            ])->label("Distrito");
             echo $form->field($model, 'sexo', ['options' => ['class' => 'label-registo']])->radioList( ['Masculino'=>'Masculino', 'Feminino' => 'Feminino'] )->label("Sexo");?>
 
         <div class="form-group">

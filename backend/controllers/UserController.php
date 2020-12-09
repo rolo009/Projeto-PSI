@@ -3,7 +3,7 @@
 namespace app\controllers;
 namespace backend\controllers;
 
-use app\models\Userprofile;
+use common\models\Userprofile;
 use Cassandra\Date;
 use Yii;
 use common\models\User;

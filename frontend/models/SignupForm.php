@@ -21,6 +21,7 @@ class SignupForm extends Model
     public $dtaNascimento;
     public $morada;
     public $localidade;
+    public $distrito;
     public $sexo;
 
     /**
@@ -62,6 +63,10 @@ class SignupForm extends Model
             ['localidade', 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
             ['localidade', 'string', 'max' => 255],
 
+            ['distrito', 'required', 'message'=>'O campo Distrito não pode estar em branco!'],
+            ['distrito', 'string', 'max' => 255],
+
+
             ['sexo', 'required', 'message'=>'O campo Sexo não pode estar em branco!'],
             ['sexo', 'string', 'max' => 255],
         ];
@@ -91,6 +96,7 @@ class SignupForm extends Model
         $userProfile->dtaNascimento = $this->dtaNascimento;
         $userProfile->morada = $this->morada;
         $userProfile->localidade = $this->localidade;
+        $userProfile->distrito = $this->distrito;
         $userProfile->sexo = $this->sexo;
         $user->save();
         $userProfile->id_user_rbac = $user->getId();
@@ -101,13 +107,40 @@ class SignupForm extends Model
         $authorRole = $auth->getRole('user');
         $auth->assign($authorRole, $user->getId());
 
-        //return $this->sendEmail($user);
-        if($user->save() &&$userProfile->save()){
-            return true;
+        return $this->sendEmail($user);
+    }
+
+    public function update()
+    {
+        if (!$this->validate()) {
+            return null;
         }
-        else{
-            return false;
-        }
+
+        $user = new User();
+        $userProfile = new Userprofile();
+
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $userProfile->primeiroNome = $this->primeiroNome;
+        $userProfile->ultimoNome = $this->ultimoNome;
+        $userProfile->dtaNascimento = $this->dtaNascimento;
+        $userProfile->morada = $this->morada;
+        $userProfile->localidade = $this->localidade;
+        $userProfile->distrito = $this->distrito;
+        $userProfile->sexo = $this->sexo;
+        $user->save();
+        $userProfile->id_user_rbac = $user->getId();
+
+        $userProfile->save();
+
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('user');
+        $auth->assign($authorRole, $user->getId());
+
+        return $this->sendEmail($user);
     }
 
 

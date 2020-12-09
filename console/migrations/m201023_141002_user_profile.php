@@ -33,6 +33,7 @@ class m201023_141002_user_profile extends Migration
             'dtaNascimento' => $this->date()->notNull(),
             'morada' => $this->string()->notNull(),
             'localidade' => $this->string()->notNull(),
+            'distrito' =>$this->string()->notNull(),
             'sexo' => $this->string()->notNull(),
             'id_user_rbac' => $this->integer()->notNull(),
         ],'ENGINE InnoDB');

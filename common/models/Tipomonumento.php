@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $idTipoMonumento
  * @property string $descricao
+ *
+ * @property Pontosturisticos[] $pontosturisticos
  */
 class Tipomonumento extends \yii\db\ActiveRecord
 {
@@ -26,7 +28,7 @@ class Tipomonumento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
+            [['descricao'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
             [['descricao'], 'string', 'max' => 255],
         ];
     }
@@ -40,5 +42,15 @@ class Tipomonumento extends \yii\db\ActiveRecord
             'idTipoMonumento' => 'Id Tipo Monumento',
             'descricao' => 'Descricao',
         ];
+    }
+
+    /**
+     * Gets query for [[pontosturisticos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPontosturisticos()
+    {
+        return $this->hasMany(Pontosturisticos::className(), ['tm_idTipoMonumento' => 'idTipoMonumento']);
     }
 }

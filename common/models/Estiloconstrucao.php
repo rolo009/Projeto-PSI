@@ -1,25 +1,25 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "tipomonumento".
+ * This is the model class for table "estiloconstrucao".
  *
- * @property int $idTipoMonumento
+ * @property int $idEstiloConstrucao
  * @property string $descricao
  *
  * @property Pontosturisticos[] $pontosturisticos
  */
-class Tipomonumento extends \yii\db\ActiveRecord
+class Estiloconstrucao extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tipomonumento';
+        return 'estiloconstrucao';
     }
 
     /**
@@ -28,7 +28,8 @@ class Tipomonumento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
+
+            [['descrição'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
             [['descricao'], 'string', 'max' => 255],
         ];
     }
@@ -39,7 +40,7 @@ class Tipomonumento extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idTipoMonumento' => 'Id Tipo Monumento',
+            'idEstiloConstrucao' => 'Id Estilo Construcao',
             'descricao' => 'Descricao',
         ];
     }
@@ -51,6 +52,6 @@ class Tipomonumento extends \yii\db\ActiveRecord
      */
     public function getPontosturisticos()
     {
-        return $this->hasMany(Pontosturisticos::className(), ['tm_idTipoMonumento' => 'idTipoMonumento']);
+        return $this->hasMany(Pontosturisticos::className(), ['ec_idEstiloConstrucao' => 'idEstiloConstrucao']);
     }
 }

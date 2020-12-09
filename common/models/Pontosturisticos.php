@@ -1,6 +1,10 @@
 <?php
 
-namespace app\models;
+namespace common\models;
+
+use app\models\Estiloconstrucao;
+use app\models\Localidade;
+use app\models\Tipomonumento;
 
 /**
  * This is the model class for table "pontosturisticos".

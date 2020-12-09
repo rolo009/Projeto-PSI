@@ -2,15 +2,11 @@
 
 namespace frontend\controllers;
 
-use app\models\Contactos;
-use app\models\Estiloconstrucao;
-use app\models\Favoritos;
-use app\models\Localidade;
-use app\models\Pontosturisticos;
-use app\models\Ratings;
-use app\models\Tipomonumento;
-use app\models\Userprofile;
-use app\models\Visitados;
+use common\models\Contactos;
+use common\models\Userprofile;
+use common\models\Favoritos;
+use common\models\Localidade;
+use common\models\Pontosturisticos;
 use common\models\LoginForm;
 use common\models\User;
 use frontend\models\ContactForm;

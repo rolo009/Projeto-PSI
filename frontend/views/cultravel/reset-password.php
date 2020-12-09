@@ -26,21 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'labelOptions'=>['class'=>'col-lg-2 control-label'],
         ],
     ]); ?>
-    <?= $form->field($model,'oldpass',['inputOptions'=>[
-        'placeholder'=>'Old Password'
-    ]])->passwordInput() ?>
+    <?= $form->field($model,'password',['inputOptions'=>[
+    ]])->passwordInput()->label('Palavra-Passe Atual') ?>
 
-    <?= $form->field($model,'newpass',['inputOptions'=>[
-        'placeholder'=>'New Password'
-    ]])->passwordInput() ?>
+    <?= $form->field($model,'novaPassword',['inputOptions'=>[
+    ]])->passwordInput()->label('Nova Palavra-Passe') ?>
 
-    <?= $form->field($model,'repeatnewpass',['inputOptions'=>[
-        'placeholder'=>'Repeat New Password'
-    ]])->passwordInput() ?>
+    <?= $form->field($model,'confirmNovaPassword',['inputOptions'=>[
+    ]])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
 
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-11">
-            <?= Html::submitButton('Change password',[
+            <?= Html::submitButton('Alterar Palavra-Passe',[
                 'class'=>'btn btn-primary'
             ]) ?>
         </div>

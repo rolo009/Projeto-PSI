@@ -11,9 +11,9 @@ use common\models\User;
  */
 class ResetPasswordForm extends Model
 {
-    public $oldpass;
-    public $newpass;
-    public $repeatnewpass;
+    public $password;
+    public $novaPassword;
+    public $confirmNovaPassword;
 
 
     /**
@@ -40,17 +40,13 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            /*['password', 'required'],
+            ['password', 'required', 'message'=>'O Palavra-Passe atual não pode estar em branco!'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['confirmPassword', 'required'],
-            ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['new_password', 'required'],
-            ['new_password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],*/
-            [['oldpass'], 'required', 'message'=>'O campo OldPass não pode estar em branco!'],
-            [['newpass'], 'required', 'message'=>'O campo NewPass não pode estar em branco!'],
-            [['repeatnewpass'], 'required', 'message'=>'O campo RepeatNewPass não pode estar em branco!'],
-            ['oldpass','findPasswords'],
-            ['repeatnewpass','compare','compareAttribute'=>'newpass'],
+            ['novaPassword', 'required', 'message'=>'O campo Nova Palavra-Passe não pode estar em branco!'],
+            ['novaPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['confirmNovaPassword', 'required', 'message'=>'O campo Confirmar Nova Palavra-Passe não pode estar em branco!'],
+            ['confirmNovaPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
         ];
     }
 
@@ -83,9 +79,9 @@ class ResetPasswordForm extends Model
 
     public function attributeLabels(){
         return [
-            'oldpass'=>'Old Password',
-            'newpass'=>'New Password',
-            'repeatnewpass'=>'Repeat New Password',
+            'password'=>'Old Password',
+            'novaPassword'=>'New Password',
+            'confirmNovaPassword'=>'Repeat New Password',
         ];
     }
 

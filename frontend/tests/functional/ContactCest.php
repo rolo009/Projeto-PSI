@@ -47,7 +47,7 @@ class ContactCest
     public function checkContactSubmitCorrectData(FunctionalTester $I)
     {
         $I->submitForm('#contact-form', [
-            'ContactForm[name]' => 'tester',
+            'ContactForm[nome]' => 'tester',
             'ContactForm[email]' => 'tester@example.com',
             'ContactForm[subject]' => 'test subject',
             'ContactForm[body]' => 'test content',

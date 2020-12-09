@@ -25,7 +25,9 @@
         "kartik-v/yii2-grid": "@dev",
         "practically/yii2-chartjs": "^1.0",
         "bower-asset/chart-js": "^2.9",
-        "scotthuangzl/yii2-google-chart": "dev-master"
+        "scotthuangzl/yii2-google-chart": "dev-master",
+        "moonlandsoft/yii2-phpexcel": "*",
+        "kartik-v/yii2-export": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -37,8 +39,8 @@
         "codeception/module-filesystem": "^1.0",
         "codeception/verify": "~0.5.0 || ~1.1.0",
         "symfony/browser-kit": ">=2.7 <=4.2.4",
-        "codeception/module-db": "^1.0"
-    },
+        "codeception/module-db": "^1.0",
+        "codeception/module-webdriver": "^1.1"},
     "config": {
         "process-timeout": 1800,
         "fxp-asset": {

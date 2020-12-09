@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use practically\chartjs\Chart;
 use scotthuangzl\googlechart\GoogleChart;
+use kartik\export\ExportMenu;
+
 
 
 /* @var $this yii\web\View */

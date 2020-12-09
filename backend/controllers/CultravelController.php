@@ -7,11 +7,13 @@ namespace backend\controllers;
 use app\models\Estiloconstrucao;
 use app\models\Localidade;
 use app\models\Tipomonumento;
+use app\models\UploadForm;
 use app\models\UserSearch;
 use common\models\LoginForm;
 use Yii;
 use yii\debug\models\search\User;
 use yii\helpers\VarDumper;
+use yii\web\UploadedFile;
 
 class CultravelController extends \yii\web\Controller
 {
@@ -131,8 +133,12 @@ class CultravelController extends \yii\web\Controller
     public function actionRegistarLocalidade()
     {
         $model = new Localidade();
+        $modelUpload = new UploadForm();
 
         if ($model->load(Yii::$app->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+            $modelUpload->upload();
             $localidadeVerifica = Localidade::findOne(['nomeLocalidade'=>$model->nomeLocalidade]);
             if ($localidadeVerifica == null){
                 $model->save();
@@ -145,6 +151,7 @@ class CultravelController extends \yii\web\Controller
         }
         return $this->render('registar-localidade', [
             'model' => $model,
+            'modelUpload' => $modelUpload,
         ]);
     }
 

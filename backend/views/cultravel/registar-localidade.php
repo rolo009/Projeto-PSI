@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nomeLocalidade')->textInput()->label("Localidade"); ?>
 
-    <?= $form->field($model, 'foto')->textInput()->label("Foto"); ?>
+    <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Foto"); ?>
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>

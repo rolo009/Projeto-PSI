@@ -1,11 +1,11 @@
 suite_namespace: frontend\tests\unit
 actor: UnitTester
 modules:
-    enabled:
-        - Yii2:
-            part: [orm, email, fixtures]
-        - Asserts
-        - Db:
-            dsn: 'mysql:host=localhost;dbname=dbcultravel_test'
-            user: 'root'
-            password: ''
+  enabled:
+    - Yii2:
+        part: [ orm, email, fixtures ]
+    - Asserts
+    - Db:
+        dsn: 'mysql:host=localhost;dbname=dbcultravel_test'
+        user: 'root'
+        password: ''

@@ -4,15 +4,15 @@ namespace app\controllers;
 namespace backend\controllers;
 
 
-use app\models\Estiloconstrucao;
-use app\models\Favoritos;
-use app\models\Localidade;
-use app\models\Ratings;
-use app\models\Tipomonumento;
+use common\models\Estiloconstrucao;
+use common\models\Favoritos;
+use common\models\Localidade;
+use common\models\Ratings;
+use common\models\Tipomonumento;
 use app\models\UploadForm;
 use app\models\Visitados;
 use Yii;
-use app\models\Pontosturisticos;
+use common\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
 use yii\helpers\VarDumper;
 use yii\web\Controller;

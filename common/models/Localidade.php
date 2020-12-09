@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $id_localidade
  * @property string $nomeLocalidade
- * @property string $foto
+ *
+ * @property Pontosturisticos[] $pontosturisticos
  */
 class Localidade extends \yii\db\ActiveRecord
 {
@@ -27,8 +28,8 @@ class Localidade extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomeLocalidade', 'foto'], 'required'],
-            [['nomeLocalidade', 'foto'], 'string', 'max' => 255],
+            [['nomeLocalidade'], 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
+            [['nomeLocalidade'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,7 +41,16 @@ class Localidade extends \yii\db\ActiveRecord
         return [
             'id_localidade' => 'Id Localidade',
             'nomeLocalidade' => 'Nome Localidade',
-            'foto' => 'Foto',
         ];
+    }
+
+    /**
+     * Gets query for [[pontosturisticos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPontosturisticos()
+    {
+        return $this->hasMany(Pontosturisticos::className(), ['localidade_idLocalidade' => 'id_localidade']);
     }
 }

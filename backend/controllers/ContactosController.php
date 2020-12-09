@@ -5,7 +5,7 @@ namespace app\controllers;
 namespace backend\controllers;
 
 use Yii;
-use app\models\Contactos;
+use common\models\Contactos;
 use app\models\ContactosSearch;
 use yii\helpers\VarDumper;
 use yii\web\Controller;

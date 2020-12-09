@@ -14,6 +14,7 @@ use Yii;
  * @property string $dtaNascimento
  * @property string $morada
  * @property string $localidade
+ * @property string $distrito
  * @property string $sexo
  * @property int $id_user_rbac
  *
@@ -35,7 +36,15 @@ class Userprofile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['primeiroNome', 'ultimoNome', 'dtaNascimento', 'morada', 'localidade', 'sexo', 'id_user_rbac'], 'required'],
+            [['primeiroNome', 'ultimoNome', 'dtaNascimento', 'morada', 'localidade','distrito', 'sexo', 'id_user_rbac'], 'required'],
+            [['primeiroNome'], 'required', 'message'=>'O campo primeiroNome não pode estar em branco!'],
+            [['ultimoNome'], 'required', 'message'=>'O campo ultimoNome não pode estar em branco!'],
+            [['dtaNascimento'], 'required', 'message'=>'O campo dtaNascimento não pode estar em branco!'],
+            [['morada'], 'required', 'message'=>'O campo morada não pode estar em branco!'],
+            [['localidade'], 'required', 'message'=>'O campo localidade não pode estar em branco!'],
+            [['distrito'], 'required', 'message'=>'O campo distrito não pode estar em branco!'],
+            [['sexo'], 'required', 'message'=>'O campo sexo não pode estar em branco!'],
+            [['id_user_rbac'], 'required', 'message'=>'O campo id_user_rbac não pode estar em branco!'],
             [['dtaNascimento'], 'safe'],
             [['id_user_rbac'], 'integer'],
             [['primeiroNome', 'ultimoNome', 'morada', 'localidade', 'sexo'], 'string', 'max' => 255],
@@ -55,6 +64,7 @@ class Userprofile extends \yii\db\ActiveRecord
             'dtaNascimento' => 'Dta Nascimento',
             'morada' => 'Morada',
             'localidade' => 'Localidade',
+            'distrito'=>'distrito',
             'sexo' => 'Sexo',
             'id_user_rbac' => 'Id User Rbac',
         ];

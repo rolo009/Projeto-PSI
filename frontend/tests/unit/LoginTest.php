@@ -24,7 +24,6 @@ class LoginTest extends \Codeception\Test\Unit
     public function testValidacaoPessoa(){
 
         $user = new User();
-        $userProfile = new Userprofile();
 
         //Despoletar todas as regras de validação
 

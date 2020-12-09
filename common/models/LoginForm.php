@@ -23,7 +23,8 @@ class LoginForm extends Model
     {
         return [
             // email and password are both required
-            [['email', 'password'], 'required'],
+            [['email'], 'required', 'message'=>'O campo Email não pode estar em branco!'],
+            [['password'], 'required', 'message'=>'O campo Password não pode estar em branco!'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()

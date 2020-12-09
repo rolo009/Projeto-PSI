@@ -240,6 +240,7 @@ class CultravelController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
+
             if ($model->password == $model->confirmPassword) {
                 $model->signup();
                 Yii::$app->session->setFlash('success', 'Bem vindo à Cultravel ' . $model->primeiroNome . ' ' . $model->ultimoNome . '!');

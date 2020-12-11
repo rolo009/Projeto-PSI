@@ -2,9 +2,10 @@
 
 namespace common\models;
 
-use app\models\Estiloconstrucao;
-use app\models\Localidade;
-use app\models\Tipomonumento;
+use app\models\Visitados;
+use common\models\Estiloconstrucao;
+use common\models\Localidade;
+use common\models\Tipomonumento;
 
 /**
  * This is the model class for table "pontosturisticos".

@@ -23,6 +23,7 @@ body, html{
 }
 .contact-column {
     text-align: justify-all;
+    /*alignment: top;*/
     float: left;
     width: 50%;
     margin-top: 6px;
@@ -90,40 +91,53 @@ body, html{
 }
 
 .sn-card {
-    opacity:0.9;
+    opacity:100;
     margin: 6px;
-    background: #FFFFFF;
+    background: transparent;
     padding: 3px;
 }
 
 .sn-about-section {
+    font-size-adjust: initial;
     padding: 25px;
     text-align: center;
     background-color: transparent;
     color: white;
 }
 .sn-about-section-text {
+    font-size-adjust: 0.58;
     padding: 25px;
-    text-align: justify;
-    text-justify: auto;
+    text-align: justify-all;
     background-color: transparent;
     color: white;
 }
 .sn-container {
+    font-size-adjust: 0.58;
+    background-color: transparent;
+    color: white;
     opacity: 0.9;
     padding: 0 14px;
 }
 
 .sn-container::after, .row::after {
+    background-color: transparent;
+    color: white;
     content: "";
     clear: both;
     display: table;
 }
 
 .sn-title {
-    color: black;
+    font-size-adjust: 0.58;
+    color: white;
 }
 
 .img-logo-contactos{
     width: 20%;
+}
+/*Registo*/
+.label-registo-dta{
+
+    color: black;
+    text-align: left;
 }

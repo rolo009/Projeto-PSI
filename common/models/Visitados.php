@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\Pontosturisticos;
 use common\models\User;
 use Yii;
 

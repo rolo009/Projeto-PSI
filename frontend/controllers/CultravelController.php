@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\ForgetPasswordForm;
 use app\models\Visitados;
 use common\models\Contactos;
 use common\models\Estiloconstrucao;
@@ -182,7 +183,6 @@ class CultravelController extends Controller
             ]);
         }
     }
-
 
     public function actionVisitados()
     {

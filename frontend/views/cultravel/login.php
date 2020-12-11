@@ -23,12 +23,10 @@ $this->title = 'Login';
 
             <?= $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
             <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
-            <?= $form->field($model, 'rememberMe')->checkbox()->label("Lembrar-me") ?>
+            <?= $form->field($model, 'rememberMe', ['options' => ['class' => 'label-login']])->checkbox() ?>
 
             <div>
-                <?= Html::a('Esqueceu-se da palavra-passe?', ['site/request-password-reset']) ?>.
                 <br>
-                <?= Html::a('Verificação do email', ['site/resend-verification-email']) ?>
             </div>
 
             <div class="form-group">

@@ -26,14 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'labelOptions'=>['class'=>'col-lg-2 control-label'],
         ],
     ]); ?>
-    <?= $form->field($model,'password',['inputOptions'=>[
-    ]])->passwordInput()->label('Palavra-Passe Atual') ?>
-
-    <?= $form->field($model,'novaPassword',['inputOptions'=>[
-    ]])->passwordInput()->label('Nova Palavra-Passe') ?>
-
-    <?= $form->field($model,'confirmNovaPassword',['inputOptions'=>[
-    ]])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
+    <?= $form->field($model,'password',['inputOptions'=>[]])->passwordInput()->label('Palavra-Passe Atual') ?>
+    <?= $form->field($model,'novaPassword',['inputOptions'=>[]])->passwordInput()->label('Nova Palavra-Passe') ?>
+    <?= $form->field($model,'confirmNovaPassword',['inputOptions'=>[]])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
 
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-11">

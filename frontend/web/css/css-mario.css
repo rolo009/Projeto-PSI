@@ -128,3 +128,9 @@ body, html{
 .img-logo-contactos{
     width: 20%;
 }
+/*Registo*/
+.label-registo-dta{
+
+    color: black;
+    text-align: left;
+}

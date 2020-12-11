@@ -1,6 +1,6 @@
 <?php namespace frontend\tests;
 
-use app\models\Userprofile;
+use common\models\Userprofile;
 use common\models\User;
 
 class RegistoTest extends \Codeception\Test\Unit

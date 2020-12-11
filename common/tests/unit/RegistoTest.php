@@ -1,4 +1,4 @@
-<?php namespace frontend\tests;
+<?php namespace common\tests;
 
 use common\models\Userprofile;
 use common\models\User;
@@ -16,6 +16,7 @@ class RegistoTest extends \Codeception\Test\Unit
 
     protected function _after()
     {
+
     }
 
     /**
@@ -80,7 +81,6 @@ class RegistoTest extends \Codeception\Test\Unit
 
         $userProfile->sexo = 'Masculino';
         $this->assertTrue($userProfile->validate(['sexo']));
-
     }
 
     public function testCriarUtilizador()
@@ -97,9 +97,6 @@ class RegistoTest extends \Codeception\Test\Unit
 
         $user = User::findOne(['username' => 'test_registo']);
 
-        codecept_debug($user);
-        codecept_debug('Hello');
-
         $userProfile->id_user_rbac = $user->id;
 
         $userProfile->save(false);
@@ -108,21 +105,21 @@ class RegistoTest extends \Codeception\Test\Unit
 
     public function testAtualizarUtilizador()
     {
-        $userprofile = $this->tester->grabRecord('app\models\Userprofile', array('primeiroNome' => 'Pedro'));
+        $userprofile = $this->tester->grabRecord(Userprofile::class, array('primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo'));
 
         $userprofile->localidade = "Leiria";
-        $userprofile->save();
+        $userprofile->save(false);
 
         $this->tester->seeInDatabase('userprofile', ['localidade' => 'Leiria']);
     }
 
     public function testApagarPessoa()
     {
-        $userprofile = $this->tester->grabRecord('app\models\Userprofile', array('primeiroNome' => 'Pedro'));
+        $userprofile = $this->tester->grabRecord(Userprofile::class, array('primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo'));
 
         $userprofile->delete();
 
-        $this->tester->seeInDatabase('userprofile', ['primeiroNome' => 'Pedro']);
+        $this->tester->dontSeeInDatabase('userprofile', ['primeiroNome' => 'Pedro']);
 
     }
 

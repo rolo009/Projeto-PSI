@@ -104,6 +104,14 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->localidade = 'Vila Viçosa';
         $this->assertTrue($userProfile->validate(['localidade']));
 
+        //Distrito
+        $userProfile->distrito = null;
+        $this->assertFalse($userProfile->validate(['distrito']));
+
+        $userProfile->localidade = 'Évora';
+        $this->assertTrue($userProfile->validate(['localidade']));
+
+
         //Sexo
 
         $userProfile->sexo = null;
@@ -129,6 +137,7 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->dtaNascimento = 2000-01-13;
         $userProfile->morada = 'Rua A';
         $userProfile->localidade = 'Vila Viçosa';
+        $userProfile->distrito= 'Évora';
         $userProfile->sexo = 'Masculino';
         $user->save();
         $userProfile->id_user_rbac = $user->getId();

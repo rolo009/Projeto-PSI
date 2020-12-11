@@ -18,16 +18,12 @@ class SearchCest
 
     public function SearchTest(FunctionalTester $I)
     {
-
         $I->see('MONUMENTOS','.opcao-pesquisa');
-       /* $I->see('Procurar');
+        $I->see('Procurar');
+        $I->seeElement('#searchForm');
         $I->submitForm('#searchForm', $this->formParamsLogin('Leiria'));
-        $I->click('Procurar');
-        $I->amOnRoute('cultravel/login');*/
-
+        $I->see('Resultados da Pesquisa por: Leiria');
     }
-
-
 
     // tests
     public function tryToTest(FunctionalTester $I)

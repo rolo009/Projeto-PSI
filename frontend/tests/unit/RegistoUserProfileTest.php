@@ -1,15 +1,15 @@
 <?php namespace frontend\tests;
 
-use common\models\Userprofile;
 use common\models\User;
+use common\models\Userprofile;
 
-class RegistoTest extends \Codeception\Test\Unit
+class RegistoUserProfileTest extends \Codeception\Test\Unit
 {
     /**
-     * @var \frontend\tests\UnitTester
+     * @var \backend\tests\UnitTester
      */
     protected $tester;
-
+    
     protected function _before()
     {
     }
@@ -54,8 +54,12 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->dtaNascimento = 25658642;
         $this->assertFalse($userProfile->validate(['dtaNascimento']));
 
-        $userProfile->dtaNascimento = date('yyyy-MM-dd');
-        $this->assertFalse($userProfile->validate(['dtaNascimento']));
+        codecept_debug('-----');
+        codecept_debug(date('Y-m-d'));
+        codecept_debug('-----');
+
+        $userProfile->dtaNascimento = date('Y-m-d H:i:s');
+        $this->assertTrue($userProfile->validate(['dtaNascimento']));
 
         //Morada
 
@@ -73,6 +77,14 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->localidade = 'Vila Viçosa';
         $this->assertTrue($userProfile->validate(['localidade']));
 
+        //Distrito
+        $userProfile->distrito = null;
+        $this->assertFalse($userProfile->validate(['distrito']));
+
+        $userProfile->localidade = 'Évora';
+        $this->assertTrue($userProfile->validate(['localidade']));
+
+
         //Sexo
 
         $userProfile->sexo = null;
@@ -87,30 +99,29 @@ class RegistoTest extends \Codeception\Test\Unit
     {
         $userProfile = new Userprofile();
 
-        $userProfile->primeiroNome = 'Pedro';
-        $userProfile->ultimoNome = 'Rolo';
-        $userProfile->dtaNascimento = date('Y-m-d');
+        $userProfile->primeiroNome = 'Teste';
+        $userProfile->ultimoNome = 'Registo';
+        $userProfile->dtaNascimento = date('Y-m-d H:i:s');
         $userProfile->morada = 'Rua A';
-        $userProfile->distrito = 'Évora';
         $userProfile->localidade = 'Vila Viçosa';
+        $userProfile->distrito= 'Évora';
         $userProfile->sexo = 'Masculino';
 
         $user = User::findOne(['username' => 'test_registo']);
 
-        codecept_debug($user);
-        codecept_debug('Hello');
-
         $userProfile->id_user_rbac = $user->id;
 
         $userProfile->save(false);
-        $this->tester->seeInDatabase('userprofile', ['id_user_rbac' => $user->getId(), 'primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo']);
+        $this->tester->seeInDatabase('userprofile', ['id_user_rbac' => $user->getId(), 'primeiroNome' => 'Teste', 'ultimoNome' => 'Registo']);
     }
 
     public function testAtualizarUtilizador()
     {
-        $userprofile = $this->tester->grabRecord('app\models\Userprofile', array('primeiroNome' => 'Pedro'));
+        $user = $this->tester->grabRecord('common\models\User', array('email' => 'test_registo@live.com.pt'));
+        $userprofile = $this->tester->grabRecord('common\models\Userprofile', array('id_user_rbac' => $user->id));
 
         $userprofile->localidade = "Leiria";
+        $user->save();
         $userprofile->save();
 
         $this->tester->seeInDatabase('userprofile', ['localidade' => 'Leiria']);
@@ -118,11 +129,12 @@ class RegistoTest extends \Codeception\Test\Unit
 
     public function testApagarPessoa()
     {
-        $userprofile = $this->tester->grabRecord('app\models\Userprofile', array('primeiroNome' => 'Pedro'));
+        $user = $this->tester->grabRecord('common\models\User', array('email' => 'test_registo@live.com.pt'));
+        $userprofile = $this->tester->grabRecord('common\models\Userprofile', array('id_user_rbac' => $user->id));
 
         $userprofile->delete();
 
-        $this->tester->seeInDatabase('userprofile', ['primeiroNome' => 'Pedro']);
+        $this->tester->seeInDatabase('userprofile', ['id_user_rbac' => $user->id]);
 
     }
 

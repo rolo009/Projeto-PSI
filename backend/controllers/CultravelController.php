@@ -95,6 +95,7 @@ class CultravelController extends \yii\web\Controller
         $model = new Estiloconstrucao();
 
         if ($model->load(Yii::$app->request->post())) {
+
             $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
             if ($estiloConstrucaoVerifica == null){
                 $model->save();

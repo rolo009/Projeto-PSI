@@ -3,14 +3,19 @@
 namespace frontend\controllers;
 
 use common\models\Contactos;
+use common\models\Estiloconstrucao;
+use common\models\Ratings;
+use common\models\Tipomonumento;
 use common\models\Userprofile;
 use common\models\Favoritos;
 use common\models\Localidade;
 use common\models\Pontosturisticos;
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Visitados;
 use frontend\models\ContactForm;
 use frontend\models\ResetPasswordForm;
+use frontend\models\SearchModel;
 use frontend\models\SignupForm;
 use http\Exception;
 use Yii;
@@ -54,31 +59,41 @@ class CultravelController extends Controller
 
     public function actionIndex()
     {
-        $model = new Localidade();
+        $model = new SearchModel();
 
         if ($model->load(Yii::$app->request->post())) {
+            $procuraLocalidade = Localidade::findOne(['nomeLocalidade' => $model->procurar]);
+            $procuraPontoTuristico = Pontosturisticos::findAll(['nome' => $model->procurar]);
+            $procuraEstiloConstrucao = Estiloconstrucao::findOne(['descricao' => $model->procurar]);
+            $procuraTipoMonumento = Tipomonumento::findOne(['descricao' => $model->procurar]);
 
-            $localidade = Localidade::find()->where(['nomeLocalidade' => $model->nomeLocalidade])->one();
-
-            if ($localidade != null) {
-                $pontosTuristicos = Pontosturisticos::findAll(['localidade_idLocalidade' => $localidade->id_localidade]);
-
+            if ($procuraLocalidade != null) {
+                $pontosTuristicos = Pontosturisticos::find()->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])->all();
+            } elseif ($procuraPontoTuristico != null) {
+                $pontosTuristicos = $procuraPontoTuristico;
+            } elseif ($procuraEstiloConstrucao != null) {
+                $pontosTuristicos = Pontosturisticos::find()->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])->all();
+            } elseif ($procuraTipoMonumento != null) {
+                $pontosTuristicos = Pontosturisticos::find()->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])->all();
+            }
+            else{
+                Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                return $this->render('index', ['model' => $model]);
+            }
+            if ($pontosTuristicos != null) {
                 return $this->render('pontos-interesse', [
                     'pontosTuristicos' => $pontosTuristicos,
-                    'localidade' => $model->nomeLocalidade,
+                    'resultado' => $model->procurar,
                 ]);
-            } else {
-                return $this->redirect(['cultravel/index']);
             }
 
         }
 
-        return $this->render('index', [
-            'model' => $model
-        ]);
+        return $this->render('index', ['model' => $model]);
     }
 
-    public function actionFavoritos()
+    public
+    function actionFavoritos()
     {
 
         if (Yii::$app->getUser()->isGuest != true) {
@@ -109,7 +124,8 @@ class CultravelController extends Controller
 
     }
 
-    public function actionEditarRegisto()
+    public
+    function actionEditarRegisto()
     {
         $idUser = Yii::$app->user->getId();
 
@@ -135,7 +151,8 @@ class CultravelController extends Controller
 
     }
 
-    public function actionApagarConta()
+    public
+    function actionApagarConta()
     {
         $idUser = Yii::$app->user->getId();
 
@@ -153,7 +170,8 @@ class CultravelController extends Controller
         return $this->actionIndex();
     }
 
-    public function actionResetPassword()
+    public
+    function actionResetPassword()
     {
         $model = new ResetPasswordForm;
         $modeluser = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
@@ -180,7 +198,8 @@ class CultravelController extends Controller
     }
 
 
-    public function actionVisitados()
+    public
+    function actionVisitados()
     {
         if (Yii::$app->getUser()->isGuest != true) {
             $idUser = Yii::$app->user->getId();
@@ -206,7 +225,8 @@ class CultravelController extends Controller
         }
     }
 
-    public function actionContactos()
+    public
+    function actionContactos()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -232,7 +252,8 @@ class CultravelController extends Controller
         return $this->render('sobre-nos');
     }
 
-    public function actionRegistar()
+    public
+    function actionRegistar()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -258,24 +279,22 @@ class CultravelController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $modelUser = User::findOne(['email' => $model->email]);
 
-            if($modelUser->status == 1){
+            if ($modelUser->status == 1) {
                 Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
                 return $this->render('login', [
                     'model' => $model,
                 ]);
-            }
-            else if($modelUser->status == 0){
+            } else if ($modelUser->status == 0) {
                 Yii::$app->session->setFlash('error', 'Esta conta foi banida!');
                 return $this->render('login', [
                     'model' => $model,
                 ]);
-            }
-            else if($modelUser->status == 9){
+            } else if ($modelUser->status == 9) {
                 Yii::$app->session->setFlash('error', 'Esta conta está inativa!');
                 return $this->render('login', [
                     'model' => $model,
                 ]);
-            }else{
+            } else {
                 $model->login();
                 return $this->actionIndex();
             }
@@ -497,6 +516,7 @@ class CultravelController extends Controller
             if ($pontosTuristicos != null) {
                 return $this->render('pontos-interesse', [
                     'pontosTuristicos' => $pontosTuristicos,
+                    'tipoMonumento' => $filtro,
                 ]);
             }
         } else {

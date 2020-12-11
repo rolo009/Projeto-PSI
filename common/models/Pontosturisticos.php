@@ -2,9 +2,10 @@
 
 namespace common\models;
 
-use app\models\Estiloconstrucao;
-use app\models\Localidade;
-use app\models\Tipomonumento;
+use common\models\Visitados;
+use common\models\Estiloconstrucao;
+use common\models\Localidade;
+use common\models\Tipomonumento;
 
 /**
  * This is the model class for table "pontosturisticos".
@@ -45,9 +46,9 @@ class Pontosturisticos extends \yii\db\ActiveRecord
             [['anoConstrucao'], 'required', 'message'=>'O campo anoConstrucao não pode estar em branco!'],
             [['descricao'], 'required', 'message'=>'O campo Descricao não pode estar em branco!'],
             [['foto'], 'required', 'message'=>'O campo foto não pode estar em branco!'],
-            [['tm_idTipoMonumento'], 'required', 'message'=>'O campo IDTipoMonumento não pode estar em branco!'],
-            [['ec_idEstiloConstrucao'], 'required', 'message'=>'O campo IDEstiloConstrucao não pode estar em branco!'],
-            [['localidade_idLocalidade'], 'required', 'message'=>'O campo IDLocalidade não pode estar em branco!'],
+            [['tm_idTipoMonumento'], 'required', 'message'=>'O campo Tipo de Monumento não pode estar em branco!'],
+            [['ec_idEstiloConstrucao'], 'required', 'message'=>'O campo Estilo de Construção não pode estar em branco!'],
+            [['localidade_idLocalidade'], 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
             [['tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'integer'],
             [['nome', 'anoConstrucao', 'descricao', 'foto'], 'string', 'max' => 255],
             [['ec_idEstiloConstrucao'], 'exist', 'skipOnError' => true, 'targetClass' => Estiloconstrucao::className(), 'targetAttribute' => ['ec_idEstiloConstrucao' => 'idEstiloConstrucao']],

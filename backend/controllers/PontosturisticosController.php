@@ -10,7 +10,7 @@ use common\models\Localidade;
 use common\models\Ratings;
 use common\models\Tipomonumento;
 use app\models\UploadForm;
-use app\models\Visitados;
+use common\models\Visitados;
 use Yii;
 use common\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
@@ -121,17 +121,17 @@ class PontosturisticosController extends Controller
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
-        $tiposMonumentos = \app\models\Tipomonumento::find()
+        $tiposMonumentos = Tipomonumento::find()
             ->select(['descricao'])
             ->indexBy('idTipoMonumento')
             ->column();
 
-        $estiloConstrucao = \app\models\Estiloconstrucao::find()
+        $estiloConstrucao = Estiloconstrucao::find()
             ->select(['descricao'])
             ->indexBy('idEstiloConstrucao')
             ->column();
 
-        $localidade = \app\models\Localidade::find()
+        $localidade = Localidade::find()
             ->select(['nomeLocalidade'])
             ->indexBy('id_localidade')
             ->column();

@@ -46,6 +46,7 @@ class Userprofile extends \yii\db\ActiveRecord
             [['sexo'], 'required', 'message'=>'O campo sexo não pode estar em branco!'],
             [['id_user_rbac'], 'required', 'message'=>'O campo id_user_rbac não pode estar em branco!'],
             [['dtaNascimento'], 'safe'],
+            [['dtaNascimento'], 'date'],
             [['id_user_rbac'], 'integer'],
             [['primeiroNome', 'ultimoNome', 'morada', 'localidade', 'sexo'], 'string', 'max' => 255],
             [['id_user_rbac'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user_rbac' => 'id']],

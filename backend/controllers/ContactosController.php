@@ -90,7 +90,7 @@ class ContactosController extends Controller
                 'estadoMensagem' => $estadoMensagem,
             ]);
         } else {
-            return $this->render('index');
+            return $this->actionIndex();
         }
     }
 

@@ -63,7 +63,13 @@ $this->title = 'Editar Registo';
             <?= Html::a('Apagar Conta', ['cultravel/apagar-conta'], ['class' => 'btn btn-danger btn-pi-info',
                 'confirm' => 'Tem a certeza que pretende apagar a conta?',
                 'method' => 'post',]) ?>
-
+            <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Tem a certeza que pretende apagar este utilizador?',
+                    'method' => 'post',
+                ],
+            ]) ?>
         </div>
     </div>
     <div class="col-xs-1 col-sm-3 col-md-2 col-lg-3">

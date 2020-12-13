@@ -19,9 +19,8 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="blank">
+<body id="index-background">
 <?php $this->beginBody() ?>
-
     <div class="wrap">
         <?= $content ?>
     </div>

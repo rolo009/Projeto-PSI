@@ -32,4 +32,35 @@ use scotthuangzl\googlechart\GoogleChart;
 
         ?>
     </div>
+
+    <div class="distritos-container">
+
+        <?= GoogleChart::widget(array('visualization' => 'ColumnChart',
+            'data' => array(
+                array('Tarefa', 'Nº de Utilizadores'),
+                array('Viana do Castelo', $distritosUsers['VianaDoCastelo']),
+                array('Braga', $distritosUsers['Braga']),
+                array('Vila Real', $distritosUsers['VilaReal']),
+                array('Bragança', $distritosUsers['Braganca']),
+                array('Porto', $distritosUsers['Porto']),
+                array('Aveiro', $distritosUsers['Aveiro']),
+                array('Viseu', $distritosUsers['Viseu']),
+                array('Guarda', $distritosUsers['Guarda']),
+                array('Coimbra', $distritosUsers['Coimbra']),
+                array('Castelo Branco', $distritosUsers['CasteloBranco']),
+                array('Leiria', $distritosUsers['Leiria']),
+                array('Santarém', $distritosUsers['Santarem']),
+                array('Portalegre', $distritosUsers['Portalegre']),
+                array('Lisboa', $distritosUsers['Lisboa']),
+                array('Évora', $distritosUsers['Evora']),
+                array('Setubal', $distritosUsers['Setubal']),
+                array('Beja', $distritosUsers['Beja']),
+                array('Faro', $distritosUsers['Faro']),
+                array('Açores', $distritosUsers['Acores']),
+                array('Madeira', $distritosUsers['Madeira']),
+            ),
+            'options' => array('title' => 'Número de utilizadores por distrito')));
+
+        ?>
+    </div>
 </div>

@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('Estatisticas', ['estatisticas'], ['class' => 'btn btn-primary']) ?>
 
     <?= GridView::widget([
+        'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Utilizadores</div>',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => ['class' => 'table table-striped table-bordered gridView-backend'],

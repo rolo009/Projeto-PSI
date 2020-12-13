@@ -7,7 +7,7 @@ class AdicionarFavoritosCest
     {
         $I->amOnRoute('cultravel/login');
         $I->submitForm('#login-form', [
-            'LoginForm[email]' =>'pedrorolo@live.com.pt',
+            'LoginForm[email]' =>'test_registo@live.com.pt',
             'LoginForm[password]' => '123456789'], 'insert-login');
         $I->amOnRoute('cultravel/index');
 
@@ -29,14 +29,14 @@ class AdicionarFavoritosCest
         $I->see('Resultados da Pesquisa por: Leiria');
         $I->see('Saber Mais');
         $I->click('Saber Mais');
-        $I->see('Castelo de Leiria');
-        $I->see('1135');
+        $I->see('Teste');
+        $I->see('2020');
         $I->see('Castelo');
         $I->seeElement('.btn-adicionar-favoritos');
         $I->click('.btn-adicionar-favoritos');
         $I->see('O ponto turistico foi adicionado aos favoritos!');
         $I->see('FAVORITOS');
-        $I->see('Castelo de Leiria');
+        $I->see('Teste');
         $I->seeElement('.btn-remover-favoritos');
     }
 }

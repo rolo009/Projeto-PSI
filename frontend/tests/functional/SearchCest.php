@@ -9,10 +9,10 @@ class SearchCest
         $I->amOnRoute('cultravel/index');
     }
 
-    protected function formParamsLogin($localidade)
+    protected function formParamsSearch($procurar)
     {
         return [
-            'Localidade[nomeLocalidade]' => $localidade,
+            'SearchModel[procurar]' => $procurar,
             ];
     }
 
@@ -21,12 +21,9 @@ class SearchCest
         $I->see('MONUMENTOS','.opcao-pesquisa');
         $I->see('Procurar');
         $I->seeElement('#searchForm');
-        $I->submitForm('#searchForm', $this->formParamsLogin('Leiria'));
+        $I->submitForm('#searchForm', $this->formParamsSearch('Leiria'));
         $I->see('Resultados da Pesquisa por: Leiria');
+        $I->see('Teste');
     }
 
-    // tests
-    public function tryToTest(FunctionalTester $I)
-    {
-    }
 }

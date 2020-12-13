@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use app\models\Visitados;
 use common\models\Contactos;
 use common\models\Estiloconstrucao;
 use common\models\Ratings;
@@ -258,8 +257,7 @@ class CultravelController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-
-            if ($model->password == $model->confirmPassword) {
+          if ($model->password == $model->confirmPassword) {
                 $model->signup();
                 Yii::$app->session->setFlash('success', 'Bem vindo à Cultravel ' . $model->primeiroNome . ' ' . $model->ultimoNome . '!');
                 return $this->actionLogin();

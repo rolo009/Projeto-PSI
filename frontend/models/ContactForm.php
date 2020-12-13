@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use app\models\Contactos;
+use common\models\Contactos;
 use Yii;
 use yii\base\Model;
 use yii\helpers\VarDumper;

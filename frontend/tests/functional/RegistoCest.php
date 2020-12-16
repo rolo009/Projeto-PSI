@@ -30,9 +30,16 @@ class RegistoCest
     public function RegistoVerificaVazio(FunctionalTester $I)
     {
         $I->amOnRoute('cultravel/registar');
-        $I->submitForm('#registoForm', $this->formParams('',
-            '', '','','','',
-            '','','',''));
+        $I->submitForm('#registoForm', ['SignupForm[primeiroNome]' => '',
+            'SignupForm[ultimoNome]' => '',
+            'SignupForm[username]' => '',
+            'SignupForm[email]' => '',
+            'SignupForm[dtaNascimento]' => '',
+            'SignupForm[password]' => '',
+            'SignupForm[confirmPassword]' => '',
+            'SignupForm[morada]' => '',
+            'SignupForm[localidade]' => '',
+            'SignupForm[sexo]' => '']);
         $I->seeValidationError('O campo Primeiro Nome não pode estar em branco!');
         $I->seeValidationError('O campo Último Nome não pode estar em branco!');
         $I->seeValidationError('O campo Nome de Utilizador não pode estar em branco!');
@@ -47,13 +54,13 @@ class RegistoCest
 
     public function RegistoEmailIncorreto(FunctionalTester $I)
     {
-        $I->submitForm('#registoForm', $this->formParams('Pedro',
+        $I->submitForm('#registoForm', [$this->formParams('Pedro',
             'Rolo', 'rolo009','','2020-11-02','123456789',
-            '123456789','Rua A','Vila Viçosa','Masculino'));
+            '123456789','Rua A','Vila Viçosa','Masculino')]);
         $I->dontSeeValidationError('O campo Primeiro Nome não pode estar em branco!');
         $I->dontSeeValidationError('O campo Último Nome não pode estar em branco!');
         $I->dontSeeValidationError('O campo Nome de Utilizador não pode estar em branco!');
-        $I->SeeValidationError('O campo Email não pode estar em branco!');
+        $I->see('O campo Email não pode estar em branco!');
         $I->dontSeeValidationError('O campo Data de Nascimento não pode estar em branco!');
         $I->dontSeeValidationError('O campo Palavra Passe não pode estar em branco!');
         $I->dontSeeValidationError('O campo Confirmar Palavra Passe não pode estar em branco!');
@@ -64,15 +71,15 @@ class RegistoCest
 
     public function RegistoCorreto(FunctionalTester $I)
     {
-        $I->submitForm('#registoForm', $this->formParams('Pedro',
+        $I->submitForm('#registoForm', [$this->formParams('Pedro',
             'Rolo', 'rolo009','pedro123@hotmail.com','2020-11-02','123456789',
-            '123456789','Rua A','Vila Viçosa','Masculino'));
+            '123456789','Rua A','Vila Viçosa','Masculino')], 'insert-registo');
 
-       /* $I->seeRecord('common\models\User', [
+        $I->seeRecord('common\models\User', [
             'username' => 'rolo009',
             'email' => 'pedro123@hotmail.com',
             'status' => \common\models\User::STATUS_INACTIVE
-        ]);*/
+        ]);
         $I->amOnRoute('cultravel/login');
     }
 

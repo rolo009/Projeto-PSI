@@ -23,15 +23,15 @@ $this->title = 'Detalhes: '. $pontoTuristico->nome;
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pt-details-options">
                                             <?php
                                             if($favoritoStatus == true){
-                                            echo Html::a(FA::icon("star"), ['cultravel/remover-favoritos', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning']);
+                                            echo Html::a(FA::icon("star"), ['cultravel/remover-favoritos', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning btn-remover-favoritos']);
                                             }elseif ($favoritoStatus == false){
-                                            echo Html::a(FA::icon("star-o"), ['cultravel/adicionar-favoritos', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning']);
+                                            echo Html::a(FA::icon("star-o"), ['cultravel/adicionar-favoritos', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning btn-adicionar-favoritos']);
                                             }
 
                                             if($visitadoStatus == true){
-                                                echo Html::a(FA::icon("check-circle")->size( FA::SIZE_LARGE), ['cultravel/remover-visitados', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning']);
+                                                echo Html::a(FA::icon("check-circle")->size( FA::SIZE_LARGE), ['cultravel/remover-visitados', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning btn-remover-visitados']);
                                             }elseif ($visitadoStatus == false){
-                                                echo Html::a(FA::icon("check-circle-o")->size( FA::SIZE_LARGE), ['cultravel/adicionar-visitados', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning']);
+                                                echo Html::a(FA::icon("check-circle-o")->size( FA::SIZE_LARGE), ['cultravel/adicionar-visitados', 'idPontoTuristico' =>$pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-warning btn-adicionar-visitados']);
                                             }
                                             ?></div>
                                     </div>

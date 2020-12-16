@@ -21,7 +21,7 @@ $this->title = 'Página Inicial';
             <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2">
             </div>
             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                <?= $form->field($model, 'nomeLocalidade')->label(false); ?>
+                <?= $form->field($model, 'procurar')->label(false); ?>
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <?= Html::submitButton('Procurar', ['class' => 'btn btn-warning btn-search-index']) ?>

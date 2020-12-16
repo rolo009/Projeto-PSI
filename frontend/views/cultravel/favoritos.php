@@ -23,7 +23,7 @@ $this->title = 'Favoritos';
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="favourite-options">
-                        <?= Html::a(FA::icon("star"), ['cultravel/remover-favoritos', 'idPontoTuristico' =>$ptFavorito->id_pontoTuristico], ['class' => 'btn btn-warning']); ?>
+                        <?= Html::a(FA::icon("star"), ['cultravel/remover-favoritos', 'idPontoTuristico' =>$ptFavorito->id_pontoTuristico], ['class' => 'btn btn-warning btn-remover-favoritos']); ?>
                     </div>
                 </div>
             </div>

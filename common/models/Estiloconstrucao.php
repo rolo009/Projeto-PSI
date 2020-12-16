@@ -29,7 +29,7 @@ class Estiloconstrucao extends \yii\db\ActiveRecord
     {
         return [
 
-            [['descrição'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
+            [['descricao'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
             [['descricao'], 'string', 'max' => 255],
         ];
     }

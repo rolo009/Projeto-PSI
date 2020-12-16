@@ -1,2 +1,15 @@
 suite_namespace: backend\tests\unit
 actor: UnitTester
+modules:
+  enabled:
+    - Yii2:
+        part: [ orm, email, fixtures ]
+    - Asserts
+    - Db:
+        dsn: 'mysql:host=localhost;dbname=dbcultravel_test'
+        user: 'root'
+        password: ''
+        dump: 'tests/_data/dump.sql'
+        cleanup: false # reload dump between tests
+        populate: true # run populator before all test
+        populator: 'mysql -u $user $dbname < tests/_data/dump.sql'

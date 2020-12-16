@@ -1,4 +1,4 @@
-<?php namespace common\tests;
+<?php namespace frontend\tests;
 
 use common\models\Userprofile;
 use common\models\User;
@@ -16,7 +16,6 @@ class RegistoTest extends \Codeception\Test\Unit
 
     protected function _after()
     {
-
     }
 
     /**
@@ -25,6 +24,7 @@ class RegistoTest extends \Codeception\Test\Unit
 
     public function testValidacaoPessoa(){
 
+        $user = new User();
         $userProfile = new Userprofile();
 
         //Despoletar todas as regras de validação
@@ -44,6 +44,36 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->ultimoNome = 'Rolo';
         $this->assertTrue($userProfile->validate(['ultimoNome']));
 
+        //Nome de Utilizador
+
+        $user->username = null;
+        $this->assertFalse($user->validate(['username']));
+
+        $user->username = 'rolo009';
+        $this->assertTrue($user->validate(['username']));
+
+        //Email
+
+        $user->email = 'pedro123';
+        $this->assertFalse($user->validate(['email']));
+
+        $user->email = null;
+        $this->assertFalse($user->validate(['email']));
+
+        $user->email = 'pedro123@gmail.com';
+        $this->assertTrue($user->validate(['email']));
+
+        //Password
+
+        $user->password = $user->setPassword(null);
+        $this->assertFalse($user->validate(['password']));
+
+        $user->password = $user->setPassword('123');
+        $this->assertFalse($user->validate(['password']));
+
+        $user->password = $user->setPassword('123456789');
+        $this->assertTrue($user->validate(['password']));
+
         //Data de Nascimento
 
         $userProfile->dtaNascimento = null;
@@ -55,8 +85,8 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->dtaNascimento = 25658642;
         $this->assertFalse($userProfile->validate(['dtaNascimento']));
 
-        $userProfile->dtaNascimento = date('yyyy-MM-dd');
-        $this->assertFalse($userProfile->validate(['dtaNascimento']));
+        $userProfile->dtaNascimento = '2020-11-02';
+        $this->assertTrue($userProfile->validate(['dtaNascimento']));
 
         //Morada
 
@@ -74,6 +104,14 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->localidade = 'Vila Viçosa';
         $this->assertTrue($userProfile->validate(['localidade']));
 
+        //Distrito
+        $userProfile->distrito = null;
+        $this->assertFalse($userProfile->validate(['distrito']));
+
+        $userProfile->localidade = 'Évora';
+        $this->assertTrue($userProfile->validate(['localidade']));
+
+
         //Sexo
 
         $userProfile->sexo = null;
@@ -81,45 +119,60 @@ class RegistoTest extends \Codeception\Test\Unit
 
         $userProfile->sexo = 'Masculino';
         $this->assertTrue($userProfile->validate(['sexo']));
+
     }
 
     public function testCriarUtilizador()
     {
+        $user = new User();
         $userProfile = new Userprofile();
 
+        $user->username = 'rolo009';
+        $user->email = 'pedrorolo@gmail.com';
+        $user->setPassword('pedro123456789');
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
         $userProfile->primeiroNome = 'Pedro';
         $userProfile->ultimoNome = 'Rolo';
-        $userProfile->dtaNascimento = date('Y-m-d');
+        $userProfile->dtaNascimento = 2000-01-13;
         $userProfile->morada = 'Rua A';
-        $userProfile->distrito = 'Évora';
         $userProfile->localidade = 'Vila Viçosa';
+        $userProfile->distrito= 'Évora';
         $userProfile->sexo = 'Masculino';
+        $user->save();
+        $userProfile->id_user_rbac = $user->getId();
 
-        $user = User::findOne(['username' => 'test_registo']);
-
-        $userProfile->id_user_rbac = $user->id;
-
-        $userProfile->save(false);
+        $userProfile->save();
+        $this->tester->seeInDatabase('user', ['username' => 'rolo009', 'email' => 'pedrorolo@gmail.com']);
         $this->tester->seeInDatabase('userprofile', ['id_user_rbac' => $user->getId(), 'primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo']);
     }
 
     public function testAtualizarUtilizador()
     {
-        $userprofile = $this->tester->grabRecord(Userprofile::class, array('primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo'));
+        $user = $this->tester->grabRecord('app\common\models\User', array('email' => 'pedrorolo@gmail.com'));
+        $userprofile = $this->tester->grabRecord('app\models\User', array('id_user_rbac' => $user->id));
 
+        $user->username = "pedrorolo009";
         $userprofile->localidade = "Leiria";
-        $userprofile->save(false);
+        $user->save();
+        $userprofile->save();
 
+        $this->tester->seeInDatabase('user', ['username' => 'pedrorolo009']);
         $this->tester->seeInDatabase('userprofile', ['localidade' => 'Leiria']);
     }
 
     public function testApagarPessoa()
     {
-        $userprofile = $this->tester->grabRecord(Userprofile::class, array('primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo'));
+        $user = $this->tester->grabRecord('app\common\models\User', array('email' => 'pedrorolo@gmail.com'));
+        $userprofile = $this->tester->grabRecord('app\models\User', array('id_user_rbac' => $user->id));
 
         $userprofile->delete();
 
-        $this->tester->dontSeeInDatabase('userprofile', ['primeiroNome' => 'Pedro']);
+        $this->tester->seeInDatabase('userprofile', ['id_user_rbac' => $user->id]);
+
+        $user->delete();
+
+        $this->tester->seeInDatabase('user', ['username' => 'pedrorolo009']);
 
     }
 

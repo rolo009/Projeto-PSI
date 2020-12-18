@@ -135,7 +135,7 @@ body, html{
     width: 20%;
 }
 @media (max-width: 1000px) {
-    .sn-about-section, .sn-row, sn-column{
+    .sn-row, sn-column{
         display: flex;
 
     }

@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use app\models\Visitados;
+
 use common\models\Contactos;
 use common\models\Estiloconstrucao;
 use common\models\Ratings;

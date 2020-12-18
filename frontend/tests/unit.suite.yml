@@ -3,7 +3,7 @@ actor: UnitTester
 modules:
   enabled:
     - Yii2:
-        cleanup: true # reload dump between tests
+        cleanup: false
         part: [ orm, email, fixtures ]
     - Asserts
     - Db:

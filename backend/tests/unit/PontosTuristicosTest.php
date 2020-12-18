@@ -98,13 +98,16 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         $estiloConstrucao = Estiloconstrucao::findOne(['descricao' => 'Barroco'])->idEstiloConstrucao;
         $localidade = Localidade::findOne(['nomeLocalidade' => 'Leiria'])->id_localidade;
 
-        $pontoTuristico->nome = "Teste";
+        $pontoTuristico->nome = "Castelo de Leiria";
         $pontoTuristico->anoConstrucao = "1135";
         $pontoTuristico->descricao = "Localizado em Leiria";
         $pontoTuristico->foto = "castelo-de-leiria.jpg";
         $pontoTuristico->tm_idTipoMonumento = $tipoMonumento;
         $pontoTuristico->ec_idEstiloConstrucao = $estiloConstrucao;
         $pontoTuristico->localidade_idLocalidade = $localidade;
+        $pontoTuristico->latitude = '39.74362';
+        $pontoTuristico->longitude = '-8.80705';
+        $pontoTuristico->status = 0;
 
         $pontoTuristico->save(false);
         $this->assertTrue($pontoTuristico->save());
@@ -119,7 +122,7 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         $pontoTuristico->nome = 'Castelo Leiria';
         $pontoTuristico->anoConstrucao = 1250;
         $pontoTuristico->descricao = "Em Leiria";
-        $pontoTuristico->save();
+        $pontoTuristico->save(false);
 
         $this->tester->seeInDatabase('pontosturisticos', ['nome' => 'Castelo Leiria']);
     }
@@ -130,7 +133,7 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
 
         $pontoTuristico->delete();
 
-        $this->tester->seeInDatabase('pontosturisticos', ['nome' => 'Castelo Leiria']);
+        $this->tester->dontSeeInDatabase('pontosturisticos', ['nome' => 'Castelo Leiria']);
 
     }
 

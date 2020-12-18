@@ -73,7 +73,6 @@ class ContactosTest extends \Codeception\Test\Unit
 
         $this->tester->seeInDatabase('contactos', ['nome' => 'Teste', 'email' => 'test123@gmail.com','status'=>0]);
 
-
     }
 
 }

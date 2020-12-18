@@ -63,20 +63,36 @@ class CultravelController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $procuraLocalidade = Localidade::findOne(['nomeLocalidade' => $model->procurar]);
-            $procuraPontoTuristico = Pontosturisticos::findAll(['nome' => $model->procurar]);
+            $procuraPontoTuristico = Pontosturisticos::find()->where(['nome' => $model->procurar])
+                ->andWhere(['status' => 1])->all();
             $procuraEstiloConstrucao = Estiloconstrucao::findOne(['descricao' => $model->procurar]);
             $procuraTipoMonumento = Tipomonumento::findOne(['descricao' => $model->procurar]);
 
             if ($procuraLocalidade != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])->all();
+                $pontosTuristicos = Pontosturisticos::find()->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])->andWhere(['status' => 1])->all();
+                if ($pontosTuristicos == null) {
+                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                    return $this->render('index', ['model' => $model]);
+                }
             } elseif ($procuraPontoTuristico != null) {
                 $pontosTuristicos = $procuraPontoTuristico;
+                if ($pontosTuristicos == null) {
+                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                    return $this->render('index', ['model' => $model]);
+                }
             } elseif ($procuraEstiloConstrucao != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])->all();
+                $pontosTuristicos = Pontosturisticos::find()->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])->andWhere(['status' => 1])->all();
+                if ($pontosTuristicos == null) {
+                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                    return $this->render('index', ['model' => $model]);
+                }
             } elseif ($procuraTipoMonumento != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])->all();
-            }
-            else{
+                $pontosTuristicos = Pontosturisticos::find()->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])->andWhere(['status' => 1])->all();
+                if ($pontosTuristicos == null) {
+                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                    return $this->render('index', ['model' => $model]);
+                }
+            } else {
                 Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
                 return $this->render('index', ['model' => $model]);
             }
@@ -95,7 +111,6 @@ class CultravelController extends Controller
     public
     function actionFavoritos()
     {
-
         if (Yii::$app->getUser()->isGuest != true) {
 
             $idUser = Yii::$app->user->getId();
@@ -103,16 +118,24 @@ class CultravelController extends Controller
             $favoritos = Favoritos::findAll(['user_idUtilizador' => $idUser]);
 
             if ($favoritos != null) {
-
                 foreach ($favoritos as $favorito) {
-                    $ptFavoritos[] = $favorito->ptIdPontoTuristico;
-                    $ptLocalidades[] = $favorito->ptIdPontoTuristico->localidadeIdLocalidade;
+                    if ($favorito->ptIdPontoTuristico->status == 1) {
+                        $ptFavoritos[] = $favorito->ptIdPontoTuristico;
+                        $ptLocalidades[] = $favorito->ptIdPontoTuristico->localidadeIdLocalidade;
+                    }
                 }
 
-                return $this->render('favoritos', [
-                    'ptFavoritos' => $ptFavoritos,
-                    'ptLocalidades' => $ptLocalidades,
-                ]);
+                if ($ptFavoritos != null && $ptLocalidades != null) {
+                    return $this->render('favoritos', [
+                        'ptFavoritos' => $ptFavoritos,
+                        'ptLocalidades' => $ptLocalidades,
+                    ]);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
+                    return $this->actionIndex();
+                }
+
+
             } else {
                 Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
                 return $this->actionIndex();
@@ -210,7 +233,9 @@ class CultravelController extends Controller
 
 
                 foreach ($visitados as $visitado) {
-                    $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
+                    if ($visitado->ptIdPontoTuristico->status == 1) {
+                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
+                    }
                 }
 
                 return $this->render('visitados', [
@@ -257,7 +282,7 @@ class CultravelController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-          if ($model->password == $model->confirmPassword) {
+            if ($model->password == $model->confirmPassword) {
                 $model->signup();
                 Yii::$app->session->setFlash('success', 'Bem vindo à Cultravel ' . $model->primeiroNome . ' ' . $model->ultimoNome . '!');
                 return $this->actionLogin();
@@ -323,63 +348,69 @@ class CultravelController extends Controller
     public
     function actionPontoInteresseDetails($id)
     {
-        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
-        $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
-        $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
-        $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
-        $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
-        if ($ratings != null) {
-            $mediaRatings = $this->mediaRatings($ratings);
-        } elseif ($ratings == null) {
-            $mediaRatings = 0;
-        }
-
-        $favorito = Favoritos::find()
-            ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])->one();
-
-        if ($favorito != null) {
-            $favoritoStatus = true;
-        } elseif ($favorito == null) {
-            $favoritoStatus = false;
-        }
-
-        $visitados = Visitados::find()
-            ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])->one();
-
-        if ($visitados != null) {
-            $visitadosStatus = true;
-        } elseif ($visitados == null) {
-            $visitadosStatus = false;
-        }
-
-        $rating = new Ratings();
-
-        if ($rating->load(Yii::$app->request->post())) {
-            $ratingVerificacao = Ratings::find()
-                ->where(['pt_idPontoTuristico' => $id])
-                ->andWhere(['user_idUtilizador' => Yii::$app->user->getId()])
-                ->one();
-
-            if ($ratingVerificacao == null) {
-                $rating->user_idUtilizador = Yii::$app->user->getId();
-                $rating->pt_idPontoTuristico = $id;
-                $rating->save();
-            } elseif ($ratingVerificacao != null) {
-                $ratingVerificacao->classificacao = $rating->classificacao;
+        $pontoTuristico = Pontosturisticos::find()->where(['id_pontoTuristico' => $id])->andWhere(['status' => 1])->one();
+        if ($pontoTuristico != null) {
+            $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
+            $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
+            $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
+            $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
+            if ($ratings != null) {
+                $mediaRatings = $this->mediaRatings($ratings);
+            } elseif ($ratings == null) {
+                $mediaRatings = 0;
             }
 
+            $favorito = Favoritos::find()
+                ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])->one();
+
+            if ($favorito != null) {
+                $favoritoStatus = true;
+            } elseif ($favorito == null) {
+                $favoritoStatus = false;
+            }
+
+            $visitados = Visitados::find()
+                ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])->one();
+
+            if ($visitados != null) {
+                $visitadosStatus = true;
+            } elseif ($visitados == null) {
+                $visitadosStatus = false;
+            }
+
+            $rating = new Ratings();
+
+            if ($rating->load(Yii::$app->request->post())) {
+                $ratingVerificacao = Ratings::find()
+                    ->where(['pt_idPontoTuristico' => $id])
+                    ->andWhere(['user_idUtilizador' => Yii::$app->user->getId()])
+                    ->one();
+
+                if ($ratingVerificacao == null) {
+                    $rating->user_idUtilizador = Yii::$app->user->getId();
+                    $rating->pt_idPontoTuristico = $id;
+                    $rating->save();
+                } elseif ($ratingVerificacao != null) {
+                    $ratingVerificacao->classificacao = $rating->classificacao;
+                }
+
+            }
+
+            return $this->render('ponto-interesse-details', [
+                'pontoTuristico' => $pontoTuristico,
+                'tipoMonumento' => $tipoMonumento,
+                'localidadeMonumento' => $localidadeMonumento,
+                'estiloMonumento' => $estiloConstrucao,
+                'ratingMonumento' => $mediaRatings,
+                'rating' => $rating,
+                'favoritoStatus' => $favoritoStatus,
+                'visitadoStatus' => $visitadosStatus,
+            ]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Este ponto turistico já não se encontra disponivel!');
+            return $this->actionIndex();
         }
 
-        return $this->render('ponto-interesse-details', [
-            'pontoTuristico' => $pontoTuristico,
-            'tipoMonumento' => $tipoMonumento,
-            'localidadeMonumento' => $localidadeMonumento,
-            'estiloMonumento' => $estiloConstrucao,
-            'ratingMonumento' => $mediaRatings,
-            'rating' => $rating,
-            'favoritoStatus' => $favoritoStatus,
-            'visitadoStatus' => $visitadosStatus,
-        ]);
     }
 
     public

@@ -79,7 +79,8 @@ body, html{
 
 /*Sobre nós*/
 
-.sn-color{
+.sn-title-ane{
+    text-align: center;
     color: white;
 }
 .sn-column {
@@ -98,21 +99,20 @@ body, html{
 }
 
 .sn-about-section {
-    font-size-adjust: initial;
+
     padding: 25px;
     text-align: center;
     background-color: transparent;
     color: white;
 }
 .sn-about-section-text {
-    font-size-adjust: 0.58;
     padding: 25px;
     text-align: justify-all;
     background-color: transparent;
     color: white;
 }
 .sn-container {
-    font-size-adjust: 0.58;
+
     background-color: transparent;
     color: white;
     opacity: 0.9;
@@ -128,12 +128,31 @@ body, html{
 }
 
 .sn-title {
-    font-size-adjust: 0.58;
     color: white;
 }
 
 .img-logo-contactos{
     width: 20%;
+}
+@media (max-width: 1000px) {
+    .sn-row, sn-column{
+        display: flex;
+
+    }
+    .sn-about-section-text{
+        display: flex;
+        font-size: 10px;
+    }
+    .sn-container{
+        margin: 1% 8% 3% 8%;
+        display: flex;
+        font-size: 10px;
+    }
+    .sn-card{
+        width: 20%;
+    }
+
+
 }
 /*Registo*/
 .label-registo-dta{

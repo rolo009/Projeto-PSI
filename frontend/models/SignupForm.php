@@ -1,7 +1,7 @@
 <?php
 namespace frontend\models;
 
-use app\models\Userprofile;
+use common\models\Userprofile;
 use Yii;
 use yii\base\Model;
 use common\models\User;

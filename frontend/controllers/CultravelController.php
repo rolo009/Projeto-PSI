@@ -262,24 +262,22 @@ class CultravelController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $modelUser = User::findOne(['email' => $model->email]);
 
-            if($modelUser->status == 1){
+            if ($modelUser->status == 1) {
                 Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
                 return $this->render('login', [
                     'model' => $model,
                 ]);
-            }
-            else if($modelUser->status == 0){
+            } else if ($modelUser->status == 0) {
                 Yii::$app->session->setFlash('error', 'Esta conta foi banida!');
                 return $this->render('login', [
                     'model' => $model,
                 ]);
-            }
-            else if($modelUser->status == 9){
+            } else if ($modelUser->status == 9) {
                 Yii::$app->session->setFlash('error', 'Esta conta está inativa!');
                 return $this->render('login', [
                     'model' => $model,
                 ]);
-            }else{
+            } else {
                 $model->login();
                 return $this->actionIndex();
             }
@@ -407,8 +405,7 @@ class CultravelController extends Controller
         }
     }
 
-    public
-    function actionAdicionarFavoritos($idPontoTuristico)
+    public function actionAdicionarFavoritos($idPontoTuristico)
     {
         $idUser = Yii::$app->user->getId();
 
@@ -428,18 +425,14 @@ class CultravelController extends Controller
         } else {
             return $this->actionIndex();
         }
-
-
     }
 
-    public
-    function actionRemoverFavoritos($idPontoTuristico)
+    public function actionRemoverFavoritos($idPontoTuristico)
     {
 
         $idUser = Yii::$app->user->getId();
 
-        $favorito = Favoritos::find()
-            ->where(['pt_idPontoTuristico' => $idPontoTuristico])->andwhere(['user_idUtilizador' => $idUser])->one();
+        $favorito = Favoritos::find()->where(['pt_idPontoTuristico' => $idPontoTuristico])->andwhere(['user_idUtilizador' => $idUser])->one();
 
         $favorito->delete();
 
@@ -449,8 +442,8 @@ class CultravelController extends Controller
         }
     }
 
-    public
-    function actionAdicionarVisitados($idPontoTuristico)
+
+    public function actionAdicionarVisitados($idPontoTuristico)
     {
         $idUser = Yii::$app->user->getId();
 
@@ -470,12 +463,9 @@ class CultravelController extends Controller
         } else {
             return $this->actionIndex();
         }
-
-
     }
 
-    public
-    function actionRemoverVisitados($idPontoTuristico)
+    public function actionRemoverVisitados($idPontoTuristico)
     {
 
         $idUser = Yii::$app->user->getId();

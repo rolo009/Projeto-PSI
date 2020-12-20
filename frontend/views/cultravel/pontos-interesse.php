@@ -2,11 +2,22 @@
 
 use yii\helpers\Html;
 
-$this->title = $localidade;
+if (isset($resultado) && $resultado != null) {
+    $this->title = $resultado;
+} elseif (isset($tipoMonumento) && $tipoMonumento != null) {
+    $this->title = $tipoMonumento;
+}
 
 ?>
-
+<div class="info-resultado">
+    Resultados da Pesquisa por: <span class="resultado"><?php if (isset($resultado) && $resultado != null) {
+            echo $resultado;
+        } elseif (isset($tipoMonumento) && $tipoMonumento != null) {
+            echo $tipoMonumento;
+        } ?></span>
+</div>
 <div class="pontos-interesse-container">
+
     <?php
     foreach ($pontosTuristicos as $pontoTuristico) { ?>
         <div class="card-pontos-interesse">

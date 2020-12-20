@@ -5,11 +5,7 @@ modules:
         - WebDriver:
             url: http://localhost/
             browser: chrome
-            window_size: false # disabled in ChromeDriver
-                port: 9515
-                browser: chrome
-                capabilities:
-                    "goog:chromeOptions":
-        - \Helper\Acceptance
+            window_size: false
+            port: 8080
         - Yii2:
             part: init

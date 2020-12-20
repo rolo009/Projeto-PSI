@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('Estatisticas', ['estatisticas'], ['class' => 'btn btn-primary btn-registar-ponto-turistico']) ?>
 
     <?= GridView::widget([
+        'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Pontos Turisticos</div>',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => ['class' => 'table table-striped table-bordered gridView-backend'],
@@ -36,6 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Nome',
                 'attribute' => 'nome',
+                'format' => 'text'
+            ],
+            [
+                'label' => 'Estado',
+                'attribute' => 'status',
+                'filter' => ['0' => 'Inativo', '1' => 'Ativo'],
                 'format' => 'text'
             ],
 

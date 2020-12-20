@@ -60,7 +60,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect(['cultravel/index']);
     }
 
     /**
@@ -78,13 +78,14 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if(Yii::$app->getUser()->can('admin')){
+                return $this->redirect(['cultravel/index']);
+            }
         } else {
             $model->password = '';
 
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['cultravel/login']);
+
         }
     }
 

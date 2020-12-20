@@ -35,13 +35,14 @@ class Contactos extends \yii\db\ActiveRecord
             [['nome'], 'required', 'message'=>'O campo Nome não pode estar em branco!'],
             [['email'], 'required', 'message'=>'O campo Email não pode estar em branco!'],
             [['assunto'], 'required', 'message'=>'O campo Assunto não pode estar em branco!'],
-            [['messagem'], 'required', 'message'=>'O campo Messagem não pode estar em branco!'],
+            [['mensagem'], 'required', 'message'=>'O campo Mensagem não pode estar em branco!'],
             [['status'], 'required', 'message'=>'O campo Status não pode estar em branco!'],
             [['dataEnvioMensagem', 'dataResposta'], 'safe'],
             [['status'], 'integer'],
             [['nome', 'email'], 'string', 'max' => 255],
             [['assunto'], 'string', 'max' => 60],
             [['mensagem'], 'string', 'max' => 6000],
+            [['email'], 'email'],
         ];
     }
 

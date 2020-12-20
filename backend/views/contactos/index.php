@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?= GridView::widget([
+        'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Mensagem</div>',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => ['class' => 'table table-striped table-bordered gridView-backend'],

@@ -1,7 +1,7 @@
 <?php namespace frontend\tests;
 
-use app\models\ContactForm;
 use common\models\Contactos;
+use frontend\models\ContactForm;
 
 
 class ContactosTest extends \Codeception\Test\Unit
@@ -13,6 +13,7 @@ class ContactosTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
+
     }
 
     protected function _after()
@@ -31,17 +32,17 @@ class ContactosTest extends \Codeception\Test\Unit
         $contactos->nome = null;
         $this->assertFalse($contactos->validate(['nome']));
 
-        $contactos->nome = 'Mario';
+        $contactos->nome = 'Teste';
         $this->assertTrue($contactos->validate(['nome']));
 
         //Email
-        $contactos->email = 'mariofcc271999';
+        $contactos->email = 'teste123';
         $this->assertFalse($contactos->validate(['email']));
 
         $contactos->email = null;
         $this->assertFalse($contactos->validate(['email']));
 
-        $contactos->email = 'mariofcc271999@gmail.com';
+        $contactos->email = 'test123@gmail.com';
         $this->assertTrue($contactos->validate(['email']));
 
         //assunto
@@ -60,18 +61,17 @@ class ContactosTest extends \Codeception\Test\Unit
 
     }
     public function testCriarMensagem(){
+
         $contactos = new Contactos();
 
-        $contactos->nome = 'Mario';
-        $contactos->email = 'mariofcc271999@gmail.com';
+        $contactos->nome = 'Teste';
+        $contactos->email = 'test123@gmail.com';
         $contactos->assunto = 'Isto é um teste no campo assunto';
         $contactos->mensagem = 'Isto é um teste no campo mensagem';
         $contactos->status = 0;
-        $contactos->save();
+        $contactos->save(false);
 
-        $this->tester->seeInDatabase('contactos', ['nome' => 'Mario', 'email' => 'mariofcc271999@gmail.com','assunto'=>'Isto é um teste no campo assunto','messagem'=>'Isto é um teste no campo mensagem','status'=>'0']);
-
+        $this->tester->seeInDatabase('contactos', ['nome' => 'Teste', 'email' => 'test123@gmail.com','status'=>0]);
 
     }
-
 }

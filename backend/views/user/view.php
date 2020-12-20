@@ -16,6 +16,10 @@ $atributos = [
         'value' => $model->id,
     ],
     [
+        'label' => 'Tipo de Utilizador',
+        'value' => $permissaoUser,
+    ],
+    [
         'label' => 'Nome de Utilizador',
         'value' => $model->username,
     ],

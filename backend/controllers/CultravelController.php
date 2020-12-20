@@ -19,7 +19,7 @@ class CultravelController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+            return $this->render('index');
     }
 
     public function actionLogin()
@@ -32,11 +32,15 @@ class CultravelController extends \yii\web\Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
             if(Yii::$app->getUser()->can('admin')){
-                return $this->goBack();
+                $this->layout = 'main';
+
+                return $this->render('index');
             }
             else{
                 Yii::$app->user->logout();
+                Yii::$app->session->setFlash('error', 'Não tem permissões para aceder à área de administradores.');
                 return $this->goHome();
             }
         } else {
@@ -95,6 +99,7 @@ class CultravelController extends \yii\web\Controller
         $model = new Estiloconstrucao();
 
         if ($model->load(Yii::$app->request->post())) {
+
             $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
             if ($estiloConstrucaoVerifica == null){
                 $model->save();

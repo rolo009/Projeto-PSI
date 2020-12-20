@@ -19,7 +19,7 @@ $this->title = 'Login';
         <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
         </div>
         <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
-            <?php $form = ActiveForm::begin() ?>
+            <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
             <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>

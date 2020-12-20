@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+
 namespace backend\controllers;
 
 use common\models\Userprofile;
@@ -8,6 +9,7 @@ use Cassandra\Date;
 use Yii;
 use common\models\User;
 use app\models\UserSearch;
+use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,13 +23,24 @@ class UserController extends Controller
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'remover-admin', 'tornar-admin', 'create', 'update', 'delete', 'estatisticas'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'remover-admin', 'tornar-admin', 'create', 'update', 'delete', 'estatisticas'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -39,13 +52,17 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->isGuest == true) {
+            return $this->redirect(['cultravel/login']);
+        } else {
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -62,30 +79,59 @@ class UserController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $userProfile= Userprofile::findOne(['id_userProfile' => $id]);
+        $userProfile = Userprofile::findOne(['id_userProfile' => $id]);
 
-        $user= User::findOne(['id' => $id]);
+        $user = User::findOne(['id' => $id]);
 
-        if($user->status == 9){
+        if ($user->status == 9) {
             $estadoUser = "Utilizador inativo (9)";
-        }
-        elseif ($user->status == 10){
+        } elseif ($user->status == 10) {
             $estadoUser = "Utilizador ativo (10)";
-        }
-
-        elseif ($user->status == 0){
+        } elseif ($user->status == 0) {
             $estadoUser = "Utilizador banido (0)";
+        } elseif ($user->status == 1) {
+            $estadoUser = "Utilizador apagado (1)";
         }
 
-        elseif ($user->status == 1){
-            $estadoUser = "Utilizador apagado (1)";
+        if (Yii::$app->authManager->checkAccess($user->id, 'admin') == true) {
+            $permissaoUser = "Administrador";
+        } elseif (Yii::$app->authManager->checkAccess($user->id, 'user')) {
+            $permissaoUser = "Utilizador";
         }
 
         return $this->render('view', [
             'model' => $model,
             'userProfile' => $userProfile,
             'estadoUser' => $estadoUser,
+            'permissaoUser' => $permissaoUser,
         ]);
+    }
+
+    public function actionRemoverAdmin($id)
+    {
+        $roleAdmin = Yii::$app->authManager->getRole('admin');
+        $roleUser = Yii::$app->authManager->getRole('user');
+        Yii::$app->authManager->revoke($roleAdmin, $id);
+        if (Yii::$app->authManager->assign($roleUser, $id) == true) {
+            return $this->actionView($id);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Administrador!');
+            return $this->actionView($id);
+        }
+    }
+
+    public function actionTornarAdmin($id)
+    {
+        $roleAdmin = Yii::$app->authManager->getRole('admin');
+        $roleUser = Yii::$app->authManager->getRole('user');
+
+        Yii::$app->authManager->revoke($roleUser, $id);
+        if (Yii::$app->authManager->assign($roleAdmin, $id) == true) {
+            return $this->actionView($id);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Administrador!');
+            return $this->actionView($id);
+        }
     }
 
     /**
@@ -166,32 +212,37 @@ class UserController extends Controller
         $nUsersFemininos = $this->usersFemininos();
 
         $idadesUsers = $this->usersIdades();
+        $distritoUsers = $this->usersDistrito();
 
         return $this->render('stats-users', [
             'nUsersMasculinos' => $nUsersMasculinos,
             'nUsersFemininos' => $nUsersFemininos,
             'nUsersFemininos' => $nUsersFemininos,
             'idadesUsers' => $idadesUsers,
+            'distritosUsers' => $distritoUsers,
         ]);
     }
 
-    public function usersMasculinos(){
+    public function usersMasculinos()
+    {
         $usersMasculinos = Userprofile::find()
-        ->where(['sexo' => 'Masculino'])
-        ->count();
+            ->where(['sexo' => 'Masculino'])
+            ->count();
 
         return $usersMasculinos;
     }
 
-    public function usersFemininos(){
+    public function usersFemininos()
+    {
         $usersFemininos = Userprofile::find()
-        ->where(['sexo' => 'Feminino'])
-        ->count();
+            ->where(['sexo' => 'Feminino'])
+            ->count();
 
         return $usersFemininos;
     }
 
-    public function usersIdades(){
+    public function usersIdades()
+    {
 
         $users = Userprofile::find()->all();
         $idade0a20 = 0;
@@ -203,26 +254,21 @@ class UserController extends Controller
         foreach ($users as $user) {
             $dataNascimento = new \DateTime($user->dtaNascimento);
             $dataAtual = new \DateTime();
-                //Yii::$app->formatter->asDate('now', 'php:Y-m-d');
+            //Yii::$app->formatter->asDate('now', 'php:Y-m-d');
 
             $idade = $dataNascimento->diff($dataAtual);
 
-            if($idade->y >= 0 && $idade->y < 20){
+            if ($idade->y >= 0 && $idade->y < 20) {
                 $idade0a20++;
-            }
-            elseif ($idade->y >= 20 && $idade->y <30){
+            } elseif ($idade->y >= 20 && $idade->y < 30) {
                 $idade20a30++;
-            }
-            elseif ($idade->y >= 30 && $idade->y <40){
+            } elseif ($idade->y >= 30 && $idade->y < 40) {
                 $idade30a40++;
-            }
-            elseif ($idade->y >= 40 && $idade->y <60){
+            } elseif ($idade->y >= 40 && $idade->y < 60) {
                 $idade40a60++;
-            }
-            elseif ($idade->y >= 60 && $idade->y <75){
+            } elseif ($idade->y >= 60 && $idade->y < 75) {
                 $idade60a75++;
-            }
-            elseif ($idade->y >= 75){
+            } elseif ($idade->y >= 75) {
                 $idadeMais75++;
             }
 
@@ -234,4 +280,97 @@ class UserController extends Controller
         return $idades;
     }
 
+    public function usersDistrito()
+    {
+        $users = Userprofile::find()->all();
+        $userVianaDoCastelo = 0;
+        $userBraga = 0;
+        $userVilaReal = 0;
+        $userBraganca = 0;
+        $userPorto = 0;
+        $userAveiro = 0;
+        $userViseu = 0;
+        $userGuarda = 0;
+        $userCoimbra = 0;
+        $userCasteloBranco = 0;
+        $userLeiria = 0;
+        $userSantarem = 0;
+        $userPortalegre = 0;
+        $userLisboa = 0;
+        $userEvora = 0;
+        $idadeSetubal = 0;
+        $idadeBeja = 0;
+        $idadeFaro = 0;
+        $idadeAcores = 0;
+        $idadeMadeira = 0;
+
+        foreach ($users as $user) {
+            if ($user->distrito == 'Viana do Castelo') {
+                $userVianaDoCastelo++;
+            } elseif ($user->distrito == 'Braga') {
+                $userBraga++;
+            } elseif ($user->distrito == 'Vila Real') {
+                $userVilaReal++;
+            } elseif ($user->distrito == 'Bragança') {
+                $userBraganca++;
+            } elseif ($user->distrito == 'Porto') {
+                $userPorto++;
+            } elseif ($user->distrito == 'Aveiro') {
+                $userAveiro++;
+            } elseif ($user->distrito == 'Viseu') {
+                $userViseu++;
+            } elseif ($user->distrito == 'Guarda') {
+                $userGuarda++;
+            } elseif ($user->distrito == 'Coimbra') {
+                $userCoimbra++;
+            } elseif ($user->distrito == 'Castelo Branco') {
+                $userCasteloBranco++;
+            } elseif ($user->distrito == 'Leiria') {
+                $userLeiria++;
+            } elseif ($user->distrito == 'Santarém') {
+                $userSantarem++;
+            } elseif ($user->distrito == 'Portalegre') {
+                $userPortalegre++;
+            } elseif ($user->distrito == 'Leiria') {
+                $userLisboa++;
+            } elseif ($user->distrito == 'Setubal') {
+                $idadeSetubal++;
+            } elseif ($user->distrito == 'Évora') {
+                $userEvora++;
+            } elseif ($user->distrito == 'Beja') {
+                $idadeBeja++;
+            } elseif ($user->distrito == 'Coimbra') {
+                $idadeFaro++;
+            } elseif ($user->distrito == 'Açores') {
+                $idadeAcores++;
+
+            } elseif ($user->distrito == 'Madeira') {
+                $idadeMadeira++;
+            }
+
+            $distritos = array('VianaDoCastelo' => $userVianaDoCastelo,
+                'Braga' => $userBraga,
+                'VilaReal' => $userVilaReal,
+                'Braganca' => $userBraganca,
+                'Porto' => $userPorto,
+                'Aveiro' => $userAveiro,
+                'Viseu' => $userViseu,
+                'Guarda' => $userGuarda,
+                'Coimbra' => $userCoimbra,
+                'CasteloBranco' => $userCasteloBranco,
+                'Leiria' => $userLeiria,
+                'Santarem' => $userSantarem,
+                'Portalegre' => $userPortalegre,
+                'Lisboa' => $userLisboa,
+                'Evora' => $userEvora,
+                'Setubal' => $idadeSetubal,
+                'Beja' => $idadeBeja,
+                'Faro' => $idadeFaro,
+                'Acores' => $idadeAcores,
+                'Madeira' => $idadeMadeira);
+        }
+
+        return $distritos;
+
+    }
 }

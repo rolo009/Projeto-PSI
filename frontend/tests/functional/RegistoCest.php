@@ -29,51 +29,47 @@ class RegistoCest
 
     public function RegistoVerificaVazio(FunctionalTester $I)
     {
-        $I->amOnRoute('cultravel/registar');
-        $I->submitForm('#registoForm', $this->formParams('',
-            '', '','','','',
-            '','','',''));
-        $I->seeValidationError('O campo Primeiro Nome não pode estar em branco!');
-        $I->seeValidationError('O campo Último Nome não pode estar em branco!');
-        $I->seeValidationError('O campo Nome de Utilizador não pode estar em branco!');
-        $I->seeValidationError('O campo Email não pode estar em branco!');
-        $I->seeValidationError('O campo Data de Nascimento não pode estar em branco!');
-        $I->seeValidationError('O campo Palavra Passe não pode estar em branco!');
-        $I->seeValidationError('O campo Confirmar Palavra Passe não pode estar em branco!');
-        $I->seeValidationError('O campo Morada não pode estar em branco!');
-        $I->seeValidationError('O campo Localidade não pode estar em branco!');
-        $I->seeValidationError('O campo Sexo não pode estar em branco!');
+        $I->submitForm('#registoForm', []);
+       $I->see('O campo Primeiro Nome não pode estar em branco!', '.help-block');
+        $I->see('O campo Último Nome não pode estar em branco!', '.help-block');
+        $I->see('O campo Nome de Utilizador não pode estar em branco!', '.help-block');
+        $I->see('O campo Email não pode estar em branco!', '.help-block');
+        $I->see('O campo Data de Nascimento não pode estar em branco!', '.help-block');
+        $I->see('O campo Palavra Passe não pode estar em branco!', '.help-block');
+        $I->see('O campo Confirmar Palavra Passe não pode estar em branco!', '.help-block');
+        $I->see('O campo Morada não pode estar em branco!', '.help-block');
+        $I->see('O campo Localidade não pode estar em branco!', '.help-block');
+        $I->see('O campo Sexo não pode estar em branco!', '.help-block');
     }
 
     public function RegistoEmailIncorreto(FunctionalTester $I)
     {
-        $I->submitForm('#registoForm', $this->formParams('Pedro',
+        $I->submitForm('#registoForm', [$this->formParams('Pedro',
             'Rolo', 'rolo009','','2020-11-02','123456789',
-            '123456789','Rua A','Vila Viçosa','Masculino'));
-        $I->dontSeeValidationError('O campo Primeiro Nome não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Último Nome não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Nome de Utilizador não pode estar em branco!');
-        $I->SeeValidationError('O campo Email não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Data de Nascimento não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Palavra Passe não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Confirmar Palavra Passe não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Morada não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Localidade não pode estar em branco!');
-        $I->dontSeeValidationError('O campo Sexo não pode estar em branco!');
+            '123456789','Rua A','Vila Viçosa','Masculino')]);
+        $I->dontSee('O campo Primeiro Nome não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Último Nome não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Nome de Utilizador não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Email não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Data de Nascimento não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Palavra Passe não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Confirmar Palavra Passe não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Morada não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Localidade não pode estar em branco!', '.help-block');
+        $I->dontSee('O campo Sexo não pode estar em branco!', '.help-block');
     }
 
     public function RegistoCorreto(FunctionalTester $I)
     {
-        $I->submitForm('#registoForm', $this->formParams('Pedro',
+        $I->submitForm('#registoForm', [$this->formParams('Pedro',
             'Rolo', 'rolo009','pedro123@hotmail.com','2020-11-02','123456789',
-            '123456789','Rua A','Vila Viçosa','Masculino'));
+            '123456789','Rua A','Vila Viçosa','Masculino')], 'insert-registo');
 
-       /* $I->seeRecord('common\models\User', [
+        $I->seeRecord('common\models\User', [
             'username' => 'rolo009',
             'email' => 'pedro123@hotmail.com',
             'status' => \common\models\User::STATUS_INACTIVE
-        ]);*/
-        $I->amOnRoute('cultravel/login');
+        ]);
     }
 
     // tests

@@ -34,6 +34,9 @@ class m201023_143031_pontos_turisticos extends Migration
             'tm_idTipoMonumento' => $this->integer()->notNull(),
             'ec_idEstiloConstrucao' => $this->integer()->notNull(),
             'localidade_idLocalidade' => $this->integer()->notNull(),
+            'status' => $this->integer()->notNull(),
+            'latitude' => $this->string()->notNull(),
+            'longitude' => $this->string()->notNull(),
         ]);
 
 

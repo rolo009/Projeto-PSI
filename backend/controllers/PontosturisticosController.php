@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+
 namespace backend\controllers;
 
 
@@ -10,16 +11,16 @@ use common\models\Localidade;
 use common\models\Ratings;
 use common\models\Tipomonumento;
 use app\models\UploadForm;
-use app\models\Visitados;
+use common\models\Visitados;
 use Yii;
 use common\models\Pontosturisticos;
 use app\models\PontosturisticosSearch;
+use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
 
 
 /**
@@ -33,10 +34,20 @@ class PontosturisticosController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'update-pt-ativo', 'update-pt-inativo', 'create', 'update', 'delete', 'estatisticas'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'update-pt-ativo', 'update-pt-inativo', 'create', 'update', 'delete', 'estatisticas'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -48,13 +59,17 @@ class PontosturisticosController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PontosturisticosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->isGuest == true) {
+            return $this->redirect(['cultravel/login']);
+        } else {
+            $searchModel = new PontosturisticosSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -70,24 +85,32 @@ class PontosturisticosController extends Controller
         $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
         $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
 
-        $favoritosContador= count(Favoritos::findAll(['pt_idPontoTuristico'=>$id]));
-        $visitadosContador= count(Visitados::findAll(['pt_idPontoTuristico'=>$id]));
+        $favoritosContador = count(Favoritos::findAll(['pt_idPontoTuristico' => $id]));
+        $visitadosContador = count(Visitados::findAll(['pt_idPontoTuristico' => $id]));
 
         $ratings = Ratings::findAll(['pt_idPontoTuristico' => $pontoTuristico->id_pontoTuristico]);
-        if($ratings != null){
+        if ($ratings != null) {
             $mediaRatings = $this->mediaRatings($ratings);
-        }
-        elseif($ratings == null){
+        } elseif ($ratings == null) {
             $mediaRatings = 0;
         }
+
+        if ($pontoTuristico->status == 1) {
+            $estadoPontoTuristico = "Ativo";
+        } elseif ($pontoTuristico->status == 0) {
+            $estadoPontoTuristico = "Inativo";
+        }
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
             'localidade' => $localidade,
             'estiloConstrucao' => $estiloConstrucao,
             'tipoMonumento' => $tipoMonumento,
             'mediaRatings' => $mediaRatings,
-            'favoritosContador'=>$favoritosContador,
-            'visitadosContador'=>$visitadosContador
+            'favoritosContador' => $favoritosContador,
+            'visitadosContador' => $visitadosContador,
+            'estadoPontoTuristico' => $estadoPontoTuristico,
 
         ]);
     }
@@ -99,8 +122,32 @@ class PontosturisticosController extends Controller
         foreach ($ratings as $rating) {
             $somaRatings = $somaRatings + $rating->classificacao;
         }
-        $mediaRatings = $somaRatings/count($ratings);
+        $mediaRatings = $somaRatings / count($ratings);
         return $mediaRatings;
+    }
+
+    public function actionUpdatePtAtivo($id)
+    {
+        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
+        $pontoTuristico->status = 1;
+        if ($pontoTuristico->save() == true) {
+            return $this->actionView($id);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possivel tornar este Ponto Turistico Inativo!');
+            return $this->actionView($id);
+        }
+    }
+
+    public function actionUpdatePtInativo($id)
+    {
+        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
+        $pontoTuristico->status = 0;
+        if ($pontoTuristico->save() == true) {
+            return $this->actionView($id);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possivel tornar este Ponto Turistico Ativo!');
+            return $this->actionView($id);
+        }
     }
 
     /**
@@ -117,21 +164,22 @@ class PontosturisticosController extends Controller
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
             $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
             $modelUpload->upload();
+            $model->status = 1;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
-        $tiposMonumentos = \app\models\Tipomonumento::find()
+        $tiposMonumentos = Tipomonumento::find()
             ->select(['descricao'])
             ->indexBy('idTipoMonumento')
             ->column();
 
-        $estiloConstrucao = \app\models\Estiloconstrucao::find()
+        $estiloConstrucao = Estiloconstrucao::find()
             ->select(['descricao'])
             ->indexBy('idEstiloConstrucao')
             ->column();
 
-        $localidade = \app\models\Localidade::find()
+        $localidade = Localidade::find()
             ->select(['nomeLocalidade'])
             ->indexBy('id_localidade')
             ->column();
@@ -166,19 +214,19 @@ class PontosturisticosController extends Controller
             return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
         }
 
-        $tiposMonumentosPT = \app\models\Tipomonumento::find()
+        $tiposMonumentosPT = \common\models\Tipomonumento::find()
             ->select(['descricao'])
             ->indexBy('idTipoMonumento')
             ->orderBy('descricao ASC')
             ->column();
 
-        $estiloConstrucaoPT = \app\models\Estiloconstrucao::find()
+        $estiloConstrucaoPT = \common\models\Estiloconstrucao::find()
             ->select(['descricao'])
             ->indexBy('idEstiloConstrucao')
             ->orderBy('descricao ASC')
             ->column();
 
-        $localidadePT = \app\models\Localidade::find()
+        $localidadePT = \common\models\Localidade::find()
             ->select(['nomeLocalidade'])
             ->indexBy('id_localidade')
             ->orderBy('nomeLocalidade ASC')
@@ -234,7 +282,8 @@ class PontosturisticosController extends Controller
         ]);
     }
 
-    public function pontoTuristicoMaisVisitado(){
+    public function pontoTuristicoMaisVisitado()
+    {
 
     }
 

@@ -1,33 +1,33 @@
-body, html{
+body, html {
     height: 100%;
 
 }
 
 a {
-    text-decoration:none !important;
+    text-decoration: none !important;
 }
 
-a:hover{
-    text-decoration:none !important;
+a:hover {
+    text-decoration: none !important;
 }
 
 /*---------------------------Menu---------------------------*/
-body, html{
+body, html {
     height: 100%;
 
 }
 
 a {
-    text-decoration:none;
+    text-decoration: none;
 }
 
-a:hover{
-    color:white;
+a:hover {
+    color: white;
 }
 
 /*Menu*/
 
-#index-background{
+#index-background {
     background-image: url("../background-index-4.png");
     background-position: center;
     background-size: cover;
@@ -39,7 +39,7 @@ a:hover{
     font-weight: normal !important;
 }
 
-.menu-style{
+.menu-style {
     margin-top: 2%;
     margin-left: 10%;
     margin-right: 10%;
@@ -47,33 +47,33 @@ a:hover{
     position: relative !important;
 }
 
-.menu-style a{
+.menu-style a {
     color: #FFFFFF;
 }
 
-.menu-style a:hover{
+.menu-style a:hover {
     text-decoration: none;
     background-color: transparent !important;
 }
 
-.footer-index{
+.footer-index {
     color: white;
     text-align: center;
     margin-bottom: 0px;
-    position:absolute;
-    bottom:3%;
-    width:100%;
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
 }
 
-.navbar-toggle{
+.navbar-toggle {
     background-color: white !important;
 }
 
-.navbar-toggle .icon-bar{
+.navbar-toggle .icon-bar {
     background-color: gray !important;
 }
 
-.logout{
+.logout {
     color: white;
 }
 
@@ -82,14 +82,39 @@ a:hover{
     color: white !important;
 }
 
+
+/*-------------------------------Login-------------------------*/
+.login-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    margin-top: 15%
+}
+
+.logo-login {
+    width: 150px;
+    margin-top: -4%;
+}
+
+.login-info {
+    color: #FFFFFF;
+    font-size: 30px;
+}
+
+.label-login {
+    color: white;
+    text-align: left;
+}
+
+
 /*-------------------------------Index-------------------------*/
-.index-container{
+.index-container {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-.card-definicoes-admin{
+.card-definicoes-admin {
     opacity: 0.9;
     padding: 15%;
     border-radius: 5px;
@@ -101,154 +126,166 @@ a:hover{
     font-weight: bold;
 }
 
-.card-definicoes-admin:hover{
+.card-definicoes-admin:hover {
     background-color: #e6e6e6;
     color: black;
 
 }
 
-.cards-container{
+.cards-container {
     margin-top: 6%;
 }
 
-.logo-registo-index{
+.logo-registo-index {
     margin-top: -50px;
     width: 180px;
 }
 
 /*Grid View Users*/
 
-.breadcrumb{
+.breadcrumb {
     margin-top: -70px;
 }
-.gridView-backend{
+
+.gridView-backend {
     background-color: #d9d9d9 !important;
     border: 2px #f2f2f2;
 }
 
-.gerirUsers-Container{
+.gerirUsers-Container {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-.logo-gerirUsers{
+.logo-gerirUsers {
     width: 130px;
 }
 
-.gerirUsers-info{
+.gerirUsers-info {
     font-size: 25px;
     color: #FFFFFF;
 }
 
-.gridViewHeaderOptions{
+.gridViewHeaderOptions {
     color: yellow;
 }
 
 /*View - gerir users*/
 
-.user-view{
+.user-view {
     margin-left: 20%;
 
 }
-.detailView-gerirUsers{
+
+.detailView-gerirUsers {
     background-color: #d9d9d9 !important;
 
 }
 
-.gerirUsersContainer{
+.gerirUsersContainer {
     width: 80%;
 }
 
-.info-user{
+.info-user {
     color: #FFFFFF;
 }
 
 /*Users Update*/
-.user-form{
+.user-form {
     color: white;
 }
-.user-update{
+
+.user-update {
     width: 60%;
     margin-left: 25%;
     color: #FFFFFF;
 }
 
 /*Estatisticas Users*/
-.stats-user-container{
+.stats-user-container {
     width: 70%;
 }
 
-.card-stats{
+.card-stats {
     margin-bottom: 1%;
 }
 
-.idades-container{
+.idades-container {
+    margin-top: 50px;
+}
+
+.distritos-container{
     margin-top: 50px;
 }
 
 /*Comum*/
 
-.summary{
+.summary {
     color: #FFFFFF;
 }
 
-a{
+a {
     color: black;
 }
-a:hover{
+
+a:hover {
     color: black;
     animation-duration: 1s;
 }
 
 /*Gerir Pontos Turisticos*/
 
-.btn-registar-ponto-turistico{
+.btn-registar-ponto-turistico {
     margin-bottom: 10px;
 }
 
-.logo-gerirPontosTuristicos{
+.logo-gerirPontosTuristicos {
     width: 130px;
 }
 
-.gridView-pontosTuristicos{
+.gridView-pontosTuristicos {
     width: 70%;
     margin-left: 15%;
 }
 
-.detailView-gerirPontosTuristicos{
+.btn-visivel{
+    margin-right: 10px;
+}
+
+.detailView-gerirPontosTuristicos {
     background-color: #d9d9d9 !important;
 }
 
-.estatisticas-ponto-turistico{
-width: 90%;
+.estatisticas-ponto-turistico {
+    width: 90%;
 }
 
 
-.gerirPontosTuristicosContainer{
+.gerirPontosTuristicosContainer {
     width: 90%;
     opacity: 0.9;
 }
 
-.pontosturisticos-view{
+.pontosturisticos-view {
     margin-left: 10%;
 }
 
-.pontosturisticos-form{
+.pontosturisticos-form {
     color: #FFFFFF;
 }
 
-.pontosturisticos-update{
+.pontosturisticos-update {
     width: 80%;
     margin-left: 10%;
     color: #FFFFFF;
 }
 
-.info-pt{
+.info-pt {
     color: #FFFFFF;
 }
 
-.pontosturisticos-create{
+.pontosturisticos-create {
     width: 80%;
     margin-left: 10%;
     color: #FFFFFF;
@@ -256,7 +293,7 @@ width: 90%;
 
 /*Registar Tipo Monumentos*/
 
-.registar-tipo-monumento-form{
+.registar-tipo-monumento-form {
     width: 60%;
     margin-left: 20%;
     color: white;
@@ -264,7 +301,7 @@ width: 90%;
 
 /*Registar Estilo Construção*/
 
-.registar-estilo-construcao-form{
+.registar-estilo-construcao-form {
     width: 60%;
     margin-left: 20%;
     color: white;
@@ -272,7 +309,7 @@ width: 90%;
 
 /*Registar Localidade*/
 
-.registar-localidade-form{
+.registar-localidade-form {
     width: 60%;
     margin-left: 20%;
     color: white;
@@ -280,37 +317,39 @@ width: 90%;
 
 /*Comuns*/
 
-.logo{
+.logo {
     margin-top: -50px;
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-.logo-registar{
+.logo-registar {
     width: 130px;
 }
 
 
 /*Contactos*/
-.gerirMensagens-Container{
+.gerirMensagens-Container {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
-.logo-gerirMensagens{
+
+.logo-gerirMensagens {
     width: 130px;
 }
+
 /*Mensagem*/
-.info-mensagem{
+.info-mensagem {
     color: #FFFFFF;
 
 }
 
-.gerirMensagensContainer{
+.gerirMensagensContainer {
     width: 80%;
 }
 
-.contactos-view{
+.contactos-view {
     margin-left: 15%;
 }

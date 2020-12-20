@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Contactos */
+/* @var $model common\models\Contactos */
 
 $this->title = "Mensagem ID: " . $model->idContactos;
 $this->params['breadcrumbs'][] = ['label' => 'Contactos', 'url' => ['index']];

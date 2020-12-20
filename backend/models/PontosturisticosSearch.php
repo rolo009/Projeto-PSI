@@ -4,10 +4,10 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pontosturisticos;
+use common\models\Pontosturisticos;
 
 /**
- * PontosturisticosSearch represents the model behind the search form of `app\models\pontosturisticos`.
+ * PontosturisticosSearch represents the model behind the search form of `common\models\Pontosturisticos`.
  */
 class PontosturisticosSearch extends Pontosturisticos
 {
@@ -17,8 +17,8 @@ class PontosturisticosSearch extends Pontosturisticos
     public function rules()
     {
         return [
-            [['id_pontoTuristico', 'tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade'], 'integer'],
-            [['nome', 'anoConstrucao', 'descricao', 'foto'], 'safe'],
+            [['id_pontoTuristico', 'tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade', 'status'], 'integer'],
+            [['nome', 'anoConstrucao', 'descricao', 'foto', 'latitude', 'longitude'], 'safe'],
         ];
     }
 
@@ -62,12 +62,15 @@ class PontosturisticosSearch extends Pontosturisticos
             'tm_idTipoMonumento' => $this->tm_idTipoMonumento,
             'ec_idEstiloConstrucao' => $this->ec_idEstiloConstrucao,
             'localidade_idLocalidade' => $this->localidade_idLocalidade,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'anoConstrucao', $this->anoConstrucao])
             ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'foto', $this->foto]);
+            ->andFilterWhere(['like', 'foto', $this->foto])
+            ->andFilterWhere(['like', 'latitude', $this->latitude])
+            ->andFilterWhere(['like', 'longitude', $this->longitude]);
 
         return $dataProvider;
     }

@@ -51,12 +51,13 @@ $localidade = \app\models\Localidade::find()
 
     <?= Html::a('Registar Localidade', ['cultravel/registar-localidade'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
 
-
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true])->label("Nome") ?>
 
     <?= $form->field($model, 'anoConstrucao')->textInput(['maxlength' => true])->label("Ano de Contrução") ?>
 
-    <?php /* $form->field($model, 'foto')->textInput(['maxlength' => true]) */?>
+    <?= $form->field($model, 'latitude')->textInput(['maxlength' => true])->label("Latitute") ?>
+
+    <?= $form->field($model, 'longitude')->textInput(['maxlength' => true])->label("Longitude") ?>
 
     <?= $form->field($modelUpload, 'imageFile')->fileInput()?>
 

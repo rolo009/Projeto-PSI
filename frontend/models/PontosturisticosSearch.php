@@ -2,9 +2,9 @@
 
 namespace app\models;
 
+use common\models\Pontosturisticos;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pontosturisticos;
 use yii\helpers\VarDumper;
 
 /**

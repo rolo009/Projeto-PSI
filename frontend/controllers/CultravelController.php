@@ -121,7 +121,7 @@ class CultravelController extends Controller
                 foreach ($favoritos as $favorito) {
                     if ($favorito->ptIdPontoTuristico->status == 1) {
                         $ptFavoritos[] = $favorito->ptIdPontoTuristico;
-                        $ptLocalidades[] = $favorito->ptIdPontoTuristico->localidadeIdLocalidade;
+                        $ptLocalidades[] = $favorito->ptIdPontoTuristico->localidade_idLocalidade;
                     }
                 }
 
@@ -234,7 +234,7 @@ class CultravelController extends Controller
 
                 foreach ($visitados as $visitado) {
                     if ($visitado->ptIdPontoTuristico->status == 1) {
-                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
+                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidade_idLocalidade;
                     }
                 }
 

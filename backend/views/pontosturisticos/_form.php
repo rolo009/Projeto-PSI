@@ -55,6 +55,12 @@ $localidade = \app\models\Localidade::find()
 
     <?= $form->field($model, 'anoConstrucao')->textInput(['maxlength' => true])->label("Ano de Contrução") ?>
 
+    <?= $form->field($model, 'horario')->textInput(['maxlength' => true])->label("Horário") ?>
+
+    <?= $form->field($model, 'morada')->textInput(['maxlength' => true])->label("Morada") ?>
+
+    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true])->label("Telefone") ?>
+
     <?= $form->field($model, 'latitude')->textInput(['maxlength' => true])->label("Latitute") ?>
 
     <?= $form->field($model, 'longitude')->textInput(['maxlength' => true])->label("Longitude") ?>

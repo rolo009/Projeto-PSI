@@ -378,6 +378,14 @@ class CultravelController extends Controller
                 $visitadosStatus = false;
             }
 
+            if ($estiloConstrucao != null) {
+                $estiloConstrucao = $estiloConstrucao->descricao;
+            }
+
+            if ($tipoMonumento != null) {
+                $tipoMonumento = $tipoMonumento->descricao;
+            }
+
             $rating = new Ratings();
 
             if ($rating->load(Yii::$app->request->post())) {

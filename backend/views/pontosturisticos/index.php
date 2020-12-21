@@ -19,8 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 <div class="gridView-pontosTuristicos">
-    <?= Html::a('Registar Ponto Turistico', ['create'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
-    <?= Html::a('Estatisticas', ['estatisticas'], ['class' => 'btn btn-primary btn-registar-ponto-turistico']) ?>
+    <?php
+    echo Html::a('Registar Ponto Turistico', ['create'], ['class' => 'btn btn-success btn-registar-ponto-turistico'])
+
+    ?>
 
     <?= GridView::widget([
         'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Pontos Turisticos</div>',

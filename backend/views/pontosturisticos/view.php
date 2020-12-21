@@ -1,5 +1,6 @@
 <?php
 
+use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use practically\chartjs\Chart;
@@ -15,6 +16,23 @@ $this->title = "Gerir: " . $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Pontos Turisticos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+if($model->anoConstrucao == null){
+    $model->anoConstrucao = " ";
+}
+
+if($model->horario == null){
+    $model->horario = " ";
+}
+
+if($model->morada == null){
+    $model->morada = " ";
+}
+
+if($model->telefone == null){
+    $model->telefone = " ";
+}
+
 $atributos = [
     [
         'label' => 'Foto',
@@ -29,31 +47,47 @@ $atributos = [
         'label' => 'Estado',
         'value' => $estadoPontoTuristico,
     ],
+     [
+         'label' => 'Ano de Construção',
+         'value' => $model->anoConstrucao
+     ],
+     [
+         'label' => 'Localidade',
+         'value' => $localidade->nomeLocalidade
+     ],
     [
-        'label' => 'Ano de Construção',
-        'value' => $model->anoConstrucao
+        'label' => 'Morada',
+        'value' => $model->morada
     ],
     [
-        'label' => 'Localidade',
-        'value' => $localidade->nomeLocalidade
+        'label' => 'Telefone',
+        'value' => $model->telefone
     ],
-    [
-        'label' => 'Estilo de Construção',
-        'value' => $estiloConstrucao->descricao
-    ],
+     [
+         'label' => 'Estilo de Construção',
+         'value' => $estiloConstrucao
+     ],
     [
         'label' => 'Tipo de Monumento',
-        'value' => $tipoMonumento->descricao
+        'value' => $tipoMonumento
     ],
     [
         'label' => 'Rating',
         'value' => $mediaRatings
     ],
     [
+        'label' => 'Horário',
+        'value' => $model->horario
+    ],
+
+    [
         'label' => 'Descrição',
         'value' => $model->descricao
     ],
 ];
+
+
+
 ?>
 <div class="pontosturisticos-view">
 
@@ -89,9 +123,7 @@ $atributos = [
         ?>
     </div>
     <h3 class="estatisticas-ponto-turistico">
-        <?php
-
-        echo GoogleChart::widget(array('visualization' => 'ColumnChart',
+        <?= GoogleChart::widget(array('visualization' => 'ColumnChart',
             'data' => array(
                 array('Tarefa', 'Nº de Utilizadores'),
                 array('Favoritos', $favoritosContador),

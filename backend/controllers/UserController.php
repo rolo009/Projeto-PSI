@@ -52,16 +52,21 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest == true) {
-            return $this->redirect(['cultravel/login']);
-        } else {
-            $searchModel = new UserSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->can('gerirUsers')) {
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+            if (Yii::$app->user->isGuest == true) {
+                return $this->redirect(['cultravel/login']);
+            } else {
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            }
+        } else {
+            return $this->redirect(['cultravel/index']);
         }
     }
 
@@ -97,6 +102,8 @@ class UserController extends Controller
             $permissaoUser = "Administrador";
         } elseif (Yii::$app->authManager->checkAccess($user->id, 'user')) {
             $permissaoUser = "Utilizador";
+        } elseif (Yii::$app->authManager->checkAccess($user->id, 'moderador')) {
+            $permissaoUser = "Moderador";
         }
 
         return $this->render('view', [
@@ -109,30 +116,83 @@ class UserController extends Controller
 
     public function actionRemoverAdmin($id)
     {
-        $roleAdmin = Yii::$app->authManager->getRole('admin');
-        $roleUser = Yii::$app->authManager->getRole('user');
-        Yii::$app->authManager->revoke($roleAdmin, $id);
-        if (Yii::$app->authManager->assign($roleUser, $id) == true) {
-            return $this->actionView($id);
+        if (Yii::$app->user->can('gerirCargos')) {
+
+            $roleAdmin = Yii::$app->authManager->getRole('admin');
+            $roleUser = Yii::$app->authManager->getRole('user');
+            Yii::$app->authManager->revoke($roleAdmin, $id);
+            if (Yii::$app->authManager->assign($roleUser, $id) == true) {
+                return $this->actionView($id);
+            } else {
+                Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Administrador!');
+                return $this->actionView($id);
+            }
         } else {
-            Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Administrador!');
-            return $this->actionView($id);
+            Yii::$app->session->setFlash('error', 'Não tem permissões para remover Administradores!');
+            return $this->actionIndex();
         }
     }
 
     public function actionTornarAdmin($id)
     {
-        $roleAdmin = Yii::$app->authManager->getRole('admin');
-        $roleUser = Yii::$app->authManager->getRole('user');
+        if (Yii::$app->user->can('gerirCargos')) {
 
-        Yii::$app->authManager->revoke($roleUser, $id);
-        if (Yii::$app->authManager->assign($roleAdmin, $id) == true) {
-            return $this->actionView($id);
+            $roleAdmin = Yii::$app->authManager->getRole('admin');
+            $roleUser = Yii::$app->authManager->getRole('user');
+
+            Yii::$app->authManager->revoke($roleUser, $id);
+            if (Yii::$app->authManager->assign($roleAdmin, $id) == true) {
+                return $this->actionView($id);
+            } else {
+                Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Administrador!');
+                return $this->actionView($id);
+            }
         } else {
-            Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Administrador!');
-            return $this->actionView($id);
+            Yii::$app->session->setFlash('error', 'Não tem permissões para adicionar Administradores!');
+            return $this->actionIndex();
         }
     }
+
+
+    public function actionRemoverMod($id)
+    {
+        if (Yii::$app->user->can('gerirCargos')) {
+
+            $roleMod = Yii::$app->authManager->getRole('moderador');
+            $roleUser = Yii::$app->authManager->getRole('user');
+            Yii::$app->authManager->revoke($roleMod, $id);
+            if (Yii::$app->authManager->assign($roleUser, $id) == true) {
+                return $this->actionView($id);
+            } else {
+                Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Moderador!');
+                return $this->actionView($id);
+            }
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para adicionar Administradores!');
+            return $this->actionIndex();
+        }
+    }
+
+    public function actionTornarMod($id)
+    {
+        if (Yii::$app->user->can('gerirCargos')) {
+
+            $roleMod = Yii::$app->authManager->getRole('moderador');
+            $roleUser = Yii::$app->authManager->getRole('user');
+
+            Yii::$app->authManager->revoke($roleUser, $id);
+            if (Yii::$app->authManager->assign($roleMod, $id) == true) {
+                return $this->actionView($id);
+            } else {
+                Yii::$app->session->setFlash('error', 'Não foi possivel tornar este utilizador Moderador!');
+                return $this->actionView($id);
+            }
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para adicionar Administradores!');
+            return $this->actionIndex();
+        }
+    }
+
 
     /**
      * Creates a new User model.

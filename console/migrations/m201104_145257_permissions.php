@@ -23,50 +23,51 @@ class m201104_145257_permissions extends Migration
     {
         $auth = Yii::$app->authManager;
 
-        // add "criarPi" permission
         $criarPi = $auth->createPermission('criarPi');
         $criarPi->description = 'Criar Ponto de Interesse';
         $auth->add($criarPi);
 
-        // add "editarPi" permission
         $editarPi = $auth->createPermission('editarPi');
         $editarPi->description = 'Editar Ponto de Interesse';
         $auth->add($editarPi);
 
-        // add "eliminarPi" permission
         $eliminarPi = $auth->createPermission('eliminarPi');
         $eliminarPi->description = 'Eliminar Ponto de Interesse';
         $auth->add($eliminarPi);
 
-        // add "gerirUsers" permission
         $gerirUsers = $auth->createPermission('gerirUsers');
         $gerirUsers->description = 'Gerir Utilizadores';
         $auth->add($gerirUsers);
 
-        // add "verMensagens" permission
-        $verMensagens = $auth->createPermission('verMensagens');
-        $verMensagens->description = 'Ver Mensagens';
-        $auth->add($verMensagens);
+        $gerirCargos = $auth->createPermission('gerirCargos');
+        $gerirCargos->description = 'Gerir Cargos Administrativos';
+        $auth->add($gerirCargos);
 
-        // add "editarEstadoMensagens" permission
+        $gerirMensagens = $auth->createPermission('gerirMensagens');
+        $gerirMensagens->description = 'Gerir Mensagens';
+        $auth->add($gerirMensagens);
+
         $editarEstadoMensagens = $auth->createPermission('editarEstadoMensagens');
         $editarEstadoMensagens->description = 'Editar Estado Mensagens';
         $auth->add($editarEstadoMensagens);
 
-        // add "user" role and give this role the "createPost" permission
         $user = $auth->createRole('user');
         $auth->add($user);
 
-        // add "admin" role and give this role the "updatePost" permission
-        // as well as the permissions of the "author" role
+        $moderador = $auth->createRole('moderador');
+        $auth->add($moderador);
+
         $admin = $auth->createRole('admin');
         $auth->add($admin);
-        $auth->addChild($admin, $criarPi);
-        $auth->addChild($admin, $editarPi);
+
+        $auth->addChild($moderador, $gerirUsers);
+        $auth->addChild($moderador, $criarPi);
+        $auth->addChild($moderador, $editarPi);
+        $auth->addChild($moderador, $gerirMensagens);
+        $auth->addChild($moderador, $editarEstadoMensagens);
+        $auth->addChild($admin, $moderador);
+        $auth->addChild($admin, $gerirCargos);
         $auth->addChild($admin, $eliminarPi);
-        $auth->addChild($admin, $gerirUsers);
-        $auth->addChild($admin, $verMensagens);
-        $auth->addChild($admin, $editarEstadoMensagens);
 
         $auth->assign($admin, 1);
     }

@@ -6,6 +6,6 @@ modules:
             url: http://localhost/
             browser: chrome
             window_size: false
-            port: 8080
+            port: 9515
         - Yii2:
             part: init

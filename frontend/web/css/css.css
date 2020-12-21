@@ -288,6 +288,10 @@ a:hover{
 .img-pi-card{
     width: 100%;
     border-radius: 4px;
+    float: left;
+    height: 70%;
+    background-size: cover;
+    margin-bottom: 4%;
 }
 
 .btn-pi-info{
@@ -351,9 +355,12 @@ a:hover{
 }
 
 .desc-container{
+    margin-top: 2%;
     color: #FFFFFF;
     text-align: justify;
     font-size: 15px;
+    padding: 2%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 1200px) {
@@ -368,6 +375,14 @@ a:hover{
 
 .rating-container{
     color: white;
+    margin-left: 2%;
+}
+
+.mais-stats{
+    color: #FFFFFF;
+    margin-top: 5%;
+    padding: 5%;
+    margin-bottom: 5%;
 }
 
 /* ----------------------------Registar---------------------------*/

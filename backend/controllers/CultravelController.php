@@ -33,7 +33,7 @@ class CultravelController extends \yii\web\Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            if(Yii::$app->getUser()->can('admin')){
+            if(Yii::$app->getUser()->can('admin') || Yii::$app->getUser()->can('moderador')){
                 $this->layout = 'main';
 
                 return $this->render('index');

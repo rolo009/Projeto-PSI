@@ -101,6 +101,18 @@ class PontosturisticosController extends Controller
             $estadoPontoTuristico = "Inativo";
         }
 
+        if($estiloConstrucao == null){
+            $estiloConstrucao = " ";
+        }else{
+            $estiloConstrucao = $estiloConstrucao->descricao;
+        }
+
+        if($tipoMonumento == null){
+            $tipoMonumento = " ";
+        }else{
+            $tipoMonumento = $tipoMonumento->descricao;
+        }
+
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -157,40 +169,46 @@ class PontosturisticosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Pontosturisticos();
-        $modelUpload = new UploadForm();
+        if (Yii::$app->user->can('criarPi')) {
 
-        if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
-            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
-            $modelUpload->upload();
-            $model->status = 1;
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
+            $model = new Pontosturisticos();
+            $modelUpload = new UploadForm();
+
+            if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                $modelUpload->upload();
+                $model->status = 1;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
+            }
+
+            $tiposMonumentos = Tipomonumento::find()
+                ->select(['descricao'])
+                ->indexBy('idTipoMonumento')
+                ->column();
+
+            $estiloConstrucao = Estiloconstrucao::find()
+                ->select(['descricao'])
+                ->indexBy('idEstiloConstrucao')
+                ->column();
+
+            $localidade = Localidade::find()
+                ->select(['nomeLocalidade'])
+                ->indexBy('id_localidade')
+                ->column();
+
+            return $this->render('create', [
+                'model' => $model,
+                'modelUpload' => $modelUpload,
+                'tiposMonumentosPT' => $tiposMonumentos,
+                'localidadePT' => $localidade,
+                'estiloConstrucaoPT' => $estiloConstrucao,
+            ]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para criar um novo Ponto Turistico!');
+            return $this->actionIndex();
         }
-
-        $tiposMonumentos = Tipomonumento::find()
-            ->select(['descricao'])
-            ->indexBy('idTipoMonumento')
-            ->column();
-
-        $estiloConstrucao = Estiloconstrucao::find()
-            ->select(['descricao'])
-            ->indexBy('idEstiloConstrucao')
-            ->column();
-
-        $localidade = Localidade::find()
-            ->select(['nomeLocalidade'])
-            ->indexBy('id_localidade')
-            ->column();
-
-        return $this->render('create', [
-            'model' => $model,
-            'modelUpload' => $modelUpload,
-            'tiposMonumentosPT' => $tiposMonumentos,
-            'localidadePT' => $localidade,
-            'estiloConstrucaoPT' => $estiloConstrucao,
-        ]);
     }
 
     /**
@@ -202,43 +220,50 @@ class PontosturisticosController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $modelUpload = new UploadForm();
-        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
-        $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
-        $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
-        $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
+        if (Yii::$app->user->can('editarPi')) {
+
+            $model = $this->findModel($id);
+            $modelUpload = new UploadForm();
+            $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
+            $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
+            $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
+            $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
+            }
+
+            $tiposMonumentosPT = \common\models\Tipomonumento::find()
+                ->select(['descricao'])
+                ->indexBy('idTipoMonumento')
+                ->orderBy('descricao ASC')
+                ->column();
+
+            $estiloConstrucaoPT = \common\models\Estiloconstrucao::find()
+                ->select(['descricao'])
+                ->indexBy('idEstiloConstrucao')
+                ->orderBy('descricao ASC')
+                ->column();
+
+            $localidadePT = \common\models\Localidade::find()
+                ->select(['nomeLocalidade'])
+                ->indexBy('id_localidade')
+                ->orderBy('nomeLocalidade ASC')
+                ->column();
+
+            return $this->render('update', [
+                'model' => $model,
+                'modelUpload' => $modelUpload,
+                'tiposMonumentosPT' => $tiposMonumentosPT,
+                'localidadePT' => $localidadePT,
+                'estiloConstrucaoPT' => $estiloConstrucaoPT,
+            ]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para editar este Ponto Turistico!');
+            return $this->actionIndex();
         }
 
-        $tiposMonumentosPT = \common\models\Tipomonumento::find()
-            ->select(['descricao'])
-            ->indexBy('idTipoMonumento')
-            ->orderBy('descricao ASC')
-            ->column();
-
-        $estiloConstrucaoPT = \common\models\Estiloconstrucao::find()
-            ->select(['descricao'])
-            ->indexBy('idEstiloConstrucao')
-            ->orderBy('descricao ASC')
-            ->column();
-
-        $localidadePT = \common\models\Localidade::find()
-            ->select(['nomeLocalidade'])
-            ->indexBy('id_localidade')
-            ->orderBy('nomeLocalidade ASC')
-            ->column();
-
-        return $this->render('update', [
-            'model' => $model,
-            'modelUpload' => $modelUpload,
-            'tiposMonumentosPT' => $tiposMonumentosPT,
-            'localidadePT' => $localidadePT,
-            'estiloConstrucaoPT' => $estiloConstrucaoPT,
-        ]);
     }
 
     /**
@@ -250,9 +275,15 @@ class PontosturisticosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('eliminarPi')) {
 
-        return $this->redirect(['index']);
+            $this->findModel($id)->delete();
+
+            return $this->redirect(['index']);
+        }else{
+            Yii::$app->session->setFlash('error', 'Não tem permissões para apagar este Ponto Turistico!');
+            return $this->actionIndex();
+        }
     }
 
     /**
@@ -271,24 +302,4 @@ class PontosturisticosController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
-    public function actionEstatisticas()
-    {
-
-        $ptMaisVisitado = $this->pontoTuristicoMaisVisitado();
-        $ptMenosVisitado = $this->pontoTuristicoMenosVisitado();
-
-        return $this->render('stats-pontosTuristicos', [
-        ]);
-    }
-
-    public function pontoTuristicoMaisVisitado()
-    {
-
-    }
-
-    private function pontoTuristicoMenosVisitado()
-    {
-
-    }
 }

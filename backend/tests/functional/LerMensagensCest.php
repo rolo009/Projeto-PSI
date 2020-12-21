@@ -38,11 +38,8 @@ class LerMensagensCest
         $I->seeElement('#contactos-status');
         $I->click('#contactos-status');
         $I->see('Mensagem Lida');
-$I->selectOption('form select[name=Contactos[status]]', 'option:nth-child(2)');
+        $I->selectOption('form select[name=Contactos[status]]', 'option:nth-child(2)');
         //Atualizar estado da mensagem para Mensagem Lida
-
-
-
-
+        
     }
 }

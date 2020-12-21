@@ -236,6 +236,10 @@ a:hover {
 
 /*Gerir Pontos Turisticos*/
 
+.stats-pontosturisticos-container{
+    width: 70%;
+}
+
 .btn-registar-ponto-turistico {
     margin-bottom: 10px;
 }

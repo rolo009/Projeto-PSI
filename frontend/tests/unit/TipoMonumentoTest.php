@@ -17,7 +17,7 @@ class TipoMonumentoTest extends \Codeception\Test\Unit
     }
 
     // tests
-    public function testValidaçãoTipoMonumento()
+    public function testValidacaoTipoMonumento()
     {
         $tipomonumento = new Tipomonumento();
 

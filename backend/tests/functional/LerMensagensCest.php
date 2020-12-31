@@ -21,9 +21,6 @@ class LerMensagensCest
 // tests
     public function VerMensagensTest(FunctionalTester $I)
     {
-        $I->see('Cultravel');
-        $I->click('Cultravel');
-        $I->amOnRoute('cultravel/index');
         $I->see('VER MENSAGENS');
         $I->click('VER MENSAGENS');
         $I->amOnRoute('contactos/index');

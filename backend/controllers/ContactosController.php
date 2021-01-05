@@ -70,7 +70,7 @@ class ContactosController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->can('verMensagens')) {
+        if (Yii::$app->user->can('gerirMensagens')) {
 
             $model = $this->findModel($id);
 

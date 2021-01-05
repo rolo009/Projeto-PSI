@@ -19,12 +19,12 @@ class LoginCest
      */
     public function _fixtures()
     {
-        return [
+        /*return [
             'user' => [
                 'class' => UserFixture::className(),
                 'dataFile' => codecept_data_dir() . 'login_data.php'
             ]
-        ];
+        ];*/
     }
     
     /**
@@ -33,10 +33,10 @@ class LoginCest
     public function loginUser(FunctionalTester $I)
     {
         $I->amOnPage('/cultravel/login');
-        $I->fillField('Email', 'erau');
-        $I->fillField('Password', 'password_0');
-        $I->click('login-button');
-        $I->see('Logout (erau)', 'form button[type=submit]');
+        $I->fillField('Email', 'test_registo@live.com.pt');
+        $I->fillField('Password', '123456789');
+        $I->click('insert-login');
+        $I->see('Logout (test_registo)', 'form button[type=submit]');
         $I->dontSeeLink('Login');
         $I->dontSeeLink('Signup');
     }

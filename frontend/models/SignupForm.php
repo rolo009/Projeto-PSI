@@ -42,7 +42,7 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este Email já se encontra registado!'],
 
             ['password', 'required', 'message'=>'O campo Palavra Passe não pode estar em branco!'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'message'=>'A Palavra Passe é muito curta!'],
 
             ['confirmPassword', 'required', 'message'=>'O campo Confirmar Palavra Passe não pode estar em branco!'],
             ['confirmPassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],

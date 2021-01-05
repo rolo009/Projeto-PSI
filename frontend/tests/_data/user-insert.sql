@@ -28,7 +28,7 @@ VALUES ('Leiria', 'castelo-leiria-jpg');
 
 DELETE FROM pontosturisticos;
 
-INSERT INTO pontosturisticos (nome, anoConstrucao, descricao, foto, tm_idTipoMonumento , ec_idEstiloConstrucao , localidade_idLocalidade, status, latitude, longitude)
+INSERT INTO pontosturisticos (nome, anoConstrucao, descricao, foto, tm_idTipoMonumento , ec_idEstiloConstrucao , localidade_idLocalidade, horario, morada, telefone, status, latitude, longitude)
 VALUES ('Teste', '2020', 'Isto é um Teste', 'teste.jpg', (SELECT idEstiloConstrucao FROM estiloconstrucao WHERE descricao = "Barroco"),
 (SELECT idTipoMonumento FROM tipomonumento WHERE descricao = "Castelo"), (SELECT id_localidade FROM localidade WHERE nomeLocalidade = "Leiria"), 1, '39.74362', '-8.80705');
 

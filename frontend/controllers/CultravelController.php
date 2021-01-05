@@ -62,45 +62,54 @@ class CultravelController extends Controller
         $model = new SearchModel();
 
         if ($model->load(Yii::$app->request->post())) {
-            $procuraLocalidade = Localidade::findOne(['nomeLocalidade' => $model->procurar]);
+
+            $procuraLocalidade = Localidade::find()
+                ->where(['nomeLocalidade' => $model->procurar])
+                ->one();
+
             $procuraPontoTuristico = Pontosturisticos::find()->where(['nome' => $model->procurar])
-                ->andWhere(['status' => 1])->all();
-            $procuraEstiloConstrucao = Estiloconstrucao::findOne(['descricao' => $model->procurar]);
-            $procuraTipoMonumento = Tipomonumento::findOne(['descricao' => $model->procurar]);
+                ->andWhere(['status' => 1])
+                ->all();
+
+            $procuraEstiloConstrucao = Estiloconstrucao::find()
+                ->where(['descricao' => $model->procurar])
+                ->one();
+
+            $procuraTipoMonumento = Tipomonumento::find()
+                ->where(['descricao' => $model->procurar])
+                ->one();
 
             if ($procuraLocalidade != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])->andWhere(['status' => 1])->all();
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
+
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
+                    ->andWhere(['status' => 1])
+                    ->all();
+
             } elseif ($procuraPontoTuristico != null) {
                 $pontosTuristicos = $procuraPontoTuristico;
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
+
             } elseif ($procuraEstiloConstrucao != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])->andWhere(['status' => 1])->all();
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])
+                    ->andWhere(['status' => 1])
+                    ->all();
+
             } elseif ($procuraTipoMonumento != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])->andWhere(['status' => 1])->all();
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
-            } else {
-                Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                return $this->render('index', ['model' => $model]);
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])
+                    ->andWhere(['status' => 1])
+                    ->all();
             }
             if ($pontosTuristicos != null) {
                 return $this->render('pontos-interesse', [
                     'pontosTuristicos' => $pontosTuristicos,
                     'resultado' => $model->procurar,
                 ]);
+
+            } else {
+                Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                return $this->render('index', ['model' => $model]);
             }
 
         }
@@ -115,7 +124,9 @@ class CultravelController extends Controller
 
             $idUser = Yii::$app->user->getId();
 
-            $favoritos = Favoritos::findAll(['user_idUtilizador' => $idUser]);
+            $favoritos = Favoritos::find()
+                ->where(['user_idUtilizador' => $idUser])
+                ->all();
 
             if ($favoritos != null) {
                 foreach ($favoritos as $favorito) {
@@ -130,16 +141,10 @@ class CultravelController extends Controller
                         'ptFavoritos' => $ptFavoritos,
                         'ptLocalidades' => $ptLocalidades,
                     ]);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
-                    return $this->actionIndex();
                 }
-
-
-            } else {
-                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
-                return $this->actionIndex();
             }
+            Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
+            return $this->actionIndex();
 
         } else {
             return $this->actionIndex();
@@ -152,9 +157,13 @@ class CultravelController extends Controller
     {
         $idUser = Yii::$app->user->getId();
 
-        $user = User::findOne(['id' => $idUser]);
+        $user = User::find()
+            ->where(['id' => $idUser])
+            ->one();
 
-        $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
+        $profile = Userprofile::find()
+            ->where(['id_user_rbac' => $idUser])
+            ->one();
 
         if ($user != null && $profile != null) {
 
@@ -168,22 +177,22 @@ class CultravelController extends Controller
             return $this->render('editar-registo', [
                 'user' => $user,
                 'profile' => $profile,
-
             ]);
         }
+        Yii::$app->session->setFlash('error', 'Não é possivel editar o registo deste utilizador!');
+        return $this->actionIndex();
 
     }
 
-    public
-    function actionApagarConta()
+    public function actionApagarConta()
     {
         $idUser = Yii::$app->user->getId();
 
-        $user = User::findOne(['id' => $idUser]);
+        $user = User::find()
+            ->where(['id' => $idUser])
+            ->one();
 
-        $user->status = 1;
-
-        $user->save();
+        $user->status = User::STATUS_DELETE;
 
         if ($user->save()) {
             Yii::$app->getSession()->setFlash('success', 'A sua conta foi apagada com sucesso!');
@@ -194,15 +203,18 @@ class CultravelController extends Controller
     }
 
     public
-    function actionResetPassword()
+    function actionAlterarPassword()
     {
+        $userID = Yii::$app->user->identity->getId();
+
         $model = new ResetPasswordForm;
-        $modeluser = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $modeluser = User::find()
+            ->where(['id' => $userID])
+            ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $modeluser->setPassword($model->novaPassword);
-            $modeluser->save();
 
             if ($modeluser->save() == true) {
                 Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
@@ -301,7 +313,7 @@ class CultravelController extends Controller
     {
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
-            $modelUser = User::findOne(['email' => $model->email]);
+            $modelUser = User::find()->where(['email' => $model->email])->one();
 
             if ($modelUser->status == 1) {
                 Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
@@ -320,6 +332,8 @@ class CultravelController extends Controller
                 ]);
             } else {
                 $model->login();
+                VarDumper::dump($model->login());
+
                 return $this->actionIndex();
             }
 

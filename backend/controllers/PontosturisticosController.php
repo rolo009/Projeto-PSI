@@ -142,24 +142,22 @@ class PontosturisticosController extends Controller
     {
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
         $pontoTuristico->status = 1;
-        if ($pontoTuristico->save() == true) {
-            return $this->actionView($id);
-        } else {
+        if ($pontoTuristico->save() != true) {
             Yii::$app->session->setFlash('error', 'Não foi possivel tornar este Ponto Turistico Inativo!');
-            return $this->actionView($id);
         }
+        return $this->redirect(['view', 'id' => $id]);
+
     }
 
     public function actionUpdatePtInativo($id)
     {
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
         $pontoTuristico->status = 0;
-        if ($pontoTuristico->save() == true) {
-            return $this->actionView($id);
-        } else {
+        if ($pontoTuristico->save() != true) {
             Yii::$app->session->setFlash('error', 'Não foi possivel tornar este Ponto Turistico Ativo!');
-            return $this->actionView($id);
         }
+        return $this->redirect(['view', 'id' => $id]);
+
     }
 
     /**
@@ -207,7 +205,7 @@ class PontosturisticosController extends Controller
             ]);
         } else {
             Yii::$app->session->setFlash('error', 'Não tem permissões para criar um novo Ponto Turistico!');
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
     }
 
@@ -261,7 +259,7 @@ class PontosturisticosController extends Controller
             ]);
         } else {
             Yii::$app->session->setFlash('error', 'Não tem permissões para editar este Ponto Turistico!');
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
 
     }
@@ -282,7 +280,7 @@ class PontosturisticosController extends Controller
             return $this->redirect(['index']);
         }else{
             Yii::$app->session->setFlash('error', 'Não tem permissões para apagar este Ponto Turistico!');
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
     }
 

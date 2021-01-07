@@ -357,3 +357,121 @@ a:hover {
 .contactos-view {
     margin-left: 15%;
 }
+
+
+
+
+/*Tipo de Monumentos*/
+
+.gerirTipomonumento-Container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-gerirTipomonumento{
+    width: 130px;
+
+}
+
+.gridView-tipomonumento {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.btn-registar-tipo-monumento{
+    margin-bottom: 10px;
+}
+
+.tipomonumento-create {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+.tipomonumento-form {
+    color: #FFFFFF;
+}
+
+.tipomonumento-update {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+
+/*Estilo de Construçaõ*/
+
+.gerirEstiloconstrucao-Container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-gerirEstiloconstrucao{
+    width: 130px;
+
+}
+
+.gridView-estiloconstrucao {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.btn-registar-estilo-construcao{
+    margin-bottom: 10px;
+}
+
+.estiloconstrucao-create {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+.estiloconstrucao-form {
+    color: #FFFFFF;
+}
+
+.estiloconstrucao-update {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+/*Localidade*/
+
+.gerirLocalidade-Container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-gerirLocalidade{
+    width: 130px;
+
+}
+
+.gridView-localidade {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.btn-registar-localidade{
+    margin-bottom: 10px;
+}
+
+.localidade-create {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}
+
+.localidade-form {
+    color: #FFFFFF;
+}
+
+.localidade-update {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFFFFF;
+}

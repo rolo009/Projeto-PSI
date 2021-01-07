@@ -112,17 +112,20 @@ $this->title = 'Detalhes: ' . $pontoTuristico->nome;
                 </div>
                 <div class="rating-container">
                     <?php
-                    $form = ActiveForm::begin();
-                    echo $form->field($rating, 'classificacao')->widget(StarRating::classname(), [
-                        'pluginOptions' => [
-                            'min' => 1,
-                            'max' => 5,
-                            'step' => 1,
-                            'size' => 'lg',
-                        ],
-                    ])->label("Rating");
-                    echo Html::submitButton('Avaliar', ['class' => 'btn btn-warning']);
-                    ActiveForm::end(); ?>
+                    if (!Yii::$app->user->isGuest) {
+                        $form = ActiveForm::begin();
+                        echo $form->field($rating, 'classificacao')->widget(StarRating::classname(), [
+                            'pluginOptions' => [
+                                'min' => 1,
+                                'max' => 5,
+                                'step' => 1,
+                                'size' => 'lg',
+                            ],
+                        ])->label("Rating");
+                        echo Html::submitButton('Avaliar', ['class' => 'btn btn-warning']);
+
+                    ActiveForm::end();
+                    }?>
                 </div>
             </div>
         </div>

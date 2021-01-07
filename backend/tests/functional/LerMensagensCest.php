@@ -1,4 +1,5 @@
 <?php namespace backend\tests\functional;
+
 use backend\tests\FunctionalTester;
 use common\models\Contactos;
 
@@ -35,8 +36,10 @@ class LerMensagensCest
         $I->seeElement('#contactos-status');
         $I->click('#contactos-status');
         $I->see('Mensagem Lida');
-        $I->selectOption('form select[name=(Contactos)[status]]', 'option:nth-child(2)');
-        //Atualizar estado da mensagem para Mensagem Lida
-        
+        $I->selectOption('form select[name="Contactos[status]"]', 1);
+        $I->click('Atualizar Mensagem');
+        $I->see('Mensagem Lida (1)');
+
+
     }
 }

@@ -2,45 +2,36 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
+
 /* @var $model \frontend\models\ResetPasswordForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Change Password';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="site-changepassword">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="alterar-password-container">
+    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
 
-    <p>Please fill out the following fields to change password :</p>
+    <div class="editar-info">Alterar Palavra-Passe</div>
 
-    <?php $form = ActiveForm::begin([
-        'id'=>'changepassword-form',
-        'options'=>['class'=>'form-horizontal'],
-        'fieldConfig'=>[
-            'template'=>"{label}\n<div class=\"col-lg-3\">
-                        {input}</div>\n<div class=\"col-lg-5\">
-                        {error}</div>",
-            'labelOptions'=>['class'=>'col-lg-2 control-label'],
-        ],
-    ]); ?>
-    <?= $form->field($model,'password',['inputOptions'=>[
-    ]])->passwordInput()->label('Palavra-Passe Atual') ?>
+    <div class="row">
+        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
+            <?php $form = ActiveForm::begin(); ?>
+            <?= $form->field($model, 'password', ['options' => ['class' => 'label-registo']])->passwordInput()->label('Palavra-Passe Atual') ?>
 
-    <?= $form->field($model,'novaPassword',['inputOptions'=>[
-    ]])->passwordInput()->label('Nova Palavra-Passe') ?>
+            <?= $form->field($model, 'novaPassword' ,['options' => ['class' => 'label-registo']])->passwordInput()->label('Nova Palavra-Passe') ?>
 
-    <?= $form->field($model,'confirmNovaPassword',['inputOptions'=>[
-    ]])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
+            <?= $form->field($model, 'confirmNovaPassword',['options' => ['class' => 'label-registo']])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
 
-    <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-11">
-            <?= Html::submitButton('Alterar Palavra-Passe',[
-                'class'=>'btn btn-primary'
-            ]) ?>
+            <div class="form-group">
+                    <?= Html::submitButton('Alterar Palavra-Passe', ['class' => 'btn btn-primary']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
-    <?php ActiveForm::end(); ?>
+    <div class="col-xs-1 col-sm-3 col-md-2 col-lg-3">
+    </div>
 </div>

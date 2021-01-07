@@ -33,7 +33,7 @@ $this->title = 'Favoritos';
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="nome-pi-container">
-                        <?php  echo $ptLocalidades[$i]->nomeLocalidade;
+                        <?php  echo $ptFavorito->localidade_idLocalidade;
                         ?>
                     </div>
                 </div>

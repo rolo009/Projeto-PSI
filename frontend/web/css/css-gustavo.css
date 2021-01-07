@@ -72,6 +72,10 @@
     align-content: center;
 }
 
+.logo-editar{
+    width: 150px;
+}
+
 .editar-info{
     color: #FFFFFF;
 
@@ -101,4 +105,10 @@
 
 .dropdown-item:hover{
     background-color: transparent!important;
+}
+
+.alterar-password-container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
 }

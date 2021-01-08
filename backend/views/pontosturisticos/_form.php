@@ -33,7 +33,7 @@ $localidade = \app\models\Localidade::find()
         ['prompt' => 'Selecione um Tipo de Monumento']
     )->label("Tipo de Monumento"); ?>
 
-    <?= Html::a('Registar Tipo Monumento', ['cultravel/registar-tipo-monumento'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Gerir Tipos de Monumento', ['tipomonumento/index'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'ec_idEstiloConstrucao')->dropdownList([
         $estiloConstrucaoPT
@@ -41,7 +41,7 @@ $localidade = \app\models\Localidade::find()
         ['prompt' => 'Selecione um Estilo de Contrução']
     )->label("Estilo de Contrução"); ?>
 
-    <?= Html::a('Registar Estilo de Construção', ['cultravel/registar-estilo-construcao'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Gerir Estilos de Construção', ['estiloconstrucao/index'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'localidade_idLocalidade')->dropdownList([
         $localidadePT
@@ -49,7 +49,7 @@ $localidade = \app\models\Localidade::find()
         ['prompt' => 'Selecione uma Localidade']
     )->label("Localidade"); ?>
 
-    <?= Html::a('Registar Localidade', ['cultravel/registar-localidade'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Gerir Localidades', ['localidade/index'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true])->label("Nome") ?>
 

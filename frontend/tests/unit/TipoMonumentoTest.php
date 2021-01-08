@@ -1,6 +1,7 @@
 <?php namespace frontend\tests;
 
 use common\models\Tipomonumento;
+
 class TipoMonumentoTest extends \Codeception\Test\Unit
 {
     /**
@@ -17,7 +18,7 @@ class TipoMonumentoTest extends \Codeception\Test\Unit
     }
 
     // tests
-    public function testValidaçãoTipoMonumento()
+    public function testValidacaoTipoMonumento()
     {
         $tipomonumento = new Tipomonumento();
 

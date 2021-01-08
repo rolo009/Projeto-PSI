@@ -1,16 +1,13 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\jui\DatePicker;
-use rmrevin\yii\fontawesome\FA;
-use yii\web\AssetBundle;
 
 $this->title = 'Editar Registo';
 ?>
 
 <div class="editar-container">
 
-    <?= Html::img('@web/seta-logo.png', ['class' => 'logo-editar']); ?>
+    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
 
     <div class="editar-info">Editar Registo</div>
 
@@ -25,9 +22,7 @@ $this->title = 'Editar Registo';
             echo $form->field($profile, 'ultimoNome', ['options' => ['class' => 'label-registo']])->label("Último Nome");
             echo $form->field($user, 'username', ['options' => ['class' => 'label-registo']])->label("Nome de Utilizador");
             echo $form->field($user, 'email', ['options' => ['class' => 'label-registo']])->label("Email");
-            echo $form->field($profile, 'dtaNascimento', ['options' => ['class' => 'label-registo']])->label("Data de Nascimento")->widget(\yii\jui\DatePicker::className(), ['dateFormat' => 'yyyy-MM-dd']);
-            //echo $form->field($user, 'password', ['options' => ['class' => 'label-registo']])->label("Palavra Passe")->passwordInput();
-            //echo $form->field($profile, 'confirmPassword', ['options' => ['class' => 'label-registo']])->label("Confirmar Palavra Passe")->passwordInput();
+            echo $form->field($profile, 'dtaNascimento', ['options' => ['class' => 'label-registo']])->label("Data de Nascimento")->widget(\yii\jui\DatePicker::className(),['dateFormat' => 'yyyy-MM-dd','options' =>['class'=>'label-registo-dta']]);
             echo $form->field($profile, 'morada', ['options' => ['class' => 'label-registo']])->label("Morada");
             echo $form->field($profile, 'localidade', ['options' => ['class' => 'label-registo']])->label("Localidade");
             echo $form->field($profile, 'distrito',['options' => ['class' => 'label-registo']])->dropDownList(['Viana do Castelo'=>'Viana do Castelo',
@@ -58,18 +53,12 @@ $this->title = 'Editar Registo';
                 echo Html::submitButton('Editar Registo', ['class' => 'btn btn-warning', 'name' => 'insert-registo']) ?>
                 <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
             </div>
-            <?php ActiveForm::end(); ?>
-
-            <?= Html::a('Apagar Conta', ['cultravel/apagar-conta'], ['class' => 'btn btn-danger btn-pi-info',
+            <?= Html::a('Apagar Conta', ['cultravel/apagar-conta'], ['class' => 'btn btn-danger',
                 'confirm' => 'Tem a certeza que pretende apagar a conta?',
                 'method' => 'post',]) ?>
-            <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Tem a certeza que pretende apagar este utilizador?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?php ActiveForm::end(); ?>
+
+
         </div>
     </div>
     <div class="col-xs-1 col-sm-3 col-md-2 col-lg-3">

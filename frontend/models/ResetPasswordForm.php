@@ -6,9 +6,11 @@ use yii\base\Model;
 use Yii;
 use common\models\User;
 
+
 /**
  * Password reset form
  */
+
 class ResetPasswordForm extends Model
 {
     public $password;
@@ -55,26 +57,14 @@ class ResetPasswordForm extends Model
      *
      * @return bool if password was reset.
      */
-    /*public function resetPassword($new_password)
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($new_password);
-        /*if (!$this->validate()) {
-            return null;
-        }
 
-        $user = new User();
-
-        $user->setPassword($this->password);
-
-        return $user->save();
-    }*/
     public function findPasswords($attribute, $params){
         $user = User::find()->where([
             'username'=>Yii::$app->user->identity->username
         ])->one();
         $password = $user->password;
         if($password!=$this->oldpass)
-            $this->addError($attribute,'Old password is incorrect');
+            $this->addError($attribute,'A Palavra Passe antiga está incorreta!');
     }
 
     public function attributeLabels(){

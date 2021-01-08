@@ -62,45 +62,55 @@ class CultravelController extends Controller
         $model = new SearchModel();
 
         if ($model->load(Yii::$app->request->post())) {
-            $procuraLocalidade = Localidade::findOne(['nomeLocalidade' => $model->procurar]);
+            $pontosTuristicos = null;
+
+            $procuraLocalidade = Localidade::find()
+                ->where(['nomeLocalidade' => $model->procurar])
+                ->one();
+
             $procuraPontoTuristico = Pontosturisticos::find()->where(['nome' => $model->procurar])
-                ->andWhere(['status' => 1])->all();
-            $procuraEstiloConstrucao = Estiloconstrucao::findOne(['descricao' => $model->procurar]);
-            $procuraTipoMonumento = Tipomonumento::findOne(['descricao' => $model->procurar]);
+                ->andWhere(['status' => 1])
+                ->all();
+
+            $procuraEstiloConstrucao = Estiloconstrucao::find()
+                ->where(['descricao' => $model->procurar])
+                ->one();
+
+            $procuraTipoMonumento = Tipomonumento::find()
+                ->where(['descricao' => $model->procurar])
+                ->one();
 
             if ($procuraLocalidade != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])->andWhere(['status' => 1])->all();
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
+
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
+                    ->andWhere(['status' => 1])
+                    ->all();
+
             } elseif ($procuraPontoTuristico != null) {
                 $pontosTuristicos = $procuraPontoTuristico;
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
+
             } elseif ($procuraEstiloConstrucao != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])->andWhere(['status' => 1])->all();
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])
+                    ->andWhere(['status' => 1])
+                    ->all();
+
             } elseif ($procuraTipoMonumento != null) {
-                $pontosTuristicos = Pontosturisticos::find()->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])->andWhere(['status' => 1])->all();
-                if ($pontosTuristicos == null) {
-                    Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                    return $this->render('index', ['model' => $model]);
-                }
-            } else {
-                Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
-                return $this->render('index', ['model' => $model]);
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])
+                    ->andWhere(['status' => 1])
+                    ->all();
             }
             if ($pontosTuristicos != null) {
                 return $this->render('pontos-interesse', [
                     'pontosTuristicos' => $pontosTuristicos,
                     'resultado' => $model->procurar,
                 ]);
+
+            } else {
+                Yii::$app->session->setFlash('error', 'Nenhum Ponto Turistico corresponde à sua pesquisa!');
+                return $this->render('index', ['model' => $model]);
             }
 
         }
@@ -115,35 +125,29 @@ class CultravelController extends Controller
 
             $idUser = Yii::$app->user->getId();
 
-            $favoritos = Favoritos::findAll(['user_idUtilizador' => $idUser]);
+            $favoritos = Favoritos::find()
+                ->where(['user_idUtilizador' => $idUser])
+                ->all();
 
             if ($favoritos != null) {
                 foreach ($favoritos as $favorito) {
-                    if ($favorito->ptIdPontoTuristico->status == 1) {
-                        $ptFavoritos[] = $favorito->ptIdPontoTuristico;
-                        $ptLocalidades[] = $favorito->ptIdPontoTuristico->localidadeIdLocalidade;
-                    }
+                    $ptFavoritos[] = $favorito->ptIdPontoTuristico;
                 }
 
-                if ($ptFavoritos != null && $ptLocalidades != null) {
+                foreach ($ptFavoritos as $ptFavorito) {
+                    $ptFavorito->localidade_idLocalidade = $ptFavorito->localidadeIdLocalidade->nomeLocalidade;
+                }
+
+                if ($ptFavoritos != null) {
                     return $this->render('favoritos', [
                         'ptFavoritos' => $ptFavoritos,
-                        'ptLocalidades' => $ptLocalidades,
                     ]);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
-                    return $this->actionIndex();
                 }
-
-
             } else {
                 Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
-                return $this->actionIndex();
             }
-
-        } else {
-            return $this->actionIndex();
         }
+        return $this->redirect(['index']);
 
     }
 
@@ -152,90 +156,117 @@ class CultravelController extends Controller
     {
         $idUser = Yii::$app->user->getId();
 
-        $user = User::findOne(['id' => $idUser]);
+        $user = User::find()
+            ->where(['id' => $idUser])
+            ->one();
 
-        $profile = Userprofile::findOne(['id_userProfile' => $idUser]);
+        $profile = Userprofile::find()
+            ->where(['id_user_rbac' => $idUser])
+            ->one();
 
         if ($user != null && $profile != null) {
 
             if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
-                $user->username = Yii::$app->request->post('User')['username'];
-                $user->email = Yii::$app->request->post('User')['email'];
-                $user->save();
-                $profile->save();
-            }
 
+                if ($user->username != Yii::$app->request->post('User')['username']) {
+                    $usernameSearch = User::find()->where(['username' => Yii::$app->request->post('User')['username']])->one();
+                    if ($usernameSearch == null) {
+                        $user->username = Yii::$app->request->post('User')['username'];
+                    } else {
+                        Yii::$app->session->setFlash('error', 'O nome de utilizador que introduziu já se encontra registado!');
+                    }
+                }
+
+                if ($user->email != Yii::$app->request->post('User')['email']) {
+                    $emailSearch = User::find()->where(['email' => Yii::$app->request->post('User')['email']])->one();
+                    if ($emailSearch == null) {
+                        $user->email = Yii::$app->request->post('User')['email'];
+                    } else {
+                        Yii::$app->session->setFlash('error', 'O email que introduziu já se encontra registado!');
+                    }
+                }
+
+                if ($user->save() && $profile->save()) {
+                    Yii::$app->session->setFlash('success', 'Os seus dados pessoais foram atualizados com sucesso!');
+                    return $this->redirect(['index']);
+                }
+            }
             return $this->render('editar-registo', [
                 'user' => $user,
                 'profile' => $profile,
-
             ]);
         }
+        Yii::$app->session->setFlash('error', 'Não é possivel editar o registo deste utilizador!');
+        return $this->redirect(['index']);
 
     }
 
-    public
-    function actionApagarConta()
+    public function actionApagarConta()
     {
         $idUser = Yii::$app->user->getId();
 
-        $user = User::findOne(['id' => $idUser]);
+        $user = User::find()
+            ->where(['id' => $idUser])
+            ->one();
 
-        $user->status = 1;
+        if ($user != null) {
+            $user->status = User::STATUS_DELETE;
 
-        $user->save();
-
-        if ($user->save()) {
-            Yii::$app->getSession()->setFlash('success', 'A sua conta foi apagada com sucesso!');
-            return $this->actionLogout();
+            if ($user->save()) {
+                Yii::$app->getSession()->setFlash('success', 'A sua conta foi apagada com sucesso!');
+                return $this->actionLogout();
+            }
+        } else {
+            Yii::$app->getSession()->setFlash('success', 'Ocorreu um erro ao apagar a sua conta!');
         }
-
-        return $this->actionIndex();
+        return $this->redirect(['index']);
     }
 
     public
-    function actionResetPassword()
+    function actionAlterarPassword()
     {
+        $userID = Yii::$app->user->identity->getId();
+
         $model = new ResetPasswordForm;
-        $modeluser = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $modeluser = User::find()
+            ->where(['id' => $userID])
+            ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $modeluser->setPassword($model->novaPassword);
-            $modeluser->save();
 
             if ($modeluser->save() == true) {
                 Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
-                return $this->redirect(['cultravel/index']);
+                return $this->redirect(['index']);
             } else {
                 Yii::$app->getSession()->setFlash('error', 'Ocorreu um erro ao alterar a Palavra-Passe');
-                return $this->render('reset-password', [
-                    'model' => $model
-                ]);
             }
-        } else {
-            return $this->render('reset-password', [
-                'model' => $model
-            ]);
         }
+        return $this->render('alterar-password', [
+            'model' => $model
+        ]);
+
     }
 
 
-    public
-    function actionVisitados()
+    public function actionVisitados()
     {
         if (Yii::$app->getUser()->isGuest != true) {
             $idUser = Yii::$app->user->getId();
 
-            $visitados = Visitados::findAll(['user_idUtilizador' => $idUser]);
+            $visitados = Visitados::find()
+                ->where(['user_idUtilizador' => $idUser])
+                ->all();
 
             if ($visitados != null) {
 
-
                 foreach ($visitados as $visitado) {
-                    if ($visitado->ptIdPontoTuristico->status == 1) {
-                        $ptLocalidades[] = $visitado->ptIdPontoTuristico->localidadeIdLocalidade;
-                    }
+
+                    $ptLocalidades = Localidade::find()
+                        ->where(['id_localidade' => $visitado->ptIdPontoTuristico->localidadeIdLocalidade])
+                        ->groupBy('nomeLocalidade')
+                        ->all();
                 }
 
                 return $this->render('visitados', [
@@ -243,10 +274,10 @@ class CultravelController extends Controller
                 ]);
             } else {
                 Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados.');
-                return $this->actionIndex();
+                return $this->redirect(['index']);
             }
         } else {
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
     }
 
@@ -255,14 +286,14 @@ class CultravelController extends Controller
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post())) {
-            $model->saveContacto();
-            if ($model->saveContacto() == true) {
-                Yii::$app->session->setFlash('success', 'Foi registada a sua mensagem, iremos responder o mais rapido possivel.');
-                return $this->actionIndex();
+
+            if ($model->saveContacto()) {
+                Yii::$app->session->setFlash('success', 'A sua mensagem foi registada, iremos responder o mais rapido possivel.');
             } else {
                 Yii::$app->session->setFlash('error', 'Ocorreu um erro ao enviar a sua mensagem!');
-                return $this->actionIndex();
             }
+            return $this->redirect(['index']);
+
         } else {
             return $this->render('contactos', ['model' => $model,]);
 
@@ -282,12 +313,28 @@ class CultravelController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->password == $model->confirmPassword) {
-                $model->signup();
-                Yii::$app->session->setFlash('success', 'Bem vindo à Cultravel ' . $model->primeiroNome . ' ' . $model->ultimoNome . '!');
-                return $this->actionLogin();
+            $usernameSearch = User::find()
+                ->where(['username' => $model->username])
+                ->one();
+
+            $emailSearch = User::find()
+                ->where(['email' => $model->email])
+                ->one();
+            if ($usernameSearch == null) {
+                if ($emailSearch == null) {
+
+                    if ($model->password == $model->confirmPassword) {
+                        $model->signup();
+                        Yii::$app->session->setFlash('success', 'Bem vindo à Cultravel ' . $model->primeiroNome . ' ' . $model->ultimoNome . '!');
+                        return $this->redirect(['login']);
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Palavras-passe não coicidem!');
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'O Email que introduziu já se encontra registado!');
+                }
             } else {
-                Yii::$app->session->setFlash('error', 'Palavras-passe não coicidem!');
+                Yii::$app->session->setFlash('error', 'O Nome de Utilizador que introduziu já se encontra registado!');
             }
         }
         return $this->render('registar', [
@@ -295,34 +342,41 @@ class CultravelController extends Controller
         ]);
     }
 
-
     public
     function actionLogin()
     {
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
-            $modelUser = User::findOne(['email' => $model->email]);
+            $modelUser = User::find()->where(['email' => $model->email])->one();
+            if ($modelUser != null) {
 
-            if ($modelUser->status == 1) {
-                Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
-                return $this->render('login', [
-                    'model' => $model,
-                ]);
-            } else if ($modelUser->status == 0) {
-                Yii::$app->session->setFlash('error', 'Esta conta foi banida!');
-                return $this->render('login', [
-                    'model' => $model,
-                ]);
-            } else if ($modelUser->status == 9) {
-                Yii::$app->session->setFlash('error', 'Esta conta está inativa!');
-                return $this->render('login', [
-                    'model' => $model,
-                ]);
+                if ($modelUser->status == 1) {
+                    Yii::$app->session->setFlash('error', 'Esta conta foi apagada! Para mais informação contacte o suporte.');
+                    return $this->render('login', [
+                        'model' => $model,
+                    ]);
+                } else if ($modelUser->status == 0) {
+                    Yii::$app->session->setFlash('error', 'Esta conta foi banida!');
+                    return $this->render('login', [
+                        'model' => $model,
+                    ]);
+                } else if ($modelUser->status == 9) {
+                    Yii::$app->session->setFlash('error', 'Esta conta está inativa!');
+                    return $this->render('login', [
+                        'model' => $model,
+                    ]);
+                } else {
+                    $model->login();
+                    if ($model->login() == true) {
+                        return $this->redirect(['index']);
+                    }
+                }
             } else {
-                $model->login();
-                return $this->actionIndex();
+                Yii::$app->session->setFlash('error', 'Não há nenhuma conta associada a este email!');
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
             }
-
         } else {
             $model->password = '';
 
@@ -336,7 +390,7 @@ class CultravelController extends Controller
     function actionLogout()
     {
         Yii::$app->user->logout();
-        return $this->actionIndex();
+        return $this->redirect(['index']);
     }
 
     public
@@ -348,12 +402,25 @@ class CultravelController extends Controller
     public
     function actionPontoInteresseDetails($id)
     {
-        $pontoTuristico = Pontosturisticos::find()->where(['id_pontoTuristico' => $id])->andWhere(['status' => 1])->one();
+        $pontoTuristico = Pontosturisticos::find()
+            ->where(['id_pontoTuristico' => $id])
+            ->andWhere(['status' => 1])
+            ->one();
+
         if ($pontoTuristico != null) {
-            $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
-            $localidadeMonumento = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
-            $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
-            $ratings = Ratings::findAll(['pt_idPontoTuristico' => $id]);
+            $tipoMonumento = Tipomonumento::find()
+                ->where(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento])
+                ->one();
+            $localidadeMonumento = Localidade::find()
+                ->where(['id_localidade' => $pontoTuristico->localidade_idLocalidade])
+                ->one();
+            $estiloConstrucao = Estiloconstrucao::find()
+                ->where(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao])
+                ->one();
+            $ratings = Ratings::find()
+                ->where(['pt_idPontoTuristico' => $id])
+                ->all();
+
             if ($ratings != null) {
                 $mediaRatings = $this->mediaRatings($ratings);
             } elseif ($ratings == null) {
@@ -361,7 +428,9 @@ class CultravelController extends Controller
             }
 
             $favorito = Favoritos::find()
-                ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])->one();
+                ->where(['pt_idPontoTuristico' => $id])
+                ->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])
+                ->one();
 
             if ($favorito != null) {
                 $favoritoStatus = true;
@@ -370,7 +439,9 @@ class CultravelController extends Controller
             }
 
             $visitados = Visitados::find()
-                ->where(['pt_idPontoTuristico' => $id])->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])->one();
+                ->where(['pt_idPontoTuristico' => $id])
+                ->andwhere(['user_idUtilizador' => Yii::$app->user->getId()])
+                ->one();
 
             if ($visitados != null) {
                 $visitadosStatus = true;
@@ -398,8 +469,10 @@ class CultravelController extends Controller
                     $rating->user_idUtilizador = Yii::$app->user->getId();
                     $rating->pt_idPontoTuristico = $id;
                     $rating->save();
+
                 } elseif ($ratingVerificacao != null) {
                     $ratingVerificacao->classificacao = $rating->classificacao;
+
                 }
 
             }
@@ -416,7 +489,7 @@ class CultravelController extends Controller
             ]);
         } else {
             Yii::$app->session->setFlash('error', 'Este ponto turistico já não se encontra disponivel!');
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
 
     }
@@ -439,8 +512,9 @@ class CultravelController extends Controller
         if (Yii::$app->getUser()->isGuest != true) {
             $idUser = Yii::$app->user->getId();
 
-            $localidade = Localidade::findOne(['id_localidade' => $idLocalidade]);
-
+            $localidade = Localidade::find()
+                ->where(['id_localidade' => $idLocalidade])
+                ->one();
 
             $ptVisitados = Pontosturisticos::find()
                 ->select('pontosturisticos.*')
@@ -450,13 +524,12 @@ class CultravelController extends Controller
                 ->andWhere(['pontosturisticos.localidade_idLocalidade' => $idLocalidade])
                 ->all();
 
-
             return $this->render('pontos-interesse-visitados', [
                 'ptVisitados' => $ptVisitados,
                 'localidade' => $localidade,
             ]);
         } else {
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
     }
 
@@ -465,41 +538,40 @@ class CultravelController extends Controller
     {
         $idUser = Yii::$app->user->getId();
 
-        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $idPontoTuristico]);
+        $pontoTuristico = Pontosturisticos::find()
+            ->where(['id_pontoTuristico' => $idPontoTuristico])
+            ->one();
 
-        if ($pontoTuristico != null) {
+        if ($pontoTuristico != null && $idUser != null) {
             $favorito = new Favoritos();
 
             $favorito->user_idUtilizador = $idUser;
             $favorito->pt_idPontoTuristico = $pontoTuristico->id_pontoTuristico;
-            $favorito->save();
 
-            if ($favorito->save() == true) {
+            if ($favorito->save()) {
                 Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos favoritos!');
-                return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Ocorreu um erro ao adicionar o ponto turistico aos favoritos!');
             }
-        } else {
-            return $this->actionIndex();
         }
-
-
+        return $this->redirect(['ponto-interesse-details', 'id' => $idPontoTuristico]);
     }
 
-    public
-    function actionRemoverFavoritos($idPontoTuristico)
+    public function actionRemoverFavoritos($idPontoTuristico)
     {
-
         $idUser = Yii::$app->user->getId();
 
         $favorito = Favoritos::find()
-            ->where(['pt_idPontoTuristico' => $idPontoTuristico])->andwhere(['user_idUtilizador' => $idUser])->one();
+            ->where(['pt_idPontoTuristico' => $idPontoTuristico])
+            ->andwhere(['user_idUtilizador' => $idUser])
+            ->one();
 
-        $favorito->delete();
-
-        if ($favorito->delete() == 0) {
-            Yii::$app->session->setFlash('success', 'O ponto turistico foi removido dos favoritos!');
-            return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
+        if ($favorito != null && $idUser != null) {
+            if ($favorito->delete()) {
+                Yii::$app->session->setFlash('success', 'O ponto turistico foi removidos dos favoritos!');
+            }
         }
+        return $this->redirect(['ponto-interesse-details', 'id' => $idPontoTuristico]);
     }
 
     public
@@ -509,22 +581,18 @@ class CultravelController extends Controller
 
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $idPontoTuristico]);
 
-        if ($pontoTuristico != null) {
+        if ($pontoTuristico != null && $idUser != null) {
             $visitado = new Visitados();
 
             $visitado->user_idUtilizador = $idUser;
             $visitado->pt_idPontoTuristico = $pontoTuristico->id_pontoTuristico;
-            $visitado->save();
 
-            if ($visitado->save() == true) {
+            if ($visitado->save()) {
                 Yii::$app->session->setFlash('success', 'O ponto turistico foi adicionado aos visitados!');
-                return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
+                return $this->redirect(['ponto-interesse-details', 'id' => $idPontoTuristico]);
             }
-        } else {
-            return $this->actionIndex();
         }
-
-
+        return $this->redirect(['ponto-interesse-details', 'id' => $idPontoTuristico]);
     }
 
     public
@@ -534,23 +602,31 @@ class CultravelController extends Controller
         $idUser = Yii::$app->user->getId();
 
         $visitados = Visitados::find()
-            ->where(['pt_idPontoTuristico' => $idPontoTuristico])->andwhere(['user_idUtilizador' => $idUser])->one();
+            ->where(['pt_idPontoTuristico' => $idPontoTuristico])
+            ->andwhere(['user_idUtilizador' => $idUser])
+            ->one();
 
-        $visitados->delete();
+        if ($visitados != null && $idUser != null) {
+            if ($visitados->delete()) {
+                Yii::$app->session->setFlash('success', 'O ponto turistico foi removidos dos visitados!');
+            }
 
-        if ($visitados->delete() == 0) {
-            Yii::$app->session->setFlash('success', 'O ponto turistico foi removido dos visitados!');
-            return $this->redirect(['cultravel/ponto-interesse-details', 'id' => $idPontoTuristico]);
         }
+        return $this->redirect(['ponto-interesse-details', 'id' => $idPontoTuristico]);
     }
 
     public
     function actionPontosInteresseFiltro($filtro)
     {
-        $idFiltro = Tipomonumento::findOne(['descricao' => $filtro]);
+        $idFiltro = Tipomonumento::find()
+            ->where(['descricao' => $filtro])
+            ->one();
 
         if ($idFiltro != null) {
-            $pontosTuristicos = Pontosturisticos::findAll(['tm_idTipoMonumento' => $idFiltro]);
+            $pontosTuristicos = Pontosturisticos::find()
+                ->where(['tm_idTipoMonumento' => $idFiltro])
+                ->all();
+
             if ($pontosTuristicos != null) {
                 return $this->render('pontos-interesse', [
                     'pontosTuristicos' => $pontosTuristicos,
@@ -558,7 +634,7 @@ class CultravelController extends Controller
                 ]);
             }
         } else {
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
 
     }

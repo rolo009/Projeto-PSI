@@ -62,7 +62,7 @@ AppAsset::register($this);
             . Dropdown::widget([
                 'items' => [
                     ['label' => 'Alterar Dados Pessoais', 'url' => ['/cultravel/editar-registo'], 'options' => ['class' => 'dropdown-item']],
-                    ['label' => 'Alterar Palavra-passe', 'url' => ['/cultravel/reset-password'], 'options' => ['class' => 'dropdown-item']],
+                    ['label' => 'Alterar Palavra-passe', 'url' => ['/cultravel/alterar-password'], 'options' => ['class' => 'dropdown-item']],
                     ['label' => 'Logout ('. Yii::$app->user->identity->username .')', 'url' => ['/cultravel/logout'], 'options' => ['class' => 'dropdown-item']],
                 ],
             ])

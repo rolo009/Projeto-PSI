@@ -414,6 +414,10 @@ a:hover{
     color: white;
 }
 
+.label-memorizar-sessao{
+    color: white;
+}
+
 /* ----------------------------Pontos-de-Interesse-Visitados---------------------------*/
 
 .pontos-interesse-visitados-container{
@@ -434,6 +438,10 @@ a:hover{
 .img-pi-card-pt-visitados{
     width: 100%;
     border-radius: 4px;
+    float: left;
+    height: 70%;
+    background-size: cover;
+    margin-bottom: 4%;
 }
 
 .btn-pi-visitado-info{

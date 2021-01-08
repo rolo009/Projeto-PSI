@@ -22,17 +22,12 @@ $this->title = 'Login';
             <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
-            <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
-            <?= $form->field($model, 'rememberMe', ['options' => ['class' => 'label-login']])->checkbox() ?>
-
-            <div>
-                <br>
-            </div>
+            <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->label("Palavra Passe"); ?>
+            <?= $form->field($model, 'rememberMe', ['options' => ['class' => 'label-memorizar-sessao']])->checkbox()->label("Manter Sessão Ativa"); ?>
 
             <div class="form-group">
                 <?php
                 echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-warning', 'name' => 'insert-login']) ?>
-                <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

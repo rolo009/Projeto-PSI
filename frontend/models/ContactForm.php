@@ -33,7 +33,7 @@ class ContactForm extends Model
             [['nome'], 'required', 'message'=>'O campo Nome não pode estar em branco!'],
             [['email'], 'required', 'message'=>'O campo Email não pode estar em branco!'],
             [['assunto'], 'required', 'message'=>'O campo Assunto não pode estar em branco!'],
-            [['messagem'], 'required', 'message'=>'O campo Messagem não pode estar em branco!'],
+            [['mensagem'], 'required', 'message'=>'O campo Mensagem não pode estar em branco!'],
             [['email', 'email'], 'required'],
             ['verifyCode', 'captcha'],
         ];
@@ -51,7 +51,6 @@ class ContactForm extends Model
 
     public function saveContacto()
     {
-
         $contactos = new Contactos();
 
         $contactos->nome = $this->nome;
@@ -59,12 +58,12 @@ class ContactForm extends Model
         $contactos->assunto = $this->assunto;
         $contactos->mensagem = $this->mensagem;
         $contactos->status = self::STATUS_NAO_LIDA;
+
         $contactos->save();
 
         if($contactos->save() == true){
             return true;
-        }
-        else{
+        }else{
             return false;
         }
     }

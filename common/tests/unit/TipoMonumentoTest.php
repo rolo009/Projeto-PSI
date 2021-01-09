@@ -1,4 +1,4 @@
-<?php namespace frontend\tests;
+<?php namespace common\tests;
 
 use common\models\Tipomonumento;
 class TipoMonumentoTest extends \Codeception\Test\Unit
@@ -27,18 +27,18 @@ class TipoMonumentoTest extends \Codeception\Test\Unit
         $tipomonumento ->descricao= null;
         $this->assertFalse($tipomonumento->validate(['descricao']));
 
-        $tipomonumento ->descricao= 'Castelo';
+        $tipomonumento ->descricao= 'Museu';
         $this->assertTrue($tipomonumento->validate('descricao'));
 
     }
     public function testCriarTipoMonumento(){
         $tipomonumento = new Tipomonumento();
 
-        $tipomonumento-> descricao = 'Castelo';
+        $tipomonumento-> descricao = 'Museu';
 
         $tipomonumento->save();
 
-        $this->tester->seeInDatabase('tipomonumento',['descricao'=>'Castelo']);
+        $this->tester->seeInDatabase('tipomonumento',['descricao'=>'Museu']);
 
     }
 

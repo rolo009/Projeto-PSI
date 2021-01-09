@@ -23,43 +23,48 @@ $this->title = 'Sobre Nós';
 </div>
 
 <h2 class="sn-title-ane">A Nossa Equipa</h2>
-<div class="sn-row">
-    <div class="sn-column">
-        <div class="sn-card">
-            <img src="index/prft.jpg" alt="Pedro" style="width:100%">
-            <div class="sn-container">
-                <h2>Pedro Rolo</h2>
+<div align="">
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <div class="sobrenos-container">
+        <div class="sobrenos-card ">
+            <img src="imagens/pedro.png" alt="Pedro" class="sobrenos-card-img">
+            <div class="sobrenos-card-text">
+                <h3>Pedro Rolo</h3>
                 <p>Elemento da equipa</p>
                 <p>Alguns pontos sobre esta pessoa.</p>
-                <p>[Comming Soon]</p>
 
-            </div>
-        </div>
-    </div>
-
-    <div class="sn-column">
-        <div class="sn-card">
-            <img src="index/gmft.jpg" alt="Gustavo" style="width:100%">
-            <div class="sn-container">
-                <h2>Gustavo Mendonça</h2>
-                <p>Elemento da equipa</p>
-                <p>Alguns pontos sobre esta pessoa.</p>
-                <p>[Comming Soon]</p>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="sn-column">
-        <div class="sn-card">
-            <img src="index/mcft.jpg" alt="Mario" style="width:100%">
-            <div class="sn-container">
-                <h2>Mário Carapinha</h2>
-                <p>Elemento de equipa</p>
-                <p>Alguns pontos sobre esta pessoa.</p>
-                <p>[Comming Soon]</p>
 
             </div>
         </div>
     </div>
 </div>
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <div class="sobrenos-container">
+        <div class="sobrenos-card">
+            <img src="imagens/pedro.png" alt="Gustavo" class="sobrenos-card-img">
+            <div class="sobrenos-card-text">
+                <h3>Gustavo Mendonça</h3>
+                <p>Elemento da equipa</p>
+                <p>Alguns pontos sobre esta pessoa.</p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <div class="sobrenos-container">
+        <div class="sobrenos-card">
+            <img src="imagens/pedro.png" alt="Mario" class="sobrenos-card-img">
+            <div class="sobrenos-card-text">
+                <h3>Mário Carapinha</h3>
+                <p>Elemento de equipa</p>
+                <p>Alguns pontos sobre esta pessoa.</p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

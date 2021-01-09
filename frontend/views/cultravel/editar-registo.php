@@ -1,9 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\jui\DatePicker;
-use rmrevin\yii\fontawesome\FA;
-use yii\web\AssetBundle;
 
 $this->title = 'Editar Registo';
 ?>

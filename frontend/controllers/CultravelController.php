@@ -618,25 +618,25 @@ class CultravelController extends Controller
     public
     function actionPontosInteresseFiltro($filtro)
     {
-        $idFiltro = Tipomonumento::find()
+        $tipoMonumento = Tipomonumento::find()
             ->where(['descricao' => $filtro])
             ->one();
+        if ($tipoMonumento != null) {
 
-        if ($idFiltro != null) {
             $pontosTuristicos = Pontosturisticos::find()
-                ->where(['tm_idTipoMonumento' => $idFiltro])
+                ->where(['tm_idTipoMonumento' => $tipoMonumento->idTipoMonumento])
                 ->all();
+
 
             if ($pontosTuristicos != null) {
                 return $this->render('pontos-interesse', [
                     'pontosTuristicos' => $pontosTuristicos,
-                    'tipoMonumento' => $filtro,
+                    'tipoMonumento' => $tipoMonumento->descricao,
                 ]);
             }
-        } else {
-            return $this->redirect(['index']);
         }
-
+        Yii::$app->session->setFlash('error', 'Não há nenhum ponto turistico na categoria ' . $filtro . '!');
+        return $this->redirect(['index']);
     }
 
 }

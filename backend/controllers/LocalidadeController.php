@@ -2,7 +2,8 @@
 
 namespace backend\controllers;
 
-use app\models\UploadForm;
+use app\models\UploadFormLocalidade;
+use app\models\UploadFormPontosTuristicos;
 use common\models\Pontosturisticos;
 use Yii;
 use common\models\Localidade;
@@ -85,7 +86,7 @@ class LocalidadeController extends Controller
         if (Yii::$app->user->can('criarPi')) {
 
             $model = new Localidade();
-            $modelUpload = new UploadForm();
+            $modelUpload = new UploadFormLocalidade();
 
             if ($model->load(Yii::$app->request->post())) {
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
@@ -103,6 +104,7 @@ class LocalidadeController extends Controller
 
             return $this->render('create', [
                 'model' => $model,
+                'modelUpload' => $modelUpload,
             ]);
 
         } else {

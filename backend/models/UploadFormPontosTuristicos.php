@@ -7,7 +7,7 @@ use yii\base\Model;
 use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
-class UploadForm extends Model
+class UploadFormPontosTuristicos extends Model
 {
     /**
      * @var UploadedFile
@@ -25,13 +25,8 @@ class UploadForm extends Model
     {
         $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
 
-        $this->imageFile->saveAs(Yii::getAlias('@webroot').'/imagens/img-pt/' . $this->imageFile->name);
-/*
-        if ($this->validate()) {
-            $this->imageFile->saveAs('@web/imagens/img-pt/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            return true;
-        } else {
-            return false;
-        }*/
+        $this->imageFile->saveAs(Yii::getAlias('@frontend').'/imagens/img-pt/' . $this->imageFile->name);
+        $this->imageFile->saveAs(Yii::getAlias('@backend').'/imagens/img-pt/' . $this->imageFile->name);
+
     }
 }

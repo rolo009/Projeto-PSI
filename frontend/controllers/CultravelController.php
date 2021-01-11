@@ -500,7 +500,7 @@ class CultravelController extends Controller
         $somaRatings = 0;
 
         foreach ($ratings as $rating) {
-            $somaRatings = $somaRatings = $rating->classificacao;
+            $somaRatings = $somaRatings + $rating->classificacao;
         }
         $mediaRatings = $somaRatings / count($ratings);
         return $mediaRatings;

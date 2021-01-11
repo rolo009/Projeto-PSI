@@ -28,7 +28,7 @@ $this->title = 'Sobre Nós';
         como uma app no dispositivo que anda sempre conosco. </p>
     <p></p>
 </div>
-/*---*/
+
 <h2 class="sn-title-ane">A Nossa Equipa</h2>
 
     <div class="sobrenos-container">
@@ -49,6 +49,7 @@ $this->title = 'Sobre Nós';
                 <p>Alguns pontos sobre esta pessoa.</p>
             </div>
         </div>
+
         <div class="sobrenos-card">
             <img src="imagens/mario.png" alt="Mario" class="sobrenos-card-img">
             <div class="sobrenos-card-text">

@@ -10,9 +10,12 @@ use yii\widgets\ActiveForm;
 
 <div class="localidade-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'nomeLocalidade')->textInput(['maxlength' => true])->label("Localidade") ?>
+
+    <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Foto")?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

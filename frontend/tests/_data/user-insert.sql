@@ -36,5 +36,3 @@ DELETE FROM pontosturisticos;
 INSERT INTO pontosturisticos (nome, anoConstrucao, descricao, foto, tm_idTipoMonumento , ec_idEstiloConstrucao , localidade_idLocalidade, horario, morada, telefone, status, latitude, longitude)
 VALUES ('Teste', '2020', 'Isto é um Teste', 'teste.jpg', (SELECT idTipoMonumento FROM tipomonumento WHERE descricao LIKE 'Castelo'), (SELECT idEstiloConstrucao FROM estiloconstrucao WHERE descricao LIKE 'Barroco'),
 (SELECT id_localidade FROM localidade WHERE nomeLocalidade LIKE 'Leiria'),'8:00h - 17:00h', 'Rua de Teste', '987456321', 1, '39.74362', '-8.80705');
-
-DELETE FROM contactos;

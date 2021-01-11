@@ -35,7 +35,7 @@ class ContactForm extends Model
             [['assunto'], 'required', 'message'=>'O campo Assunto não pode estar em branco!'],
             [['mensagem'], 'required', 'message'=>'O campo Mensagem não pode estar em branco!'],
             [['email', 'email'], 'required'],
-            ['verifyCode', 'captcha'],
+            ['verifyCode', 'captcha', 'message'=>'O campo Verificação não pode estar em branco!'],
         ];
     }
 

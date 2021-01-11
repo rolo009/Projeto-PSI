@@ -7,7 +7,7 @@ namespace backend\controllers;
 use common\models\Estiloconstrucao;
 use common\models\Localidade;
 use common\models\Tipomonumento;
-use app\models\UploadForm;
+use app\models\UploadFormPontosTuristicos;
 use app\models\UserSearch;
 use common\models\LoginForm;
 use Yii;
@@ -138,7 +138,7 @@ class CultravelController extends \yii\web\Controller
     public function actionRegistarLocalidade()
     {
         $model = new Localidade();
-        $modelUpload = new UploadForm();
+        $modelUpload = new UploadFormPontosTuristicos();
 
         if ($model->load(Yii::$app->request->post())) {
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');

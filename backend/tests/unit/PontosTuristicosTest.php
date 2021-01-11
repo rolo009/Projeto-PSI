@@ -43,7 +43,7 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         //Ano de Construção
 
         $pontoTuristico->anoConstrucao = null;
-        $this->assertFalse($pontoTuristico->validate(['anoConstrucao']));
+        $this->assertTrue($pontoTuristico->validate(['anoConstrucao']));
 
         $pontoTuristico->anoConstrucao = '1135';
         $this->assertTrue($pontoTuristico->validate(['anoConstrucao']));
@@ -67,7 +67,7 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         //Tipo de Monumento
 
         $pontoTuristico->tm_idTipoMonumento = null;
-        $this->assertFalse($pontoTuristico->validate(['tm_idTipoMonumento']));
+        $this->assertTrue($pontoTuristico->validate(['tm_idTipoMonumento']));
 
         $pontoTuristico->tm_idTipoMonumento = Tipomonumento::findOne(['descricao' => 'Castelo'])->idTipoMonumento;
         $this->assertTrue($pontoTuristico->validate(['tm_idTipoMonumento']));
@@ -75,7 +75,7 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         //Estilo de Construção
 
         $pontoTuristico->ec_idEstiloConstrucao = null;
-        $this->assertFalse($pontoTuristico->validate(['ec_idEstiloConstrucao']));
+        $this->assertTrue($pontoTuristico->validate(['ec_idEstiloConstrucao']));
 
         $pontoTuristico->ec_idEstiloConstrucao = Estiloconstrucao::findOne(['descricao' => 'Barroco'])->idEstiloConstrucao;
         $this->assertTrue($pontoTuristico->validate(['ec_idEstiloConstrucao']));
@@ -83,7 +83,7 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         //Localidade
 
         $pontoTuristico->localidade_idLocalidade = null;
-        $this->assertFalse($pontoTuristico->validate(['localidade_idLocalidade']));
+        $this->assertTrue($pontoTuristico->validate(['localidade_idLocalidade']));
 
         $pontoTuristico->localidade_idLocalidade = Localidade::findOne(['nomeLocalidade' => 'Leiria'])->id_localidade;
         $this->assertTrue($pontoTuristico->validate(['localidade_idLocalidade']));

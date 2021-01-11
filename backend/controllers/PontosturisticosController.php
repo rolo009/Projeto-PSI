@@ -10,7 +10,7 @@ use common\models\Favoritos;
 use common\models\Localidade;
 use common\models\Ratings;
 use common\models\Tipomonumento;
-use app\models\UploadForm;
+use app\models\UploadFormPontosTuristicos;
 use common\models\Visitados;
 use Yii;
 use common\models\Pontosturisticos;
@@ -170,7 +170,7 @@ class PontosturisticosController extends Controller
         if (Yii::$app->user->can('criarPi')) {
 
             $model = new Pontosturisticos();
-            $modelUpload = new UploadForm();
+            $modelUpload = new UploadFormPontosTuristicos();
 
             if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
@@ -221,7 +221,7 @@ class PontosturisticosController extends Controller
         if (Yii::$app->user->can('editarPi')) {
 
             $model = $this->findModel($id);
-            $modelUpload = new UploadForm();
+            $modelUpload = new UploadFormPontosTuristicos();
             $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
             $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
             $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);

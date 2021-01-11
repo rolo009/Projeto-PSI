@@ -41,7 +41,7 @@ $this->title = 'Sobre Nós';
 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
     <div class="sobrenos-container">
         <div class="sobrenos-card">
-            <img src="imagens/pedro.png" alt="Gustavo" class="sobrenos-card-img">
+            <img src="imagens/gustavo.jpg" alt="Gustavo" class="sobrenos-card-img">
             <div class="sobrenos-card-text">
                 <h3>Gustavo Mendonça</h3>
                 <p>Elemento da equipa</p>
@@ -55,7 +55,7 @@ $this->title = 'Sobre Nós';
 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
     <div class="sobrenos-container">
         <div class="sobrenos-card">
-            <img src="imagens/pedro.png" alt="Mario" class="sobrenos-card-img">
+            <img src="imagens/mario.png" alt="Mario" class="sobrenos-card-img">
             <div class="sobrenos-card-text">
                 <h3>Mário Carapinha</h3>
                 <p>Elemento de equipa</p>

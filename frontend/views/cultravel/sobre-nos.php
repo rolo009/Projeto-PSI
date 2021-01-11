@@ -31,7 +31,7 @@ $this->title = 'Sobre Nós';
             <div class="sobrenos-card-text">
                 <h3>Pedro Rolo</h3>
                 <p>Elemento da equipa</p>
-                <p>Alguns pontos sobre esta pessoa.</p>
+
 
 
             </div>
@@ -45,7 +45,7 @@ $this->title = 'Sobre Nós';
             <div class="sobrenos-card-text">
                 <h3>Gustavo Mendonça</h3>
                 <p>Elemento da equipa</p>
-                <p>Alguns pontos sobre esta pessoa.</p>
+
 
 
             </div>
@@ -59,7 +59,7 @@ $this->title = 'Sobre Nós';
             <div class="sobrenos-card-text">
                 <h3>Mário Carapinha</h3>
                 <p>Elemento de equipa</p>
-                <p>Alguns pontos sobre esta pessoa.</p>
+
 
 
             </div>

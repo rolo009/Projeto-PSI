@@ -101,26 +101,26 @@ body, html{
 }
 .sn-about-section-text {
     padding: 25px;
-    text-align: justify-all;
+    text-align: justify-all !important;
     background-color: transparent;
     color: white;
 }
 .sobrenos-container{
     margin: 1% 8% 8% 1%;
-    /*display: flex;*/
-    flex-wrap: wrap;
     background: transparent;
     align-content: center !important;
+    display: flex;
+    flex-wrap: wrap;
 }
 .sobrenos-card{
     opacity: 0.9;
     background-color: transparent;
     color: white;
+    padding: 2%;
     align-content: center !important;
-    padding: 1%;
     border-radius: 5px;
-    width: 60%;
-    margin: 2%;
+    width:29%;
+    margin-left: 4%;
 }
 .sobrenos-card-img{
     width: 100%;

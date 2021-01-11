@@ -25,26 +25,26 @@ class LocalidadeTest extends \Codeception\Test\Unit
         $localidade ->nomeLocalidade= null;
         $this->assertFalse($localidade->validate(['nomeLocalidade']));
 
-        $localidade ->nomeLocalidade= 'Leiria';
+        $localidade ->nomeLocalidade= 'Beja';
         $this->assertTrue($localidade->validate('nomeLocalidade'));
 
         $localidade ->foto= null;
         $this->assertFalse($localidade->validate(['foto']));
 
-        $localidade ->foto= 'Leiria.jpg';
+        $localidade ->foto= 'Beja.jpg';
         $this->assertTrue($localidade->validate('foto'));
     }
 
     public function testCriarLocalidade(){
         $localidade = new Localidade();
 
-        $localidade-> nomeLocalidade = 'Leiria';
+        $localidade-> nomeLocalidade = 'Beja';
 
-        $localidade-> foto = 'Leiria.jpg';
+        $localidade-> foto = 'Beja.jpg';
 
         $localidade->save();
 
-        $this->tester->seeInDatabase('localidade',['nomeLocalidade'=>'Leiria', 'foto'=>'Leiria.jpg']);
+        $this->tester->seeInDatabase('localidade',['nomeLocalidade'=>'Beja', 'foto'=>'Beja.jpg']);
 
     }
 }

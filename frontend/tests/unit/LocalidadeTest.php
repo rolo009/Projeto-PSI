@@ -25,13 +25,13 @@ class LocalidadeTest extends \Codeception\Test\Unit
         $localidade ->nomeLocalidade= null;
         $this->assertFalse($localidade->validate(['nomeLocalidade']));
 
-        $localidade ->nomeLocalidade= 'Leiria';
+        $localidade ->nomeLocalidade= 'Beja';
         $this->assertTrue($localidade->validate('nomeLocalidade'));
 
         $localidade ->foto= null;
         $this->assertFalse($localidade->validate(['foto']));
 
-        $localidade ->foto= 'Leiria.jpg';
+        $localidade ->foto= 'Beja.jpg';
         $this->assertTrue($localidade->validate('foto'));
     }
 

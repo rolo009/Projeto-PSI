@@ -107,7 +107,7 @@ body, html{
 }
 .sobrenos-container{
     margin: 1% 8% 8% 1%;
-    /*display: flex;*/
+    /*display: flex;*//**/
     flex-wrap: wrap;
     background: transparent;
     align-content: center !important;

@@ -361,6 +361,7 @@ a:hover{
     font-size: 15px;
     padding: 2%;
     background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
 }
 
 @media (max-width: 1200px) {

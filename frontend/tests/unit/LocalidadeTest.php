@@ -38,13 +38,13 @@ class LocalidadeTest extends \Codeception\Test\Unit
     public function testCriarLocalidade(){
         $localidade = new Localidade();
 
-        $localidade-> nomeLocalidade = 'Leiria';
+        $localidade-> nomeLocalidade = 'Beja';
 
-        $localidade-> foto = 'Leiria.jpg';
+        $localidade-> foto = 'Beja.jpg';
 
         $localidade->save();
 
-        $this->tester->seeInDatabase('localidade',['nomeLocalidade'=>'Leiria', 'foto'=>'Leiria.jpg']);
+        $this->tester->seeInDatabase('localidade',['nomeLocalidade'=>'Beja', 'foto'=>'Beja.jpg']);
 
     }
 }

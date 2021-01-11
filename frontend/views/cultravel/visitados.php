@@ -7,7 +7,7 @@ $this->title = 'Visitados';
     <?php
     foreach ($ptLocalidades as $ptLocalidade) {?>
         <div class="card-visitados">
-            <?= Html::img('../'.$ptLocalidade->foto, ['class' => 'img-visitados-card']);?>
+            <?= Html::img('@web/imagens/img-localidade/'.$ptLocalidade->foto, ['class' => 'img-visitados-card']);?>
             <h4 class="card-title-visitados">
                 <?= $ptLocalidade->nomeLocalidade ?></h4>
             <div class="btn-visitados">

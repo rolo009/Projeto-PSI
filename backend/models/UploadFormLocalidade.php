@@ -21,7 +21,7 @@ class UploadFormLocalidade extends Model
         ];
     }
 
-    public function upload()
+    public function uploadFrontend()
     {
         $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
 

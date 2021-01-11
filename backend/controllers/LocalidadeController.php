@@ -91,7 +91,7 @@ class LocalidadeController extends Controller
             if ($model->load(Yii::$app->request->post())) {
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
-                $modelUpload->upload();
+                $modelUpload->uploadFrontend();
                 $localidadeVerifica = Localidade::findOne(['nomeLocalidade' => $model->nomeLocalidade]);
                 if ($localidadeVerifica == null) {
                     $model->save();

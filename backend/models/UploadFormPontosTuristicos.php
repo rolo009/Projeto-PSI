@@ -25,8 +25,7 @@ class UploadFormPontosTuristicos extends Model
     {
         $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
 
-        $this->imageFile->saveAs(Yii::getAlias('@frontend').'/imagens/img-pt/' . $this->imageFile->name);
-        $this->imageFile->saveAs(Yii::getAlias('@backend').'/imagens/img-pt/' . $this->imageFile->name);
+        $this->imageFile->saveAs(Yii::getAlias('@webroot').'/imagens/img-pt/' . $this->imageFile->name);
 
     }
 }

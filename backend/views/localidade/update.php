@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelUpload' => $modelUpload,
     ]) ?>
 
 </div>

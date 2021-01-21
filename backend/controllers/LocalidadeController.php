@@ -122,13 +122,24 @@ class LocalidadeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_localidade]);
+        $modelUpload = new UploadFormLocalidade();
+        if ($model->load(Yii::$app->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+            $modelUpload->uploadFrontend();
+            $localidadeVerifica = Localidade::findOne(['nomeLocalidade' => $model->nomeLocalidade]);
+            if ($localidadeVerifica == null) {
+                $model->save();
+                return $this->redirect(['index', 'id' => $model->id_localidade]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Localidade já registada!');
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelUpload' => $modelUpload,
         ]);
     }
 

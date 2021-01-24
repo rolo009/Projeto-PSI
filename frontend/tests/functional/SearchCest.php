@@ -18,7 +18,7 @@ class SearchCest
 
     public function SearchTest(FunctionalTester $I)
     {
-        $I->see('MONUMENTOS','.opcao-pesquisa');
+        $I->see('PALÁCIO','.opcao-pesquisa');
         $I->see('Procurar');
         $I->seeElement('#searchForm');
         $I->submitForm('#searchForm', $this->formParamsSearch('Leiria'));

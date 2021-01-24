@@ -12,12 +12,11 @@ use yii\web\AssetBundle;
 $this->title = 'Sobre Nós';
 ?>
 <div class="logo-index-container">
-
-    <?= Html::img('@web/imagens/logo/seta-logo.png'); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'sobre-nos-logo']); ?>
 
 </div>
 <div class="sn-about-section">
-    <h1>Sobre Nós</h1>
+    <h1>SOBRE NÓS</h1>
     <p class="sn-about-section-text sn-container">A CulTravel foi desenvolvida no ano de 2020. Nós idealizamos que sair,
         conhecer a
         cultura e os monumentos que nos foram deixados pudesse estar mais ao alcanse de qualquer um, pois com a

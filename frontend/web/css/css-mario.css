@@ -133,6 +133,11 @@ body, html{
     width: 100%;
 }
 
+.sobre-nos-logo{
+    align-content: center;
+    width: 10%;
+}
+
 @media (max-width: 1000px) {
     .sn-about-section-text{
         display: flex;

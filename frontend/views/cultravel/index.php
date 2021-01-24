@@ -12,7 +12,7 @@ $this->title = 'Página Inicial';
 
 ?>
 <div class="logo-index-container">
-    <?= Html::img('@web/imagens/logo/logo-white.png', ['class' => 'logo-index']); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/logo-white.png', ['class' => 'logo-index']); ?>
 </div>
 <div>
     <div class="container-fluid searchForm-container">

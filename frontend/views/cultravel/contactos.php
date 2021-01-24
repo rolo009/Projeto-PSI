@@ -12,8 +12,9 @@ $this->title = 'Contactos';
 
 ?>
 <div class="contact-logo-index-container ">
+    
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'contact-img']); ?>
 
-    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'contact-img']); ?>
     <h2>CONTACTA-NOS</h2>
 
 </div>
@@ -48,9 +49,9 @@ $this->title = 'Contactos';
                     <table>
 
                         <tr>
-                            <th class="ct-th"><?= Html::a(Html::img('@web/facebookw2-icon.png', ['class' => 'contact-img-icon']), 'https://www.facebook.com/'); ?></th>
-                            <th class="ct-th"><?= Html::a(Html::img('@web/insta2-icon.png', ['class' => 'contact-img-icon']),'https://www.instagram.com/'); ?></th>
-                            <th class="ct-th"><?= Html::a(Html::img('@web/tt2-icon.png', ['class' => 'contact-img-icon']),'https://twitter.com/'); ?></th>
+                            <th class="ct-th"><?= Html::a(Html::img(Yii::$app->urlManagerBackend->baseUrl . '/icones/facebook.png', ['class' => 'contact-img-icon'])); ?></th>
+                            <th class="ct-th"><?= Html::a(Html::img(Yii::$app->urlManagerBackend->baseUrl . '/icones/instagram.png', ['class' => 'contact-img-icon'])); ?></th>
+                            <th class="ct-th"><?= Html::a(Html::img(Yii::$app->urlManagerBackend->baseUrl . '/icones/twitter.png', ['class' => 'contact-img-icon'])); ?></th>
                         </tr>
                         <tr>
                             <th class="ct-th">Facebook</th>

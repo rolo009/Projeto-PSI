@@ -8,8 +8,7 @@ use yii\web\AssetBundle;
 $this->title = 'Registar';
 ?>
 <div class="registo-container">
-
-    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-registo']); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-registo']); ?>
 
 <div class="registo-info">REGISTO</div>
 

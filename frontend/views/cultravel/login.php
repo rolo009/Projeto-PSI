@@ -10,8 +10,7 @@ $this->title = 'Login';
 ?>
 
 <div class="login-container">
-
-    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-login']); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-login']); ?>
 
     <p class="login-info">LOGIN</p>
 

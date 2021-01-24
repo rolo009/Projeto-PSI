@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 ?>
 
 <div class="alterar-password-container">
-    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
 
     <div class="editar-info">Alterar Palavra-Passe</div>
 

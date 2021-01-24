@@ -7,7 +7,7 @@ $this->title = 'Editar Registo';
 
 <div class="editar-container">
 
-    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
 
     <div class="editar-info">Editar Registo</div>
 

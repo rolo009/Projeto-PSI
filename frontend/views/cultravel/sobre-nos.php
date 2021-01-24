@@ -33,16 +33,16 @@ $this->title = 'Sobre Nós';
 
     <div class="sobrenos-container">
         <div class="sobrenos-card">
-            <?= Html::img('@web/imagens/img-collaborators/pedro.jpeg', ['class' => 'sobrenos-card-img']); ?>
+            <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-collaborators/pedro.jpeg', ['class' => 'sobrenos-card-img']); ?>
             <div class="sobrenos-card-text">
                 <h3>Pedro Rolo</h3>
                 <p>Elemento da equipa</p>
-
             </div>
         </div>
 
         <div class="sobrenos-card">
-            <?= Html::img('@web/imagens/img-collaborators/gustavo.jpg', ['class' => 'sobrenos-card-img']); ?>
+            <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-collaborators/gustavo.jpg', ['class' => 'sobrenos-card-img']); ?>
+
             <div class="sobrenos-card-text">
                 <h3>Gustavo Mendonça</h3>
                 <p>Elemento da equipa</p>
@@ -51,7 +51,7 @@ $this->title = 'Sobre Nós';
         </div>
 
         <div class="sobrenos-card">
-            <?= Html::img('@web/imagens/img-collaborators/mario.jpg', ['class' => 'sobrenos-card-img']); ?>
+            <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-collaborators/mario.jpg', ['class' => 'sobrenos-card-img']); ?>
             <div class="sobrenos-card-text">
                 <h3>Mário Carapinha</h3>
                 <p>Elemento de equipa</p>

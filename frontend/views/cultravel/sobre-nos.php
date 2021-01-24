@@ -33,7 +33,7 @@ $this->title = 'Sobre Nós';
 
     <div class="sobrenos-container">
         <div class="sobrenos-card">
-            <img src="imagens/pedro.png" alt="Pedro" class="sobrenos-card-img">
+            <?= Html::img('@web/imagens/pedro.png', ['class' => 'sobrenos-card-img']); ?>
             <div class="sobrenos-card-text">
                 <h3>Pedro Rolo</h3>
                 <p>Elemento da equipa</p>

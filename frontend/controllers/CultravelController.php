@@ -233,19 +233,22 @@ class CultravelController extends Controller
             ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($modeluser->validatePassword($model->password) == true) {
+                $modeluser->setPassword($model->novaPassword);
 
-            $modeluser->setPassword($model->novaPassword);
-
-            if ($modeluser->save() == true) {
-                Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
-                return $this->redirect(['index']);
-            } else {
-                Yii::$app->getSession()->setFlash('error', 'Ocorreu um erro ao alterar a Palavra-Passe');
+                if ($modeluser->save() == true) {
+                    Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
+                    return $this->redirect(['index']);
+                }
             }
+            Yii::$app->getSession()->setFlash('error', 'Ocorreu um erro ao alterar a Palavra-Passe');
+            return $this->redirect(['alterar-password']);
+        } else {
+            return $this->render('alterar-password', [
+                'model' => $model
+            ]);
         }
-        return $this->render('alterar-password', [
-            'model' => $model
-        ]);
+
 
     }
 

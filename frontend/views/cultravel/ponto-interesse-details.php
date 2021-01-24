@@ -40,7 +40,8 @@ $this->title = 'Detalhes: ' . $pontoTuristico->nome;
                                 </div>
                         </h5>
                     </div>
-                    <?= Html::img('@web/imagens/img-pt/' . $pontoTuristico->foto, ['class' => 'card-img-top']); ?>
+                    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-pt/'. $pontoTuristico->foto, ['class' => 'card-img-top']); ?>
+
                 </div>
             </div>
             <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 info-pt">

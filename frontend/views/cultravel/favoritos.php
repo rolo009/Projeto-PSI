@@ -29,7 +29,7 @@ $this->title = 'Favoritos';
             </div>
             <div class="favorite-body">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <?= Html::img('@web/imagens/img-pt/' . $ptFavorito->foto, ['class' => 'img-pi-favoritos']); ?>
+                    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-pt/'. $ptFavorito->foto, ['class' => 'img-pi-favoritos']); ?>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="nome-pi-container">

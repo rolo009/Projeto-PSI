@@ -17,7 +17,6 @@ use frontend\models\ContactForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SearchModel;
 use frontend\models\SignupForm;
-use http\Exception;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
@@ -174,6 +173,7 @@ class CultravelController extends Controller
                         $user->username = Yii::$app->request->post('User')['username'];
                     } else {
                         Yii::$app->session->setFlash('error', 'O nome de utilizador que introduziu já se encontra registado!');
+                        return $this->redirect(['editar-registo']);
                     }
                 }
 
@@ -183,6 +183,7 @@ class CultravelController extends Controller
                         $user->email = Yii::$app->request->post('User')['email'];
                     } else {
                         Yii::$app->session->setFlash('error', 'O email que introduziu já se encontra registado!');
+                        return $this->redirect(['editar-registo']);
                     }
                 }
 
@@ -380,13 +381,10 @@ class CultravelController extends Controller
                     'model' => $model,
                 ]);
             }
-        } else {
-            $model->password = '';
-
+        }
             return $this->render('login', [
                 'model' => $model,
             ]);
-        }
     }
 
     public

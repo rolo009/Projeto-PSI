@@ -31,7 +31,7 @@ $this->title = 'Página Inicial';
         </div>
         <div class="row">
             <?php
-             echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'PALÁCIO' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Monumento'], ['class' => 'opcao-pesquisa']);
+             echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'PALÁCIO' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Palácio'], ['class' => 'opcao-pesquisa']);
              echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'MUSEU' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Museu'], ['class' => 'opcao-pesquisa']);
              echo  Html::a(FA::icon("bank", ['class' => 'icon-index-search']).'CASTELO'.'' ,['cultravel/pontos-interesse-filtro', 'filtro' =>'Castelo'], ['class' => 'opcao-pesquisa']);
              ActiveForm::end(); ?>

@@ -7,20 +7,6 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Pontosturisticos */
 /* @var $form yii\widgets\ActiveForm */
 
-/*$tiposMonumentos = \app\models\Tipomonumento::find()
-    ->select(['descricao'])
-    ->indexBy('idTipoMonumento')
-    ->column();
-
-$estiloConstrucao = \app\models\Estiloconstrucao::find()
-    ->select(['descricao'])
-    ->indexBy('idEstiloConstrucao')
-    ->column();
-
-$localidade = \app\models\Localidade::find()
-    ->select(['nomeLocalidade'])
-    ->indexBy('id_localidade')
-    ->column();*/
 ?>
 
 <div class="pontosturisticos-form">

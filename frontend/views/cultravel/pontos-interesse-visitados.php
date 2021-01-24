@@ -15,7 +15,7 @@ $this->title = 'Visitados: ' . $localidade->nomeLocalidade;
     foreach ($ptVisitados as $ptVisitado) {
         ?>
         <div class="card-pontos-interesse-visitados">
-            <?= Html::img('@web/imagens/img-pt/' . $ptVisitado->foto, ['class' => 'img-pi-card-pt-visitados']); ?>
+            <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-pt/'. $ptVisitado->foto, ['class' => 'img-pi-card-pt-visitados']); ?>
             <h5>
                 <?= $ptVisitado->nome ?>
             </h5>

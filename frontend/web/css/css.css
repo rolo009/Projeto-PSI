@@ -164,6 +164,8 @@ a:hover{
     border-radius: 10px;
     width: 100%;
     margin-left: 15%;
+    background-size: cover;
+    height: 70%;
 }
 
 .nome-pi-container{
@@ -228,6 +230,7 @@ a:hover{
 .img-visitados-card{
     width: 100%;
     border-radius: 5px;
+    background-size: cover;
 }
 
 .card-title-visitados{

@@ -21,7 +21,9 @@ if (isset($resultado) && $resultado != null) {
     <?php
     foreach ($pontosTuristicos as $pontoTuristico) { ?>
         <div class="card-pontos-interesse">
-            <?= Html::img('@web/imagens/img-pt/' . $pontoTuristico->foto, ['class' => 'img-pi-card']); ?>
+            <?php
+            echo Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-pt/'. $pontoTuristico->foto, ['class' => 'img-pi-card']);
+            ?>
             <h5>
                 <?= $pontoTuristico->nome ?>
             </h5>

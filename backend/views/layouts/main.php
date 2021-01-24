@@ -42,7 +42,7 @@ AppAsset::register($this);
         $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];
     } else {
         $menuItemsUser[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/cultravel/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']

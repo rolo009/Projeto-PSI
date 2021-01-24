@@ -48,6 +48,17 @@ return [
             ],
         ],
         */
+        'urlManagerFrontend' => [
+
+            'class' => 'yii\web\urlManager',
+
+            'baseUrl' => 'backend/web/imagens/img-pt/',
+
+            'enablePrettyUrl' => true,
+
+            'showScriptName' => false,
+
+        ],
     ],
     'params' => $params,
 ];

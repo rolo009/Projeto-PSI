@@ -3,15 +3,14 @@
 namespace backend\controllers;
 
 
-
 use common\models\Estiloconstrucao;
 use common\models\Localidade;
 use common\models\Tipomonumento;
 use app\models\UploadFormPontosTuristicos;
+use common\models\User;
 use app\models\UserSearch;
 use common\models\LoginForm;
 use Yii;
-use yii\debug\models\search\User;
 use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
@@ -19,7 +18,7 @@ class CultravelController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-            return $this->render('index');
+        return $this->render('index');
     }
 
     public function actionLogin()
@@ -31,17 +30,15 @@ class CultravelController extends \yii\web\Controller
         $this->layout = 'blank';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
-            if(Yii::$app->getUser()->can('admin') || Yii::$app->getUser()->can('moderador')){
+        if ($model->load(Yii::$app->request->post())) {
+            $user = User::find()->where(['email' => $model->email])->one();
+            if (Yii::$app->authManager->checkAccess($user->id, 'admin') == true || Yii::$app->authManager->checkAccess($user->id, 'moderador') == true) {
+                $model->login();
                 $this->layout = 'main';
 
                 return $this->render('index');
-            }
-            else{
-                Yii::$app->user->logout();
-                Yii::$app->session->setFlash('error', 'Não tem permissões para aceder à área de administradores.');
-                return $this->goHome();
+            } else {
+                return $this->redirect(['login']);
             }
         } else {
             $model->password = '';
@@ -52,6 +49,13 @@ class CultravelController extends \yii\web\Controller
         }
     }
 
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+
     public function actionEditarTipoMonumento($id)
     {
         $model = new Tipomonumento();
@@ -60,12 +64,11 @@ class CultravelController extends \yii\web\Controller
 
             $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao' => $model->descricao]);
 
-            if ($tipoMonumentoVerifica == null){
+            if ($tipoMonumentoVerifica == null) {
                 $model->save();
                 return $this->redirect(['pontosturisticos/update', 'id' => $id]);
-            }
-            else{
-                Yii::$app->session->setFlash('error','Tipo monumento já registado!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');
                 return $this->redirect(['pontosturisticos/update', 'id' => $id]);
             }
         }
@@ -79,13 +82,12 @@ class CultravelController extends \yii\web\Controller
         $model = new Tipomonumento();
 
         if ($model->load(Yii::$app->request->post())) {
-            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao'=>$model->descricao]);
-            if ($tipoMonumentoVerifica == null){
+            $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao' => $model->descricao]);
+            if ($tipoMonumentoVerifica == null) {
                 $model->save();
                 return $this->redirect(['pontosturisticos/create']);
-            }
-            else{
-                Yii::$app->session->setFlash('error','Tipo monumento já registado!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');
                 return $this->redirect(['pontosturisticos/create']);
             }
         }
@@ -100,13 +102,12 @@ class CultravelController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
-            if ($estiloConstrucaoVerifica == null){
+            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao' => $model->descricao]);
+            if ($estiloConstrucaoVerifica == null) {
                 $model->save();
                 return $this->redirect(['pontosturisticos/create']);
-            }
-            else{
-                Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Estilo de Construção já registado!');
                 return $this->redirect(['pontosturisticos/create']);
             }
         }
@@ -120,13 +121,12 @@ class CultravelController extends \yii\web\Controller
         $model = new Estiloconstrucao();
 
         if ($model->load(Yii::$app->request->post())) {
-            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao'=>$model->descricao]);
-            if ($estiloConstrucaoVerifica == null){
+            $estiloConstrucaoVerifica = Estiloconstrucao::findOne(['descricao' => $model->descricao]);
+            if ($estiloConstrucaoVerifica == null) {
                 $model->save();
                 return $this->redirect(['pontosturisticos/create']);
-            }
-            else{
-                Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Estilo de Construção já registado!');
                 return $this->redirect(['pontosturisticos/create']);
             }
         }
@@ -144,13 +144,12 @@ class CultravelController extends \yii\web\Controller
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
             $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
             $modelUpload->upload();
-            $localidadeVerifica = Localidade::findOne(['nomeLocalidade'=>$model->nomeLocalidade]);
-            if ($localidadeVerifica == null){
+            $localidadeVerifica = Localidade::findOne(['nomeLocalidade' => $model->nomeLocalidade]);
+            if ($localidadeVerifica == null) {
                 $model->save();
                 return $this->redirect(['pontosturisticos/create']);
-            }
-            else{
-                Yii::$app->session->setFlash('error','Localidade já registada!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Localidade já registada!');
                 return $this->redirect(['pontosturisticos/create']);
             }
         }
@@ -165,13 +164,12 @@ class CultravelController extends \yii\web\Controller
         $model = new Localidade();
 
         if ($model->load(Yii::$app->request->post())) {
-            $localidadeVerifica = Localidade::findOne(['nomeLocalidade'=>$model->nomeLocalidade]);
-            if ($localidadeVerifica == null){
+            $localidadeVerifica = Localidade::findOne(['nomeLocalidade' => $model->nomeLocalidade]);
+            if ($localidadeVerifica == null) {
                 $model->save();
                 return $this->redirect(['pontosturisticos/update', 'id' => $id]);
-            }
-            else{
-                Yii::$app->session->setFlash('error','Localidade já registada!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Localidade já registada!');
                 return $this->redirect(['pontosturisticos/update', 'id' => $id]);
             }
         }

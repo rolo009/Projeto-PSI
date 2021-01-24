@@ -99,7 +99,7 @@ class RegistoCest
         $I->seeRecord(User::className(), [
             'username' => 'teste_registo123',
             'email' => 'teste_registo@hotmail.com',
-            'status' => \common\models\User::STATUS_INACTIVE
+            'status' => \common\models\User::STATUS_ACTIVE
         ]);
 
         $I->seeRecord('common\models\Userprofile', [

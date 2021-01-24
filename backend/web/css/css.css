@@ -106,6 +106,10 @@ a:hover {
     text-align: left;
 }
 
+.label-lembrar-me {
+    color: white !important;
+}
+
 
 /*-------------------------------Index-------------------------*/
 .index-container {

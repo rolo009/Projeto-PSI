@@ -20,7 +20,7 @@ $this->title = 'Login Área Admin'
 
         <?= $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
         <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
-        <?= $form->field($model, 'rememberMe')->checkbox()->label("Lembrar-me") ?>
+        <?= $form->field($model, 'rememberMe', ['options' => ['class' => 'label-lembrar-me']])->checkbox()->label("Lembrar-me") ?>
 
         <div class="form-group">
             <?php

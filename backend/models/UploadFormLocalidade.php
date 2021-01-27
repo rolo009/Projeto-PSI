@@ -25,7 +25,7 @@ class UploadFormLocalidade extends Model
     {
         $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
 
-        $this->imageFile->saveAs(Yii::getAlias('@frontend').'/web/imagens/img-localidade/' . $this->imageFile->name);
+        $this->imageFile->saveAs(Yii::getAlias('@webroot').'/imagens/img-localidade/' . $this->imageFile->name);
 
     }
 }

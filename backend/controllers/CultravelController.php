@@ -18,7 +18,12 @@ class CultravelController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $user = Yii::$app->user->getId();
+        if (Yii::$app->authManager->checkAccess($user, 'admin') == true || Yii::$app->authManager->checkAccess($user, 'moderador') == true) {
+            return $this->render('index');
+        }else{
+            return $this->redirect(['login']);
+        }
     }
 
     public function actionLogin()

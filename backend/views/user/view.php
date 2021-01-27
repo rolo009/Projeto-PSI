@@ -41,7 +41,7 @@ $atributos = [
     ],
     [
         'label' => 'Estado da Conta',
-        'value' => $estadoUser,
+        'value' => $model->estado,
     ],
     [
         'label' => 'Data de criação',

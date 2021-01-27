@@ -85,17 +85,10 @@ class UserController extends Controller
         }
 
         $user = User::findOne(['id' => $id]);
+        //$userProfile = $user->userprofile;
         $userProfile = Userprofile::find()->where(['id_user_rbac' => $user->id])->one();
 
-        if ($user->status == 9) {
-            $estadoUser = "Utilizador inativo (9)";
-        } elseif ($user->status == 10) {
-            $estadoUser = "Utilizador ativo (10)";
-        } elseif ($user->status == 0) {
-            $estadoUser = "Utilizador banido (0)";
-        } elseif ($user->status == 1) {
-            $estadoUser = "Utilizador apagado (1)";
-        }
+
 
         if (Yii::$app->authManager->checkAccess($user->id, 'admin') == true) {
             $permissaoUser = "Administrador";
@@ -108,7 +101,6 @@ class UserController extends Controller
         return $this->render('view', [
             'model' => $model,
             'userProfile' => $userProfile,
-            'estadoUser' => $estadoUser,
             'permissaoUser' => $permissaoUser,
         ]);
     }

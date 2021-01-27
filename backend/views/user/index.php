@@ -39,8 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             [
                 'label' => 'Estado da conta',
+                //filterSelector
                 'filter' => ['0' => 'Conta Banida', '9' => 'Conta Inactiva', '10' => 'Conta Ativa'],
-                'attribute' => 'status',
+                'attribute' => 'estado',
                 'format' => 'text'
             ],
             [

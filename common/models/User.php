@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use Yii;
@@ -8,19 +9,23 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
- * @property integer $id
+ * @property int $id
  * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $verification_token
- * @property string $email
  * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $password_hash
+ * @property string|null $password_reset_token
+ * @property string $email
+ * @property int $status
+ * @property int $created_at
+ * @property int $updated_at
+ * @property string|null $verification_token
+ *
+ * @property Favoritos[] $favoritos
+ * @property Ratings[] $ratings
+ * @property Userprofile[] $userprofiles
+ * @property Visitados[] $visitados
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -216,5 +221,55 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    public function getEstado() {
+        if ($this->status == 9) {
+            return "Utilizador inativo";
+        } elseif ($this->status == 10) {
+            return "Utilizador ativo";
+        } elseif ($this->status == 0) {
+            return "Utilizador banido";
+        } elseif ($this->status == 1) {
+            return "Utilizador apagado";
+        }
+    }
 
+    /**
+     * Gets query for [[Favoritos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFavoritos()
+    {
+        return $this->hasMany(Favoritos::className(), ['user_idUtilizador' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Ratings]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRatings()
+    {
+        return $this->hasMany(Ratings::className(), ['user_idUtilizador' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Userprofiles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserprofiles()
+    {
+        return $this->hasMany(Userprofile::className(), ['id_user_rbac' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Visitados]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVisitados()
+    {
+        return $this->hasMany(Visitados::className(), ['user_idUtilizador' => 'id']);
+    }
 }

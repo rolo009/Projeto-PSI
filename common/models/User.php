@@ -223,13 +223,13 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getEstado() {
         if ($this->status == 9) {
-            return "Utilizador inativo";
+            return "Inativa";
         } elseif ($this->status == 10) {
-            return "Utilizador ativo";
+            return "Ativa";
         } elseif ($this->status == 0) {
-            return "Utilizador banido";
+            return "Banida";
         } elseif ($this->status == 1) {
-            return "Utilizador apagado";
+            return "Apagada";
         }
     }
 
@@ -260,7 +260,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getUserprofiles()
     {
-        return $this->hasMany(Userprofile::className(), ['id_user_rbac' => 'id']);
+        return $this->hasOne(Userprofile::className(), ['id_user_rbac' => 'id']);
     }
 
     /**

@@ -6,15 +6,11 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = "Gerir: ".$model->id. " (".$model->username.")";
+$this->title = "Gerir: " . $model->id . " (" . $model->username . ")";
 $this->params['breadcrumbs'][] = ['label' => 'Utilizadores', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->id. " (".$model->username.")";
+$this->params['breadcrumbs'][] = $model->username;
 \yii\web\YiiAsset::register($this);
 $atributos = [
-    [
-        'label' => 'ID Utilizador',
-        'value' => $model->id,
-    ],
     [
         'label' => 'Tipo de Utilizador',
         'value' => $permissaoUser,
@@ -46,23 +42,17 @@ $atributos = [
     [
         'label' => 'Data de criação',
         'value' => $model->created_at,
+        'format' => ['datetime', 'php:d-m-Y']
     ]
 ];
 ?>
-<div class="user-view">
-
-    <h3 class="info-user">
-        Utilizador: <?= $model->username ?>
-    </h3>
-
-    <div class="gerirUsersContainer">
-        <?php echo $this->render('_form', [
-            'model' => $model,
-        ]);
-        echo DetailView::widget([
-            'model' => $model,
-            'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirUsers'],
-            'attributes' => $atributos
-        ]) ?>
-    </div>
+<div class="gerir-users-container">
+    <?php echo $this->render('_form', [
+        'model' => $model,
+    ]);
+    echo DetailView::widget([
+        'model' => $model,
+        'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirUsers'],
+        'attributes' => $atributos
+    ]) ?>
 </div>

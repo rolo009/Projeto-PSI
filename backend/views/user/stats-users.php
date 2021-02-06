@@ -1,9 +1,15 @@
 <?php
 
 use scotthuangzl\googlechart\GoogleChart;
+use yii\helpers\Html;
+$this->title = 'Utilizadores';
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Estatísticas Utilizadores';
 
 ?>
-<div class="container stats-user-container">
+<div class="stats-user-container">
+    <?= Html::img('imagens/logo/seta-logo.png', ['class' => 'logo-stats']); ?>
+    <div class="estatisticas-info">ESTATÍSTICAS</div>
     <div class="card-stats">
         <?php
         echo GoogleChart::widget(array('visualization' => 'PieChart',
@@ -12,7 +18,8 @@ use scotthuangzl\googlechart\GoogleChart;
                 array('Sexo Masculino', (int)$nUsersMasculinos),
                 array('Sexo Feminino', (int)$nUsersFemininos)
             ),
-            'options' => array('title' => 'Estatistica de Géneros')));
+            'options' => ['title' => 'Estatistica de Géneros',
+                 'colors'=> ['#f6504b']]));
 
         ?>
     </div>
@@ -28,7 +35,8 @@ use scotthuangzl\googlechart\GoogleChart;
                 array('Idades (60 - 75)', $idadesUsers['idade60a75']),
                 array('Idades (75+)', $idadesUsers['idadeMais75']),
             ),
-            'options' => array('title' => 'Média de Idades de Utilizadores Registados')));
+            'options' => ['title' => 'Média de Idades de Utilizadores Registados',
+                'colors'=> ['#f6504b']]));
 
         ?>
     </div>
@@ -59,7 +67,8 @@ use scotthuangzl\googlechart\GoogleChart;
                 array('Açores', $distritosUsers['Acores']),
                 array('Madeira', $distritosUsers['Madeira']),
             ),
-            'options' => array('title' => 'Número de utilizadores por distrito')));
+            'options' => ['title' => 'Número de utilizadores por distrito',
+                'colors'=> ['#f6504b']]));
 
         ?>
     </div>

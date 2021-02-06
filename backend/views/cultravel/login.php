@@ -7,6 +7,7 @@ use yii\web\AssetBundle;
 
 $this->title = 'Login Área Admin'
 ?>
+
 <div class="login-container">
 
     <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-login']); ?>
@@ -25,7 +26,6 @@ $this->title = 'Login Área Admin'
         <div class="form-group">
             <?php
             echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-warning', 'name' => 'insert-login']) ?>
-            <?php /* Html::a('<i class="fa fa-fw fa-user"></i> Sign Up',['site/signup'], ['class' => 'btn btn-black', 'title' => 'Sign Up']) */ ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

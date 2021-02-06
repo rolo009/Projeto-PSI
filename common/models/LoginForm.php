@@ -3,6 +3,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\VarDumper;
 
 /**
  * Login form
@@ -11,7 +12,7 @@ class LoginForm extends Model
 {
     public $email;
     public $password;
-    public $rememberMe = true;
+    public $rememberMe;
 
     private $_user;
 
@@ -57,6 +58,13 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+
+            if($this->rememberMe == 0) {
+                $this->rememberMe = false;
+            }else if ($this->rememberMe){
+                $this->rememberMe = true;
+            }
+
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         

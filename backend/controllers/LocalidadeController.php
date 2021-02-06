@@ -27,13 +27,8 @@ class LocalidadeController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['?'],
-                    ],
                     [
                         'allow' => true,
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
@@ -61,19 +56,6 @@ class LocalidadeController extends Controller
                 'dataProvider' => $dataProvider,
             ]);
         }
-    }
-
-    /**
-     * Displays a single Localidade model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
     }
 
     /**
@@ -123,18 +105,14 @@ class LocalidadeController extends Controller
     {
         $model = $this->findModel($id);
         $modelUpload = new UploadFormLocalidade();
+
         if ($model->load(Yii::$app->request->post())) {
+
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
             $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
-            $modelUpload->uploadFrontend();
-            $localidadeVerifica = Localidade::findOne(['nomeLocalidade' => $model->nomeLocalidade]);
-            if ($localidadeVerifica == null) {
-                $model->save();
-                return $this->redirect(['index', 'id' => $model->id_localidade]);
-            } else {
-                Yii::$app->session->setFlash('error', 'Localidade já registada!');
-                return $this->redirect(['index']);
-            }
+            $modelUpload->upload();
+
+            $this->verificaLocalidade($model);
         }
 
         return $this->render('update', [
@@ -179,5 +157,20 @@ class LocalidadeController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function verificaLocalidade($localidade)
+    {
+        $localidadeVerifica = Localidade::find()
+            ->where(['nomeLocalidade' => $localidade->nomeLocalidade])
+            ->one();
+
+        if ($localidadeVerifica == null) {
+            $localidade->save();
+            return $this->redirect(['index', 'id' => $localidade->id_localidade]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Localidade já registada!');
+            return $this->redirect(['index']);
+        }
     }
 }

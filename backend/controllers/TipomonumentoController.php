@@ -27,12 +27,7 @@ class TipomonumentoController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'create', 'update', 'delete'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -49,13 +44,13 @@ class TipomonumentoController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['cultravel/login']);
         } else {
-        $searchModel = new TipomonumentoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $searchModel = new TipomonumentoSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
         }
     }
 
@@ -84,15 +79,7 @@ class TipomonumentoController extends Controller
             $model = new Tipomonumento();
 
             if ($model->load(Yii::$app->request->post())) {
-                $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao'=>$model->descricao]);
-                if ($tipoMonumentoVerifica == null){
-                    $model->save();
-                    return $this->redirect(['index']);
-                }
-                else{
-                    Yii::$app->session->setFlash('error','Tipo monumento já registado!');
-                    return $this->redirect(['index']);
-                }
+                $this->verificaTipoMonumento($model);
             }
 
             return $this->render('create', [
@@ -100,9 +87,7 @@ class TipomonumentoController extends Controller
             ]);
         } else {
             return $this->actionIndex();
-
         }
-
     }
 
     /**
@@ -116,8 +101,8 @@ class TipomonumentoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->idTipoMonumento]);
+        if ($model->load(Yii::$app->request->post())) {
+            $this->verificaTipoMonumento($model);
         }
 
         return $this->render('update', [
@@ -153,5 +138,17 @@ class TipomonumentoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function verificaTipoMonumento($tipoMonumento)
+    {
+        $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao' => $tipoMonumento->descricao]);
+        if ($tipoMonumentoVerifica == null) {
+            $tipoMonumento->save();
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');
+            return $this->redirect(['index']);
+        }
     }
 }

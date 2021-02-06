@@ -18,6 +18,7 @@ class UploadFormPontosTuristicos extends Model
     {
         return [
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'required', 'message'=>'O campo Imagem não pode estar em branco!'],
         ];
     }
 

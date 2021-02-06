@@ -29,22 +29,22 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => "Cultravel",
+        'brandLabel' => Html::img( '@web/imagens/logo/seta-logo.png', ['class' => 'img-logo-menu floating']),
         'brandUrl' => ['/cultravel/index'],
         'options' => [
             'class' => 'menu-style navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/cultravel/index']],
+        ['label' => 'HOME', 'url' => ['/cultravel/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItemsUser[] = ['label' => 'Login', 'url' => ['/cultravel/login']];
+        $menuItemsUser[] = ['label' => 'LOGIN', 'url' => ['/cultravel/login']];
     } else {
         $menuItemsUser[] = '<li>'
             . Html::beginForm(['/cultravel/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'TERMINAR SESSÃO',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

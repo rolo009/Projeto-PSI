@@ -11,9 +11,9 @@ use yii\bootstrap\ActiveForm;
 ?>
 
 <div class="alterar-password-container">
-    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-editar']); ?>
+    <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-editar-palavra-passe']); ?>
 
-    <div class="editar-info">Alterar Palavra-Passe</div>
+    <div class="editar-palavra-passe-info">EDITAR PALAVRA-PASSE</div>
 
     <div class="row">
         <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">
@@ -27,7 +27,7 @@ use yii\bootstrap\ActiveForm;
             <?= $form->field($model, 'confirmNovaPassword',['options' => ['class' => 'label-registo']])->passwordInput()->label('Confirmar Nova Palavra-Passe') ?>
 
             <div class="form-group">
-                    <?= Html::submitButton('Alterar Palavra-Passe', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Alterar Palavra-Passe', ['class' => 'btn btn-danger']) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

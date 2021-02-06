@@ -8,68 +8,70 @@ use scotthuangzl\googlechart\GoogleChart;
 use kartik\export\ExportMenu;
 
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Pontosturisticos */
 
-$this->title = "Gerir: " . $model->nome;
+$this->title = "Gerir: " . $pontoTuristico->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Pontos Turisticos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $pontoTuristico->nome;
 \yii\web\YiiAsset::register($this);
 
-if($model->anoConstrucao == null){
-    $model->anoConstrucao = " ";
+if ($pontoTuristico->anoConstrucao == null) {
+    $pontoTuristico->anoConstrucao = "Sem informação disponivel";
 }
 
-if($model->horario == null){
-    $model->horario = " ";
+if ($pontoTuristico->horario == null) {
+    $pontoTuristico->horario = "Sem informação disponivel";
 }
 
-if($model->morada == null){
-    $model->morada = " ";
+if ($pontoTuristico->morada == null) {
+    $pontoTuristico->morada = "Sem informação disponivel";
 }
 
-if($model->telefone == null){
-    $model->telefone = " ";
+if ($pontoTuristico->telefone == null) {
+    $pontoTuristico->telefone = "Sem informação disponivel";
 }
+
+if ($pontoTuristico->ecIdEstiloConstrucao == null) {
+    $estiloConstrucao = "Sem informação disponivel";
+}else{
+    $estiloConstrucao =  $pontoTuristico->ecIdEstiloConstrucao->descricao;
+}
+
 
 $atributos = [
     [
         'label' => 'Foto',
-        'value' => '@web/imagens/img-pt/'.$model->foto,
-        'format' => ['image', ['height' => '150']],
-    ],
-    [
-        'label' => 'ID',
-        'value' => $model->id_pontoTuristico,
+        'value' => '@web/imagens/img-pt/' . $pontoTuristico->foto,
+        'format' => ['image', ['height' => '200']],
     ],
     [
         'label' => 'Estado',
-        'value' => $estadoPontoTuristico,
+        'value' => $pontoTuristico->estado,
     ],
-     [
-         'label' => 'Ano de Construção',
-         'value' => $model->anoConstrucao
-     ],
-     [
-         'label' => 'Localidade',
-         'value' => $localidade->nomeLocalidade
-     ],
+    [
+        'label' => 'Ano de Construção',
+        'value' => $pontoTuristico->anoConstrucao
+    ],
+    [
+        'label' => 'Localidade',
+        'value' => $pontoTuristico->localidadeIdLocalidade->nomeLocalidade
+    ],
     [
         'label' => 'Morada',
-        'value' => $model->morada
+        'value' => $pontoTuristico->morada
     ],
     [
         'label' => 'Telefone',
-        'value' => $model->telefone
+        'value' => $pontoTuristico->telefone
     ],
-     [
-         'label' => 'Estilo de Construção',
-         'value' => $estiloConstrucao
-     ],
+    [
+        'label' => 'Estilo de Construção',
+        'value' => $estiloConstrucao
+    ],
     [
         'label' => 'Tipo de Monumento',
-        'value' => $tipoMonumento
+        'value' => $pontoTuristico->tmIdTipoMonumento->descricao
     ],
     [
         'label' => 'Rating',
@@ -77,28 +79,22 @@ $atributos = [
     ],
     [
         'label' => 'Horário',
-        'value' => $model->horario
+        'value' => $pontoTuristico->horario
     ],
 
     [
         'label' => 'Descrição',
-        'value' => $model->descricao
+        'value' => $pontoTuristico->descricao
     ],
 ];
 
 
-
 ?>
-<div class="pontosturisticos-view">
-
-    <h3 class="info-user">
-        Ponto Turistico: <?= $model->nome ?>
-    </h3>
-    <div class="gerirPontosTuristicosContainer">
+<div class="view-pontos-turisticos-container">
     <p>
-        <?= Html::a('Atualizar Ponto Turistico', ['update', 'id' => $model->id_pontoTuristico], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar Ponto Turistico', ['update', 'id' => $pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-danger']) ?>
 
-        <?= Html::a('Apagar Ponto Turistico', ['delete', 'id' => $model->id_pontoTuristico], [
+        <?= Html::a('Apagar Ponto Turistico', ['delete', 'id' => $pontoTuristico->id_pontoTuristico], [
             'class' => 'btn btn-danger pull-right',
             'data' => [
                 'confirm' => 'Tem a certeza que pretende apagar o ponto turistico?',
@@ -107,33 +103,32 @@ $atributos = [
         ]) ?>
         <?php
 
-        if ($model->status == 0){
-            echo Html::a('Tornar Ativo', ['update-pt-ativo', 'id' => $model->id_pontoTuristico], ['class' => 'btn btn-success btn-visivel pull-right']);
-        }
-        elseif ($model->status == 1){
-            echo Html::a('Tornar Inativo', ['update-pt-inativo', 'id' => $model->id_pontoTuristico], ['class' => 'btn btn-success btn-visivel pull-right']);
-        }?>
+        if ($pontoTuristico->status == 0) {
+            echo Html::a('Tornar Ativo', ['update-pt-ativo', 'id' => $pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-danger btn-visivel pull-right']);
+        } elseif ($pontoTuristico->status == 1) {
+            echo Html::a('Tornar Inativo', ['update-pt-inativo', 'id' => $pontoTuristico->id_pontoTuristico], ['class' => 'btn btn-danger btn-visivel pull-right']);
+        } ?>
     </p>
 
-        <?= DetailView::widget([
-            'model' => $model,
-            'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirPontosTuristicos'],
-            'attributes' => $atributos
-        ]);
-        ?>
-    </div>
-    <h3 class="estatisticas-ponto-turistico">
-        <?= GoogleChart::widget(array('visualization' => 'ColumnChart',
-            'data' => array(
-                array('Tarefa', 'Nº de Utilizadores'),
-                array('Favoritos', $favoritosContador),
-                array('Visitados', $visitadosContador),
-            ),
-            'options' => array('title' => 'Estatisticas',
-            )));
+    <?= DetailView::widget([
+        'model' => $pontoTuristico,
+        'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirPontosTuristicos'],
+        'attributes' => $atributos
+    ]);
+    ?>
 
-        ?>
-</div>
+<h3 class="estatisticas-ponto-turistico">
+    <?= GoogleChart::widget(array('visualization' => 'ColumnChart',
+        'data' => array(
+            array('Tarefa', 'Nº de Utilizadores'),
+            array('Favoritos', $favoritosContador),
+            array('Visitados', $visitadosContador),
+        ),
+        'options' => ['title' => 'Estatisticas',
+            'colors'=> ['#f6504b']]
+        ));
+
+    ?>
+    </div>
 </h3>
 
-</div>

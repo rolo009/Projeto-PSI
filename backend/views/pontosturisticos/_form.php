@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
         ['prompt' => 'Selecione um Tipo de Monumento']
     )->label("Tipo de Monumento"); ?>
 
-    <?= Html::a('Gerir Tipos de Monumento', ['tipomonumento/index'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Gerir Tipos de Monumento', ['tipomonumento/index'], ['class' => 'btn btn-danger btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'ec_idEstiloConstrucao')->dropdownList([
         $estiloConstrucaoPT
@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
         ['prompt' => 'Selecione um Estilo de Contrução']
     )->label("Estilo de Contrução"); ?>
 
-    <?= Html::a('Gerir Estilos de Construção', ['estiloconstrucao/index'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Gerir Estilos de Construção', ['estiloconstrucao/index'], ['class' => 'btn btn-danger btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'localidade_idLocalidade')->dropdownList([
         $localidadePT
@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
         ['prompt' => 'Selecione uma Localidade']
     )->label("Localidade"); ?>
 
-    <?= Html::a('Gerir Localidades', ['localidade/index'], ['class' => 'btn btn-success btn-registar-ponto-turistico']) ?>
+    <?= Html::a('Gerir Localidades', ['localidade/index'], ['class' => 'btn btn-danger btn-registar-ponto-turistico']) ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true])->label("Nome") ?>
 
@@ -51,13 +51,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'longitude')->textInput(['maxlength' => true])->label("Longitude") ?>
 
-    <?= $form->field($modelUpload, 'imageFile')->fileInput()?>
+    <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Foto")?>
 
     <?= $form->field($model, 'descricao')->textarea(['maxlength' => true, 'rows' => 6])->label("Descrição") ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -17,8 +17,6 @@ class AppAsset extends AssetBundle
         '//fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap',
         'css/site.css',
         'css/css.css',
-        'css/css-mario.css',
-        'css/css-gustavo.css',
     ];
     public $js = [
     ];

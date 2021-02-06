@@ -19,13 +19,13 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
 
-        <?= Html::submitButton('Alterar Estado Utilizador', ['class' => 'btn btn-success']) ?>
-        <?php
+        <?php echo Html::submitButton('Alterar Estado Utilizador', ['class' => 'btn btn-danger btn-save-user']);
+
         if (Yii::$app->user->can('gerirCargos')) {
 
             if (Yii::$app->authManager->checkAccess($model->id, 'admin') == true) {
                 echo Html::a('Remover Admin', ['remover-admin', 'id' => $model->id], [
-                    'class' => 'btn btn-warning',
+                    'class' => 'btn btn-danger',
                     'data' => [
                         'confirm' => 'Tem a certeza que pretende remover este utilizador de Administrador?',
                         'method' => 'post',
@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
                 ]);
             } elseif (Yii::$app->authManager->checkAccess($model->id, 'user')) {
                 echo Html::a('Tornar Admin', ['tornar-admin', 'id' => $model->id], [
-                    'class' => 'btn btn-warning',
+                    'class' => 'btn btn-danger',
                     'data' => [
                         'confirm' => 'Tem a certeza que pretende tornar este utilizador de Administrador?',
                         'method' => 'post',
@@ -45,7 +45,7 @@ use yii\widgets\ActiveForm;
 
                 if (Yii::$app->authManager->checkAccess($model->id, 'moderador') == true) {
                     echo Html::a('Remover Moderador', ['remover-mod', 'id' => $model->id], [
-                        'class' => 'btn btn-primary',
+                        'class' => 'btn btn-danger',
                         'data' => [
                             'confirm' => 'Tem a certeza que pretende remover este utilizador Moderador?',
                             'method' => 'post',
@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
                     ]);
                 } elseif (Yii::$app->authManager->checkAccess($model->id, 'user')) {
                     echo Html::a('Tornar Moderador', ['tornar-mod', 'id' => $model->id], [
-                        'class' => 'btn btn-primary',
+                        'class' => 'btn btn-danger',
                         'data' => [
                             'confirm' => 'Tem a certeza que pretende tornar este utilizador Moderador?',
                             'method' => 'post',

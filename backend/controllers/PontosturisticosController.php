@@ -40,11 +40,6 @@ class PontosturisticosController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
                         'actions' => ['index', 'view', 'update-pt-ativo', 'update-pt-inativo', 'create', 'update', 'delete', 'estatisticas'],
                         'roles' => ['@'],
                     ],
@@ -81,49 +76,21 @@ class PontosturisticosController extends Controller
     public function actionView($id)
     {
         $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
-        $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
-        $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
-        $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
+        $favoritosContador = count($pontoTuristico->favoritos);
+        $visitadosContador = count($pontoTuristico->visitados);
 
-        $favoritosContador = count(Favoritos::findAll(['pt_idPontoTuristico' => $id]));
-        $visitadosContador = count(Visitados::findAll(['pt_idPontoTuristico' => $id]));
-
-        $ratings = Ratings::findAll(['pt_idPontoTuristico' => $pontoTuristico->id_pontoTuristico]);
+        $ratings = $pontoTuristico->ratings;
         if ($ratings != null) {
             $mediaRatings = $this->mediaRatings($ratings);
         } elseif ($ratings == null) {
             $mediaRatings = 0;
         }
 
-        if ($pontoTuristico->status == 1) {
-            $estadoPontoTuristico = "Ativo";
-        } elseif ($pontoTuristico->status == 0) {
-            $estadoPontoTuristico = "Inativo";
-        }
-
-        if($estiloConstrucao == null){
-            $estiloConstrucao = " ";
-        }else{
-            $estiloConstrucao = $estiloConstrucao->descricao;
-        }
-
-        if($tipoMonumento == null){
-            $tipoMonumento = " ";
-        }else{
-            $tipoMonumento = $tipoMonumento->descricao;
-        }
-
-
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            'localidade' => $localidade,
-            'estiloConstrucao' => $estiloConstrucao,
-            'tipoMonumento' => $tipoMonumento,
+            'pontoTuristico' => $pontoTuristico,
             'mediaRatings' => $mediaRatings,
             'favoritosContador' => $favoritosContador,
             'visitadosContador' => $visitadosContador,
-            'estadoPontoTuristico' => $estadoPontoTuristico,
-
         ]);
     }
 
@@ -222,11 +189,6 @@ class PontosturisticosController extends Controller
 
             $model = $this->findModel($id);
             $modelUpload = new UploadFormPontosTuristicos();
-            $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
-            $localidade = Localidade::findOne(['id_localidade' => $pontoTuristico->localidade_idLocalidade]);
-            $estiloConstrucao = Estiloconstrucao::findOne(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao]);
-            $tipoMonumento = Tipomonumento::findOne(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento]);
-
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);

@@ -46,6 +46,9 @@ class TipomonumentoSearch extends Tipomonumento
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 15,
+            ],
         ]);
 
         $this->load($params);

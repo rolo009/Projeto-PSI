@@ -62,4 +62,13 @@ class Contactos extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    public function getEstado()
+    {
+        if ($this->status == 0) {
+            return "Não Lida";
+        } elseif ($this->status == 1) {
+            return "Lida";
+        }
+    }
 }

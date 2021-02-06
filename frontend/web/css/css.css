@@ -1,19 +1,19 @@
-body, html{
-height: 100%;
+body, html {
+    height: 100%;
 
 }
 
 a {
-    text-decoration:none;
+    text-decoration: none !important;
 }
 
-a:hover{
-    color:white;
+a:hover {
+    text-decoration: none !important;
 }
 
 /*Menu*/
 
-#index-background{
+#index-background {
     background-image: url("../background-index-4.png");
     background-position: center;
     background-size: cover;
@@ -25,7 +25,23 @@ a:hover{
     font-weight: normal !important;
 }
 
-.menu-style{
+.floating{
+    width: 50px;
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: -15px;
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 10px); }
+    100%   { transform: translate(0, -0px); }
+}
+
+.menu-style {
     margin-top: 2%;
     margin-left: 10%;
     margin-right: 10%;
@@ -33,37 +49,58 @@ a:hover{
     position: relative !important;
 }
 
-.menu-style a{
+.menu-style a {
     color: #FFFFFF;
+    display: inline-block;
+    padding: 15px 20px;
+    position: relative;
 }
 
-.menu-style a:hover{
+.navbar-nav a:after {
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #e64851;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+.navbar-nav a:hover {
     text-decoration: none;
     background-color: transparent !important;
 }
 
-.footer-index{
+.navbar-nav a:hover:after {
+    width: 100%;
+    left: 0;
+}
+
+.navbar-brand a{
+    text-decoration: none!important;
+    background: transparent!important;
+}
+
+
+.footer-index {
     color: white;
     text-align: center;
     margin-bottom: 0px;
-    position:absolute;
-    bottom:3%;
-    width:100%;
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
 }
-
-.navbar-brand{
-    font-size: 20px;
-}
-
-.navbar-toggle{
+.navbar-toggle {
     background-color: white !important;
 }
 
-.navbar-toggle .icon-bar{
+.navbar-toggle .icon-bar {
     background-color: gray !important;
 }
 
-.logout{
+.logout {
     color: white;
 }
 
@@ -72,153 +109,161 @@ a:hover{
     color: white !important;
 }
 
-/* ----------------------------------------Index---------------------------------------*/
+.nav .open > a, .nav .open > a:hover {
+    background-color: transparent;
+}
 
-.logo-index-container{
+@media (max-width: 1420px) {
+    .navbar-right {
+        margin-right: 5%;
+    }
+}
+
+
+@media (max-width: 1270px) {
+    .navbar-right {
+        margin-right: 10%;
+    }
+}
+
+
+/* ----------------------------------------Index---------------------------------------*/
+.index-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    padding: 10% 5% 15% 5%;
+}
+
+.logo-index-container {
     margin-top: 1%;
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-.searchForm-container{
-    height: 30%;
-    width: 100%;
-    padding: 2%;
-    border-radius: 5px;
+.searchForm-container {
+    color: #FFFFFF;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    margin-top: 4%;
+}
+
+#searchForm {
+    width: 70%;
+}
+
+
+.btn-search-index {
+    margin-left: 0px;
+}
+
+.icon-index-search {
+    margin-right: 10px;
+}
+
+.search-btns {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-.btn-search-index{
-    margin-left: 0px;
-}
-
-.icon-index-search{
-    margin-right: 10px;
-}
-
-.opcao-pesquisa{
-    color:white;
+.opcao-pesquisa a {
+    color: white;
     margin-right: 20px;
-    margin-left: 5px;
+}
+
+.opcao-pesquisa a:hover {
+    color: white;
+    text-decoration: underline !important;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
 }
 
 @media (max-width: 700px) {
+    .index-container {
+        margin-top: 10%;
+    }
+
     .logo-index {
         width: 150px;
+    }
+
+    .opcao-pesquisa {
+        font-size: 12px;
     }
 
 }
 
 /* ----------------------------Favoritos---------------------------*/
 
-.favourite-container{
-    margin: 1% 8% 3% 8%;
+.favourite-container {
     display: flex;
     flex-wrap: wrap;
+    margin: 2% 0% 0% 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4% 2% 4% 2%;
+    border-radius: 5px;
 }
 
-.favourite-ponto-interesse{
+.favourite-ponto-interesse-card {
     opacity: 0.9;
     background-color: #FFFFFF;
     border-radius: 10px;
-    width: 45%;
-    margin: 1%;
-}
-
-.favorite-header{
-    padding: 2% 0 0 0;
-    margin-bottom: 0;
-    background-color: rgba(0,0,0,.03);
-    border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-.checked {
-    color: orange;
-}
-
-
-.localidade-pi-container{
-    padding: 0 0 0 8%;
-    font-size: 17px;
-    font-weight: bold;
-    margin-top: 2%;
-}
-
-.favourite-options{
-    justify-content: right;
-    text-align: right;
-    right: 0;
-    margin: 1% 6% 6% 0%;
-}
-
-.favorite-body{
-    flex: 1 1 auto;
-    min-height: 1px;
     padding: 1%;
+    margin: 2%;
+    width: 21%;
+
 }
 
-.img-pi-favoritos{
+.btn-remover-favoritos {
+    position: absolute;
+    margin-top: 3%;
+    right: 7%;
+}
+
+.img-pi-favoritos {
     border-radius: 10px;
     width: 100%;
-    margin-left: 15%;
     background-size: cover;
     height: 70%;
 }
 
-.nome-pi-container{
-    padding: 12% 0 0 15%;
-}
 
-.btn-pi{
-    margin-top: 13px;
-}
 
-.btn-outline-dark{
-    color: #343a40;
-    background-color: transparent;
-    background-image: none;
-    border-color: #343a40;
-}
-
-.btn-outline-dark:hover {
-    color: #fff;
-    background-color: #343a40;
-    border-color: #343a40;
-}
-
-@media (max-width: 993px) {
-    .favourite-container {
-        display: inline;
+@media (max-width: 885px) {
+    .favourite-ponto-interesse-card {
+        width: 29%;
     }
 
-    .favourite-ponto-interesse {
-        width: 100%;
-        margin-right: 2%;
-        margin-bottom: 4%;
-    }
-
-    .nome-pi-container{
-        margin-top: 5%;
-    }
-
-    .btn-pi{
-        margin-top: 45px;
+    .img-pi-favoritos {
+        height: 100% !important;
     }
 
 }
+@media (max-width: 600px) {
+    .favourite-ponto-interesse-card {
+        width: 46%;
+    }
 
+    .img-pi-favoritos {
+        height: 100% !important;
+    }
+
+}
 /* ----------------------------Visitados---------------------------*/
 
-.visitados-container{
-    margin: 1% 8% 3% 8%;
+.visitados-container {
     display: flex;
     flex-wrap: wrap;
+    margin: 2% 2% 0% 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4% 2% 4% 2%;
+    border-radius: 5px;
 }
 
-.card-visitados{
+.card-visitados {
     opacity: 0.9;
     background-color: #FFFFFF;
     padding: 1%;
@@ -227,17 +272,18 @@ a:hover{
     margin: 2%;
 }
 
-.img-visitados-card{
+.img-visitados-card {
     width: 100%;
     border-radius: 5px;
     background-size: cover;
+    height: 60%;
 }
 
-.card-title-visitados{
+.card-title-visitados {
     text-align: center;
 }
 
-.btn-visitados{
+.btn-visitados {
     margin-top: 6%;
     justify-content: center;
     text-align: center;
@@ -254,7 +300,7 @@ a:hover{
         width: 40%;
     }
 
-    .btn-warning-visitados{
+    .btn-warning-visitados {
         width: 100% !important;
         font-size: 12px;
     }
@@ -262,105 +308,147 @@ a:hover{
 
 /* ----------------------------Pontos-de-Interesse---------------------------*/
 
-.info-resultado{
-    margin-top: -50px;
-    color: white;
-    margin-left: 50px;
+.pontos-interesse-container {
+    margin: 2% 0% 0% 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4% 2% 4% 2%;
+    border-radius: 5px;
 }
 
-.resultado{
+.info-resultado {
+    color: white;
+    margin-left: 2%;
+}
+
+.resultado {
     font-size: 20px;
     font-weight: bold;
 }
 
-.pontos-interesse-container{
-    margin: 1% 8% 3% 8%;
+.pontos-interesse-card-container {
     display: flex;
     flex-wrap: wrap;
 }
 
-.card-pontos-interesse{
+.card-pontos-interesse {
     opacity: 0.9;
     background-color: #FFFFFF;
     padding: 1%;
     border-radius: 5px;
     margin: 2%;
-    width: 27%;
+    width: 21%;
 }
 
-.img-pi-card{
+.img-pi-card {
     width: 100%;
     border-radius: 4px;
     float: left;
-    height: 70%;
+    height: 65%;
     background-size: cover;
     margin-bottom: 4%;
+    max-height: 124px;
 }
 
-.btn-pi-info{
-    margin: 0 6% 6% 0;
+.nome-pt{
+    height: 70%;
 }
 
-@media (max-width: 1000px) {
-    .pontos-interesse-container {
-        margin: 1% 8% 3% 8%;
-        display: flex;
-    }
+.btn-saber-mais {
+    text-align: right;
+}
 
+.btn-pi-info {
+    margin: 3% 10% 4% 0;
+}
+
+@media (max-width: 885px) {
     .card-pontos-interesse {
-        width: 40%;
+        width: 29%;
     }
 
-    .btn-pi-info{
-        width: 100% !important;
-        font-size: 13px;
+    .img-pi-card {
+        height: 100% !important;
+    }
+
+}
+@media (max-width: 650px) {
+    .card-pontos-interesse {
+        width: 46%;
+    }
+
+    .img-pi-card {
+        height: 100% !important;
     }
 
 }
 
 /* ----------------------------Pontos-de-Interesse-Details---------------------------*/
 
-.pontos-interesse-details-container{
-    margin: -3% 0% 0% 0%;
+.pontos-interesse-details-container {
+    margin: 2% 0% 0% 0%;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 4% 2% 0% 2%;
+    border-radius: 5px;
 }
 
-.card-ponto-interesse-details{
+.img-pt-container {
     width: 100%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
 }
 
-.card-img-top{
-    width: 100%;
+.img-pt {
+    width: 70%;
+    border-radius: 10px;
+    margin-top: 2%;
 }
 
-.pt-details-options{
+.pt-details-options {
     justify-content: right;
     text-align: right;
-    right: 1%;
-    padding: 1%;
+    padding-right: 5%;
+    padding-top: 1%;
 }
 
-.pt-details-nome{
-    margin-top:12px;
-    font-size: 18px;
+.pt-details-nome {
+    margin-top: 12px;
+    margin-left: 7%;
+    font-size: 22px;
     font-weight: bold;
+    color: white;
 }
 
-.info-pt{
+.btn-acao {
+    margin-right: 6px;
+}
+
+.info-pt {
     color: #FFFFFF;
+    margin-left: 9%;
+    margin-right: 7%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.card-info-pt {
+    width: 30%;
+    margin-right: 10px;
 }
 
 .details-pt-title {
-    font-size: 21px;
+    font-size: 19px;
+    color: #cccccc;
 }
 
-.details-pt{
+.details-pt {
     font-size: 15px;
 }
 
-.desc-container{
-    margin-top: 2%;
+.desc-container {
+    margin: 2% 7% 0% 6%;
     color: #FFFFFF;
     text-align: justify;
     font-size: 15px;
@@ -368,36 +456,369 @@ a:hover{
     overflow: auto;
 }
 
+.desc-info-title {
+    color: #cccccc;
+}
+
+.rating-container-pt {
+    color: white;
+    margin-top: 1%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.btn-rating-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.btn-rating {
+    margin-bottom: 6%;
+}
+
+@media (max-width: 700px) {
+    .pt-details-nome {
+        margin-top: 12px;
+        margin-left: 7%;
+        font-size: 19px;
+        font-weight: bold;
+        color: white;
+    }
+}
+
 @media (max-width: 1200px) {
     .details-pt-title {
-        font-size: 20px;
+        font-size: 17px;
+        color: #cccccc;
     }
 
     .details-pt {
         font-size: 14px;
     }
+
 }
 
-.rating-container{
-    color: white;
-    margin-left: 2%;
+@media (max-width: 993px) {
+    .details-pt-title {
+        font-size: 15px;
+        color: #cccccc;
+    }
+
+    .details-pt {
+        font-size: 13px;
+    }
 }
 
-.mais-stats{
+
+.mais-stats {
     color: #FFFFFF;
     margin-top: 5%;
     padding: 5%;
     margin-bottom: 5%;
 }
 
+/* ----------------------------Sobre Nós---------------------------*/
+
+.sobre-nos-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    overflow: auto;
+    padding: 5% 3% 5% 3%;
+}
+
+.logo-container {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    color: white;
+}
+
+.sobre-nos-logo {
+    width: 12%;
+}
+
+.sobre-nos-desc {
+    padding: 25px;
+    text-align: justify;
+    text-justify: inter-word;
+    background-color: transparent;
+    color: white;
+}
+
+.sobrenos-container {
+    margin: 1% 8% 8% 1%;
+    background: transparent;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sobrenos-card {
+    opacity: 0.9;
+    background-color: transparent;
+    color: white;
+    padding: 2%;
+    align-content: center !important;
+    width: 27%;
+    margin-left: 4%;
+}
+
+.sobrenos-card-img {
+    width: 70%;
+    border-radius: 50%;
+}
+
+.sobrenos-card-text {
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    .sn-about-section-text {
+        display: flex;
+        font-size: 10px;
+    }
+
+    .sobrenos-container {
+        margin: 1% 8% 8% 1%;
+        display: flex;
+    }
+
+    .sobrenos-card {
+        width: 25%;
+    }
+
+    .sobrenos-card-img {
+        width: 100%;
+    }
+
+    .logo-index-container {
+        width: 100%;
+    }
+
+    .sobre-nos-logo {
+        width: 20%;
+    }
+
+}
+
+/* ----------------------------Contactos---------------------------*/
+
+.contactos-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    overflow: auto;
+    padding: 5% 3% 5% 3%;
+}
+
+.contactos-form {
+    color: white;
+}
+
+.image-captcha {
+    border-radius: 5px;
+}
+
+.input-captcha {
+    margin-top: 2%;
+}
+
+.redes-sociais-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.contactos-logo {
+    margin-top: 1%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    color: white;
+}
+
+.contact-img {
+    align-content: center;
+    width: 10%;
+}
+
+.contact-img-icon {
+    align-content: center;
+    width: 8%;
+    margin: 2%;
+}
+
+
 /* ----------------------------Registar---------------------------*/
+.label-registo {
+    color: white;
+    text-align: left;
+}
+
+.registo-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    overflow: auto;
+    padding: 5% 3% 5% 3%;
+}
+
+.registo-info {
+    color: #FFFFFF;
+    font-size: 30px;
+}
+
+.logo-registo {
+    width: 150px;
+    margin-top: -4%;
+
+}
+
+@media (max-width: 500px) {
+    .registo-info {
+        font-size: 25px;
+    }
+}
+
 .alert-success {
     margin-top: -70px !important;
     margin-bottom: 40px;
 }
+
+/*Login*/
+.label-login {
+    color: white;
+    text-align: left;
+}
+
+.label-memorizar-sessao {
+    color: white;
+    text-align: left;
+}
+
+.login-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    padding: 5% 3% 5% 3%;
+}
+
+.login-info {
+    color: #FFFFFF;
+}
+
+.logo-login {
+    width: 150px;
+}
+
+.login-info {
+    font-size: 30px;
+}
+
+@media (max-width: 500px) {
+    .editar-info {
+        font-size: 25px;
+    }
+}
+
+/*editar registo*/
+.editar-registo-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    padding: 5% 3% 5% 3%;
+}
+
+.logo-editar {
+    width: 150px;
+}
+
+.editar-registo-info {
+    color: #FFFFFF;
+    font-size: 30px;
+    margin-bottom: 3%;
+}
+
+.dtaInput {
+    color: #555555;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-image: none;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.options-editar-registo {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn-options-editar-registo {
+    width: 50%;
+}
+
+@media (max-width: 680px) {
+    .logo-editar {
+        width: 110px;
+    }
+
+    .editar-registo-info {
+        font-size: 20px;
+    }
+}
+
+/*Editar Palavra-Passe*/
+.alterar-password-container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin-top: -50px;
+    padding: 5% 3% 5% 3%;
+}
+
+.logo-editar-palavra-passe {
+    width: 150px;
+}
+
+.editar-palavra-passe-info {
+    color: #FFFFFF;
+    font-size: 30px;
+    margin-bottom: 3%;
+}
+
+@media (max-width: 830px) {
+    .logo-editar-palavra-passe {
+        width: 110px;
+    }
+
+    .editar-palavra-passe-info {
+        font-size: 20px;
+    }
+}
+
 /* ----------------------------Comuns---------------------------*/
 
-.card{
+.card {
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -406,41 +827,57 @@ a:hover{
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
 }
 
-.alert-danger{
-    margin-top: -100px!important;
+.alert-danger {
+    margin-top: -70px !important;
+    margin-bottom: 70px !important;
     position: relative;
 }
 
-.summary{
+.summary {
     color: white;
 }
 
-.label-memorizar-sessao{
+.label-memorizar-sessao {
     color: white;
+}
+
+.breadcrumb {
+    margin-top: -50px;
+}
+
+.breadcrumb a {
+    color: black
+}
+
+.icon-action-pt {
+    font-size: 17px;
 }
 
 /* ----------------------------Pontos-de-Interesse-Visitados---------------------------*/
 
-.pontos-interesse-visitados-container{
-    margin: 1% 8% 3% 8%;
+.pontos-interesse-visitados-container {
+    margin: 2% 0% 0% 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4% 2% 4% 2%;
+    border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.card-pontos-interesse-visitados{
+.card-pontos-interesse-visitados {
     opacity: 0.9;
     background-color: #FFFFFF;
+    border-radius: 10px;
     padding: 1%;
-    border-radius: 5px;
     margin: 2%;
-    width: 27%;
+    width: 21%;
 }
 
-.img-pi-card-pt-visitados{
+.img-pi-card-pt-visitados {
     width: 100%;
     border-radius: 4px;
     float: left;
@@ -449,7 +886,13 @@ a:hover{
     margin-bottom: 4%;
 }
 
-.btn-pi-visitado-info{
+.btn-remover-visitados {
+    position: absolute;
+    margin-top: 3%;
+    right: 7%;
+}
+
+.btn-pi-visitado-info {
     margin: 0 6% 6% 0;
 }
 
@@ -463,15 +906,15 @@ a:hover{
         width: 40%;
     }
 
-    .btn-pi-info{
+    .btn-pi-info {
         width: 100% !important;
-        font-size: 13px;
+        font-size: 11px;
     }
 
 }
 
 /*****Alterar Password*******/
 
-#changepassword-form{
+#changepassword-form {
     color: white;
 }

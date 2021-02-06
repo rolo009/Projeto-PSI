@@ -6,15 +6,11 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Contactos */
 
-$this->title = "Mensagem ID: " . $model->idContactos;
+$this->title = "Mensagem: " . $model->assunto;
 $this->params['breadcrumbs'][] = ['label' => 'Contactos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->assunto . " (" . $model->idContactos. ')';
+$this->params['breadcrumbs'][] = $model->assunto;
 \yii\web\YiiAsset::register($this);
 $atributos = [
-    [
-        'label' => 'ID',
-        'value' => $model->idContactos,
-    ],
     [
         'label' => 'Data de Envio',
         'value' => $model->dataEnvioMensagem,
@@ -26,7 +22,7 @@ $atributos = [
     [
         'label' => 'Estado da mensagem',
         'value' => $estadoMensagem,
-    ],[
+    ], [
         'label' => 'Nome',
         'value' => $model->nome,
     ],
@@ -46,11 +42,6 @@ $atributos = [
 ?>
 <div class="contactos-view">
 
-    <h3 class="info-mensagem">
-        Ponto Turistico: <?= $model->assunto ?>
-    </h3>
-
-    <div class="gerirMensagensContainer">
     <?php
     echo $this->render('_form', [
         'model' => $model,
@@ -58,10 +49,10 @@ $atributos = [
 
     echo DetailView::widget([
         'model' => $model,
-        'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirPontosTuristicos'],
+        'options' => ['class' => 'table table-striped table-bordered detail-view detailView-gerirContactos'],
         'attributes' => $atributos,
     ]);
     ?>
 
-    </div>
 </div>
+

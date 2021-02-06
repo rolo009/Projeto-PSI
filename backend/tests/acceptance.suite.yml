@@ -1,0 +1,11 @@
+suite_namespace: backend\tests\acceptance
+actor: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            url: http://localhost/
+            browser: chrome
+            window_size: false
+            port: 8080
+        - Yii2:
+            part: init

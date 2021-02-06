@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     )->label("Estado Mensagem"); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Atualizar Mensagem', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Atualizar Mensagem', ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

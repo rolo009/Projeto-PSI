@@ -24,16 +24,11 @@ class EstiloconstrucaoController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'only' => ['index', 'create', 'update', 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'create', 'update', 'delete'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -61,19 +56,6 @@ class EstiloconstrucaoController extends Controller
     }
 
     /**
-     * Displays a single Estiloconstrucao model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Estiloconstrucao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -85,27 +67,13 @@ class EstiloconstrucaoController extends Controller
             $model = new Estiloconstrucao();
 
             if ($model->load(Yii::$app->request->post())) {
-
-                $estiloConstrucaoVerifica = Estiloconstrucao::find()
-                    ->where(['descricao'=>$model->descricao])
-                    ->one();
-
-                if ($estiloConstrucaoVerifica == null){
-                    $model->save();
-                    return $this->redirect(['index']);
-                }
-                else{
-                    Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
-                    return $this->redirect(['index']);
-                }
+                $this->verificaEstiloConstrucao($model);
             }
-
             return $this->render('create', [
                 'model' => $model,
             ]);
         } else {
             return $this->redirect(['index']);
-
         }
     }
 
@@ -123,19 +91,7 @@ class EstiloconstrucaoController extends Controller
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post())) {
-
-                $estiloConstrucaoVerifica = Estiloconstrucao::find()
-                    ->where(['descricao'=>$model->descricao])
-                    ->one();
-
-                if ($estiloConstrucaoVerifica == null){
-                    $model->save();
-                    return $this->redirect(['index']);
-                }
-                else{
-                    Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
-                    return $this->redirect(['index']);
-                }
+                $this->verificaEstiloConstrucao($model);
             }
 
             return $this->render('update', [
@@ -184,5 +140,21 @@ class EstiloconstrucaoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function verificaEstiloConstrucao($estiloConstrucao)
+    {
+            $estiloConstrucaoVerifica = Estiloconstrucao::find()
+                ->where(['descricao'=>$estiloConstrucao->descricao])
+                ->one();
+
+            if ($estiloConstrucaoVerifica == null){
+                $estiloConstrucao->save();
+                return $this->redirect(['index']);
+            }
+            else{
+                Yii::$app->session->setFlash('error','Estilo de Construção já registado!');
+                return $this->redirect(['index']);
+            }
     }
 }

@@ -30,7 +30,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' =>  "CULTRAVEL",
+        'brandLabel' => Html::img(Yii::$app->urlManagerBackend->baseUrl .'/logo/seta-logo.png', ['class' => 'img-logo-menu floating']),
         'brandUrl' => ['/cultravel/index'],
         'options' => [
             'class' => 'menu-style navbar-fixed-top',
@@ -61,9 +61,9 @@ AppAsset::register($this);
             . '<a data-toggle="dropdown" class="dropdown-toggle">ÁREA PESSOAL<b class="caret"></b></a>'
             . Dropdown::widget([
                 'items' => [
-                    ['label' => 'Alterar Dados Pessoais', 'url' => ['/cultravel/editar-registo'], 'options' => ['class' => 'dropdown-item']],
-                    ['label' => 'Alterar Palavra-passe', 'url' => ['/cultravel/alterar-password'], 'options' => ['class' => 'dropdown-item']],
-                    ['label' => 'Logout ('. Yii::$app->user->identity->username .')', 'url' => ['/cultravel/logout'], 'options' => ['class' => 'dropdown-item']],
+                    ['label' => 'EDITAR DADOS PESSOAIS', 'url' => ['/cultravel/editar-registo'], 'options' => ['class' => 'dropdown-item']],
+                    ['label' => 'EDITAR PALAVRA-PASSE', 'url' => ['/cultravel/alterar-password'], 'options' => ['class' => 'dropdown-item']],
+                    ['label' => 'TERMINAR SESSÃO', 'url' => ['/cultravel/logout'], 'options' => ['class' => 'dropdown-item']],
                 ],
             ])
             . '</li>';

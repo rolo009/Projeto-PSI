@@ -45,7 +45,14 @@ class Pontosturisticos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'descricao', 'foto', 'status', 'latitude', 'longitude'], 'required'],
+            [['nome'], 'required', 'message'=>'O campo Nome não pode estar em branco!'],
+            [['descricao'], 'required', 'message'=>'O campo Descrição não pode estar em branco!'],
+            [['latitude'], 'required', 'message'=>'O campo Latitude não pode estar em branco!'],
+            [['longitude'], 'required', 'message'=>'O campo Longitude não pode estar em branco!'],
+            [['tm_idTipoMonumento'], 'required', 'message'=>'O campo Tipo de Monumento não pode estar em branco!'],
+            [['ec_idEstiloConstrucao'], 'required', 'message'=>'O campo Estilo de Contrução não pode estar em branco!'],
+            [['localidade_idLocalidade'], 'required', 'message'=>'O campo Localidade não pode estar em branco!'],
+
             [['tm_idTipoMonumento', 'ec_idEstiloConstrucao', 'localidade_idLocalidade', 'status'], 'integer'],
             [['nome', 'anoConstrucao', 'foto', 'horario', 'morada', 'telefone', 'latitude', 'longitude'], 'string', 'max' => 255],
             [['descricao'], 'string', 'max' => 6000],
@@ -78,11 +85,21 @@ class Pontosturisticos extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getEstado()
+    {
+        if ($this->status == 0) {
+            return "Inativo";
+        } elseif ($this->status == 1) {
+            return "Ativo";
+        }
+    }
+
     /**
      * Gets query for [[Favoritos]].
      *
      * @return \yii\db\ActiveQuery
      */
+
     public function getFavoritos()
     {
         return $this->hasMany(Favoritos::className(), ['pt_idPontoTuristico' => 'id_pontoTuristico']);

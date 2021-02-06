@@ -33,11 +33,6 @@ class UserController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
                         'actions' => ['index', 'view', 'remover-admin', 'tornar-admin', 'create', 'update', 'delete', 'estatisticas'],
                         'roles' => ['@'],
                     ],
@@ -85,10 +80,7 @@ class UserController extends Controller
         }
 
         $user = User::findOne(['id' => $id]);
-        //$userProfile = $user->userprofile;
-        $userProfile = Userprofile::find()->where(['id_user_rbac' => $user->id])->one();
-
-
+        $userProfile = $user->userprofiles;
 
         if (Yii::$app->authManager->checkAccess($user->id, 'admin') == true) {
             $permissaoUser = "Administrador";
@@ -245,7 +237,7 @@ class UserController extends Controller
     {
         $user = User::findOne(['id' => $id]);
 
-        $user->status = 1;
+        $user->status = User::STATUS_DELETE;
 
         $user->save();
 
@@ -278,7 +270,6 @@ class UserController extends Controller
 
         return $this->render('stats-users', [
             'nUsersMasculinos' => $nUsersMasculinos,
-            'nUsersFemininos' => $nUsersFemininos,
             'nUsersFemininos' => $nUsersFemininos,
             'idadesUsers' => $idadesUsers,
             'distritosUsers' => $distritoUsers,

@@ -11,7 +11,6 @@ class HomeCest
         $I->amOnPage('/Projeto-Final-PSI/frontend/web');
         $I->wait(3); // wait for page to be opened
 
-
         $I->see('CULTRAVEL');
 
         $I->seeLink('SOBRE NÓS');

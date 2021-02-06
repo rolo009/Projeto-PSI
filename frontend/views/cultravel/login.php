@@ -26,7 +26,7 @@ $this->title = 'Login';
 
             <div class="form-group">
                 <?php
-                echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-warning', 'name' => 'insert-login']) ?>
+                echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-danger', 'name' => 'insert-login']) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

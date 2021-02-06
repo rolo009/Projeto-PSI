@@ -4,29 +4,16 @@ body, html {
 }
 
 a {
-    text-decoration: none !important;
+    color: black;
 }
 
 a:hover {
-    text-decoration: none !important;
+text-decoration: none !important;
+    color: black;
+
 }
 
 /*---------------------------Menu---------------------------*/
-body, html {
-    height: 100%;
-
-}
-
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    color: white;
-}
-
-/*Menu*/
-
 #index-background {
     background-image: url("../background-index-4.png");
     background-position: center;
@@ -34,9 +21,25 @@ a:hover {
     background-repeat: no-repeat;
     height: auto;
     background-attachment: fixed, scroll;
-    font-family: 'Montserrat', sans-serif;
     font-size: 15px;
+    font-family: 'Nunito', sans-serif;
     font-weight: normal !important;
+}
+
+.floating{
+    width: 50px;
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: -15px;
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 10px); }
+    100%   { transform: translate(0, -0px); }
 }
 
 .menu-style {
@@ -49,12 +52,38 @@ a:hover {
 
 .menu-style a {
     color: #FFFFFF;
+    display: inline-block;
+    padding: 15px 20px;
+    position: relative;
 }
 
-.menu-style a:hover {
+.navbar-nav a:after {
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #e64851;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+.navbar-nav a:hover {
     text-decoration: none;
     background-color: transparent !important;
 }
+
+.navbar-nav a:hover:after {
+    width: 100%;
+    left: 0;
+}
+
+.navbar-brand a{
+    text-decoration: none!important;
+    background: transparent!important;
+}
+
 
 .footer-index {
     color: white;
@@ -64,7 +93,6 @@ a:hover {
     bottom: 3%;
     width: 100%;
 }
-
 .navbar-toggle {
     background-color: white !important;
 }
@@ -82,8 +110,14 @@ a:hover {
     color: white !important;
 }
 
+.nav .open > a, .nav .open > a:hover {
+    background-color: transparent;
+}
+
+
 
 /*-------------------------------Login-------------------------*/
+
 .login-container {
     justify-content: center;
     text-align: center;
@@ -110,43 +144,72 @@ a:hover {
     color: white !important;
 }
 
-
 /*-------------------------------Index-------------------------*/
-.index-container {
+
+.backend-index-container{
+    margin-top: -60px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
+}
+.logo-container {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
+.logo-index{
+    width: 200px;
+}
+
+.index-container-options{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    margin-top: 3%;
+}
+
 .card-definicoes-admin {
     opacity: 0.9;
-    padding: 15%;
+    padding-top: 4%;
     border-radius: 5px;
     margin: 2%;
-    width: 90%;
+    width: 29%;
     background-color: #FFFFFF;
     color: black;
     font-size: 16px;
     font-weight: bold;
+    height: 110px;
 }
 
 .card-definicoes-admin:hover {
     background-color: #e6e6e6;
     color: black;
-
 }
 
-.cards-container {
-    margin-top: 6%;
+@media (max-width: 1000px) {
+    .card-definicoes-admin{
+        font-size: 14px;
+    }
+    .logo-index{
+        width: 150px;
+    }
+    .card-definicoes-admin{
+        padding-top: 6%;
+    }
 }
+@media (max-width: 1000px) {
 
-.logo-registo-index {
-    margin-top: -50px;
-    width: 180px;
 }
 
 /*Grid View Users*/
-
+.user-index{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
+}
 .breadcrumb {
     margin-top: -70px;
 }
@@ -154,6 +217,11 @@ a:hover {
 .gridView-backend {
     background-color: #d9d9d9 !important;
     border: 2px #f2f2f2;
+}
+
+.btn-stats-users{
+    margin-bottom: 2%;
+    width: 15%;
 }
 
 .gerirUsers-Container {
@@ -175,24 +243,22 @@ a:hover {
     color: yellow;
 }
 
-/*View - gerir users*/
-
-.user-view {
-    margin-left: 20%;
-
+.btn-save-user{
+    margin-right: 1%;
 }
+
+/*View - gerir users*/
 
 .detailView-gerirUsers {
     background-color: #d9d9d9 !important;
-
 }
 
-.gerirUsersContainer {
-    width: 80%;
-}
-
-.info-user {
-    color: #FFFFFF;
+.gerir-users-container {
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /*Users Update*/
@@ -208,7 +274,22 @@ a:hover {
 
 /*Estatisticas Users*/
 .stats-user-container {
-    width: 70%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 10% 5% 10%;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.estatisticas-info{
+    font-size: 25px;
+    color: white;
+    margin-bottom: 5%;
+}
+
+.logo-stats{
+    width: 130px;
 }
 
 .card-stats {
@@ -229,16 +310,48 @@ a:hover {
     color: #FFFFFF;
 }
 
-a {
+.breadcrumb a {
     color: black;
-}
-
-a:hover {
-    color: black;
-    animation-duration: 1s;
 }
 
 /*Gerir Pontos Turisticos*/
+
+/*Index*/
+.pontos-turisticos-index{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
+}
+
+.logo-gerirPontosTuristicos {
+    width: 130px;
+}
+
+.gerirPontosTuristicos-Container{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.gridView-pontosTuristicos {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.gerirPontoTuristicos-info{
+    font-size: 25px;
+    color: #FFFFFF;
+}
+
+/*View*/
+
+.view-pontos-turisticos-container {
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
 .stats-pontosturisticos-container{
     width: 70%;
@@ -248,15 +361,6 @@ a:hover {
     margin-bottom: 10px;
 }
 
-.logo-gerirPontosTuristicos {
-    width: 130px;
-}
-
-.gridView-pontosTuristicos {
-    width: 70%;
-    margin-left: 15%;
-}
-
 .btn-visivel{
     margin-right: 10px;
 }
@@ -264,47 +368,148 @@ a:hover {
 .detailView-gerirPontosTuristicos {
     background-color: #d9d9d9 !important;
 }
+/*Registar Ponto Turistico*/
 
-.estatisticas-ponto-turistico {
-    width: 90%;
-}
-
-
-.gerirPontosTuristicosContainer {
-    width: 90%;
+.pontos-turisticos-create-container{
+    width: 100%;
+    padding: 5%;
     opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-.pontosturisticos-view {
-    margin-left: 10%;
+.pontosturisticos-create{
+    width: 100%;
+    color: #FFFFFF;
 }
 
 .pontosturisticos-form {
     color: #FFFFFF;
 }
+/*Atualizar Ponto Turistico*/
+
+.pontos-turisticos-update-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
 .pontosturisticos-update {
-    width: 80%;
-    margin-left: 10%;
+    width: 100%;
     color: #FFFFFF;
 }
 
-.info-pt {
+/*Gerir Tipo de Monumento*/
+
+.tipomonumento-index{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
+}
+
+.gerirTipoMonumento-info{
+    font-size: 25px;
     color: #FFFFFF;
 }
 
-.pontosturisticos-create {
-    width: 80%;
-    margin-left: 10%;
+.gerirTipomonumento-Container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-gerirTipomonumento{
+    width: 130px;
+}
+
+.btn-registar-tipo-monumento{
+    margin-bottom: 10px;
+}
+
+.tipomonumento-form {
     color: #FFFFFF;
 }
 
 /*Registar Tipo Monumentos*/
+.tipomonumento-create-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
-.registar-tipo-monumento-form {
-    width: 60%;
-    margin-left: 20%;
-    color: white;
+.tipomonumento-create {
+    width: 100%;
+    color: #FFFFFF;
+}
+
+/*Atualizar Tipo Monumento*/
+.tipomonumento-update-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tipomonumento-update {
+    width: 100%;
+    color: #FFFFFF;
+}
+/*Gerir Localidades*/
+.localidade-index{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
+}
+
+.logo-gerirLocalidade{
+    width: 130px;
+}
+
+.gerirLocalidade-Container {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.btn-registar-localidade{
+    margin-bottom: 10px;
+}
+
+.localidade-form {
+    color: #FFFFFF;
+}
+
+/*Registar Localidade*/
+.localidade-create-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.localidade-create {
+    width: 100%;
+    color: #FFFFFF;
+}
+
+/*Atualizar Localidade*/
+.localidade-update-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.localidade-update {
+    width: 100%;
+    color: #FFFFFF;
 }
 
 /*Registar Estilo Construção*/
@@ -323,88 +528,12 @@ a:hover {
     color: white;
 }
 
-/*Comuns*/
-
-.logo {
-    margin-top: -50px;
-    justify-content: center;
-    text-align: center;
-    align-content: center;
+/*Gerir Estilo de Construção*/
+.estiloconstrucao-index{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
 }
-
-.logo-registar {
-    width: 130px;
-}
-
-
-/*Contactos*/
-.gerirMensagens-Container {
-    justify-content: center;
-    text-align: center;
-    align-content: center;
-}
-
-.logo-gerirMensagens {
-    width: 130px;
-}
-
-/*Mensagem*/
-.info-mensagem {
-    color: #FFFFFF;
-
-}
-
-.gerirMensagensContainer {
-    width: 80%;
-}
-
-.contactos-view {
-    margin-left: 15%;
-}
-
-
-
-
-/*Tipo de Monumentos*/
-
-.gerirTipomonumento-Container {
-    justify-content: center;
-    text-align: center;
-    align-content: center;
-}
-
-.logo-gerirTipomonumento{
-    width: 130px;
-
-}
-
-.gridView-tipomonumento {
-    width: 70%;
-    margin-left: 15%;
-}
-
-.btn-registar-tipo-monumento{
-    margin-bottom: 10px;
-}
-
-.tipomonumento-create {
-    width: 80%;
-    margin-left: 10%;
-    color: #FFFFFF;
-}
-
-.tipomonumento-form {
-    color: #FFFFFF;
-}
-
-.tipomonumento-update {
-    width: 80%;
-    margin-left: 10%;
-    color: #FFFFFF;
-}
-
-
-/*Estilo de Construçaõ*/
 
 .gerirEstiloconstrucao-Container {
     justify-content: center;
@@ -414,68 +543,71 @@ a:hover {
 
 .logo-gerirEstiloconstrucao{
     width: 130px;
-
-}
-
-.gridView-estiloconstrucao {
-    width: 70%;
-    margin-left: 15%;
 }
 
 .btn-registar-estilo-construcao{
     margin-bottom: 10px;
 }
 
-.estiloconstrucao-create {
-    width: 80%;
-    margin-left: 10%;
-    color: #FFFFFF;
-}
-
 .estiloconstrucao-form {
     color: #FFFFFF;
 }
 
-.estiloconstrucao-update {
-    width: 80%;
-    margin-left: 10%;
+/*Registar Estilo de Construção*/
+.estiloconstrucao-create-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.estiloconstrucao-create {
+    width: 100%;
     color: #FFFFFF;
 }
 
-/*Localidade*/
+/*Atualizar Estilo de Construção*/
+.estiloconstrucao-update-container{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
-.gerirLocalidade-Container {
+.estiloconstrucao-update {
+    width: 100%;
+    color: #FFFFFF;
+}
+
+/*Gerir Contactos*/
+.contactos-index{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5% 2% 5% 2%;
+}
+.gerirMensagens-Container {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-.logo-gerirLocalidade{
+.logo-gerirMensagens {
     width: 130px;
-
+}
+.detailView-gerirContactos{
+    background-color: #d9d9d9 !important;
+}
+/*View*/
+.contactos-view{
+    width: 100%;
+    padding: 5%;
+    opacity: 0.9;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-.gridView-localidade {
-    width: 70%;
-    margin-left: 15%;
-}
-
-.btn-registar-localidade{
-    margin-bottom: 10px;
-}
-
-.localidade-create {
-    width: 80%;
-    margin-left: 10%;
-    color: #FFFFFF;
-}
-
-.localidade-form {
-    color: #FFFFFF;
-}
-
-.localidade-update {
-    width: 80%;
-    margin-left: 10%;
+.contactos-form {
     color: #FFFFFF;
 }

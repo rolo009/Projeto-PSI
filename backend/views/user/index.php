@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="gerirUsers-info">GERIR UTILIZADORES</p>
     </div>
-    <?= Html::a('Estatisticas', ['estatisticas'], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Estatisticas', ['estatisticas'], ['class' => 'btn btn-danger btn-stats-users']) ?>
 
     <?= GridView::widget([
         'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Utilizadores</div>',
@@ -27,11 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'label' => 'ID',
-                'attribute' => 'id',
-                'format' => 'text'
-            ],
-            [
                 'label' => 'Nome de Utilizador',
                 'attribute' => 'username',
                 'format' => 'text'
@@ -39,18 +35,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             [
                 'label' => 'Estado da conta',
-                //filterSelector
-                'filter' => ['0' => 'Conta Banida', '9' => 'Conta Inactiva', '10' => 'Conta Ativa'],
+                'filter' => Html::activeDropDownList($searchModel, 'status', array('10'=>'Ativa', '9'=>'Inativa', '0'=>'Banida', '1'=>'Apagada'),['class'=>'form-control','prompt' => 'Escolher estado']),
                 'attribute' => 'estado',
                 'format' => 'text'
             ],
             [
                 'label' => 'Data de Criação',
                 'attribute' => 'created_at',
-                'format' => 'datetime'
+                'format' => ['datetime', 'php:d-m-Y']
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+
         ],
     ]); ?>
 

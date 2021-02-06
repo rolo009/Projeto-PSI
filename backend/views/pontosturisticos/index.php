@@ -10,17 +10,15 @@ use yii\grid\GridView;
 $this->title = 'Pontos Turisticos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pontosturisticos-index">
+<div class="pontos-turisticos-index">
 
-    <div class="gerirUsers-Container">
+    <div class="gerirPontosTuristicos-Container">
         <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-gerirPontosTuristicos']); ?>
-
-        <p class="gerirUsers-info">GERIR PONTOS TURISTICOS</p>
+        <p class="gerirPontoTuristicos-info">GERIR PONTOS TURISTICOS</p>
     </div>
 
-<div class="gridView-pontosTuristicos">
 
-    <?= Html::a('Registar Ponto Turistico', ['create'], ['class' => 'btn btn-success btn-registar-ponto-turistico']); ?>
+    <?= Html::a('Registar Ponto Turistico', ['create'], ['class' => 'btn btn-danger btn-registar-ponto-turistico']); ?>
 
     <?= GridView::widget([
         'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Pontos Turisticos</div>',
@@ -30,25 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'label' => 'ID',
-                'attribute' => 'id_pontoTuristico',
-                'format' => 'text'
-            ],
-            [
                 'label' => 'Nome',
                 'attribute' => 'nome',
                 'format' => 'text'
             ],
             [
                 'label' => 'Estado',
-                'attribute' => 'status',
-                'filter' => ['0' => 'Inativo', '1' => 'Ativo'],
+                'attribute' => 'estado',
+                'filter' => Html::activeDropDownList($searchModel, 'status', array('0' => 'Inativo', '1' => 'Ativo'), ['class' => 'form-control', 'prompt' => 'Escolher estado']),
                 'format' => 'text'
             ],
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
         ],
     ]); ?>
 
-</div>
 </div>

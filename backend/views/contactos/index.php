@@ -37,17 +37,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Estado da Mensagem',
-                'filter' => ['0' => 'Mensagens não Lidas', '1' => 'Mensagens Lidas'],
-                'attribute' => 'status',
+                'filter' => Html::activeDropDownList($searchModel, 'status', array('0'=>'Não Lida', '1'=>'Lida'),['class'=>'form-control','prompt' => 'Escolher estado']),
+                'attribute' => 'estado',
                 'format' => 'text'
             ],
             [
                 'label' => 'Data',
                 'attribute' => 'dataEnvioMensagem',
-                'format' => 'datetime'
+                'format' => ['datetime', 'php:d-m-Y']
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
         ],
     ]); ?>
 

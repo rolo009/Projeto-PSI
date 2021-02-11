@@ -1,4 +1,4 @@
-<?php namespace frontend\tests;
+<?php namespace common\tests;
 
 use common\models\Localidade;
 
@@ -45,6 +45,26 @@ class LocalidadeTest extends \Codeception\Test\Unit
         $localidade->save();
 
         $this->tester->seeInDatabase('localidade',['nomeLocalidade'=>'Beja', 'foto'=>'Beja.jpg']);
+
+    }
+
+    public function testAtualizarLocalidade()
+    {
+        $userprofile = $this->tester->grabRecord(Localidade::class, array('nomeLocalidade' => 'Beja', 'foto' => 'Beja.jpg'));
+
+        $userprofile->foto = "Beja-cidade.jpg";
+        $userprofile->save(false);
+
+        $this->tester->seeInDatabase('localidade', ['foto' => 'Beja-cidade.jpg']);
+    }
+
+    public function testApagarLocalidade()
+    {
+        $userprofile = $this->tester->grabRecord(Localidade::class, array('nomeLocalidade' => 'Beja', 'foto' => 'Beja-cidade.jpg'));
+
+        $userprofile->delete();
+
+        $this->tester->dontSeeInDatabase('localidade', ['nomeLocalidade' => 'Beja', 'foto' => 'Beja-cidade.jpg']);
 
     }
 }

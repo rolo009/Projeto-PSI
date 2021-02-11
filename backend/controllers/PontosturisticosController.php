@@ -107,9 +107,9 @@ class PontosturisticosController extends Controller
 
     public function actionUpdatePtAtivo($id)
     {
-        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
+        $pontoTuristico = Pontosturisticos::find()->where(['id_pontoTuristico' => $id])->one();
         $pontoTuristico->status = 1;
-        if ($pontoTuristico->save() != true) {
+        if (!$pontoTuristico->save(false)) {
             Yii::$app->session->setFlash('error', 'Não foi possivel tornar este Ponto Turistico Inativo!');
         }
         return $this->redirect(['view', 'id' => $id]);
@@ -118,9 +118,10 @@ class PontosturisticosController extends Controller
 
     public function actionUpdatePtInativo($id)
     {
-        $pontoTuristico = Pontosturisticos::findOne(['id_pontoTuristico' => $id]);
+        $pontoTuristico = Pontosturisticos::find()->where(['id_pontoTuristico' => $id])->one();
         $pontoTuristico->status = 0;
-        if ($pontoTuristico->save() != true) {
+        if (!$pontoTuristico->save(false)) {
+
             Yii::$app->session->setFlash('error', 'Não foi possivel tornar este Ponto Turistico Ativo!');
         }
         return $this->redirect(['view', 'id' => $id]);
@@ -140,12 +141,18 @@ class PontosturisticosController extends Controller
             $modelUpload = new UploadFormPontosTuristicos();
 
             if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
-                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
-                $modelUpload->upload();
-                $model->status = 1;
-                $model->save();
-                return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
+                if(UploadedFile::getInstance($modelUpload, 'imageFile') != null){
+                    $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                    $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                    $modelUpload->upload();
+                    $model->status = 1;
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
+                }else{
+                    Yii::$app->session->setFlash('error', 'O campo imagem não foi preenchido!');
+                    return $this->redirect(['create']);
+                }
+
             }
 
             $tiposMonumentos = Tipomonumento::find()
@@ -190,7 +197,14 @@ class PontosturisticosController extends Controller
             $model = $this->findModel($id);
             $modelUpload = new UploadFormPontosTuristicos();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
+                if(UploadedFile::getInstance($modelUpload, 'imageFile') != null){
+                    unlink('imagens/img-pt/' . $model->foto);
+                    $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                    $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                    $modelUpload->upload();
+                }
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id_pontoTuristico]);
             }
 

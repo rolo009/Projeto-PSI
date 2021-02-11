@@ -2,6 +2,7 @@
 
 use common\models\Userprofile;
 use common\models\User;
+use Mpdf\Tag\U;
 
 class RegistoTest extends \Codeception\Test\Unit
 {
@@ -85,8 +86,16 @@ class RegistoTest extends \Codeception\Test\Unit
 
     public function testCriarUtilizador()
     {
+        $user = new User();
         $userProfile = new Userprofile();
 
+        $userProfile->id_user_rbac = $user->getId();
+
+        $user->username = "pedro123";
+        $user->email = "pedro123@hotmail.com";
+        $user->setPassword("pedro123");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
         $userProfile->primeiroNome = 'Pedro';
         $userProfile->ultimoNome = 'Rolo';
         $userProfile->dtaNascimento = date('Y-m-d');
@@ -94,13 +103,12 @@ class RegistoTest extends \Codeception\Test\Unit
         $userProfile->distrito = 'Évora';
         $userProfile->localidade = 'Vila Viçosa';
         $userProfile->sexo = 'Masculino';
+        $user->save(false);
 
-        $user = User::findOne(['username' => 'test_registo']);
-
-        $userProfile->id_user_rbac = $user->id;
+        $userProfile->id_user_rbac = $user->getId();
 
         $userProfile->save(false);
-        $this->tester->seeInDatabase('userprofile', ['id_user_rbac' => $user->getId(), 'primeiroNome' => 'Pedro', 'ultimoNome' => 'Rolo']);
+        $this->tester->seeInDatabase('user', ['username' => "pedro123"]);
     }
 
     public function testAtualizarUtilizador()

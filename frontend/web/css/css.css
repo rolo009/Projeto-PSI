@@ -14,7 +14,7 @@ a:hover {
 /*Menu*/
 
 #index-background {
-    background-image: url("../background-index-4.png");
+    background-image: url("../background.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -429,8 +429,6 @@ a:hover {
     margin-right: 7%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
 }
 
 .card-info-pt {
@@ -691,7 +689,7 @@ a:hover {
 
 .alert-success {
     margin-top: -70px !important;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 /*Login*/
@@ -857,6 +855,12 @@ a:hover {
     font-size: 17px;
 }
 
+.pagination-page{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
 /* ----------------------------Pontos-de-Interesse-Visitados---------------------------*/
 
 .pontos-interesse-visitados-container {
@@ -884,12 +888,6 @@ a:hover {
     height: 70%;
     background-size: cover;
     margin-bottom: 4%;
-}
-
-.btn-remover-visitados {
-    position: absolute;
-    margin-top: 3%;
-    right: 7%;
 }
 
 .btn-pi-visitado-info {

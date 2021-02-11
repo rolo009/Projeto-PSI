@@ -7,8 +7,8 @@ class AdicionarFavoritosCest
     {
         $I->amOnRoute('cultravel/login');
         $I->submitForm('#login-form', [
-            'LoginForm[email]' =>'test_registo@live.com.pt',
-            'LoginForm[password]' => '123456789'], 'insert-login');
+            'LoginForm[email]' =>'admin123@admin.pt',
+            'LoginForm[password]' => 'admin123'], 'insert-login');
         $I->amOnRoute('cultravel/index');
 
 
@@ -29,7 +29,7 @@ class AdicionarFavoritosCest
         $I->see('Resultados da Pesquisa por: Leiria');
         $I->see('Saber Mais');
         $I->click('Saber Mais');
-        $I->see('Teste');
+        $I->see('DESCRIÇÃO');
         $I->see('2020');
         $I->see('Castelo');
         $I->seeElement('.btn-adicionar-favoritos');

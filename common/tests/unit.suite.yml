@@ -4,10 +4,14 @@ bootstrap: false
 modules:
   enabled:
     - Yii2:
-        cleanup: false
         part: [ orm, email, fixtures ]
+    - Asserts
     - Db:
         dsn: 'mysql:host=localhost;dbname=dbcultravel_test'
         user: 'root'
         password: ''
+        cleanup: false
+        dump: 'common/tests/_data/user.sql'
+        populate: true # run populator before all test
+        populator: 'mysql -u $user $dbname < common/tests/_data/user.sql'
 

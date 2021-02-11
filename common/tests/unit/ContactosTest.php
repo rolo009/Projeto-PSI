@@ -1,4 +1,4 @@
-<?php namespace frontend\tests;
+<?php namespace common\tests;
 
 use common\models\Contactos;
 use frontend\models\ContactForm;
@@ -72,6 +72,26 @@ class ContactosTest extends \Codeception\Test\Unit
         $contactos->save(false);
 
         $this->tester->seeInDatabase('contactos', ['nome' => 'Teste', 'email' => 'test123@gmail.com','status'=>0]);
+
+    }
+
+    public function testAtualizarMensagem()
+    {
+        $userprofile = $this->tester->grabRecord(Contactos::class, array('nome' => 'Teste', 'email' => 'test123@gmail.com'));
+
+        $userprofile->assunto = "Assunto";
+        $userprofile->save(false);
+
+        $this->tester->seeInDatabase('contactos', ['assunto' => 'Assunto']);
+    }
+
+    public function testApagarMensagem()
+    {
+        $userprofile = $this->tester->grabRecord(Contactos::class, array('nome' => 'Teste', 'email' => 'test123@gmail.com'));
+
+        $userprofile->delete();
+
+        $this->tester->dontSeeInDatabase('contactos', ['nome' => 'Teste', 'email' => 'test123@gmail.com']);
 
     }
 }

@@ -38,7 +38,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList($searchModel, 'status', array('0' => 'Inativo', '1' => 'Ativo'), ['class' => 'form-control', 'prompt' => 'Escolher estado']),
                 'format' => 'text'
             ],
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
+            [
+
+                'value' => function ($model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open icon-action-grid-view"></span>', ['view', 'id' => $model->id_pontoTuristico])
+
+                        . '' . Html::a('<span class="glyphicon glyphicon-pencil icon-action-grid-view"></span>', ['update', 'id' => $model->id_pontoTuristico])
+
+                        . '' . Html::a('<span class="glyphicon glyphicon-trash icon-action-grid-view"></span>', ['delete', 'id' => $model->id_pontoTuristico], ['data' => ['confirm' => Yii::t('app', 'Tem a certeza que pretende apagar este Ponto Turistico?'), 'method' => 'post',],]);
+
+                },
+                'format' => 'raw',
+
+            ],
         ],
     ]); ?>
 

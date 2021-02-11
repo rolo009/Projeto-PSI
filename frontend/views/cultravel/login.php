@@ -12,7 +12,7 @@ $this->title = 'Login';
 <div class="login-container">
     <?= Html::img(Yii::$app->urlManagerBackend->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-login']); ?>
 
-    <p class="login-info">LOGIN</p>
+    <p class="login-info">INICIAR SESSÃO</p>
 
     <div class="row">
         <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3">

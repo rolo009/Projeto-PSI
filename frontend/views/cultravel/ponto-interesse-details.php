@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 pt-details-nome">
             <?= $pontoTuristico->nome ?>
-            <?=StarRating::widget([
+            <?= StarRating::widget([
                 'name' => 'rating_20',
                 'value' => $ratingMonumento,
                 'pluginOptions' => [
@@ -33,15 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             if (!Yii::$app->user->isGuest) {
                 if ($favoritoStatus == true) {
-                    echo Html::a(FA::icon("star", ['class' => 'icon-action-pt']), ['cultravel/remover-favoritos', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao']);
+                    echo Html::a(FA::icon("star", ['class' => 'icon-action-pt']), ['cultravel/remover-favoritos', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-remover-favoritos']);
                 } elseif ($favoritoStatus == false) {
-                    echo Html::a(FA::icon("star-o", ['class' => 'icon-action-pt']), ['cultravel/adicionar-favoritos', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao']);
+                    echo Html::a(FA::icon("star-o", ['class' => 'icon-action-pt']), ['cultravel/adicionar-favoritos', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn-adicionar-favoritos btn btn-danger btn-acao']);
                 }
 
                 if ($visitadoStatus == true) {
-                    echo Html::a(FA::icon("check-circle", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/remover-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao']);
+                    echo Html::a(FA::icon("check-circle", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/remover-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-remover-visitados']);
                 } elseif ($visitadoStatus == false) {
-                    echo Html::a(FA::icon("check-circle-o", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/adicionar-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao']);
+                    echo Html::a(FA::icon("check-circle-o", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/adicionar-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-adicionar-visitados']);
                 }
             }
             ?>
@@ -58,65 +58,83 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="info-pt">
         <div class="card-info-pt">
-            <?php
-            if ($tipoMonumento != null) { ?>
-                <p class="details-pt-title">TIPO DE MONUMENTO</p>
-                <p class="details-pt"><?= $tipoMonumento ?></p>
-                <?php
-            } ?>
+
+            <p class="details-pt-title">TIPO DE MONUMENTO</p>
+            <p class="details-pt"><?php
+                if ($pontoTuristico->tmIdTipoMonumento != null) {
+                    echo $pontoTuristico->tmIdTipoMonumento->descricao;
+                } else {
+                    echo "Sem informação Disponivel.";
+                }
+                ?></p>
         </div>
         <div class="card-info-pt">
-            <?php
-            if ($estiloMonumento != null) { ?>
-                <p class="details-pt-title">ESTILO DE CONSTRUÇÃO</p>
-                <p class="details-pt"><?= $estiloMonumento ?></p>
-                <?php
-            }
-            ?>
+
+            <p class="details-pt-title">ESTILO DE CONSTRUÇÃO</p>
+            <p class="details-pt"><?php
+                if ($pontoTuristico->ecIdEstiloConstrucao != null) {
+                    echo $pontoTuristico->ecIdEstiloConstrucao->descricao;
+                } else {
+                    echo "Sem informação Disponivel.";
+                }
+                ?></p>
+
         </div>
         <div class="card-info-pt">
-            <?php
-            if ($pontoTuristico->anoConstrucao != null) { ?>
-                <p class="details-pt-title">ANO DE CONSTRUÇAO</p>
-                <p class="details-pt"><?= $pontoTuristico->anoConstrucao ?></p>
-                <?php
-            } ?>
+            <p class="details-pt-title">ANO DE CONSTRUÇAO</p>
+            <p class="details-pt"><?php
+                if ($pontoTuristico->anoConstrucao != null) {
+                    echo $pontoTuristico->anoConstrucao;
+                } else {
+                    echo "Sem informação Disponivel.";
+                }
+                ?></p>
+
         </div>
         <div class="card-info-pt">
-            <?php
-            if ($localidadeMonumento->nomeLocalidade != null) { ?>
-                <p class="details-pt-title">LOCALIDADE</p>
-                <p class="details-pt"><?= $localidadeMonumento->nomeLocalidade ?></p>
-                <?php
-            } ?>
+            <p class="details-pt-title">LOCALIDADE</p>
+            <p class="details-pt"><?php
+                if ($pontoTuristico->localidadeIdLocalidade != null) {
+                    echo $pontoTuristico->localidadeIdLocalidade->nomeLocalidade;
+                } else {
+                    echo "Sem informação Disponivel.";
+                }
+                ?></p>
+
         </div>
         <div class="card-info-pt">
-            <?php
-            if ($pontoTuristico->morada != null) { ?>
+
                 <p class="details-pt-title">MORADA</p>
-                <p class="details-pt"><?= $pontoTuristico->morada ?></p>
-                <?php
-            }
-            ?>
+                <p class="details-pt"><?php
+                    if ($pontoTuristico->morada != null) {
+                        echo $pontoTuristico->morada;
+                    } else {
+                        echo "Sem informação Disponivel.";
+                    }
+                    ?></p>
+
         </div>
         <div class="card-info-pt">
-            <?php
-
-            if ($pontoTuristico->horario != null) { ?>
                 <p class="details-pt-title">HORÁRIO</p>
-                <p class="details-pt"><?= $pontoTuristico->horario ?></p>
-                <?php
-            } ?>
+                <p class="details-pt"><?php
+                    if ($pontoTuristico->horario != null) {
+                        echo $pontoTuristico->horario;
+                    } else {
+                        echo "Sem informação Disponivel.";
+                    }
+                    ?></p>
+
         </div>
         <div class="card-info-pt">
-            <?php
-
-            if ($pontoTuristico->telefone != null) { ?>
                 <p class="details-pt-title">TELEFONE</p>
-                <p class="details-pt"><?= $pontoTuristico->telefone ?></p>
-                <?php
-            }
-            ?>
+                <p class="details-pt"><?php
+                    if ($pontoTuristico->telefone != null) {
+                        echo $pontoTuristico->telefone;
+                    } else {
+                        echo "Sem informação Disponivel.";
+                    }
+                    ?></p>
+
         </div>
     </div>
     <div class="rating-container-pt">

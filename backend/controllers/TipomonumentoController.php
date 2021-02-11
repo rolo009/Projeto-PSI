@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use common\models\Pontosturisticos;
 use Yii;
 use common\models\Tipomonumento;
 use app\models\TipomonumentoSearch;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -79,14 +81,21 @@ class TipomonumentoController extends Controller
             $model = new Tipomonumento();
 
             if ($model->load(Yii::$app->request->post())) {
-                $this->verificaTipoMonumento($model);
+                $verificaTM = $this->verificaTipoMonumento($model);
+                if ($verificaTM == true) {
+                    return $this->redirect(['index']);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');
+                    return $this->redirect(['index']);
+                }
             }
 
             return $this->render('create', [
                 'model' => $model,
             ]);
         } else {
-            return $this->actionIndex();
+            Yii::$app->session->setFlash('error', 'Não tem permissões para editar este Tipo de Monumento!');
+            return $this->redirect(['index']);
         }
     }
 
@@ -99,15 +108,28 @@ class TipomonumentoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->can('editarPi')) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            $this->verificaTipoMonumento($model);
+            $model = $this->findModel($id);
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->descricao != Yii::$app->request->post('Tipomonumento')['descricao']) {
+                    $verificaTM = $this->verificaTipoMonumento($model);
+                    if ($verificaTM != true) {
+                        Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');
+                    }else{
+                        Yii::$app->session->setFlash('error', 'Tipo monumento alterado com sucesso!');
+                    }
+                }
+            }else{
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para editar este Tipo de Monumento!');
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['index']);
     }
 
     /**
@@ -119,8 +141,20 @@ class TipomonumentoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('eliminarPi')) {
 
+            $pontosTuristicos = Pontosturisticos::find()
+                ->where(['tm_idTipoMonumento' => $id])
+                ->all();
+
+            if ($pontosTuristicos == null) {
+                $this->findModel($id)->delete();
+            } else {
+                Yii::$app->session->setFlash('error', 'Este Tipo de Monumento está associado a pontos turísticos, não pode ser apagado!');
+            }
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para apagar este Tipo de Monumento!');
+        }
         return $this->redirect(['index']);
     }
 
@@ -145,10 +179,9 @@ class TipomonumentoController extends Controller
         $tipoMonumentoVerifica = Tipomonumento::findOne(['descricao' => $tipoMonumento->descricao]);
         if ($tipoMonumentoVerifica == null) {
             $tipoMonumento->save();
-            return $this->redirect(['index']);
+            return true;
         } else {
-            Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');
-            return $this->redirect(['index']);
+            return false;
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 
 if (isset($resultado) && $resultado != null) {
@@ -37,4 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
     </div>
+    <div class="pagination-page">
+    <?= LinkPager::widget([
+            'pagination' => $pages,
+        ]);?>
+</div>
 </div>

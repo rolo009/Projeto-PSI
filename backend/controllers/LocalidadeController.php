@@ -70,13 +70,14 @@ class LocalidadeController extends Controller
             $model = new Localidade();
             $modelUpload = new UploadFormLocalidade();
 
-            if ($model->load(Yii::$app->request->post())) {
-                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
-                $modelUpload->uploadFrontend();
-                $localidadeVerifica = Localidade::findOne(['nomeLocalidade' => $model->nomeLocalidade]);
-                if ($localidadeVerifica == null) {
-                    $model->save();
+            if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
+
+                $verificaL = $this->verificaLocalidade($model);
+                if ($verificaL == true) {
+                    $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                    $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                    $modelUpload->upload();
+
                     return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('error', 'Localidade já registada!');
@@ -90,6 +91,7 @@ class LocalidadeController extends Controller
             ]);
 
         } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para registar uma nova Localidade!');
             return $this->redirect(['index']);
         }
     }
@@ -103,22 +105,37 @@ class LocalidadeController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $modelUpload = new UploadFormLocalidade();
+        if (Yii::$app->user->can('editarPi')) {
 
-        if ($model->load(Yii::$app->request->post())) {
+            $model = $this->findModel($id);
+            $modelUpload = new UploadFormLocalidade();
 
-            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
-            $modelUpload->upload();
-
-            $this->verificaLocalidade($model);
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->nomeLocalidade != Yii::$app->request->post('Localidade')['nomeLocalidade']) {
+                    $verificaL = $this->verificaLocalidade($model);
+                    if ($verificaL == true) {
+                        if (UploadedFile::getInstance($modelUpload, 'imageFile') != null) {
+                            unlink('imagens/img-localidade/' . $model->foto);
+                            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                            $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                            $modelUpload->upload();
+                            Yii::$app->session->setFlash('error', 'Localidade alterada com sucesso!');
+                        }
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Localidade já registada!');
+                    }
+                }
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                    'modelUpload' => $modelUpload,
+                ]);
+            }
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para editar esta Localidade!');
         }
+        return $this->redirect(['index']);
 
-        return $this->render('update', [
-            'model' => $model,
-            'modelUpload' => $modelUpload,
-        ]);
     }
 
     /**
@@ -134,11 +151,11 @@ class LocalidadeController extends Controller
             $pontoTuristicoSearch = Pontosturisticos::find()->where(['localidade_idLocalidade' => $id])->all();
             if ($pontoTuristicoSearch == null) {
                 $this->findModel($id)->delete();
-                return $this->redirect(['index']);
-
             } else {
-                Yii::$app->session->setFlash('error', 'Não é possivel apagar este estilo de construção porque é está a ser utilizado por um ponto turistico');
+                Yii::$app->session->setFlash('error', 'Não é possivel apagar esta localidade porque é está a ser utilizado por um ponto turistico');
             }
+        } else {
+            Yii::$app->session->setFlash('error', 'Não tem permissões para editar esta Localidade!');
         }
         return $this->redirect(['index']);
     }
@@ -167,10 +184,9 @@ class LocalidadeController extends Controller
 
         if ($localidadeVerifica == null) {
             $localidade->save();
-            return $this->redirect(['index', 'id' => $localidade->id_localidade]);
+            return true;
         } else {
-            Yii::$app->session->setFlash('error', 'Localidade já registada!');
-            return $this->redirect(['index']);
+            return false;
         }
     }
 }

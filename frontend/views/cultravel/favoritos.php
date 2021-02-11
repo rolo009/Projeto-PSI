@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $ptFavorito->nome ?>
             </h5>
             <div class="btn-saber-mais">
-                <?= Html::a('Saber Mais', ['cultravel/ponto-interesse-details', 'pesquisa' => $this->title, 'id' => $ptFavorito->id_pontoTuristico], ['class' => 'btn btn-danger btn-pi-info']) ?>
+                <?= Html::a('Saber Mais', ['cultravel/ponto-interesse-details', 'pesquisa' => $ptFavorito->localidadeIdLocalidade->nomeLocalidade, 'id' => $ptFavorito->id_pontoTuristico], ['class' => 'btn btn-danger btn-pi-info']) ?>
             </div>
         </div>
         <?php

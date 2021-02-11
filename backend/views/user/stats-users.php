@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = 'Estatísticas Utilizadores';
                 array('Idades (60 - 75)', $idadesUsers['idade60a75']),
                 array('Idades (75+)', $idadesUsers['idadeMais75']),
             ),
-            'options' => ['title' => 'Média de Idades de Utilizadores Registados',
+            'options' => ['title' => 'Idades de Utilizadores Registados',
                 'colors'=> ['#f6504b']]));
 
         ?>

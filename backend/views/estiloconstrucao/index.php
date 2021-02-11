@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= Html::a('Registar Estilo de Construcao', ['create'], ['class' => 'btn btn-danger btn-registar-estilo-construcao']); ?>
 
+    <?php
 
+    ?>
     <?= GridView::widget([
         'summary' => '<div class="summary">Mostra <b>{begin}-{end}</b> de <b>{totalCount}</b> Estilos de Construção</div>',
         'dataProvider' => $dataProvider,
@@ -34,9 +36,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text'
             ],
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
+            [
+
+                'value' => function ($model)
+                {
+                    return Html::a('<span class="glyphicon glyphicon-pencil icon-action-grid-view"></span>', ['update', 'id' => $model->idEstiloConstrucao])
+
+                        .''.Html::a('<span class="glyphicon glyphicon-trash icon-action-grid-view"></span>', ['delete', 'id' => $model->idEstiloConstrucao], ['data' => ['confirm' => Yii::t('app', 'Tem a certeza que pretende apagar este Estilo de construção?'),'method' => 'post',],]);
+
+                },
+                'format'=>'raw',
+
+            ],
+
         ],
     ]); ?>
-
 
 </div>

@@ -41,14 +41,8 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItemsUser[] = ['label' => 'LOGIN', 'url' => ['/cultravel/login']];
     } else {
-        $menuItemsUser[] = '<li>'
-            . Html::beginForm(['/cultravel/logout'], 'post')
-            . Html::submitButton(
-                'TERMINAR SESSÃO',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+        $menuItemsUser[] =
+            ['label' => 'TERMINAR SESSÃO', 'url' => ['/cultravel/logout'], 'options' => ['class' => 'dropdown-item']];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-left'],
@@ -62,10 +56,10 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
+        <?= Alert::widget() ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>

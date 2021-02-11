@@ -5,7 +5,7 @@ $this->title = "Área de Administração"
 <div class="backend-index-container">
 
 <div class="logo-container">
-    <?= Html::img('@web/logo-white.png', ['class' => 'logo-index']); ?>
+    <?= Html::img('@web/imagens/logo/logo-white.png', ['class' => 'logo-index']); ?>
 
     <div class="index-container-options">
 

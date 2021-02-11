@@ -34,8 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text'
             ],
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
-        ],
+            [
+                'value' => function ($model) {
+                    return Html::a('<span class="glyphicon glyphicon-pencil icon-action-grid-view"></span>', ['update', 'id' => $model->idTipoMonumento])
+
+                        . '' . Html::a('<span class="glyphicon glyphicon-trash icon-action-grid-view"></span>', ['delete', 'id' => $model->idTipoMonumento], ['data' => ['confirm' => Yii::t('app', 'Tem a certeza que pretende apagar este Tipo de Monumento?'), 'method' => 'post',],]);
+
+                },
+                'format' => 'raw',
+
+            ],],
     ]); ?>
 
 

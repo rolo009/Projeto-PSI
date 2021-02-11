@@ -2,14 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use rmrevin\yii\fontawesome\FA;
-use yii\web\AssetBundle;
 
-$this->title = 'Login Área Admin'
+$this->title = 'Login Área Administrador'
 ?>
 
 <div class="login-container">
-
+<div class="login-container-input">
     <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-login']); ?>
 
     <p class="login-info">LOGIN ADMINISTRADOR</p>
@@ -20,15 +18,16 @@ $this->title = 'Login Área Admin'
         <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
         <?= $form->field($model, 'email', ['options' => ['class' => 'label-login']]); ?>
-        <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput(); ?>
+        <?= $form->field($model, 'password', ['options' => ['class' => 'label-login']])->passwordInput()->label('Palavra-Passe'); ?>
         <?= $form->field($model, 'rememberMe', ['options' => ['class' => 'label-lembrar-me']])->checkbox()->label("Lembrar-me") ?>
 
         <div class="form-group">
             <?php
-            echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-warning', 'name' => 'insert-login']) ?>
+            echo Html::submitButton('Iniciar Sessão', ['class' => 'btn btn-danger', 'name' => 'insert-login']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
+</div>
 </div>
 <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4">
 </div>

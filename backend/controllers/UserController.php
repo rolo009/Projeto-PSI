@@ -73,34 +73,39 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->user->can('gerirUsers')) {
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model = $this->findModel($id);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            $user = User::findOne(['id' => $id]);
+            $userProfile = $user->userprofile;
+
+            if (Yii::$app->authManager->checkAccess($user->id, 'admin') == true) {
+                $permissaoUser = "Administrador";
+            } elseif (Yii::$app->authManager->checkAccess($user->id, 'user') == true) {
+                $permissaoUser = "Utilizador";
+            } elseif (Yii::$app->authManager->checkAccess($user->id, 'moderador') == true) {
+                $permissaoUser = "Moderador";
+            }
+
+            return $this->render('view', [
+                'model' => $model,
+                'userProfile' => $userProfile,
+                'permissaoUser' => $permissaoUser,
+            ]);
+        } else {
+            return $this->redirect(['cultravel/index']);
         }
-
-        $user = User::findOne(['id' => $id]);
-        $userProfile = $user->userprofiles;
-
-        if (Yii::$app->authManager->checkAccess($user->id, 'admin') == true) {
-            $permissaoUser = "Administrador";
-        } elseif (Yii::$app->authManager->checkAccess($user->id, 'user') == true) {
-            $permissaoUser = "Utilizador";
-        } elseif (Yii::$app->authManager->checkAccess($user->id, 'moderador') == true) {
-            $permissaoUser = "Moderador";
-        }
-
-        return $this->render('view', [
-            'model' => $model,
-            'userProfile' => $userProfile,
-            'permissaoUser' => $permissaoUser,
-        ]);
     }
 
     public function actionRemoverAdmin($id)
     {
         if (Yii::$app->user->can('gerirCargos')) {
-            $userID =  Yii::$app->user->getId();
+            $userID = Yii::$app->user->getId();
             $roleAdmin = Yii::$app->authManager->getRole('admin');
             $roleUser = Yii::$app->authManager->getRole('user');
 
@@ -108,7 +113,7 @@ class UserController extends Controller
             if (Yii::$app->authManager->assign($roleUser, $id) == true) {
                 if (Yii::$app->authManager->checkAccess($userID, 'admin') == true || Yii::$app->authManager->checkAccess($userID, 'moderador') == true) {
                     return $this->actionView($id);
-                }else{
+                } else {
                     return $this->redirect(['cultravel/logout']);
                 }
             } else {
@@ -146,7 +151,7 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('gerirCargos')) {
 
-            $userID =  Yii::$app->user->getId();
+            $userID = Yii::$app->user->getId();
             $roleMod = Yii::$app->authManager->getRole('moderador');
             $roleUser = Yii::$app->authManager->getRole('user');
 
@@ -154,7 +159,7 @@ class UserController extends Controller
             if (Yii::$app->authManager->assign($roleUser, $id) == true) {
                 if (Yii::$app->authManager->checkAccess($userID, 'admin') == true || Yii::$app->authManager->checkAccess($userID, 'moderador') == true) {
                     return $this->actionView($id);
-                }else{
+                } else {
                     return $this->redirect(['cultravel/logout']);
                 }
             } else {

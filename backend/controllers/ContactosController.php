@@ -69,13 +69,6 @@ class ContactosController extends Controller
 
             $mensagem = Contactos::findOne(['idContactos' => $id]);
 
-            if ($mensagem->status == 0) {
-                $estadoMensagem = 'Mensagem não Lida (0)';
-            } elseif ($mensagem->status == 1) {
-                $estadoMensagem = 'Mensagem Lida (1)';
-            }
-
-
             if ($model->load(Yii::$app->request->post())) {
 
                 if ($model->status == 0) {
@@ -89,7 +82,7 @@ class ContactosController extends Controller
             }
             return $this->render('view', [
                 'model' => $model,
-                'estadoMensagem' => $estadoMensagem,
+                'estadoMensagem' => $mensagem->estado,
             ]);
         } else {
             return $this->redirect(['index']);

@@ -58,35 +58,63 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
 
         //Foto
 
-        $pontoTuristico->foto = null;
-        $this->assertFalse($pontoTuristico->validate(['foto']));
-
         $pontoTuristico->foto = 'castelo-de-leiria.jpg';
         $this->assertTrue($pontoTuristico->validate(['foto']));
 
         //Tipo de Monumento
-
-        $pontoTuristico->tm_idTipoMonumento = null;
-        $this->assertTrue($pontoTuristico->validate(['tm_idTipoMonumento']));
 
         $pontoTuristico->tm_idTipoMonumento = Tipomonumento::findOne(['descricao' => 'Castelo'])->idTipoMonumento;
         $this->assertTrue($pontoTuristico->validate(['tm_idTipoMonumento']));
 
         //Estilo de Construção
 
-        $pontoTuristico->ec_idEstiloConstrucao = null;
-        $this->assertTrue($pontoTuristico->validate(['ec_idEstiloConstrucao']));
-
         $pontoTuristico->ec_idEstiloConstrucao = Estiloconstrucao::findOne(['descricao' => 'Barroco'])->idEstiloConstrucao;
         $this->assertTrue($pontoTuristico->validate(['ec_idEstiloConstrucao']));
 
         //Localidade
 
-        $pontoTuristico->localidade_idLocalidade = null;
-        $this->assertTrue($pontoTuristico->validate(['localidade_idLocalidade']));
-
         $pontoTuristico->localidade_idLocalidade = Localidade::findOne(['nomeLocalidade' => 'Leiria'])->id_localidade;
         $this->assertTrue($pontoTuristico->validate(['localidade_idLocalidade']));
+
+        //Horário
+
+        $pontoTuristico->horario = null;
+        $this->assertTrue($pontoTuristico->validate(['horario']));
+
+        $pontoTuristico->horario = '09:00h - 17:00h';
+        $this->assertTrue($pontoTuristico->validate(['horario']));
+
+        //Morada
+
+        $pontoTuristico->morada = null;
+        $this->assertTrue($pontoTuristico->validate(['morada']));
+
+        $pontoTuristico->morada = 'Rua C, nº50';
+        $this->assertTrue($pontoTuristico->validate(['morada']));
+
+        //Telefone
+
+        $pontoTuristico->telefone = null;
+        $this->assertTrue($pontoTuristico->validate(['telefone']));
+
+        $pontoTuristico->telefone = '924639852';
+        $this->assertTrue($pontoTuristico->validate(['telefone']));
+
+        //Latitude
+
+        $pontoTuristico->latitude = null;
+        $this->assertFalse($pontoTuristico->validate(['latitude']));
+
+        $pontoTuristico->latitude = '39.74362';
+        $this->assertTrue($pontoTuristico->validate(['latitude']));
+
+        //Longitude
+
+        $pontoTuristico->longitude = null;
+        $this->assertFalse($pontoTuristico->validate(['longitude']));
+
+        $pontoTuristico->longitude = '-8.80705';
+        $this->assertTrue($pontoTuristico->validate(['longitude']));
 
     }
 
@@ -98,9 +126,9 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         $estiloConstrucao = Estiloconstrucao::findOne(['descricao' => 'Barroco'])->idEstiloConstrucao;
         $localidade = Localidade::findOne(['nomeLocalidade' => 'Leiria'])->id_localidade;
 
-        $pontoTuristico->nome = "Castelo de Leiria";
-        $pontoTuristico->anoConstrucao = "1135";
-        $pontoTuristico->descricao = "Localizado em Leiria";
+        $pontoTuristico->nome = "Castelo";
+        $pontoTuristico->anoConstrucao = "1000";
+        $pontoTuristico->descricao = "Em Leiria";
         $pontoTuristico->foto = "castelo-de-leiria.jpg";
         $pontoTuristico->tm_idTipoMonumento = $tipoMonumento;
         $pontoTuristico->ec_idEstiloConstrucao = $estiloConstrucao;
@@ -110,14 +138,13 @@ class PontosTuristicosTest extends \Codeception\Test\Unit
         $pontoTuristico->status = 0;
 
         $pontoTuristico->save(false);
-        $this->assertTrue($pontoTuristico->save());
 
-        $this->tester->seeInDatabase('pontosturisticos', ['nome' => 'Castelo de Leiria', 'anoConstrucao' => '1135', 'descricao' => 'Localizado em Leiria']);
+        $this->tester->seeInDatabase('pontosturisticos', ['nome' => 'Castelo', 'anoConstrucao' => '1000', 'descricao' => 'Em Leiria']);
     }
 
     public function testAtualizarPontoTuristico()
     {
-        $pontoTuristico = $this->tester->grabRecord('common\models\Pontosturisticos', array('nome' => 'Castelo de Leiria'));
+        $pontoTuristico = $this->tester->grabRecord('common\models\Pontosturisticos', array('nome' => 'Castelo'));
 
         $pontoTuristico->nome = 'Castelo Leiria';
         $pontoTuristico->anoConstrucao = 1250;

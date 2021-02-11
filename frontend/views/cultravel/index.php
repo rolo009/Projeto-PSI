@@ -21,19 +21,19 @@ $this->title = 'Página Inicial';
         <?php $form = ActiveForm::begin(['id' => 'searchForm']) ?>
         <?= $form->field($model, 'procurar', [
             'inputTemplate' => '<div class="input-group">{input}<span class="input-group-btn">' .
-                '<button class="btn btn-danger">'.FA::icon("search").'</button></span></div>',
+                '<button class="btn btn-danger procurar">'.FA::icon("search").'</button></span></div>',
         ])->label(false); ?>
 
 
         <div class="row search-btns">
             <span class="opcao-pesquisa">
-                <?= Html::a(FA::icon("bank", ['class' => 'icon-index-search']) . 'PALÁCIO', ['cultravel/pontos-interesse-filtro', 'filtro' => 'Palácio']); ?>
+                <?= Html::a(FA::icon("bank", ['class' => 'icon-index-search']) . 'PALÁCIO', ['cultravel/pontos-interesse', 'pesquisa' => 'Palácio']); ?>
             </span>
             <span class="opcao-pesquisa">
-                <?= Html::a(FA::icon("bank", ['class' => 'icon-index-search']) . 'MUSEU', ['cultravel/pontos-interesse-filtro', 'filtro' => 'Museu']); ?>
+                <?= Html::a(FA::icon("bank", ['class' => 'icon-index-search']) . 'MUSEU', ['cultravel/pontos-interesse', 'pesquisa' => 'Museu']); ?>
             </span>
             <span class="opcao-pesquisa">
-                <?= Html::a(FA::icon("bank", ['class' => 'icon-index-search']) . 'CASTELO' . '', ['cultravel/pontos-interesse-filtro', 'filtro' => 'Castelo']); ?>
+                <?= Html::a(FA::icon("bank", ['class' => 'icon-index-search']) . 'CASTELO' . '', ['cultravel/pontos-interesse', 'pesquisa' => 'Castelo']); ?>
             </span>
             <?php ActiveForm::end(); ?>
 

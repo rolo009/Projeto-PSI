@@ -50,8 +50,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'latitude')->textInput(['maxlength' => true])->label("Latitute") ?>
 
     <?= $form->field($model, 'longitude')->textInput(['maxlength' => true])->label("Longitude") ?>
+<div class="control-label">Foto</div>
+    <?php
+    if($model->foto != null){
+        echo Html::img('imagens/img-pt/' . $model->foto, ['class' => 'img-pt-update']);
+    }
 
-    <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Foto")?>
+    echo $form->field($modelUpload, 'imageFile')->fileInput(['options'=>['value' => $model->foto]])->label(false);
+    ?>
 
     <?= $form->field($model, 'descricao')->textarea(['maxlength' => true, 'rows' => 6])->label("Descrição") ?>
 

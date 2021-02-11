@@ -19,6 +19,7 @@ use frontend\models\SearchModel;
 use frontend\models\SignupForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
@@ -62,7 +63,7 @@ class CultravelController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            return $this->actionPontosInteresse($model->procurar);
+            return $this->redirect(['pontos-interesse', 'pesquisa' => $model->procurar]);
         }
 
         return $this->render('index', ['model' => $model]);
@@ -71,6 +72,7 @@ class CultravelController extends Controller
     public
     function actionPontosInteresse($pesquisa)
     {
+
         $pontosTuristicos = null;
 
         $procuraLocalidade = Localidade::find()
@@ -78,8 +80,7 @@ class CultravelController extends Controller
             ->one();
 
         $procuraPontoTuristico = Pontosturisticos::find()->where(['nome' => $pesquisa])
-            ->andWhere(['status' => 1])
-            ->all();
+            ->andWhere(['status' => 1]);
 
         $procuraEstiloConstrucao = Estiloconstrucao::find()
             ->where(['descricao' => $pesquisa])
@@ -90,31 +91,34 @@ class CultravelController extends Controller
             ->one();
 
         if ($procuraLocalidade != null) {
-
             $pontosTuristicos = Pontosturisticos::find()
                 ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
-                ->andWhere(['status' => 1])
-                ->all();
-
-        } elseif ($procuraPontoTuristico != null) {
-            $pontosTuristicos = $procuraPontoTuristico;
+                ->andWhere(['status' => 1]);
 
         } elseif ($procuraEstiloConstrucao != null) {
             $pontosTuristicos = Pontosturisticos::find()
                 ->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])
-                ->andWhere(['status' => 1])
-                ->all();
+                ->andWhere(['status' => 1]);
+
 
         } elseif ($procuraTipoMonumento != null) {
             $pontosTuristicos = Pontosturisticos::find()
                 ->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])
-                ->andWhere(['status' => 1])
-                ->all();
+                ->andWhere(['status' => 1]);
         }
+        elseif ($procuraPontoTuristico != null) {
+            $pontosTuristicos = $procuraPontoTuristico;
+
+        }
+        $countQuery = clone $pontosTuristicos;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $pages -> pageSize = 16;
+        $pontosTuristicos = $pontosTuristicos->offset($pages->offset)->limit($pages->limit)->all();
         if ($pontosTuristicos != null) {
             return $this->render('pontos-interesse', [
                 'pontosTuristicos' => $pontosTuristicos,
                 'resultado' => $pesquisa,
+                'pages' => $pages,
             ]);
 
         } else {
@@ -135,21 +139,19 @@ class CultravelController extends Controller
 
             if ($favoritos != null) {
                 foreach ($favoritos as $favorito) {
-                    $ptFavoritos[] = $favorito->ptIdPontoTuristico;
+                    $ptFavoritos[] = Pontosturisticos::find()
+                        ->where(['id_pontoTuristico' => $favorito->pt_idPontoTuristico])
+                        ->andWhere(['status' => 1])
+                        ->one();
                 }
 
-                foreach ($ptFavoritos as $ptFavorito) {
-                    $ptFavorito->localidade_idLocalidade = $ptFavorito->localidadeIdLocalidade->nomeLocalidade;
-                }
-
-                if ($ptFavoritos != null) {
+                if ($ptFavoritos[0] != null) {
                     return $this->render('favoritos', [
                         'ptFavoritos' => $ptFavoritos,
                     ]);
                 }
-            } else {
-                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
             }
+            Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Favoritos.');
         }
         return $this->redirect(['index']);
 
@@ -164,9 +166,7 @@ class CultravelController extends Controller
             ->where(['id' => $idUser])
             ->one();
 
-        $profile = Userprofile::find()
-            ->where(['id_user_rbac' => $idUser])
-            ->one();
+        $profile = $user->userprofile;
 
         if ($user != null && $profile != null) {
 
@@ -240,30 +240,31 @@ class CultravelController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($modeluser->validatePassword($model->password) == true) {
-                $modeluser->setPassword($model->novaPassword);
+                if($model->novaPassword == $model->confirmNovaPassword){
+                    $modeluser->setPassword($model->novaPassword);
 
-                if ($modeluser->save() == true) {
-                    Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
-                    return $this->redirect(['index']);
+                    if ($modeluser->save() == true) {
+                        Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
+                        return $this->redirect(['index']);
+                    }
+                }else{
+                    Yii::$app->getSession()->setFlash('error', 'As Palavra-Passe não coincidem!');
                 }
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Esta palavra-passe não corresponde à palavra-passe desta conta!');
             }
-            Yii::$app->getSession()->setFlash('error', 'Ocorreu um erro ao alterar a Palavra-Passe');
             return $this->redirect(['alterar-password']);
         } else {
             return $this->render('alterar-password', [
                 'model' => $model
             ]);
         }
-
-
     }
-
 
     public function actionVisitados()
     {
         if (Yii::$app->getUser()->isGuest != true) {
             $idUser = Yii::$app->user->getId();
-
 
             $ptVisitados = Pontosturisticos::find()
                 ->select('pontosturisticos.localidade_idLocalidade')
@@ -272,8 +273,8 @@ class CultravelController extends Controller
                 ->where(['visitados.user_idUtilizador' => $idUser])
                 ->groupBy('pontosturisticos.localidade_idLocalidade')
                 ->all();
-            if ($ptVisitados != null) {
 
+            if ($ptVisitados != null) {
                 return $this->render('visitados', [
                     'ptVisitados' => $ptVisitados
                 ]);
@@ -301,10 +302,7 @@ class CultravelController extends Controller
 
         } else {
             return $this->render('contactos', ['model' => $model,]);
-
         }
-
-
     }
 
     public
@@ -406,19 +404,7 @@ class CultravelController extends Controller
             ->one();
 
         if ($pontoTuristico != null) {
-            $tipoMonumento = Tipomonumento::find()
-                ->where(['idTipoMonumento' => $pontoTuristico->tm_idTipoMonumento])
-                ->one();
-            $localidadeMonumento = Localidade::find()
-                ->where(['id_localidade' => $pontoTuristico->localidade_idLocalidade])
-                ->one();
-            $estiloConstrucao = Estiloconstrucao::find()
-                ->where(['idEstiloConstrucao' => $pontoTuristico->ec_idEstiloConstrucao])
-                ->one();
-            $ratings = Ratings::find()
-                ->where(['pt_idPontoTuristico' => $id])
-                ->all();
-
+            $ratings = $pontoTuristico->ratings;
             if ($ratings != null) {
                 $mediaRatings = $this->mediaRatings($ratings);
             } elseif ($ratings == null) {
@@ -445,14 +431,6 @@ class CultravelController extends Controller
                 $visitadosStatus = true;
             } elseif ($visitados == null) {
                 $visitadosStatus = false;
-            }
-
-            if ($estiloConstrucao != null) {
-                $estiloConstrucao = $estiloConstrucao->descricao;
-            }
-
-            if ($tipoMonumento != null) {
-                $tipoMonumento = $tipoMonumento->descricao;
             }
 
             $rating = new Ratings();
@@ -482,9 +460,6 @@ class CultravelController extends Controller
 
             return $this->render('ponto-interesse-details', [
                 'pontoTuristico' => $pontoTuristico,
-                'tipoMonumento' => $tipoMonumento,
-                'localidadeMonumento' => $localidadeMonumento,
-                'estiloMonumento' => $estiloConstrucao,
                 'ratingMonumento' => $mediaRatings,
                 'rating' => $rating,
                 'ratingUser' => $ratingUser,
@@ -535,7 +510,7 @@ class CultravelController extends Controller
                     'localidade' => $localidade,
                 ]);
             } else {
-                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados('. $localidade->nomeLocalidade .').');
+                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados(' . $localidade->nomeLocalidade . ').');
             }
         }
         return $this->redirect(['index']);
@@ -562,6 +537,9 @@ class CultravelController extends Controller
             return $this->redirect(['ponto-interesse-details', 'pesquisa' => $pesquisa, 'id' => $idPontoTuristico]);
         } else if ($url == 'cultravel/favoritos') {
             return $this->redirect(['favoritos']);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possível adicionar este ponto turistico aos favoritos!');
+            return $this->redirect(['index']);
         }
     }
 
@@ -582,9 +560,10 @@ class CultravelController extends Controller
             return $this->redirect(['ponto-interesse-details', 'pesquisa' => $pesquisa, 'id' => $idPontoTuristico]);
         } else if ($url == 'cultravel/favoritos') {
             return $this->redirect(['favoritos']);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possível remover este ponto turistico dos favoritos!');
+            return $this->redirect(['index']);
         }
-
-        return $this->redirect(['ponto-interesse-details', 'pesquisa' => $pesquisa, 'id' => $idPontoTuristico]);
     }
 
     public
@@ -606,6 +585,9 @@ class CultravelController extends Controller
             return $this->redirect(['ponto-interesse-details', 'pesquisa' => $pesquisa, 'id' => $idPontoTuristico]);
         } else if ($url == 'cultravel/visitados') {
             return $this->redirect(['visitados']);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possível adicionar este ponto turistico aos visitados!');
+            return $this->redirect(['index']);
         }
     }
 
@@ -628,31 +610,10 @@ class CultravelController extends Controller
             return $this->redirect(['ponto-interesse-details', 'pesquisa' => $pesquisa, 'id' => $idPontoTuristico]);
         } else if ($url == 'cultravel/ponto-interesse-visitados') {
             return $this->redirect(['ponto-interesse-visitados', 'idLocalidade' => $localidade->id_localidade]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Não foi possível remover este ponto turistico dos visitados!');
+            return $this->redirect(['index']);
         }
-    }
-
-    public
-    function actionPontosInteresseFiltro($filtro)
-    {
-        $tipoMonumento = Tipomonumento::find()
-            ->where(['descricao' => $filtro])
-            ->one();
-        if ($tipoMonumento != null) {
-
-            $pontosTuristicos = Pontosturisticos::find()
-                ->where(['tm_idTipoMonumento' => $tipoMonumento->idTipoMonumento])
-                ->all();
-
-
-            if ($pontosTuristicos != null) {
-                return $this->render('pontos-interesse', [
-                    'pontosTuristicos' => $pontosTuristicos,
-                    'tipoMonumento' => $tipoMonumento->descricao,
-                ]);
-            }
-        }
-        Yii::$app->session->setFlash('error', 'Não há nenhum ponto turistico na categoria ' . $filtro . '!');
-        return $this->redirect(['index']);
     }
 
 }

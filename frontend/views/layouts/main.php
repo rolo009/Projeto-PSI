@@ -38,14 +38,12 @@ AppAsset::register($this);
     ]);
     if(Yii::$app->user->isGuest){
         $menuItems = [
-            ['label' => 'HOME', 'url' => ['/cultravel/index']],
             ['label' => 'CONTACTOS', 'url' => ['/cultravel/contactos']],
             ['label' => 'SOBRE NÓS', 'url' => ['/cultravel/sobre-nos']],
         ];
     }
     else{
         $menuItems = [
-            ['label' => 'HOME', 'url' => ['/cultravel/index']],
             ['label' => 'FAVORITOS', 'url' => ['/cultravel/favoritos']],
             ['label' => 'VISITADOS', 'url' => ['/cultravel/visitados']],
             ['label' => 'CONTACTOS', 'url' => ['/cultravel/contactos']],

@@ -14,7 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nomeLocalidade')->textInput(['maxlength' => true])->label("Localidade") ?>
 
-    <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Foto")?>
+    <?php
+    if($model->foto != null){
+        echo Html::img('imagens/img-localidade/' . $model->foto, ['class' => 'img-pt-update']);
+    }
+
+    echo $form->field($modelUpload, 'imageFile')->fileInput(['options'=>['value' => $model->foto]])->label(false);
+    ?>
 
 
     <div class="form-group">

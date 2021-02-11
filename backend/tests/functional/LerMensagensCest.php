@@ -8,7 +8,7 @@ class LerMensagensCest
     public function _before(FunctionalTester $I)
     {
         $I->amOnRoute('cultravel/login');
-        $I->submitForm('#login-form', $this->formParamsLogin('test_registo@live.com.pt', '123456789'));
+        $I->submitForm('#login-form', $this->formParamsLogin('admin@admin.pt', 'admin123'));
     }
 
     protected function formParamsLogin($login, $password)
@@ -38,7 +38,7 @@ class LerMensagensCest
         $I->see('Mensagem Lida');
         $I->selectOption('form select[name="Contactos[status]"]', 1);
         $I->click('Atualizar Mensagem');
-        $I->see('Mensagem Lida (1)');
+        $I->see('Lida');
 
 
     }

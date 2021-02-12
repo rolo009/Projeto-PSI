@@ -48,11 +48,11 @@ return [
             ],
         ],
         */
-        'urlManagerFrontend' => [
+        'urlManagerAPI' => [
 
             'class' => 'yii\web\urlManager',
 
-            'baseUrl' => 'backend/web/imagens/img-pt/',
+            'baseUrl' => '../../api/web/imagens/',
 
             'enablePrettyUrl' => true,
 

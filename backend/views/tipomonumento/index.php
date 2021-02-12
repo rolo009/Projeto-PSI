@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="tipomonumento-index">
 
     <div class="gerirTipomonumento-Container">
-        <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-gerirTipomonumento']); ?>
+        <?= Html::img(Yii::$app->urlManagerAPI->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-gerirTipomonumento']); ?>
         <p class="gerirTipoMonumento-info">GERIR TIPO DE MONUMENTO</p>
     </div>
 

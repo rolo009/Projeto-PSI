@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <div class="gerirUsers-Container">
-        <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-gerirUsers']); ?>
+        <?= Html::img(Yii::$app->urlManagerAPI->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-gerirUsers']); ?>
 
         <p class="gerirUsers-info">GERIR UTILIZADORES</p>
     </div>

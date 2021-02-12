@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pontos-turisticos-index">
 
     <div class="gerirPontosTuristicos-Container">
-        <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-gerirPontosTuristicos']); ?>
+        <?= Html::img(Yii::$app->urlManagerAPI->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-gerirPontosTuristicos']); ?>
         <p class="gerirPontoTuristicos-info">GERIR PONTOS TURISTICOS</p>
     </div>
 

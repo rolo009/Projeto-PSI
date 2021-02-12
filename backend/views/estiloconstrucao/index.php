@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="estiloconstrucao-index">
 
     <div class="gerirEstiloconstrucao-Container">
-        <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-gerirEstiloconstrucao']); ?>
+        <?= Html::img(Yii::$app->urlManagerAPI->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-gerirEstiloconstrucao']); ?>
         <p class="gerirUsers-info">GERIR ESTILOS DE CONSTRUÇÃO</p>
     </div>
 

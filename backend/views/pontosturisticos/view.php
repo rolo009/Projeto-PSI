@@ -42,7 +42,7 @@ if ($pontoTuristico->ecIdEstiloConstrucao == null) {
 $atributos = [
     [
         'label' => 'Foto',
-        'value' => '@web/imagens/img-pt/' . $pontoTuristico->foto,
+        'value' => Yii::$app->urlManagerAPI->baseUrl . '/img-pt/' . $pontoTuristico->foto,
         'format' => ['image', ['height' => '200']],
     ],
     [

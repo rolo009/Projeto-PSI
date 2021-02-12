@@ -8,7 +8,7 @@ $this->title = 'Login Área Administrador'
 
 <div class="login-container">
 <div class="login-container-input">
-    <?= Html::img('@web/imagens/logo/seta-logo.png', ['class' => 'logo-login']); ?>
+    <?= Html::img(Yii::$app->urlManagerAPI->baseUrl . '/logo/seta-logo.png', ['class' => 'logo-login']); ?>
 
     <p class="login-info">LOGIN ADMINISTRADOR</p>
 

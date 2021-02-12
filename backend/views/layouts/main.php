@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Html::img( '@web/imagens/logo/seta-logo.png', ['class' => 'img-logo-menu floating']),
+        'brandLabel' => Html::img( Yii::$app->urlManagerAPI->baseUrl . '/logo/seta-logo.png', ['class' => 'img-logo-menu floating']),
         'brandUrl' => ['/cultravel/index'],
         'options' => [
             'class' => 'menu-style navbar-fixed-top',

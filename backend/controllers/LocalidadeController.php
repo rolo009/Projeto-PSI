@@ -9,6 +9,7 @@ use Yii;
 use common\models\Localidade;
 use app\models\LocalidadeSearch;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -77,7 +78,7 @@ class LocalidadeController extends Controller
                     $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
                     $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
                     $modelUpload->upload();
-
+                    $model->save();
                     return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('error', 'Localidade já registada!');
@@ -109,9 +110,10 @@ class LocalidadeController extends Controller
 
             $model = $this->findModel($id);
             $modelUpload = new UploadFormLocalidade();
+            $antigaLocalidade = $model->nomeLocalidade;
 
             if ($model->load(Yii::$app->request->post())) {
-                if ($model->nomeLocalidade != Yii::$app->request->post('Localidade')['nomeLocalidade']) {
+                if ($antigaLocalidade != Yii::$app->request->post('Localidade')['nomeLocalidade']) {
                     $verificaL = $this->verificaLocalidade($model);
                     if ($verificaL == true) {
                         if (UploadedFile::getInstance($modelUpload, 'imageFile') != null) {
@@ -119,6 +121,7 @@ class LocalidadeController extends Controller
                             $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
                             $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
                             $modelUpload->upload();
+                            $model->save();
                             Yii::$app->session->setFlash('error', 'Localidade alterada com sucesso!');
                         }
                     } else {
@@ -183,7 +186,6 @@ class LocalidadeController extends Controller
             ->one();
 
         if ($localidadeVerifica == null) {
-            $localidade->save();
             return true;
         } else {
             return false;

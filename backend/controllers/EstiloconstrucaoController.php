@@ -97,9 +97,9 @@ class EstiloconstrucaoController extends Controller
         if (Yii::$app->user->can('editarPi')) {
 
             $model = $this->findModel($id);
-
+            $antigoEstiloConstrucao = $model->descricao;
             if ($model->load(Yii::$app->request->post())) {
-                if ($model->descricao != Yii::$app->request->post('Estiloconstrucao')['descricao']) {
+                if ($antigoEstiloConstrucao != Yii::$app->request->post('Estiloconstrucao')['descricao']) {
                     $verificaEC = $this->verificaEstiloConstrucao($model);
                     if ($verificaEC != true) {
                         Yii::$app->session->setFlash('error', 'Estilo de Construção já registado!');
@@ -117,7 +117,6 @@ class EstiloconstrucaoController extends Controller
         }
         return $this->redirect(['index']);
     }
-
 
     /**
      * Deletes an existing Estiloconstrucao model.

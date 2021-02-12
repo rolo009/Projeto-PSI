@@ -111,8 +111,10 @@ class TipomonumentoController extends Controller
         if (Yii::$app->user->can('editarPi')) {
 
             $model = $this->findModel($id);
+            $antigoTipoMonumento = $model->descricao;
+
             if ($model->load(Yii::$app->request->post())) {
-                if ($model->descricao != Yii::$app->request->post('Tipomonumento')['descricao']) {
+                if ($antigoTipoMonumento != Yii::$app->request->post('Tipomonumento')['descricao']) {
                     $verificaTM = $this->verificaTipoMonumento($model);
                     if ($verificaTM != true) {
                         Yii::$app->session->setFlash('error', 'Tipo monumento já registado!');

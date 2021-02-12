@@ -152,7 +152,6 @@ class PontosturisticosController extends Controller
                     Yii::$app->session->setFlash('error', 'O campo imagem não foi preenchido!');
                     return $this->redirect(['create']);
                 }
-
             }
 
             $tiposMonumentos = Tipomonumento::find()

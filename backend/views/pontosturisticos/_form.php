@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
 <div class="control-label">Foto</div>
     <?php
     if($model->foto != null){
-        echo Html::img('imagens/img-pt/' . $model->foto, ['class' => 'img-pt-update']);
+        echo Html::img(Yii::$app->urlManagerAPI->baseUrl . '/img-pt/' . $model->foto, ['class' => 'img-pt-update']);
     }
 
     echo $form->field($modelUpload, 'imageFile')->fileInput(['options'=>['value' => $model->foto]])->label(false);

@@ -198,7 +198,7 @@ class PontosturisticosController extends Controller
 
             if ($model->load(Yii::$app->request->post()) && $modelUpload->load(Yii::$app->request->post())) {
                 if(UploadedFile::getInstance($modelUpload, 'imageFile') != null){
-                    unlink('imagens/img-pt/' . $model->foto);
+                    unlink(Yii::$app->urlManagerAPI->baseUrl . '/img-pt/' . $model->foto);
                     $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
                     $model->foto = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
                     $modelUpload->upload();
@@ -249,7 +249,6 @@ class PontosturisticosController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->can('eliminarPi')) {
-
             $this->findModel($id)->delete();
 
             return $this->redirect(['index']);

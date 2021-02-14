@@ -510,7 +510,7 @@ class CultravelController extends Controller
                     'localidade' => $localidade,
                 ]);
             } else {
-                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados(' . $localidade->nomeLocalidade . ').');
+                Yii::$app->session->setFlash('error', 'Não tem nenhum ponto turistico adicionado aos Visitados (' . $localidade->nomeLocalidade . ').');
             }
         }
         return $this->redirect(['index']);

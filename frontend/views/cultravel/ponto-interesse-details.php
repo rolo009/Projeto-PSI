@@ -39,9 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
 
                 if ($visitadoStatus == true) {
-                    echo Html::a(FA::icon("check-circle", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/remover-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-remover-visitados']);
+                    echo Html::a(FA::icon("check-circle", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/remover-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-remover-visitados-details']);
                 } elseif ($visitadoStatus == false) {
-                    echo Html::a(FA::icon("check-circle-o", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/adicionar-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-adicionar-visitados']);
+                    echo Html::a(FA::icon("check-circle-o", ['class' => 'icon-action-pt'])->size(FA::SIZE_LARGE), ['cultravel/adicionar-visitados', 'idPontoTuristico' => $pontoTuristico->id_pontoTuristico, 'pesquisa' => $pesquisa, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-acao btn-adicionar-visitados-details']);
                 }
             }
             ?>

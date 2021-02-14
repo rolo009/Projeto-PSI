@@ -104,7 +104,7 @@ class EstiloconstrucaoController extends Controller
                     if ($verificaEC != true) {
                         Yii::$app->session->setFlash('error', 'Estilo de Construção já registado!');
                     }else{
-                        Yii::$app->session->setFlash('error', 'Estilo de Construção alterado com sucesso!');
+                        Yii::$app->session->setFlash('success', 'Estilo de Construção alterado com sucesso!');
                     }
                 }
             }else{

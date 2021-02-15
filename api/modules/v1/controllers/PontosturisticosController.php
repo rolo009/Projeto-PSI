@@ -114,7 +114,8 @@ class PontosturisticosController extends Activecontroller
 
         $procuraPontoTuristico = Pontosturisticos::find()
             ->andFilterWhere(['like', 'nome', $pesquisa])
-            ->andWhere(['status' => 1]);
+            ->andWhere(['status' => 1])
+            ->all();
 
         if ($procuraPontoTuristico != null) {
             $pontosTuristicos = $procuraPontoTuristico;
@@ -123,7 +124,8 @@ class PontosturisticosController extends Activecontroller
         if ($procuraLocalidade != null) {
             $pontosTuristicos = Pontosturisticos::find()
                 ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
-                ->andWhere(['status' => 1]);
+                ->andWhere(['status' => 1])
+                ->all();
         }
 
         if ($pontosTuristicos != null) {

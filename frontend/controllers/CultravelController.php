@@ -81,7 +81,8 @@ class CultravelController extends Controller
 
         $procuraPontoTuristico = Pontosturisticos::find()
             ->andFilterWhere(['like', 'nome', $pesquisa])
-            ->andWhere(['status' => 1]);
+            ->andWhere(['status' => 1])
+            ->all();
 
         if ($procuraPontoTuristico != null) {
             $pontosTuristicos = $procuraPontoTuristico;

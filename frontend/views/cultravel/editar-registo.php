@@ -23,7 +23,7 @@ $this->title = 'Editar Registo';
             echo $form->field($user, 'username', ['options' => ['class' => 'label-registo']])->label("Nome de Utilizador");
             echo $form->field($user, 'email', ['options' => ['class' => 'label-registo']])->label("Email");
             echo $form->field($profile, 'dtaNascimento', ['options' => ['class' => 'label-registo']])->label("Data de Nascimento")->
-            widget(\yii\jui\DatePicker::className(), ['dateFormat' => 'yyyy-MM-dd', 'clientOptions' => ['changeMonth' => true, 'changeYear' => true], 'options' => ['readonly' => true, 'class' => 'dtaInput', 'autocomplete' => 'off',]]);
+            widget(\yii\jui\DatePicker::className(), ['dateFormat' => 'yyyy-MM-dd', 'language' => 'pt', 'clientOptions' => ['changeMonth' => true, 'changeYear' => true, 'yearRange' => '1930:'.date('Y')],'options'=> ['readonly' => true, 'class'=>'dtaInput', 'autocomplete'=>'off',]]);
             echo $form->field($profile, 'morada', ['options' => ['class' => 'label-registo']])->label("Morada");
             echo $form->field($profile, 'localidade', ['options' => ['class' => 'label-registo']])->label("Localidade");
             echo $form->field($profile, 'distrito', ['options' => ['class' => 'label-registo']])->dropDownList(['Viana do Castelo' => 'Viana do Castelo',

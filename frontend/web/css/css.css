@@ -861,6 +861,10 @@ a:hover {
     align-content: center;
 }
 
+.ui-datepicker table{
+    font-size: 14px!important;
+}
+
 /* ----------------------------Pontos-de-Interesse-Visitados---------------------------*/
 
 .pontos-interesse-visitados-container {

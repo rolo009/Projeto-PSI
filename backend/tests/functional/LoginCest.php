@@ -28,8 +28,8 @@ class LoginCest
     public function loginUser(FunctionalTester $I)
     {
         $I->amOnPage('/cultravel/login');
-        $I->fillField('LoginForm[email]', 'admin@admin.pt');
-        $I->fillField('LoginForm[password]', 'admin123');
+        $I->fillField('LoginForm[email]', 'test_registo@live.com.pt');
+        $I->fillField('LoginForm[password]', '123456789');
         $I->click('insert-login');
         $I->see('GERIR UTILIZADORES');
     }

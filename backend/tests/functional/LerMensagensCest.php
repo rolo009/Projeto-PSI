@@ -8,7 +8,7 @@ class LerMensagensCest
     public function _before(FunctionalTester $I)
     {
         $I->amOnRoute('cultravel/login');
-        $I->submitForm('#login-form', $this->formParamsLogin('admin@admin.pt', 'admin123'));
+        $I->submitForm('#login-form', $this->formParamsLogin('test_registo@live.com.pt', '123456789'));
     }
 
     protected function formParamsLogin($login, $password)

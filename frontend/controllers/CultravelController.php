@@ -76,40 +76,23 @@ class CultravelController extends Controller
         $pontosTuristicos = null;
 
         $procuraLocalidade = Localidade::find()
-            ->where(['nomeLocalidade' => $pesquisa])
+            ->andFilterWhere(['like', 'nomeLocalidade', $pesquisa])
             ->one();
 
-        $procuraPontoTuristico = Pontosturisticos::find()->where(['nome' => $pesquisa])
+        $procuraPontoTuristico = Pontosturisticos::find()
+            ->andFilterWhere(['like', 'nome', $pesquisa])
             ->andWhere(['status' => 1]);
 
-        $procuraEstiloConstrucao = Estiloconstrucao::find()
-            ->where(['descricao' => $pesquisa])
-            ->one();
-
-        $procuraTipoMonumento = Tipomonumento::find()
-            ->where(['descricao' => $pesquisa])
-            ->one();
+        if ($procuraPontoTuristico != null) {
+            $pontosTuristicos = $procuraPontoTuristico;
+        }
 
         if ($procuraLocalidade != null) {
             $pontosTuristicos = Pontosturisticos::find()
                 ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
                 ->andWhere(['status' => 1]);
-
-        } elseif ($procuraEstiloConstrucao != null) {
-            $pontosTuristicos = Pontosturisticos::find()
-                ->where(['ec_IdEstiloConstrucao' => $procuraEstiloConstrucao->idEstiloConstrucao])
-                ->andWhere(['status' => 1]);
-
-
-        } elseif ($procuraTipoMonumento != null) {
-            $pontosTuristicos = Pontosturisticos::find()
-                ->where(['tm_IdTipoMonumento' => $procuraTipoMonumento->idTipoMonumento])
-                ->andWhere(['status' => 1]);
         }
-        elseif ($procuraPontoTuristico != null) {
-            $pontosTuristicos = $procuraPontoTuristico;
 
-        }
         $countQuery = clone $pontosTuristicos;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $pages -> pageSize = 16;

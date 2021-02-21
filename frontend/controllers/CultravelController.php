@@ -75,28 +75,36 @@ class CultravelController extends Controller
 
         $pontosTuristicos = null;
 
-        $procuraLocalidade = Localidade::find()
-            ->andFilterWhere(['like', 'nomeLocalidade', $pesquisa])
-            ->one();
+        if ($pesquisa == "Palácio" || $pesquisa == "Museu" || $pesquisa == "Castelo") {
+            $tipoMonumento = Tipomonumento::find()->where(['descricao' => $pesquisa])->one();
 
-        $procuraPontoTuristico = Pontosturisticos::find()
-            ->andFilterWhere(['like', 'nome', $pesquisa])
-            ->andWhere(['status' => 1])
-            ->all();
-
-        if ($procuraPontoTuristico != null) {
-            $pontosTuristicos = $procuraPontoTuristico;
-        }
-
-        if ($procuraLocalidade != null) {
-            $pontosTuristicos = Pontosturisticos::find()
-                ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
+            $pontosTuristicos = $pontosTuristicos = Pontosturisticos::find()
+                ->where(['tm_idTipoMonumento' => $tipoMonumento->idTipoMonumento])
                 ->andWhere(['status' => 1]);
-        }
+        } else {
 
+            $procuraLocalidade = Localidade::find()
+                ->andFilterWhere(['like', 'nomeLocalidade', $pesquisa])
+                ->one();
+
+            $procuraPontoTuristico = Pontosturisticos::find()
+                ->andFilterWhere(['like', 'nome', $pesquisa])
+                ->andWhere(['status' => 1])
+                ->all();
+
+            if ($procuraPontoTuristico != null) {
+                $pontosTuristicos = $procuraPontoTuristico;
+            }
+
+            if ($procuraLocalidade != null) {
+                $pontosTuristicos = Pontosturisticos::find()
+                    ->where(['localidade_idLocalidade' => $procuraLocalidade->id_localidade])
+                    ->andWhere(['status' => 1]);
+            }
+        }
         $countQuery = clone $pontosTuristicos;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
-        $pages -> pageSize = 16;
+        $pages->pageSize = 16;
         $pontosTuristicos = $pontosTuristicos->offset($pages->offset)->limit($pages->limit)->all();
         if ($pontosTuristicos != null) {
             return $this->render('pontos-interesse', [
@@ -224,17 +232,17 @@ class CultravelController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($modeluser->validatePassword($model->password) == true) {
-                if($model->novaPassword == $model->confirmNovaPassword){
+                if ($model->novaPassword == $model->confirmNovaPassword) {
                     $modeluser->setPassword($model->novaPassword);
 
                     if ($modeluser->save() == true) {
                         Yii::$app->getSession()->setFlash('success', 'Palavra-Passe alterada com sucesso!');
                         return $this->redirect(['index']);
                     }
-                }else{
+                } else {
                     Yii::$app->getSession()->setFlash('error', 'As Palavra-Passe não coincidem!');
                 }
-            }else{
+            } else {
                 Yii::$app->getSession()->setFlash('error', 'Esta palavra-passe não corresponde à palavra-passe desta conta!');
             }
             return $this->redirect(['alterar-password']);

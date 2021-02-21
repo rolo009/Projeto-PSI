@@ -107,16 +107,15 @@ class PontosturisticosController extends Activecontroller
 
     public function actionSearch($pesquisa)
     {
-
         $procuraLocalidade = Localidade::find()
             ->andFilterWhere(['like', 'nomeLocalidade', $pesquisa])
             ->one();
 
-        $procuraPontoTuristico = Pontosturisticos::find()
-            ->andFilterWhere(['like', 'nome', $pesquisa])
-            ->andWhere(['status' => 1])
-            ->all();
-
+            $procuraPontoTuristico = Pontosturisticos::find()
+                ->andFilterWhere(['like', 'nome', $pesquisa])
+                ->andWhere(['status' => 1])
+                ->all();
+            
         if ($procuraPontoTuristico != null) {
             $pontosTuristicos = $procuraPontoTuristico;
         }

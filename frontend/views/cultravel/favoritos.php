@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php
             echo Html::img(Yii::$app->urlManagerBackend->baseUrl . '/img-pt/' . $ptFavorito->foto, ['class' => 'img-pi-favoritos']);
-            echo Html::a(FA::icon("star", ['class' => 'icon-action-pt']), ['cultravel/remover-favoritos', 'pesquisa' => $this->title, 'idPontoTuristico' => $ptFavorito->id_pontoTuristico, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-remover-favoritos']);
+            echo Html::a(FA::icon("star", ['class' => 'icon-action-pt']), ['cultravel/remover-favoritos', 'pesquisa' => $this->title, 'idPontoTuristico' => $ptFavorito->id_pontoTuristico, 'url' => Yii::$app->controller->getRoute()], ['class' => 'btn btn-danger btn-favoritos-remover']);
 
             ?>
             <h5>
